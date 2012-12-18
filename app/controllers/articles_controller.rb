@@ -12,7 +12,13 @@ class ArticlesController < ApplicationController
 
     # GET /articles/search
   def search
-    @articles = Article.search params[:q]
+    if params[:q] != ""
+        logger.debug { ":: SEARCHING" }
+        @articles = Article.search params[:q]
+    else
+        logger.debug { ":: ALL" }
+        @articles = Article.all
+    end
 
     render :action => "index"
   end

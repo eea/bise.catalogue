@@ -1,38 +1,98 @@
 <h1>Listing articles</h1>
 
-<%= form_tag search_articles_path, :method => 'get' do %>
-  <%= label_tag :query %>
-  <%= text_field_tag :q, params[:q] %>
-  <%= submit_tag :search %>
+<%= form_tag search_articles_path, :method => 'get', :class => 'form-inline pull-right' do %>
+    <!--<%= label_tag :query %>-->
+    <%= text_field_tag :q, params[:q], :placeholder => 'Insert text...' %>
+    <%= submit_tag :search, :class => "btn" %>
 <% end %>
 
 <hr>
 
+<div class="row">
+    <div class="span3">
 
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Content</th>
-    <th>Published on</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+        <div class="left-menu">
+            <legend>
+                CONTENTS
+            </legend>
+            <ul class="nav nav-tabs nav-stacked">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+            </ul>
+            <legend>
+                AREA
+            </legend>
+            <ul class="nav nav-tabs nav-stacked">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+            </ul>
+            <legend>
+                AUTHORS
+            </legend>
+            <ul class="nav nav-tabs nav-stacked">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li><a href="#">...</a></li>
+                <li><a href="#">...</a></li>
+            </ul>
+        </div>
 
-<% @articles.each do |article| %>
-  <tr>
-    <td><%= article.title %></td>
-    <td><%= article.content %></td>
-    <td><%= article.published_on %></td>
-    <td><%= link_to 'Show', article %></td>
-    <td><%= link_to 'Edit', edit_article_path(article) %></td>
-    <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
-</table>
+    </div>
+
+    <div class="span9">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Content</th>
+                    <th>Published on</th>
+                    <th>Actions</th>
+                    <!-- <th></th> -->
+                    <!-- <th></th> -->
+                </tr>
+            </thead>
+
+            <tbody>
+                <% @articles.each do |article| %>
+                  <tr>
+                    <td><%= article.title %></td>
+                    <td><%= article.content %></td>
+                    <td><%= article.published_on %></td>
+                    <td style="width: 125px;">
+                        <%= link_to article, :class => "btn" do %>
+                            <i class="icon-eye-open"></i>
+                        <% end %>
+                    <!-- </td> -->
+                    <!-- <td style="width: 30px;"> -->
+                        <%= link_to edit_article_path(article), :class => "btn" do %>
+                            <i class="icon-pencil"></i>
+                        <% end %>
+                    <!-- </td> -->
+                    <!-- <td style="width: 30px;"> -->
+                        <%= link_to article, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-danger" do %>
+                            <i class="icon-trash"></i>
+                        <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
 
 <br />
 
-<%= link_to 'New Article', new_article_path %>
-<%= link_to 'Back', articles_path if params[:q] %>
+<%= link_to 'New Article', new_article_path, :class => "btn" %>
+<%= link_to 'Back', articles_path, :class => "btn" if params[:q] %>
 
