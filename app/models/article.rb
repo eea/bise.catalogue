@@ -1,3 +1,6 @@
 class Article < ActiveRecord::Base
-  attr_accessible :content, :published_on, :title
+  include Tire::Model::Search
+  include Tire::Model::Callbacks
+
+  attr_accessible :title, :content, :published_on
 end
