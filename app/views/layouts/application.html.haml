@@ -1,0 +1,60 @@
+!!! 5
+%html
+    %head
+        %meta{ 'charset' => 'utf-8' }
+        %meta{ 'http-equiv' => 'X-UA-Compatible', :content => 'IE=Edge,chrome=1'}
+        %meta{ 'name' => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
+
+        %title
+            = content_for?(:title) ? yield(:title) : "Catalogue"
+
+        = csrf_meta_tags
+
+        /[if lt IE 9]
+            %script{ 'src' => '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js', 'type' => 'text/javascript' }
+
+        = stylesheet_link_tag "application", :media => "all"
+
+        / For iPad Retina display: 144 x 144 pixels
+        = favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144'
+        / For iPhone Retina display: 114 x 114 pixels
+        = favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114'
+        / For iPad: 72 x 72 pixels
+        = favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72'
+        / For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: 57 x 57 pixels
+        = favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
+        / For all other devices: 32 x 32 pixels
+        = favicon_link_tag 'images/favicon.ico', :rel => 'shortcut icon'
+
+    %body
+
+        / NAVBAR
+        %div.navbar.navbar-fixed-top
+            %div.navbar-inner
+                %div.container{ 'data-target' => '.nav-collapse', 'data-toggle' => 'collapse' }
+                    %a.btn.btn-navbar
+                        %span.icon-bar
+                    = link_to "Biodiversity Catalogue", root_path, :class => "brand"
+                    = form_tag articles_path, :method => 'get', :class => 'navbar-search pull-right form-search ' do
+                        = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'
+
+                    %div.container.nav-collapse
+                        %ul.nav
+                            %li
+                                = link_to "Articles", articles_path
+                            %li
+                                = link_to "New Article", new_article_path
+
+        %div.page-header
+            %h1
+                = yield :pageheader
+
+
+
+        = yield
+
+        %footer
+            / %p &copy; BISE Catalogue 2013
+
+        / Placed at the end of the document so the pages load faster
+        = javascript_include_tag "application"

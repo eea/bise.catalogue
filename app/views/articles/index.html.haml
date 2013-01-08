@@ -1,0 +1,67 @@
+- content_for :pageheader do
+    %h1 Articles
+
+
+.container-fluid
+    .row-fluid
+        .span2.menu-wrapper
+            %ul.menu
+                %li.item
+                    %a.title{ 'href' => '#', :class => 'active' }
+                        Authors
+                        %span= @articles.facets['authors']['terms'].count
+                    %ul.subitems
+                        - @articles.facets['authors']['terms'].each do |facet|
+                            - if !current_page?(params.merge(:author => facet['term'], :page => 1))
+                                %li.subitem
+                                    = link_to params.merge(:author => facet['term'], :page => 1) do
+                                        = facet['term']
+                                        %span
+                                            = facet['count']
+                            - else
+                                %li.subitem.selected
+                                    = facet['term']
+                                    %span= link_to "Remove", params.except(:author)
+
+                %li.item
+                    %a.title{ 'href' => '#', :class => 'active' }
+                        Timeline
+                        %span= @articles.facets['timeline']['entries'].count
+
+                    %ul.subitems
+                        - @articles.facets['timeline']['entries'].each do |facet|
+                            - year = Time.at(facet['time']/1000).strftime("%Y")
+                            - if !current_page?(params.merge(:published_on => year, :page => 1))
+                                %li.subitem
+                                    = link_to params.merge(:published_on => year, :page => 1) do
+                                        = year
+                                        %span= facet['count']
+
+                            - else
+                                %li.subitem.selected
+                                    = year.to_s
+                                    %span= link_to "Remove", params.except(:published_on)
+
+        .span10
+            %table.table.table-striped
+                %thead
+                    %tr
+                        %th Title
+                        %th Author
+                        %th Published On
+                        %th{ :style => 'width: 80px'} Actions
+
+                %tbody
+                    - @articles.each do |article|
+                        %tr
+                            %td= article.title
+                            %td= article.author
+                            %td= article.published_on
+                            %td.actions
+
+                                = link_to article,  :class => "btn btn-small" do
+                                    %i.icon-eye-open
+                                = link_to edit_article_path(article),  :class => "btn btn-small" do
+                                    %i.icon-pencil
+
+            = will_paginate @articles

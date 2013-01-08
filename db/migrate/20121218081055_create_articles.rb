@@ -3,6 +3,8 @@ class CreateArticles < ActiveRecord::Migration
     create_table :articles do |t|
       t.string :title
       t.text :content
+      t.text :author
+      t.text :source_url
       t.date :published_on
 
       t.timestamps

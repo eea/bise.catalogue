@@ -1,0 +1,28 @@
+- content_for :pageheader do
+    %h1= @article.title
+
+
+- if notice
+    %div.alert.alert-success
+        %button.close{ :type => "button", 'data-dismiss' => 'alert' }
+            &times;
+        %h4 Success!
+        = notice
+
+%div.row
+    %div.span2
+        %b Published on:
+    %div.span10
+        = @article.published_on
+%hr
+
+%div.row
+    %div.span2
+        %b Content:
+    %div.span10
+        = raw @article.content
+
+%hr
+
+= link_to 'Edit', edit_article_path(@article), :class => "btn"
+= link_to 'Back', articles_path, :class => "btn"
