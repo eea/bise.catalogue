@@ -4,12 +4,13 @@
 
 .container-fluid
     .row-fluid
+
         .span2.menu-wrapper
             %ul.menu
                 %li.item
                     %a.title{ 'href' => '#', :class => 'active' }
                         Authors
-                        %span= @articles.facets['authors']['terms'].count
+                        / %span= @articles.facets['authors']['terms'].count
                     %ul.subitems
                         - @articles.facets['authors']['terms'].each do |facet|
                             - if !current_page?(params.merge(:author => facet['term'], :page => 1))
