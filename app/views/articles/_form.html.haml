@@ -1,0 +1,11 @@
+= simple_form_for(@article, :html => { :class => "form-vertical" }) do |f|
+
+    = f.input :title, :placeholder => 'Example Document'
+    = f.input :author, :as => :string, :placeholder => 'Write a description here...'
+    = f.input :source_url, :as => :string, :placeholder => 'Write a description here...'
+    = f.input :published_on, :as => :date, :placeholder => 'Write a description here...'
+    = f.input :content, :as => :text, :placeholder => 'Write a description here...', :input_html => { :cols => 50, :rows => 7 }
+
+    = f.submit 'Save', :class => "btn"
+
+

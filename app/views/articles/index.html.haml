@@ -1,5 +1,5 @@
 - content_for :pageheader do
-    %h1 Articles
+    Articles
 
 
 .container-fluid
@@ -59,8 +59,7 @@
                             %td= article.author
                             %td= article.published_on
                             %td.actions
-
-                                = link_to article,  :class => "btn btn-small" do
+                                = link_to article, :class => "btn btn-small" do
                                     %i.icon-eye-open
                                 = link_to edit_article_path(article),  :class => "btn btn-small" do
                                     %i.icon-pencil

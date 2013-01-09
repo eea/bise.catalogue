@@ -12,6 +12,7 @@ class Article < ActiveRecord::Base
     attr_accessible :source_url
     attr_accessible :published_on
 
+    validates_presence_of :title, :on => :create, :message => "can't be blank"
 
     mapping do
         indexes :id,           :index    => :not_analyzed

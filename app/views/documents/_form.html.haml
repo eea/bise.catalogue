@@ -1,0 +1,5 @@
+= simple_form_for @document, :html => { :class => 'form-vertical' } do |f|
+
+    = f.input :name, :placeholder => 'Example Document'
+    = f.input :description, :placeholder => 'Write a description here...'
+    = f.submit 'Save', :class => "btn"

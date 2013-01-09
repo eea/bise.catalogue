@@ -15,7 +15,8 @@ group :assets do
     gem 'coffee-rails', '~> 3.2.1'
 
     gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-    gem "twitter-bootstrap-rails"
+    # gem "twitter-bootstrap-rails"
+    gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
     # See https://github.com/sstephenson/execjs#readme for more supported runtimes
     # gem 'therubyracer', :platforms => :ruby
@@ -61,5 +62,8 @@ end
 
 gem "will_paginate"
 
+gem 'simple_form'
+
 gem "paperclip"
+
 # gem "flagship_docs", :git => "https://github.com/wtg/flagship_docs.git"
