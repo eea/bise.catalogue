@@ -1,0 +1,49 @@
+- content_for :pageheader do
+    %h1 Documents
+
+.container-fluid
+    .row-fluid
+
+        .span3.menu-wrapper
+            %ul.menu
+                %li.item
+                    %a.title{ 'href' => '#', :class => 'active' }
+                        Authors
+                    %ul.subitems
+
+                %li.item
+                    %a.title{ 'href' => '#', :class => 'active' }
+                        Timeline
+
+                    %ul.subitems
+
+        .span9
+            %table.table.table-striped
+                %thead
+                    %tr
+                        %th Name
+                        %th Description
+                        %th Author
+                        %th Created At
+                        %th Downloads
+                        %th{ :style => 'width: 80px'} Actions
+
+                %tbody
+                    - @documents.each do |document|
+                        %tr
+                            %td= document.name
+                            %td= document.description
+                            %td= document.author
+                            %td= document.created_at
+                            %td= document.downloads
+                            %td.actions
+                                = link_to document,  :class => "btn btn-small" do
+                                    %i.icon-eye-open
+                                = link_to edit_document_path(document),  :class => "btn btn-small" do
+                                    %i.icon-pencil
+
+            / = will_paginate @documents
+
+    %br
+
+    = link_to 'New Document', new_document_path, :class => "btn"

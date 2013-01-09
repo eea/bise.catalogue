@@ -1,4 +1,4 @@
-# source 'https://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.9'
 
@@ -60,4 +60,6 @@ end
 # gem 'debugger'
 
 gem "will_paginate"
+
+gem "paperclip"
 # gem "flagship_docs", :git => "https://github.com/wtg/flagship_docs.git"

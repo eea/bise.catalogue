@@ -5,7 +5,7 @@
 .container-fluid
     .row-fluid
 
-        .span2.menu-wrapper
+        .span3.menu-wrapper
             %ul.menu
                 %li.item
                     %a.title{ 'href' => '#', :class => 'active' }
@@ -43,7 +43,7 @@
                                     = year.to_s
                                     %span= link_to "Remove", params.except(:published_on)
 
-        .span10
+        .span9
             %table.table.table-striped
                 %thead
                     %tr
@@ -66,3 +66,5 @@
                                     %i.icon-pencil
 
             = will_paginate @articles
+
+    = link_to 'New Article', new_article_path, :class => "btn"

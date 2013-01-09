@@ -1,0 +1,46 @@
+- content_for :pageheader do
+    %h1= @document.name
+
+
+- if notice
+    %div.alert.alert-success
+        %button.close{ :type => "button", 'data-dismiss' => 'alert' }
+            &times;
+        %h4 Success!
+        = notice
+
+.container
+    %div.row
+        %div.span2
+            %b Description:
+        %div.span10
+            = @document.description
+    %hr
+
+    %div.row
+        %div.span2
+            %b Filename:
+        %div.span10
+            = @document.filename
+
+    %hr
+
+    %div.row
+        %div.span2
+            %b Author:
+        %div.span10
+            = @document.author
+
+    %hr
+
+    %div.row
+        %div.span2
+            %b Downloads:
+        %div.span10
+            = @document.downloads
+
+    %hr
+
+
+    = link_to 'Edit', edit_document_path(@document), :class => "btn"
+    = link_to 'Back', documents_path, :class => "btn"

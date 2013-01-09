@@ -1,4 +1,7 @@
 Catalogue::Application.routes.draw do
+  resources :documents
+
+
   root :to => 'articles#index'
 
   resources :articles do
