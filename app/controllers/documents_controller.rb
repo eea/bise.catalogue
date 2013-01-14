@@ -2,12 +2,13 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.all
+    @documents = Document.search(params)
+    # @documents = Document.all
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @documents }
-    end
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.json { render json: @documents }
+    # end
   end
 
   # GET /documents/1

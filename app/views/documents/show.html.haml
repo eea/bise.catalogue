@@ -1,6 +1,15 @@
 - content_for :pageheader do
     = @document.name
 
+- content_for :actions do
+    %li
+        = link_to  edit_document_path(@document) do
+            = image_tag '/assets/10-medical.png'
+            Edit
+    %li
+        = link_to  documents_path do
+            = image_tag '/assets/10-medical.png'
+            Back
 
 - if notice
     %div.alert.alert-success
@@ -19,9 +28,19 @@
 
     %div.row
         %div.span2
-            %b Filename:
+            %b File:
         %div.span10
-            = @document.filename
+            / = @document.file_url
+            / = link_to @document.file_url, :class => "btn" do
+            /     %i.icon-search
+            /     Preview
+            = link_to @document.file_url, :class => "btn" do
+                %i.icon-download-alt
+                Download
+                %small
+                    (
+                    = (@document.file_size/1024).round(2)
+                    KB)
 
     %hr
 
@@ -42,5 +61,5 @@
     %hr
 
 
-    = link_to 'Edit', edit_document_path(@document), :class => "btn"
-    = link_to 'Back', documents_path, :class => "btn"
+    / = link_to 'Edit', edit_document_path(@document), :class => "btn"
+    / = link_to 'Back', documents_path, :class => "btn"

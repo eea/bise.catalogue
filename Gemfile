@@ -64,6 +64,7 @@ gem "will_paginate"
 
 gem 'simple_form'
 
-gem "paperclip"
+# gem "paperclip"
+gem 'carrierwave'
 
 # gem "flagship_docs", :git => "https://github.com/wtg/flagship_docs.git"

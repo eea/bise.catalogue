@@ -10,10 +10,13 @@
 $rad : 7px
 
 $header-color: white
-$header-hightlight-color: rgb(114, 122, 134)
-$header-background-color: rgb(80, 88, 100)
+// $header-hightlight-color: rgb(114, 122, 134)
+// $header-background-color: rgb(80, 88, 100)
 // $header-hightlight-color: #e2e2e2
 // $header-background-color: #b6b6b6
+$header-hightlight-color: #a5c500
+$header-background-color: #88b00c
+
 
 $selection-highlight-color: rgb(69, 199, 235)
 $selection-background-color: rgb(38, 152, 219)
@@ -51,8 +54,9 @@ $border-light: #dadada
             display: block
             position: relative
             font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
-            font-weight: 600
-            color: #fff
+            // font-weight: 600
+            text-decoration: none
+            color: $header-color
             text-shadow: 0px 1px 0px rgba(0,0,0,.5)
 
 
@@ -67,14 +71,6 @@ $border-light: #dadada
                 left: 0
                 top: 50%
                 margin: -.5em 0 0 0
-
-            // &:hover
-            //     +gradient( $selection-highlight-color, $selection-background-color)
-
-            //     border-bottom: 1px solid $border-color
-            //     -webkit-box-shadow: inset 0px 1px 0px 0px #6ad2ef
-            //     -moz-box-shadow: inset 0px 1px 0px 0px #6ad2ef
-            //     box-shadow: inset 0px 1px 0px 0px #6ad2ef
 
             span
                 font-size: 0.857em
@@ -102,6 +98,16 @@ $border-light: #dadada
     ul.subitems
         list-style: none
         margin-left: 0
+
+    li.subitem-search
+        border-bottom: 1px solid $border-light
+        height: 3.75em
+        line-height: 2.75em
+        width: auto
+
+        input
+            width: 80%
+            margin: 2% 5%
 
     li.subitem
         border-bottom: 1px solid $border-light

@@ -44,8 +44,11 @@
 // Example:
 // @linkColor: #ff0000;
 
-@navbarBackground: #88b00c;
-@navbarBackgroundHighlight: #a5c500;
+// @navbarBackground: #88b00c;
+// @navbarBackgroundHighlight: #a5c500;
+@navbarBackground: #353535;
+@navbarBackgroundHighlight: #727272;
+
 
 @navbarText: white;
 @navbarBrandColor: #8aa500;
@@ -76,7 +79,7 @@ body > .container {
 }
 .navbar .nav > li > a:hover {
     color: white;
-    background: #86a000;
+    background: #6b6b6b;
     -webkit-box-shadow: inset 0px 1px 2px 2px rgba(0, 0, 0, 0.2);
     box-shadow: inset 0px 1px 2px 2px rgba(0, 0, 0, 0.2);
 }
@@ -88,6 +91,9 @@ textarea, .uneditable-input {
 
 .navbar .brand {
     font-weight: bold;
+    margin: 0;
+    margin-right: 15px;
+    padding: 0;
 }
 
 
@@ -114,7 +120,103 @@ textarea, .uneditable-input {
     h1 {
         margin: 15px;
         padding: 10px;
+        width: 50%;
+    }
+
+    .actions {
+        width: 40%;
+        height: 60px;
+        // position: relative;
+        // top: 0;
+        display: inline-block;
+        float: right;
+
+        ul {
+            float: right;
+            list-style-type:none;
+            list-style: none;
+            margin-left: 0;
+            margin:0;
+            padding:0;
+        }
+
+        li {
+            float:right;
+            // padding-top: 7px;
+            border-left: 1px solid #919191;
+            border-right: 1px solid #919191;
+
+            width: 70px;
+            height: 60px;
+
+            text-align: center;
+            font-size: 12px;
+            margin: 0 auto;
+
+            -webkit-box-shadow: rgba(0, 0, 0, 0.148438) 0px 2px 4px 0px inset, rgba(0, 0, 0, 0.046875) 0px 1px 2px 0px;
+            background-color: rgb(230, 230, 230);
+            background-image: none;
+            background-repeat: repeat-x;
+            box-shadow: rgba(0, 0, 0, 0.148438) 0px 2px 4px 0px inset, rgba(0, 0, 0, 0.046875) 0px 1px 2px 0px;
+            color: rgb(0, 0, 0);
+            cursor: pointer;
+            display: inline-block;
+            line-height: 20px;
+
+            outline-color: rgb(51, 51, 51);
+            outline-style: none;
+            outline-width: 0px;
+
+            text-align: center;
+            text-decoration: none;
+            text-shadow: rgba(255, 255, 255, 0.746094) 0px 1px 1px;
+            vertical-align: middle;
+
+            a {
+                color: #4b4b4b;
+
+                &:hover {
+                    color: #86a000;
+                }
+            }
+
+        }
+
+        img {
+            // padding: absolute;
+            // left: 50%;
+            // margin-left: 14px;
+            margin-top: 7px;
+            margin-left: 19px;
+            margin-right: 19px;
+            width: 32px;
+            height: 32px;
+        }
 
     }
 
+}
+
+
+
+// .search-query {
+//     padding-left: 29px !important;
+//     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJ5JREFUeNpi+P//PwMQMANxERCfAeI/UBrEZwbJQ9WAFR0A4u1AbAnEbFB6O1ScGaawGoi3wHQiYyBYDZKHKbwHxLo4FOqC5GEKf4Ksw6EQ5IyfIDYTkPEUiNUZsAOQ+F9GRkYJEKcFiDficSOIcRjE4QTiY0C8DuRbqAJLKP8/FP9kQArHUiA+jySJjA8w4LAS5KZd0MAHhaccQIABALsMiBZy4YLtAAAAAElFTkSuQmCC);
+//     background-repeat: no-repeat;
+//     background-position: 12px 8px;
+// }
+
+
+
+
+
+
+
+
+.form-actions {
+    padding: 19px 20px 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: transparent;
+    // border-top: 1px solid #e5e5e5;
 }

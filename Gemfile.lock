@@ -40,7 +40,9 @@ GEM
     arel (3.0.2)
     binding_of_caller (0.6.8)
     builder (3.0.4)
-    cocaine (0.4.2)
+    carrierwave (0.8.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
     coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -90,12 +92,6 @@ GEM
     method_source (0.8.1)
     mime-types (1.19)
     multi_json (1.5.0)
-    paperclip (3.4.0)
-      activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
-      activesupport (>= 3.0.0)
-      cocaine (~> 0.4.0)
-      mime-types
     polyglot (0.3.3)
     pry (0.9.10)
       coderay (~> 1.0.5)
@@ -192,12 +188,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  carrierwave
   coffee-rails (~> 3.2.1)
   guard-sublime-ctags
   haml
   jquery-rails
   less-rails
-  paperclip
   pry (>= 0.9.10)
   pry-doc
   pry-nav

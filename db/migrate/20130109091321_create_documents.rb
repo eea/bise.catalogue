@@ -3,9 +3,13 @@ class CreateDocuments < ActiveRecord::Migration
     create_table :documents do |t|
       t.string :name
       t.string :description
-      t.string :filename
       t.string :author
       t.integer :downloads
+
+      t.string :file
+      t.string :content_type
+      t.float :file_size
+      t.string :md5hash
 
       t.timestamps
     end

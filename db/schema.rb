@@ -26,11 +26,14 @@ ActiveRecord::Schema.define(:version => 20130109091321) do
   create_table "documents", :force => true do |t|
     t.string   "name"
     t.string   "description"
-    t.string   "filename"
     t.string   "author"
     t.integer  "downloads"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.string   "file"
+    t.string   "content_type"
+    t.float    "file_size"
+    t.string   "md5hash"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
 end
