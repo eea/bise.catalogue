@@ -7,25 +7,9 @@ class Document < ActiveRecord::Base
     attr_accessible :name
     attr_accessible :description
     attr_accessible :author
-    attr_accessible :downloads
-
-    # ----- PAPERCLIP ---------------
-    # attr_accessible :file
-    # has_attached_file :file
-    # attr_accessible :file_file_name
-    attr_accessible :file
-    mount_uploader :file, FileUploader
-
-    validates_presence_of :name, :on => :create, :message => "can't be blank"
-
-    validates_uniqueness_of :md5hash, :on => :create
+    attr_accessible :downloads    ########################## ELASTIC SEARCH
 
 
-    before_validation :compute_hash
-    before_save :update_file_info
-
-
-    ########################## ELASTIC SEARCH
     # :_source => { :excludes => ['attachment'] }
     mapping do
         indexes :id, :index    => :not_analyzed
@@ -42,11 +26,26 @@ class Document < ActiveRecord::Base
         # }
     end
 
+
+
+    before_validation :compute_hash
+
+    validates_presence_of :name, :on => :create, :message => "Can't be blank."
+    validates_presence_of :file, :on => :create, :message => "Can't be blank."
+    validate :uniqueness_of_md5hash, :on => :create
+
+    attr_accessible :file
+    mount_uploader :file, FileUploader
+
+    before_save :update_file_info
+
+
     def self.search(params)
         tire.search :load => true, :page => params[:page], :per_page => 10 do
             query { string params[:query], :default_operator => "AND"} if params[:query].present?
+            highlight :name
 
-            # filter :term, :author => params[:author] if params[:author].present?
+            filter :term, :author => params[:author] if params[:author].present?
             # sort { by :published_on, "desc" } if params[:query].blank?
 
             facet 'authors' do
@@ -54,6 +53,8 @@ class Document < ActiveRecord::Base
             end
         end
     end
+
+
 
     def to_indexed_json
         to_json(:methods => [:attachment])
@@ -71,9 +72,13 @@ class Document < ActiveRecord::Base
         end
     end
 
+    def uniqueness_of_md5hash
+        if Document.exists?(:md5hash => self.md5hash)
+            errors.add(:file, "File is already registered.")
+        end
+    end
 
     private
-
 
         def update_file_info
             if file.present? && file_changed?
@@ -83,6 +88,7 @@ class Document < ActiveRecord::Base
         end
 
         def compute_hash
-          self.md5hash = Digest::MD5.hexdigest(self.file.read)
+            self.md5hash = Digest::MD5.hexdigest(self.file.read) if self.file?
         end
+
 end

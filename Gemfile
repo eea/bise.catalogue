@@ -30,6 +30,10 @@ gem 'tire'
 
 gem 'haml'
 
+gem 'tinymce-rails'
+
+gem 'rdf'
+
 
 group :development, :test do
     gem 'pry', '>= 0.9.10'
@@ -42,7 +46,8 @@ group :development, :test do
     gem 'rspec'
     gem 'rspec-rails'
 
-    gem 'guard-sublime-ctags'
+    # gem 'guard-sublime-ctags'
+    gem 'gem-ctags'
 end
 
 # To use ActiveModel has_secure_password

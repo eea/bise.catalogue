@@ -1,6 +1,14 @@
 - content_for :pageheader do
     = @article.title
 
+- content_for :actions do
+    = link_to  articles_path, :class => "btn squared-button" do
+        = image_tag '/assets/arrow_left.png'
+        Back
+    = link_to  edit_article_path(@article), :class => "btn squared-button" do
+        = image_tag '/assets/pencil32.png'
+        Edit
+
 
 - if notice
     %div.alert.alert-success
@@ -25,5 +33,5 @@
 
     %hr
 
-    = link_to 'Edit', edit_article_path(@article), :class => "btn"
-    = link_to 'Back', articles_path, :class => "btn"
+    / = link_to 'Edit', edit_article_path(@article)
+    / = link_to 'Back', articles_path, :class => "btn"

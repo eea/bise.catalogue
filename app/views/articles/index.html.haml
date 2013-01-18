@@ -1,12 +1,24 @@
 - content_for :pageheader do
     Articles
 
+- content_for :actions do
+    = link_to  new_article_path, :class => "btn squared-button" do
+        = image_tag '/assets/article_add.png'
+        New Article
 
 .container-fluid
     .row-fluid
 
         .span3.menu-wrapper
             %ul.menu
+                %li.item
+                    %a.title{ 'href' => '#', :class => 'active' }
+                        Search
+                    %ul.subitems
+                        %li.subitem-search
+                            = form_tag articles_path, :method => 'get', :class => 'form-search ' do
+                                = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'
+
                 %li.item
                     %a.title{ 'href' => '#', :class => 'active' }
                         Authors
@@ -53,9 +65,9 @@
                         %th{ :style => 'width: 80px'} Actions
 
                 %tbody
-                    - @articles.each do |article|
+                    - @articles.results.each do |article|
                         %tr
-                            %td= article.title
+                            %td= raw article.highlight ? article.highlight.title[0] : article.title
                             %td= article.author
                             %td= article.published_on
                             %td.actions
@@ -66,4 +78,3 @@
 
             = will_paginate @articles
 
-    = link_to 'New Article', new_article_path, :class => "btn"

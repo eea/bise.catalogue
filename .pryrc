@@ -16,8 +16,8 @@ end
 
 Pry.config.history.should_save = false
 
-Pry.config.prompt = [proc { "pry  > " },
-                     proc { "     | " }]
+Pry.config.prompt = [proc { "pry > " },
+                     proc { "    | " }]
 
 # Disable pry-buggy-plug:
 # Pry.plugins["buggy-plug"].disable!

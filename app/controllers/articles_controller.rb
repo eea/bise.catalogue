@@ -4,6 +4,10 @@ class ArticlesController < ApplicationController
     # GET /articles.json
     def index
         @articles = Article.search(params)
+        respond_to do |format|
+            format.html # show.html.erb
+            format.json { render :json => @articles }
+        end
     end
 
     # GET /articles/search
@@ -49,11 +53,11 @@ class ArticlesController < ApplicationController
         @article = Article.new(params[:article])
         respond_to do |format|
             if @article.save
-                format.html { redirect_to @article, notice: 'Article was successfully created.' }
-                format.json { render json: @article, status: :created, location: @article }
+                format.html { redirect_to @article, :notice => 'Article was successfully created.' }
+                format.json { render :json => @article, :status => :created, :location => @article }
             else
-                format.html { render action: "new" }
-                format.json { render json: @article.errors, status: :unprocessable_entity }
+                format.html { render :action => "new" }
+                format.json { render :json => @article.errors, :status => :unprocessable_entity }
             end
         end
     end
@@ -64,11 +68,11 @@ class ArticlesController < ApplicationController
         @article = Article.find(params[:id])
         respond_to do |format|
             if @article.update_attributes(params[:article])
-                format.html { redirect_to @article, notice: 'Article was successfully updated.' }
+                format.html { redirect_to @article, :notice => 'Article was successfully updated.' }
                 format.json { head :no_content }
             else
-                format.html { render action: "edit" }
-                format.json { render json: @article.errors, status: :unprocessable_entity }
+                format.html { render :action => "edit" }
+                format.json { render :json => @article.errors, :status => :unprocessable_entity }
             end
         end
     end

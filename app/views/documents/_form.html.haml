@@ -1,11 +1,32 @@
-= simple_form_for @document, :html => { :class => 'form-vertical', :multipart => true } do |f|
+/ = @document.errors.full_messages
 
-    = f.input :name, :placeholder => 'Example Document'
-    = f.input :description, :as => :text, :placeholder => 'Write a description here...', :input_html => { :cols => 50, :rows => 7 }
-    = f.file_field :file, :label => 'Add a document please.'
-    /= f.input :remote_file_url
-    / f.input :file, :as => :file
-    %br
-    %br
-    %div.form-actions
-        = f.submit 'Save', :class => "btn btn-primary"
+/ - if @document.errors.any?
+/     - @document.errors.messages.each do |message|
+/         .message
+/             = message.last.last.html_safe
+= simple_form_for @document, :html => { :class => 'form-horizontal', :multipart => true } do |f|
+    .row
+        .span8
+
+            = f.input :name, :placeholder => 'Example Document',
+                :input_html => { :class => "span6" }
+            = f.input :file, :as => :file, :label => 'File'
+            / = f.input :file, :as => :string, :label => 'File'
+
+            / = f.input :file, :wrapper => :append do
+            /     %input{ :type => "file", :id => 'file', :style => "display:none " }
+            /     %input{ :type => "text", :id => 'lefile' }
+            /     %a.btn{ :onclick => "$('input[id=file]').click()" }
+            /         Select
+
+            = f.input :author, :placeholder => 'Author'
+            = f.input :description, :as => :text, :placeholder => 'Write a description here...', :input_html => { :cols => 50, :rows => 7 }
+
+            %div.form-actions
+                = f.submit 'Save', :class => "btn btn-success"
+                = link_to "Cancel", documents_path, :class => "btn"
+
+        .span4
+
+    / .span4
+    /     Follow the following steps to create a document in BISE Catalogue.

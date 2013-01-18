@@ -1,0 +1,13 @@
+- content_for :pageheader do
+    Editing document
+
+- content_for :actions do
+    = link_to  documents_path, :class => "btn squared-button" do
+        = image_tag '/assets/arrow_left.png'
+        Back
+    = link_to  @document, :class => "btn squared-button" do
+        = image_tag '/assets/article32.png'
+        Show
+
+= render 'form'
+

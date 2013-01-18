@@ -2,14 +2,12 @@
     = @document.name
 
 - content_for :actions do
-    %li
-        = link_to  edit_document_path(@document) do
-            = image_tag '/assets/10-medical.png'
-            Edit
-    %li
-        = link_to  documents_path do
-            = image_tag '/assets/10-medical.png'
-            Back
+    = link_to  documents_path, :class => "btn squared-button" do
+        = image_tag '/assets/arrow_left.png'
+        Back
+    = link_to edit_document_path(@document), :class => "btn squared-button" do
+        = image_tag '/assets/pencil32.png'
+        Edit
 
 - if notice
     %div.alert.alert-success
@@ -23,7 +21,7 @@
         %div.span2
             %b Description:
         %div.span10
-            = @document.description
+            = raw @document.description
     %hr
 
     %div.row

@@ -2,11 +2,9 @@
     Documents
 
 - content_for :actions do
-    %li
-        / %img{:src => "http://www.wheresbest.co.uk/images/new-icon-green.png", :alt => ""}
-        = link_to new_document_path do
-            = image_tag '/assets/10-medical.png'
-            New Doc
+    = link_to  new_document_path, :class => "btn squared-button" do
+        = image_tag '/assets/article_add.png'
+        New Document
 
 / = form_tag documents_path, :method => 'get', :class => 'navbar-search pull-right form-search ' do
 /     = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search document..'
@@ -55,7 +53,7 @@
                         %th Author
                         %th Created At
                         %th Downloads
-                        %th{ :style => 'width: 120px'} Actions
+                        %th{ :style => 'width: 80px'} Actions
 
                 %tbody
                     - @documents.each do |document|
@@ -70,8 +68,8 @@
                                     %i.icon-eye-open
                                 = link_to edit_document_path(document),  :class => "btn btn-small" do
                                     %i.icon-pencil
-                                = link_to document, :method => :delete, :class => "btn" do
-                                    %i.icon-pencil
+                                / = link_to document, :method => :delete, :class => "btn" do
+                                /     %i.icon-pencil
 
 
             / = will_paginate @documents
