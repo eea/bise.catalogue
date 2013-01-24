@@ -2,11 +2,11 @@
     = @document.name
 
 - content_for :actions do
-    = link_to  documents_path, :class => "btn squared-button" do
-        = image_tag '/assets/arrow_left.png'
+    = link_to  documents_path, :class => "btn" do
+        %i.icon-reply
         Back
-    = link_to edit_document_path(@document), :class => "btn squared-button" do
-        = image_tag '/assets/pencil32.png'
+    = link_to  edit_document_path(@document), :class => "btn" do
+        %i.icon-pencil
         Edit
 
 - if notice
@@ -17,21 +17,42 @@
         = notice
 
 .container
-    %div.row
-        %div.span2
+
+    .row
+        %div.span2{ :style => 'text-align:right'}
             %b Description:
         %div.span10
             = raw @document.description
-    %hr
 
-    %div.row
-        %div.span2
-            %b File:
+
+    .row
+        .span10.offset2
+            %hr.divider
+
+    .row
+        %div.span2{ :style => 'text-align:right'}
+            %b Author:
         %div.span10
-            / = @document.file_url
-            / = link_to @document.file_url, :class => "btn" do
-            /     %i.icon-search
-            /     Preview
+            = @document.author
+
+    .row
+        .span10.offset2
+            %hr.divider
+
+    .row
+        %div.span2{ :style => 'text-align:right'}
+            %b Downloads:
+        %div.span10
+            = @document.downloads
+
+    .row
+        .span10.offset2
+            %hr.divider
+
+    .row
+        %div.span2{ :style => 'text-align:right'}
+            %b File :
+        %div.span10
             = link_to @document.file_url, :class => "btn" do
                 %i.icon-download-alt
                 Download
@@ -40,23 +61,9 @@
                     = (@document.file_size/1024).round(2)
                     KB)
 
-    %hr
 
-    %div.row
-        %div.span2
-            %b Author:
-        %div.span10
-            = @document.author
 
-    %hr
 
-    %div.row
-        %div.span2
-            %b Downloads:
-        %div.span10
-            = @document.downloads
-
-    %hr
 
 
     / = link_to 'Edit', edit_document_path(@document), :class => "btn"

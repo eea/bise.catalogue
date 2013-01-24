@@ -4,6 +4,7 @@
         %meta{ 'charset' => 'utf-8' }
         %meta{ 'http-equiv' => 'X-UA-Compatible', :content => 'IE=Edge,chrome=1'}
         %meta{ 'name' => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
+        %meta{ 'name' => 'apple-mobile-web-app-capable', :content => "yes"}
 
         %title
             = content_for?(:title) ? yield(:title) : "Catalogue"
@@ -26,8 +27,8 @@
         / For all other devices: 32 x 32 pixels
         / = favicon_link_tag 'images/favicon.ico', :rel => 'shortcut icon'
 
-        %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Cantata+One", "type" => "text/css"}
-        %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Strait", "type" => "text/css"}
+        %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Roboto+Condensed:300", "type" => "text/css"}
+        %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Homenaje", "type" => "text/css"}
 
     %body
 
@@ -49,14 +50,14 @@
                         / = form_tag articles_path, :method => 'get', :class => 'navbar-search pull-right form-search ' do
                         /     = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'
 
-        %div.page-header
-            %div.actions
-                / %ul
-                = yield :actions
-            %h1
-                = yield :pageheader
-
         .container
+            .page-header
+                %h1
+                    = yield :pageheader
+            .row.toolbar
+                .toolbar-container
+                    = yield :actions
+
             = yield
 
             %footer

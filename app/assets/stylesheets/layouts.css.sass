@@ -9,13 +9,30 @@
 
 $rad : 7px
 
-$header-text-color: white
+$header-text-color: #354a00
 // $header-hightlight-color: rgb(114, 122, 134)
 // $header-background-color: rgb(80, 88, 100)
 // $header-hightlight-color: #e2e2e2
 // $header-background-color: #b6b6b6
-$header-hightlight-color: #a5c500
-$header-background-color: #88b00c
+// $header-hightlight-color: #a5c500
+// $header-background-color: #88b00c
+// $header-hightlight-color: #8bc100
+// $header-background-color: #719c00
+// $header-hightlight-color: #a9db80
+// $header-background-color: #96c56f
+$header-hightlight-color: #cdeb8e
+$header-background-color: #a5c956
+
+
+// background: #cdeb8e; /* Old browsers */
+// background: -moz-linear-gradient(top,  #cdeb8e 0%, #a5c956 100%); /* FF3.6+ */
+// background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cdeb8e), color-stop(100%,#a5c956)); /* Chrome,Safari4+ */
+// background: -webkit-linear-gradient(top,  #cdeb8e 0%,#a5c956 100%); /* Chrome10+,Safari5.1+ */
+// background: -o-linear-gradient(top,  #cdeb8e 0%,#a5c956 100%); /* Opera 11.10+ */
+// background: -ms-linear-gradient(top,  #cdeb8e 0%,#a5c956 100%); /* IE10+ */
+// background: linear-gradient(to bottom,  #cdeb8e 0%,#a5c956 100%); /* W3C */
+// filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cdeb8e', endColorstr='#a5c956',GradientType=0 ); /* IE6-9 */
+
 
 
 $selection-highlight-color: rgb(69, 199, 235)
@@ -24,8 +41,10 @@ $selection-background-color: rgb(38, 152, 219)
 $border-color: #a1a1a1
 $border-light: #dadada
 
-
 $text-dark-green: #718700
+
+$content-font: 'Roboto Condensed', arial, sans-serif
+$header-font: 'Homenaje', arial, sans-serif
 
 /*
     MENU
@@ -37,6 +56,7 @@ $text-dark-green: #718700
     ul.menu
         margin-left: 0
         list-style: none
+        border: 1px solid #969696
         +shadowed(3px)
 
     li.item
@@ -45,21 +65,22 @@ $text-dark-green: #718700
 
             +gradient( $header-hightlight-color, $header-background-color)
 
+            font-family: $header-font
+            font-size: 14px
+            color: $header-text-color
+
             border-bottom: 1px solid $border-color
             -webkit-box-shadow: inset 0px 1px 0px 0px #878e98
             -moz-box-shadow: inset 0px 1px 0px 0px #878e98
             box-shadow: inset 0px 1px 0px 0px #878e98
+
             width: 100%
-            height: 2.75em
-            line-height: 2.75em
-            text-indent: 2.75em
+            height: 2.5em
+            line-height: 2.5em
+            text-indent: 2.5em
             display: block
             position: relative
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
-            // font-weight: 600
             text-decoration: none
-            color: $header-text-color
-            text-shadow: 0px 1px 0px rgba(0,0,0,.5)
 
 
             &:before
@@ -102,16 +123,27 @@ $text-dark-green: #718700
         margin-left: 0
 
     li.subitem-search
+        background: orange
+
         border-bottom: 1px solid $border-light
-        height: 3.75em
+        // height: 3.75em
         line-height: 2.75em
-        width: auto
+        // width: auto
+        padding: 5px 5%
+
+        form
+            margin-bottom: 0
 
         input
-            width: 80%
-            margin: 2% 5%
+            margin-bottom: 0
+            width: 90%
+            margin: 0 auto
+            // margin: 2% 5%
 
     li.subitem
+        font-family: $content-font
+        font-size: 13px
+
         border-bottom: 1px solid $border-light
         height: 2.75em
         line-height: 2.75em
@@ -124,7 +156,6 @@ $text-dark-green: #718700
             text-indent: 1.50em
             display: block
             position: relative
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif
             font-size: 1em
             font-weight: 400
             color: #51555a
@@ -150,18 +181,6 @@ $text-dark-green: #718700
                 -webkit-border-radius: 5px
                 -moz-border-radius: 5px
                 border-radius: 5px
-                // text-shadow: 0px 0px 0px rgba(255,255,255,.01)
-
-            // &:before
-            //     content: ''
-            //     background-image: url(/assets/double_right_arrow.gif)
-            //     background-repeat: no-repeat
-            //     font-size: 36px
-            //     height: 1em
-            //     width: 1em
-            //     position: absolute
-            //     left: 7px
-            //     top: 7px
 
             &:hover
                 color: white
@@ -185,37 +204,59 @@ $text-dark-green: #718700
             display: block
             width: 70px
 
+.toolbar
+    +gradient( #eeeeee, #cccccc)
+    +rounded(5px)
+    // +shadowed(1px)
+
+    width: 100%
+    border: 1px solid #bebebe
+
+    height: 36px
+    display: inline-block
+    margin-left: 0
+    margin-bottom: 10px
+
+    .toolbar-container
+        margin: 3px
 
 
 table.table.table-striped
+    border: 1px solid #969696
+
+    font-family: $content-font
     +shadowed(3px)
 
     thead
-        // border-top: 1px solid $border-light
-
         th
             +gradient( $header-hightlight-color, $header-background-color)
+
+            font-family: $header-font
+            font-weight: normal
+
             color: $header-text-color
-            padding: 5px 8px
-            // font-family: 'Strait', arial, sans-serif
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif
-            font-size: 12px
+            font-size: 14px
+            border-bottom: 1px solid $border-color
+
 
     tbody td
-        // font-family: 'Strait', arial, sans-serif
-        font-family: 'Helvetica Neue', Times
         font-size: 12px
 
     tbody td.actions
-        padding: 3px 8px
+        // padding: 3px 8px
 
-    // Founded
     em
         font-weight: bold
         font-style: none
-        font-family: 'Helvetica Neue', Times
         font-size: 12px
         color: #86a000
+
+
+hr.divider
+    // height: 26px
+    border-top: 1px solid #ababab
+    border-bottom: 1px solid #d5d5d5
+    margin: 5px 0
 
 .pagination
     // background-color: $header-hightlight-color

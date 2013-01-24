@@ -2,10 +2,9 @@
     New document
 
 - content_for :actions do
-    %li
-        = link_to  documents_path do
-            = image_tag '/assets/10-medical.png'
-            Back
+    = link_to  documents_path, :class => "btn" do
+        %i.icon-reply
+        Back
 
 = render 'form'
 

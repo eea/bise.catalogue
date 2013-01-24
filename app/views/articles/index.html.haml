@@ -2,79 +2,86 @@
     Articles
 
 - content_for :actions do
-    = link_to  new_article_path, :class => "btn squared-button" do
-        = image_tag '/assets/article_add.png'
+    = link_to  new_article_path, :class => "btn" do
+        %i.icon-plus
         New Article
+    = form_tag articles_path, :method => 'get', :class => 'search-query pull-right' do       #
+        = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'    #
 
-.container-fluid
-    .row-fluid
 
-        .span3.menu-wrapper
-            %ul.menu
-                %li.item
-                    %a.title{ 'href' => '#', :class => 'active' }
-                        Search
-                    %ul.subitems
-                        %li.subitem-search
-                            = form_tag articles_path, :method => 'get', :class => 'form-search ' do
-                                = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'
+/ = stylesheet_link_tag "articles", :media => "all"
 
-                %li.item
-                    %a.title{ 'href' => '#', :class => 'active' }
-                        Authors
-                        / %span= @articles.facets['authors']['terms'].count
-                    %ul.subitems
-                        - @articles.facets['authors']['terms'].each do |facet|
-                            - if !current_page?(params.merge(:author => facet['term'], :page => 1))
-                                %li.subitem
-                                    = link_to params.merge(:author => facet['term'], :page => 1) do
-                                        = facet['term']
-                                        %span
-                                            = facet['count']
-                            - else
-                                %li.subitem.selected
+.row
+    .span12
+        = content_tag :div, "", id: "articles_graph", data: { articles: articles_by_year }
+
+.row
+    .span3.menu-wrapper
+        %ul.menu
+            / %li.item
+            /     %a.title{ 'href' => '#', :class => 'active' }
+            /         Search
+            /     %ul.subitems
+            /         %li.subitem-search
+            /             = form_tag articles_path, :method => 'get', :class => 'search-query' do       #
+            /                 = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'    #
+
+            %li.item
+                %a.title{ 'href' => '#', :class => 'active' }
+                    Authors
+                    / %span= @articles.facets['authors']['terms'].count
+                %ul.subitems
+                    - @articles.facets['authors']['terms'].each do |facet|
+                        - if !current_page?(params.merge(:author => facet['term'], :page => 1))
+                            %li.subitem
+                                = link_to params.merge(:author => facet['term'], :page => 1) do
                                     = facet['term']
-                                    %span= link_to "Remove", params.except(:author)
+                                    %span
+                                        = facet['count']
+                        - else
+                            %li.subitem.selected
+                                = facet['term']
+                                %span= link_to "Remove", params.except(:author)
 
-                %li.item
-                    %a.title{ 'href' => '#', :class => 'active' }
-                        Timeline
-                        %span= @articles.facets['timeline']['entries'].count
+            %li.item
+                %a.title{ 'href' => '#', :class => 'active' }
+                    Timeline
 
-                    %ul.subitems
-                        - @articles.facets['timeline']['entries'].each do |facet|
-                            - year = Time.at(facet['time']/1000).strftime("%Y")
-                            - if !current_page?(params.merge(:published_on => year, :page => 1))
-                                %li.subitem
-                                    = link_to params.merge(:published_on => year, :page => 1) do
-                                        = year
-                                        %span= facet['count']
+                %ul.subitems
+                    - @articles.facets['timeline']['entries'].each do |facet|
+                        - year = Time.at(facet['time']/1000).strftime("%Y")
+                        - if !current_page?(params.merge(:published_on => year, :page => 1))
+                            %li.subitem
+                                = link_to params.merge(:published_on => year, :page => 1) do
+                                    = year
+                                    %span= facet['count']
 
-                            - else
-                                %li.subitem.selected
-                                    = year.to_s
-                                    %span= link_to "Remove", params.except(:published_on)
+                        - else
+                            %li.subitem.selected
+                                = year.to_s
+                                %span= link_to "Remove", params.except(:published_on)
 
-        .span9
-            %table.table.table-striped
-                %thead
+    .span9
+        %table.table.table-striped
+            %thead
+                %tr
+                    %th Title
+                    %th Author
+                    %th Published On
+                    %th{ :style => 'width: 80px'} Actions
+
+            %tbody
+                - @articles.results.each do |article|
                     %tr
-                        %th Title
-                        %th Author
-                        %th Published On
-                        %th{ :style => 'width: 80px'} Actions
+                        %td= raw article.highlight ? article.highlight.title[0] : article.title
+                        %td= article.author
+                        %td= article.published_on
+                        %td.actions
+                            = link_to article, :class => "btn btn-small" do
+                                %i.icon-eye-open
+                            = link_to edit_article_path(article),  :class => "btn btn-small" do
+                                %i.icon-pencil
 
-                %tbody
-                    - @articles.results.each do |article|
-                        %tr
-                            %td= raw article.highlight ? article.highlight.title[0] : article.title
-                            %td= article.author
-                            %td= article.published_on
-                            %td.actions
-                                = link_to article, :class => "btn btn-small" do
-                                    %i.icon-eye-open
-                                = link_to edit_article_path(article),  :class => "btn btn-small" do
-                                    %i.icon-pencil
-
-            = will_paginate @articles
+        = page_entries_info @articles
+        = will_paginate @articles, :page_links => false
 

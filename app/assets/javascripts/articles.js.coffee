@@ -38,3 +38,19 @@ $ ->
         #         username : "Some User",
         #         staffid : "991234"
         # }
+
+
+    Morris.Line
+        element: 'articles_graph'
+        pointSize: 1
+        data: [
+          {y: '2013', a: 246}
+          {y: '2012', a: 103}
+          {y: '2011', a: 66}
+          {y: '2010', a: 204}
+          {y: '2009', a: 27}
+        ]
+        xkey: 'y'
+        ykeys: ['a']
+        labels: ['Series a']
+        lineColors: [ '#86a000' ]

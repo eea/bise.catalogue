@@ -2,11 +2,11 @@
     = @article.title
 
 - content_for :actions do
-    = link_to  articles_path, :class => "btn squared-button" do
-        = image_tag '/assets/arrow_left.png'
+    = link_to articles_path, :class => "btn" do
+        %i.icon-reply
         Back
-    = link_to  edit_article_path(@article), :class => "btn squared-button" do
-        = image_tag '/assets/pencil32.png'
+    = link_to  edit_article_path(@article), :class => "btn" do
+        %i.icon-pencil
         Edit
 
 
@@ -18,20 +18,43 @@
         = notice
 
 .container
-    %div.row
-        %div.span2
+
+    .row
+        %div.span2{ :style => 'text-align:right'}
             %b Published on:
         %div.span10
             = @article.published_on
-    %hr
 
-    %div.row
-        %div.span2
+    .row
+        .span10.offset2
+            %hr.divider
+
+    .row
+        %div.span2{ :style => 'text-align:right'}
+            %b Author :
+        %div.span10
+            = @article.author
+
+    .row
+        .span10.offset2
+            %hr.divider
+
+    .row
+        %div.span2{ :style => 'text-align:right'}
+            %b Source URL :
+        %div.span10
+            = @article.source_url
+
+
+    .row
+        .span10.offset2
+            %hr.divider
+
+    .row
+        %div.span2{ :style => 'text-align:right'}
             %b Content:
         %div.span10
             = raw @article.content
-
-    %hr
 
     / = link_to 'Edit', edit_article_path(@article)
     / = link_to 'Back', articles_path, :class => "btn"
