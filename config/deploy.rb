@@ -8,6 +8,7 @@ set :repository,  "git@i3apps.sytes.net:jonarrien/catalogue.git"
 set :branch, "master"
 
 set :user, "deployer"
+set :password, "anboto83"
 set :deploy_to, "/home/#{user}/apps/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
