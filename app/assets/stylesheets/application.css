@@ -13,7 +13,7 @@
  *= require layouts
  *= require controls
  *= require articles
- * require tinymce/themes/advanced/skins/thebigreason/content
- * require tinymce/themes/advanced/skins/thebigreason/ui
+ *= require tinymce/themes/advanced/skins/thebigreason/content
+ *= require tinymce/themes/advanced/skins/thebigreason/ui
  * require_tree .
  */
