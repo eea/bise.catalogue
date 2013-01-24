@@ -3,6 +3,7 @@ require "bundler/capistrano"
 # server "192.168.1.215", :web, :app, :db, primary: true
 
 set :application, "catalogue"
+set :user, "deployer"
 set :repository,  "git@i3apps.sytes.net:jonarrien/catalogue.git"
 set :branch, "master"
 
