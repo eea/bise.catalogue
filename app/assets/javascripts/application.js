@@ -20,6 +20,3 @@
 //= require twitter/bootstrap/bootstrap-collapse
 //= require raphael
 //= require morris
-
-// removed for chart bug
-// require_tree .
