@@ -16,4 +16,6 @@
 //= require tinymce-jquery
 //= require raphael
 //= require morris
-//= require_tree .
+
+// removed for chart bug
+// require_tree .
