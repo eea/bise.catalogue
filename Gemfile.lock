@@ -98,6 +98,8 @@ GEM
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     pg (0.13.2)
+    polyamorous (0.5.0)
+      activerecord (~> 3.0)
     polyglot (0.3.3)
     pry (0.9.10)
       coderay (~> 1.0.5)
@@ -136,12 +138,17 @@ GEM
       thor (>= 0.14.6, < 2.0)
     raindrops (0.10.0)
     rake (10.0.3)
+    ransack (0.7.2)
+      actionpack (~> 3.0)
+      activerecord (~> 3.0)
+      polyamorous (~> 0.5.0)
     rdf (0.3.11.1)
       addressable (>= 2.2.6)
     rdoc (3.12)
       json (~> 1.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    rmagick (2.13.1)
     rspec (2.11.0)
       rspec-core (~> 2.11.0)
       rspec-expectations (~> 2.11.0)
@@ -217,7 +224,9 @@ DEPENDENCIES
   pry-rails
   pry-stack_explorer
   rails (= 3.2.9)
+  ransack
   rdf
+  rmagick
   rspec
   rspec-rails
   ruby-prof

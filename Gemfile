@@ -17,7 +17,6 @@ group :assets do
 
     gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
     # gem "twitter-bootstrap-rails"
-    gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
     # See https://github.com/sstephenson/execjs#readme for more supported runtimes
     # gem 'therubyracer', :platforms => :ruby
@@ -26,12 +25,16 @@ group :assets do
     gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-gem 'tire'
-
 gem 'haml'
-
+gem 'jquery-rails'
 gem 'tinymce-rails'
+
+# Advanced Search
+gem 'tire'
+gem 'ransack'
+
+
+gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 gem 'rdf'
 
@@ -72,5 +75,6 @@ gem 'simple_form'
 
 # gem "paperclip"
 gem 'carrierwave'
+gem 'rmagick'
 
 # gem "flagship_docs", :git => "https://github.com/wtg/flagship_docs.git"

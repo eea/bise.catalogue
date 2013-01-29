@@ -40,18 +40,25 @@ $ ->
         # }
 
 
-    if ($("#articles_graph"))
-        Morris.Line
+    if ($("#articles_graph").length > 0)
+        Morris.Bar
             element: 'articles_graph'
             pointSize: 1
             data: [
-              {y: '2013', a: 246}
-              {y: '2012', a: 103}
-              {y: '2011', a: 66}
-              {y: '2010', a: 204}
-              {y: '2009', a: 27}
+              {y: 'January', a: 246}
+              {y: 'February', a: 103}
+              {y: 'February', a: 246}
+              {y: 'April', a: 103}
+              {y: 'May', a: 66}
+              {y: 'June', a: 204}
+              {y: 'July', a: 27}
+              {y: 'August', a: 246}
+              {y: 'September', a: 103}
+              {y: 'October', a: 66}
+              {y: 'November', a: 204}
+              {y: 'December', a: 27}
             ]
             xkey: 'y'
             ykeys: ['a']
             labels: ['Series a']
-            lineColors: [ '#86a000' ]
+            barColors: [ '#86a000' ]
