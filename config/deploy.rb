@@ -8,18 +8,20 @@ set :repository,  "git@i3apps.sytes.net:jonarrien/catalogue.git"
 set :branch, "master"
 
 set :user, "deployer"
-set :password, "anboto83"
+set :password, "saretex1"
 set :deploy_to, "/home/#{user}/apps/#{application}"
 set :deploy_via, :remote_cache
 set :use_sudo, false
 
+set :shared_children, shared_children + %w{public/uploads}
+
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "192.168.1.215"                          # Your HTTP server, Apache/etc
-role :app, "192.168.1.215"                          # This may be the same as your `Web` server
-role :db,  "192.168.1.215", :primary => true # This is where Rails migrations will run
-role :db,  "192.168.1.215"
+role :web, "192.168.1.225"                          # Your HTTP server, Apache/etc
+role :app, "192.168.1.225"                          # This may be the same as your `Web` server
+role :db,  "192.168.1.225", :primary => true # This is where Rails migrations will run
+role :db,  "192.168.1.225"
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true

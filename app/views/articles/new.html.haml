@@ -6,5 +6,9 @@
         %i.icon-reply
         Back
 
+
 = render 'form'
+
+- content_for :js do
+    = javascript_include_tag 'articles'
 
