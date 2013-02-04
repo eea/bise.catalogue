@@ -23,10 +23,12 @@ group :assets do
     gem 'therubyracer'
 
     gem 'uglifier', '>= 1.0.3'
+    gem 'jquery-rails'
+    gem 'jquery-fileupload-rails'
+    gem "remotipart", "~> 1.0"
 end
 
 gem 'haml'
-gem 'jquery-rails'
 gem 'tinymce-rails'
 
 # Advanced Search
@@ -77,4 +79,5 @@ gem 'simple_form'
 gem 'carrierwave'
 gem 'rmagick'
 
-# gem "flagship_docs", :git => "https://github.com/wtg/flagship_docs.git"
+# Versioning
+gem 'vestal_versions', :git => 'git://github.com/laserlemon/vestal_versions'

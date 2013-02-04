@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/laserlemon/vestal_versions
+  revision: c7aa512666b22e1a47b4fb36bb1679cb847a532e
+  specs:
+    vestal_versions (1.2.3)
+      activerecord (~> 3.0)
+      activesupport (~> 3.0)
+
+GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
   revision: 9649b2c0b12a374dfece50a3ae31cc56ad778300
   specs:
@@ -72,6 +80,9 @@ GEM
       rake (>= 0.8, < 11.0)
     i18n (0.6.1)
     journey (1.0.4)
+    jquery-fileupload-rails (0.4.0)
+      actionpack (>= 3.1)
+      railties (>= 3.1)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -146,6 +157,7 @@ GEM
       addressable (>= 2.2.6)
     rdoc (3.12)
       json (~> 1.4)
+    remotipart (1.0.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rmagick (2.13.1)
@@ -215,6 +227,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   gem-ctags
   haml
+  jquery-fileupload-rails
   jquery-rails
   less-rails
   pg
@@ -226,6 +239,7 @@ DEPENDENCIES
   rails (= 3.2.9)
   ransack
   rdf
+  remotipart (~> 1.0)
   rmagick
   rspec
   rspec-rails
@@ -240,4 +254,5 @@ DEPENDENCIES
   twitter-bootstrap-rails!
   uglifier (>= 1.0.3)
   unicorn
+  vestal_versions!
   will_paginate

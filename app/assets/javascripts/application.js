@@ -12,11 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require tinymce-jquery
 //= require twitter/bootstrap/bootstrap-transition
 //= require twitter/bootstrap/bootstrap-alert
 //= require twitter/bootstrap/bootstrap-modal
 //= require twitter/bootstrap/bootstrap-button
 //= require twitter/bootstrap/bootstrap-collapse
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //= require raphael
 //= require morris
