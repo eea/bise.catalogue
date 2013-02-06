@@ -1,0 +1,68 @@
+@import "common"
+
+#dropzone
+    +rounded(5px)
+    border: 3px dashed #cdcdcd
+    height: 250px
+    line-height: 30px
+    text-align: center
+    font-weight: bold
+    width: 90%
+    // background-image: url('/assets/filetypes/default.png')
+    // background-size: 100% 250px
+
+#dropzone.in
+    font-size: larger
+    // background: #f9e46d
+    border: 5px dashed #d4c827
+
+#dropzone.hover
+    // background: #a5c500
+    border: 7px dashed #a5d411
+
+#dropzone.fade
+    -webkit-transition: all 0.3s ease-out
+    -moz-transition: all 0.3s ease-out
+    -ms-transition: all 0.3s ease-out
+    -o-transition: all 0.3s ease-out
+    transition: all 0.3s ease-out
+    opacity: 1
+
+
+
+.filetype
+    width: 250px
+    height: 250px
+    background-size: 250px 250px
+    background-repeat: none
+.pdf
+    @extend .filetype
+    background-image: url('/assets/filetypes/pdf.png')
+.rtf
+    @extend .filetype
+    background-image: url('/assets/filetypes/rtf.png')
+.word
+    @extend .filetype
+    background-image: url('/assets/filetypes/doc.png')
+.word2010
+    @extend .filetype
+    background-image: url('/assets/filetypes/docx.png')
+.csv
+    @extend .filetype
+    background-image: url('/assets/filetypes/csv.png')
+.excel
+    @extend .filetype
+    background-image: url('/assets/filetypes/xls.png')
+.excel2010
+    @extend .filetype
+    background-image: url('/assets/filetypes/xlsx.png')
+.powerpoint
+    @extend .filetype
+    background-image: url('/assets/filetypes/ppt.png')
+.powerpoint2010
+    @extend .filetype
+    background-image: url('/assets/filetypes/pptx.png')
+.plaintext
+    @extend .filetype
+    background-image: url('/assets/filetypes/txt.png')
+
