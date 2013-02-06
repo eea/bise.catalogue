@@ -40,6 +40,9 @@ gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootst
 
 gem 'rdf'
 
+group :development do
+    gem 'better_errors'
+end
 
 group :development, :test do
     gem 'pry', '>= 0.9.10'

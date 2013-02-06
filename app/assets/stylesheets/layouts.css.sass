@@ -50,14 +50,16 @@ $header-font: 'Homenaje', arial, sans-serif
     MENU
  */
 .menu-wrapper
+    border-top: 0px solid black
     min-height: 150px
     font-size: 0.8125em
 
     ul.menu
         margin-left: 0
         list-style: none
-        border: 1px solid #969696
-        +shadowed(3px)
+        border-top: 0
+        // border: 1px solid #969696
+        // +shadowed(3px)
 
     li.item
 
@@ -69,7 +71,8 @@ $header-font: 'Homenaje', arial, sans-serif
             font-size: 14px
             color: $header-text-color
 
-            border-bottom: 1px solid $border-color
+            border: 1px solid $border-color
+            // border-top: 1px solid $border-color
             -webkit-box-shadow: inset 0px 1px 0px 0px #878e98
             -moz-box-shadow: inset 0px 1px 0px 0px #878e98
             box-shadow: inset 0px 1px 0px 0px #878e98
@@ -204,30 +207,59 @@ $header-font: 'Homenaje', arial, sans-serif
             display: block
             width: 70px
 
+
+.outter-container
+    background: white
+    border: 1px solid #cdcdcd
+    margin-left: -11px
+    margin-right: -11px
+    min-height: 550px
+
+    // padding-left: 10px
+    // padding-right: 10px
+
+    -webkit-border-radius: 7px 7px 0px 0px
+    border-radius: 7px 7px 0px 0px
+
+    -webkit-box-shadow:  0px 0px 2px 2px rgba(0, 0, 0, 0.3)
+    box-shadow:  0px 0px 2px 2px rgba(0, 0, 0, 0.3)
+
+.inner-container
+    margin-left: 10px
+    margin-right: 10px
+
 .toolbar
     +gradient( #eeeeee, #cccccc)
-    +rounded(5px)
+    // +rounded(5px)
     // +shadowed(1px)
+    -webkit-border-radius: 7px 7px 0px 0px
+    border-radius: 7px 7px 0px 0px
 
     width: 100%
-    border: 1px solid #bebebe
+    border: 1px solid #909090
 
     height: 36px
     display: inline-block
-    margin-left: 0
+    margin-left: -1px
+    // margin-left: -11px
+    // margin-right: -11px
+    margin-top: -1px
+    // margin-right: -1px
     margin-bottom: 10px
 
     .toolbar-container
         margin: 3px
 
 
+
 table.table.table-striped
-    border: 1px solid #969696
+    // border: 1px solid #969696
 
     font-family: $content-font
-    +shadowed(3px)
+    // +shadowed(3px)
 
     thead
+        border: 1px solid #969696
         th
             +gradient( $header-hightlight-color, $header-background-color)
 

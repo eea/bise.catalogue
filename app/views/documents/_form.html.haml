@@ -4,29 +4,36 @@
 /     - @document.errors.messages.each do |message|
 /         .message
 /             = message.last.last.html_safe
-= simple_form_for @document, :html => { :class => 'form-horizontal', :multipart => true } do |f|
+
+= simple_form_for @document, :html => { :class => 'form-horizontal', :multipart => true }, :remote => true do |f|
     .row
         .span8
 
-            = f.input :name, :placeholder => 'Example Document',
-                :input_html => { :class => "span6" }
-            = f.input :file, :as => :file, :label => 'File'
-            / = f.input :file, :as => :string, :label => 'File'
+            = f.input :name, :placeholder => 'Example Document', :input_html => { :class => "input-xlarge" }
 
-            / = f.input :file, :wrapper => :append do
-            /     %input{ :type => "file", :id => 'file', :style => "display:none " }
-            /     %input{ :type => "text", :id => 'lefile' }
-            /     %a.btn{ :onclick => "$('input[id=file]').click()" }
-            /         Select
 
-            = f.input :author, :placeholder => 'Author'
+            .control-group.file.required
+                %label.file.required.control-label{ :for => 'document_file' }
+                    %abbr{ :title => 'required' } *
+                    File
+                .controls
+                    %input#document_file.file.required{ :name => 'document[file]', :type => 'file' }
+
+            / = f.input :file, :as => :file, :label => 'File', :hint => "Drag a file over the form."
+            = f.input :author, :placeholder => 'Author', :input_html => { :class => "input-xlarge" }
             = f.input :description, :as => :text, :placeholder => 'Write a description here...', :input_html => { :cols => 50, :rows => 7 }
 
             %div.form-actions
                 = f.submit 'Save', :class => "btn btn-success"
                 = link_to "Cancel", documents_path, :class => "btn"
 
-        .span4
+        .span4{ :style => 'margin-left: 20px' }
 
-    / .span4
-    /     Follow the following steps to create a document in BISE Catalogue.
+            %div{ :style => '' }
+            / %label No file selected
+
+            %strong
+                Drag a file here:
+            #dropzone.fade
+            #info
+

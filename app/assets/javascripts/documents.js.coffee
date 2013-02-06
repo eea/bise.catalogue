@@ -4,40 +4,244 @@
 
 $ ->
     d = null
+    count = 0
+
+    $('#document_file').parent().parent().hide()
 
     $('#new_document').fileupload
-        dataType: "script"
+        dataType: "json"    # script
+        maxNumberOfFiles: 1
+        dropZone: $('#dropzone')
         add: (e, data) ->
-            console.log ':: adding fileupload'
-
-
-            types = /(\.|\/)(doc|docx|xls|xlsx|pdf|png)$/i
+            types = /(\.|\/)(pdf|rtf|doc|docx|csv|xls|xlsx|ppt|pptx|txt)$/i
             file = data.files[0]
             if types.test(file.type) || types.test(file.name)
-                # Draw from template
-                console.log ':: file added...'
-                # data.context = 'added...'
-                data.context = $(tmpl("template-upload", file))
-                d = data
+
+                if (count == 0)
+
+                    # Draw from template
+                    data.context = $(tmpl("template-upload", file))
+                    d = data
+                    fileSize = 0;
+                    if (file.size > 1024 * 1024)
+                        fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + ' MB'
+                    else
+                        fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + ' KB'
+
+                    info = $('<span>').addClass('badge badge-success ').html(fileSize)
+                    fileName = $('<strong>').append(file.name)
+                    fileImage = null
+                    console.log file.type
+                    switch file.type
+                        when 'application/pdf'
+                            fileImage = $('<div>').addClass('pdf')
+                        when 'application/rtf'
+                            fileImage = $('<div>').addClass('rtf')
+                        when 'application/msword'
+                            fileImage = $('<div>').addClass('word')
+                        when 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                            fileImage = $('<div>').addClass('word2010')
+                        when 'text/csv'
+                            fileImage = $('<div>').addClass('csv')
+                        when 'application/vnd.ms-excel'
+                            fileImage = $('<div>').addClass('excel')
+                        when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                            fileImage = $('<div>').addClass('excel2010')
+                        when 'application/vnd.ms-powerpoint'
+                            fileImage = $('<div>').addClass('powerpoint')
+                        when 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                            fileImage = $('<div>').addClass('powerpoint2010')
+                        when 'text/plain'
+                            fileImage = $('<div>').addClass('plaintext')
+
+
+                    $('#info').append(
+                        $('<a>').addClass('btn btn-small btn-danger pull-right').click( ()->
+                            $('#dropzone').show()
+                            $('#info').html('')
+                        ).html('Delete')
+                    )
+                    $('#info').append(fileImage)
+                    $('#info').append(info)
+                    $('#info').append('</br>')
+                    $('#info').append(fileName)
+                    $('#dropzone').hide()
+
+
+                    # $('#delete_file').click ()->
+                    #     console.log 'clicked delete button'
+                    #     $('#document_file').show()
+                    #     $('#document_file').parent().find('table').remove()
+
+                # $(':submit').click ()->
+                #     e.preventDefault()
+                #     data.submit()
+
             else
                 alert("#{file.name} is not a supported file!")
         progress: (e, data) ->
+            console.log ':: progress'
             if data.context
                 progress = parseInt(data.loaded / data.total * 100, 10)
                 data.context.find('.bar').css('width', progress + '%')
         done: (e, data) ->
-            data.context.text('Upload finished.')
+            console.log ':: DONE'
+            obj = $.parseJSON(data.xhr().response)
+            window.location = '/documents/' + obj.id
+        error: (e, data) ->
+            console.log ':: ERROR'
+            # obj = $.parseJSON(e.responseText)
+            # for field, errors of obj
+            #     console.log '--------------------------'
+            #     console.log field
+            #     for e in errors
+            #         console.log e
+
+            responseObject = $.parseJSON(e.responseText)
+            errors = $('<ul />');
+
+            $.each(responseObject, (index, value) ->
+                errors.append('<li>' + index + ':' + value + '</li>')
+            )
+
+            $(this).find('#info').html(errors);
+
+            # for k in obj
+            #     console.log '--------------------------'
+            #     console.log k
+            #     console.log obj[k]
+
+            # debugger
+
+        submit: (e, data) ->
+            console.log 'submit'
+
+
+    $(':submit').click (e)->
+        console.log 'clicked...'
+        e.preventDefault()
+        $('.form-actions').hide()
+        $('.btn-danger').remove()
+        $('#info').parent().append(d.context)
+        # $('#document_file').parent().append(d.context)
+        d.submit()
+
+
+    $(document).bind('dragover', (e)->
+        dropZone = $('#dropzone')
+        timeout = window.dropZoneTimeout;
+        if (!timeout)
+            dropZone.addClass('in');
+        else
+            clearTimeout(timeout);
+
+        if (e.target == dropZone[0])
+            dropZone.addClass('hover');
+        else
+            dropZone.removeClass('hover');
+
+        window.dropZoneTimeout = setTimeout( ()->
+            window.dropZoneTimeout = null;
+            dropZone.removeClass('in hover');
+        , 100)
+    )
+
+
+
+
+
+
+
+
+
+    #     $('.form-actions').hide()
+
+    #     if (d!=null)
+    #         console.log 'entra...'
+    #         $('#document_file').parent().append(d.context)
+    #         # d.submit()
+    #     console.log 'sended'
+
+
+    # $('#document_file').live('change', ()->
+    #     file = document.getElementById('document_file').files[0];
+    #     if (file)
+
+    #         progressTemplate = $(tmpl("template-upload", file))
+
+    # )
+
+    # fileSelected:() ->
+    #     console.log 'file selected...'
+    #     file = document.getElementById('document_file').files[0];
+    #     if (file)
+    #         console.log 'has file'
+    #         fileSize = 0;
+    #         if (file.size > 1024 * 1024)
+    #             fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB'
+    #         else
+    #             fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB'
+
+    #         progressTemplate = $(tmpl("template-upload", file))
+    #         document.getElementById('fileName').innerHTML = 'Name: ' + file.name;
+    #         document.getElementById('fileSize').innerHTML = 'Size: ' + fileSize;
+    #         document.getElementById('fileType').innerHTML = 'Type: ' + file.type;
+
+    # uploadProgress:(e)->
+    #     debugger
+    #     console.log 'progress...'
+    #     if (e.lengthComputable)
+    #       progress = Math.round(e.loaded * 100 / e.total);
+    #       document.getElementById('progressNumber').innerHTML = progress.toString() + '%';
+    #     else
+    #       document.getElementById('progressNumber').innerHTML = 'unable to compute';
+
+    #     # progress = parseInt(data.loaded / data.total * 100, 10)
+    #     # data.context.find('.bar').css('width', progress + '%')
+
+    # uploadComplete:(e)->
+    #     debugger
+    #     console.log 'complete'
+
+    # uploadFailed:(e)->
+    #     debugger
+    #     console.log 'failed'
+
+    # uploadCanceled:(e)->
+    #     debugger
+    #     console.log 'canceled'
+
+
+
+    #     xhr = new XMLHttpRequest()
+    #     # fd = document.getElementById('new_document').getFormData()
+    #     fd = new FormData();
+    #     fd.append("document[name]", $('#document_name').val());
+    #     fd.append("document[file]", document.getElementById('document_file').files[0]);
+    #     fd.append("document[author]", $('#document_author').val());
+    #     fd.append("document[description]", $('#document_description').val())
+
+
+    #     xhr.upload.addEventListener("progress", @uploadProgress, false)
+    #     xhr.addEventListener("load", @uploadComplete, false)
+    #     xhr.addEventListener("error", @uploadFailed, false)
+    #     xhr.addEventListener("abort", @uploadCanceled, false)
+
+    #     xhr.open("POST", "/documents")
+    #     xhr.send(fd)
+    #     console.log 'sended...'
+
 
 
 
     # $('form[data-remote]')
-    $(':submit').click (e) ->
-        e.preventDefault()
-        $('.form-actions').hide()
+# $(':submit').click (e) ->
+#     # e.preventDefault()
+#     $('.form-actions').hide()
 
-        if (d!=null)
-            $('#document_file').parent().append(d.context)
-            d.submit()
+        # if (d!=null)
+            # $('#document_file').parent().append(d.context)
+            # d.submit()
 
 
     #     data.context = $('<button/>').text('Upload').appendTo(document.body).click () ->
@@ -58,6 +262,11 @@ $ ->
     # progressHandler: (e) ->
     #     console.log ':: progress handler... '
 
+# $('#new_document').bind("ajax:success", (evt, data, status, xhr) ->
+#     debugger
+#     $('.progress')[0].addClass('progress-success')
+#     window.location.href = '/documents'
+# )
 
 
     # $('#new_document').bind("ajax:beforeSend", (evt, xhr, settings)->
