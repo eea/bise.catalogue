@@ -80,13 +80,15 @@ $ ->
             else
                 alert("#{file.name} is not a supported file!")
         progress: (e, data) ->
-            console.log ':: progress'
+            console.log ':: progress =>    ( ' + data.loaded + ' / ' + data.total + ')'
             if data.context
                 progress = parseInt(data.loaded / data.total * 100, 10)
+                console.log ':: progress => ' + progress + '%'
                 data.context.find('.bar').css('width', progress + '%')
         done: (e, data) ->
             console.log ':: DONE'
             obj = $.parseJSON(data.xhr().response)
+            console.log obj
             window.location = '/documents/' + obj.id
         error: (e, data) ->
             console.log ':: ERROR'

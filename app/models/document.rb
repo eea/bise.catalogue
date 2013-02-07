@@ -7,11 +7,19 @@ class Document < ActiveRecord::Base
     attr_accessible :name
     attr_accessible :description
     attr_accessible :author
-    attr_accessible :downloads    ########################## ELASTIC SEARCH
+    attr_accessible :downloads
 
+    attr_accessible :file
+    mount_uploader :file, FileUploader
+
+
+
+
+    # ELASTIC SEARCH
+    index_name "#{Tire::Model::Search.index_prefix}documents"
 
     # :_source => { :excludes => ['attachment'] }
-    mapping do
+    mapping  :_source => { :excludes => ['attachment'] } do
         indexes :id, :index    => :not_analyzed
         indexes :name, :analyzer => 'snowball', :boost => 100
         indexes :description, :analyzer => 'snowball'
@@ -28,25 +36,24 @@ class Document < ActiveRecord::Base
 
 
 
-    before_validation :compute_hash
 
     validates_presence_of :name, :on => :create, :message => "Can't be blank."
     validates_presence_of :file, :on => :create, :message => "Can't be blank."
     validate :uniqueness_of_md5hash, :on => :create
 
-    attr_accessible :file
-    mount_uploader :file, FileUploader
-
+    before_validation :compute_hash
     before_save :update_file_info
 
 
     def self.search(params)
         tire.search :load => true, :page => params[:page], :per_page => 10 do
             query { string params[:query], :default_operator => "AND"} if params[:query].present?
-            highlight :name
+
+            highlight :name, :options => { :tag => '<strong class="highlight">' }
 
             filter :term, :author => params[:author] if params[:author].present?
-            # sort { by :published_on, "desc" } if params[:query].blank?
+
+            sort { by :created_at, "desc" } # if params[:query].blank?
 
             facet 'authors' do
                 terms :author
@@ -54,18 +61,13 @@ class Document < ActiveRecord::Base
         end
     end
 
-
-
     def to_indexed_json
         to_json(:methods => [:attachment])
     end
 
     def attachment
         if file.present?
-            # path_to_file = Rails.root + '/public/uploads/' + self.class.name.downcase + '/file/' + self.id
             path_to_file = Rails.root.to_s + '/public' + file_url.to_s
-            # binding.pry
-          # path_to_pdf = "/Volumes/Calvin/sample_pdfs/#{filename}.pdf"
             Base64.encode64(open(path_to_file) { |f| f.read })
         else
             Base64.encode64("missing")
