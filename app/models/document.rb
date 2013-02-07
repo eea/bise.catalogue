@@ -46,7 +46,8 @@ class Document < ActiveRecord::Base
 
 
     def self.search(params)
-        tire.search :load => true, :page => params[:page], :per_page => 10 do
+        # :load => true,
+        tire.search :page => params[:page], :per_page => 10 do
             query { string params[:query], :default_operator => "AND"} if params[:query].present?
 
             highlight :name, :options => { :tag => '<strong class="highlight">' }

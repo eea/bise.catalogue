@@ -107,7 +107,7 @@ $ ->
                     setTimeout( ()->
                         console.log 'after timeout'
                         $('#prog-modal').find('.modal-header')
-                            .html('Indexing...')
+                            .html('<b>Indexing...</b>')
                         $('#prog-modal').find('.modal-body')
                             .html('This process could take a while, please wait.')
                     , 500)
