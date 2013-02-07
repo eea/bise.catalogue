@@ -3,12 +3,40 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $ ->
+
+    progressModal = $("#prog-modal").modal({
+        "backdrop"  : "static",
+        "keyboard"  : true,
+        "show"      : false
+    })
+    errorModal = $("#err-modal").modal({
+        "backdrop"  : "static",
+        "keyboard"  : true,
+        "show"      : false
+    })
+
+    $("#err-modal").on("show", () ->
+        $("#err-modal a.btn").on("click", (e) ->
+            $("#err-modal").modal('hide')
+            # Cancel uploads
+            upload.ajaxStop()
+        )
+    )
+
+    # $("#prog-modal").on("hide", () ->
+    #     $("#prog-modal a.btn").off("click");
+    # )
+
+    # $("#prog-modal").on("hidden", () ->
+    #     $("#prog-modal").remove();
+    # )
+
     d = null
     count = 0
 
     $('#document_file').parent().parent().hide()
 
-    $('#new_document').fileupload
+    upload = $('#new_document').fileupload
         dataType: "json"    # script
         maxNumberOfFiles: 1
         dropZone: $('#dropzone')
@@ -18,9 +46,9 @@ $ ->
             if types.test(file.type) || types.test(file.name)
 
                 if (count == 0)
-
                     # Draw from template
-                    data.context = $(tmpl("template-upload", file))
+                    # data.context = $(tmpl("template-upload", file))
+                    data.context = $('.upload')
                     d = data
                     fileSize = 0;
                     if (file.size > 1024 * 1024)
@@ -66,17 +94,7 @@ $ ->
                     $('#info').append('</br>')
                     $('#info').append(fileName)
                     $('#dropzone').hide()
-
-
-                    # $('#delete_file').click ()->
-                    #     console.log 'clicked delete button'
-                    #     $('#document_file').show()
-                    #     $('#document_file').parent().find('table').remove()
-
-                # $(':submit').click ()->
-                #     e.preventDefault()
-                #     data.submit()
-
+                    count++
             else
                 alert("#{file.name} is not a supported file!")
         progress: (e, data) ->
@@ -91,42 +109,33 @@ $ ->
             console.log obj
             window.location = '/documents/' + obj.id
         error: (e, data) ->
-            console.log ':: ERROR'
-            # obj = $.parseJSON(e.responseText)
-            # for field, errors of obj
-            #     console.log '--------------------------'
-            #     console.log field
-            #     for e in errors
-            #         console.log e
-
             responseObject = $.parseJSON(e.responseText)
             errors = $('<ul />');
 
             $.each(responseObject, (index, value) ->
-                errors.append('<li>' + index + ':' + value + '</li>')
+                # errors.append('<li>' + index + ':' + value + '</li>')
+                errors.append('<li>' + value + '</li>')
             )
 
-            $(this).find('#info').html(errors);
-
-            # for k in obj
-            #     console.log '--------------------------'
-            #     console.log k
-            #     console.log obj[k]
-
-            # debugger
+            errorModal.find('.errors').append(errors)
+            progressModal.modal('hide')
+            errorModal.modal('show')
+            return
 
         submit: (e, data) ->
             console.log 'submit'
 
 
     $(':submit').click (e)->
-        console.log 'clicked...'
         e.preventDefault()
-        $('.form-actions').hide()
-        $('.btn-danger').remove()
-        $('#info').parent().append(d.context)
-        # $('#document_file').parent().append(d.context)
-        d.submit()
+        if count > 0
+            # $('#prog-modal').modal('show')
+            progressModal.modal('show')
+            # $('.form-actions').hide()
+            # $('.btn-danger').remove()
+            d.submit()
+        else
+            alert 'something nasty happes'
 
 
     $(document).bind('dragover', (e)->
@@ -147,6 +156,11 @@ $ ->
             dropZone.removeClass('in hover');
         , 100)
     )
+
+
+
+
+    # --------------------------------------------------------------
 
 
 
