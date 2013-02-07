@@ -34,7 +34,7 @@ $ ->
     d = null
     count = 0
 
-    $('#document_file').parent().parent().hide()
+    # $('#document_file').parent().parent().hide()
 
     upload = $('#new_document').fileupload
         dataType: "json"    # script
@@ -103,6 +103,16 @@ $ ->
                 progress = parseInt(data.loaded / data.total * 100, 10)
                 console.log ':: progress => ' + progress + '%'
                 data.context.find('.bar').css('width', progress + '%')
+                if progress == 100
+                    setTimeout( ()->
+                        console.log 'after timeout'
+                        $('#prog-modal').find('.modal-header')
+                            .html('Indexing...')
+                        $('#prog-modal').find('.modal-body')
+                            .html('This process could take a while, please wait.')
+                    , 500)
+                    return
+
         done: (e, data) ->
             console.log ':: DONE'
             obj = $.parseJSON(data.xhr().response)

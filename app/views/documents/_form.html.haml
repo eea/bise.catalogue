@@ -12,7 +12,7 @@
             = f.input :name, :placeholder => 'Example Document', :input_html => { :class => "input-xlarge" }
 
 
-            .control-group.file.required
+            .control-group.file.required.hide
                 %label.file.required.control-label{ :for => 'document_file' }
                     %abbr{ :title => 'required' } *
                     File
@@ -34,6 +34,7 @@
 
             %strong
                 Drag a file here:
+                %small (max. 100MB)
             #dropzone.fade
             #info
 
