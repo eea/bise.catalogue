@@ -44,7 +44,7 @@ class Document < ActiveRecord::Base
     before_validation :compute_hash
     before_save :update_file_info
 
-    after_create :update_documents_index
+    after_save :update_documents_index
 
     def self.search(params)
         tire.search :load => true, :page => params[:page], :per_page => 10 do
