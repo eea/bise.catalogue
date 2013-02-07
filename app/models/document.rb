@@ -44,10 +44,10 @@ class Document < ActiveRecord::Base
     before_validation :compute_hash
     before_save :update_file_info
 
+    after_create :update_documents_index
 
     def self.search(params)
-        # :load => true,
-        tire.search :page => params[:page], :per_page => 10 do
+        tire.search :load => true, :page => params[:page], :per_page => 10 do
             query { string params[:query], :default_operator => "AND"} if params[:query].present?
 
             highlight :name, :options => { :tag => '<strong class="highlight">' }
@@ -82,6 +82,10 @@ class Document < ActiveRecord::Base
     end
 
     private
+
+        def update_documents_index
+            update_index
+        end
 
         def update_file_info
             if file.present? && file_changed?
