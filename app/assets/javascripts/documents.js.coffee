@@ -119,17 +119,22 @@ $ ->
             console.log obj
             window.location = '/documents/' + obj.id
         error: (e, data) ->
-            responseObject = $.parseJSON(e.responseText)
-            errors = $('<ul />');
+            if (e != null && e.responseText != null)
+                responseObject = $.parseJSON(e.responseText)
+                errors = $('<ul />');
 
-            $.each(responseObject, (index, value) ->
-                # errors.append('<li>' + index + ':' + value + '</li>')
-                errors.append('<li>' + value + '</li>')
-            )
+                $.each(responseObject, (index, value) ->
+                    # errors.append('<li>' + index + ':' + value + '</li>')
+                    errors.append('<li>' + value + '</li>')
+                )
 
-            errorModal.find('.errors').append(errors)
-            progressModal.modal('hide')
-            errorModal.modal('show')
+                errorModal.find('.errors').append(errors)
+                progressModal.modal('hide')
+                errorModal.modal('show')
+            else
+                alert(':: ERROR')
+                console.log e
+                console.log data
             return
 
         submit: (e, data) ->
