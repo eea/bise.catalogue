@@ -36,6 +36,11 @@ $ ->
 
     # $('#document_file').parent().parent().hide()
 
+    $('#dropzone').click( ()->
+        console.log ':: open file selector...'
+        $('#document_file').click()
+    )
+
     upload = $('#new_document').fileupload
         dataType: "json"    # script
         maxNumberOfFiles: 1
@@ -56,10 +61,11 @@ $ ->
                     else
                         fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + ' KB'
 
-                    info = $('<span>').addClass('badge badge-success ').html(fileSize)
+                    infoBadge = $('<span>').addClass('badge badge-success ').html(fileSize)
                     fileName = $('<strong>').append(file.name)
+                    $('#document_name').val(file.name)
                     fileImage = null
-                    console.log file.type
+
                     switch file.type
                         when 'application/pdf'
                             fileImage = $('<div>').addClass('pdf')
@@ -90,7 +96,7 @@ $ ->
                         ).html('Delete')
                     )
                     $('#info').append(fileImage)
-                    $('#info').append(info)
+                    $('#info').append(infoBadge)
                     $('#info').append('</br>')
                     $('#info').append(fileName)
                     $('#dropzone').hide()

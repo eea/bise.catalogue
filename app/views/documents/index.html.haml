@@ -64,7 +64,7 @@
                             / = link_to document, :method => :delete, :class => "btn" do
                             /     %i.icon-pencil
 
-        = will_paginate @documents, :page_links => false
-        = page_entries_info @documents
+        = will_paginate @documents
+        / = page_entries_info @documents
 
 %br
