@@ -44,7 +44,9 @@ class Document < ActiveRecord::Base
     before_validation :compute_hash
     before_save :update_file_info
 
-    after_save :update_documents_index
+    after_save do
+        self.update_index # if self.state == 'published'
+    end
 
     def self.search(params)
         tire.search :load => true, :page => params[:page], :per_page => 10 do
@@ -82,10 +84,6 @@ class Document < ActiveRecord::Base
     end
 
     private
-
-        def update_documents_index
-            update_index
-        end
 
         def update_file_info
             if file.present? && file_changed?
