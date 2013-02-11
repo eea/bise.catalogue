@@ -47,11 +47,9 @@ class DocumentsController < ApplicationController
       if @document.save
         format.html { redirect_to @document, :notice => 'Document was successfully created.' }
         format.json { render :json => @document, :status => :created, :location => @document }
-        format.js
       else
         format.html { render :action => "new" }
         format.json { render :json => @document.errors, :status => :unprocessable_entity }
-        format.js
       end
     end
   end
