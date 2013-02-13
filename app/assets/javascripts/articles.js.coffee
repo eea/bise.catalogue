@@ -4,6 +4,10 @@
 
 
 $ ->
+
+
+    $('#article_published_on').datepicker();
+
     # tinyMCE.init
     #     mode: 'textareas'
     #     theme: 'advanced'

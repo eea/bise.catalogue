@@ -24,6 +24,7 @@ group :assets do
 
     gem 'uglifier', '>= 1.0.3'
     gem 'jquery-rails'
+    gem 'jquery-ui-rails'
     gem 'jquery-fileupload-rails'
     gem "remotipart", "~> 1.0"
 end

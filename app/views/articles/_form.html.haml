@@ -6,7 +6,8 @@
               :input_html => { :class => "span6" }
     = f.input :source_url, :as => :string, :placeholder => 'http://example.eu',
               :input_html => { :class => "span6" }
-    = f.input :published_on, :as => :date
+    / = f.input :published_on, :as => :date
+    = f.input :published_on, :as => :string
     = f.input :published
     = f.input :content, :as => :text, :input_html => { :class => "span8 tinymce" }
 

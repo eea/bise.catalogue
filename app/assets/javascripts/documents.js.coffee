@@ -4,6 +4,8 @@
 
 $ ->
 
+    $('#document_published_on').datepicker();
+
     progressModal = $("#prog-modal").modal({
         "backdrop"  : "static",
         "keyboard"  : true,
