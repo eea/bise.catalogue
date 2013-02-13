@@ -24,7 +24,7 @@
             = f.input :author, :placeholder => 'Author', :input_html => { :class => "input-xlarge" }
             = f.input :source_url, :placeholder => 'http://biodiversity.europa.eu', :input_html => { :class => "input-xlarge" }
             / = f.input :published_on, :as => :date, :placeholder => 'Write a description here...'
-            = f.input :published_on, :as => :string
+            = f.input :published_on, :as => :string, :input_html => { :class => 'input-small' }
             = f.input :published
             = f.input :description, :as => :text, :input_html => { :class => 'tinymce', :cols => 50, :rows => 7 }
 
