@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130109091321) do
     t.text     "author"
     t.text     "source_url"
     t.date     "published_on"
+    t.boolean  "published"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
@@ -27,7 +28,10 @@ ActiveRecord::Schema.define(:version => 20130109091321) do
     t.string   "name"
     t.string   "description"
     t.string   "author"
+    t.string   "source_url"
     t.integer  "downloads"
+    t.date     "published_on"
+    t.boolean  "published"
     t.string   "file"
     t.string   "content_type"
     t.float    "file_size"

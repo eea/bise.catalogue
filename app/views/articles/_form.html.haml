@@ -4,13 +4,13 @@
 
     = f.input :title, :placeholder => 'Example Document',
               :input_html => { :class => "span6" }
-    = f.input :author, :as => :string, :placeholder => 'Write a description here...',
+    = f.input :author, :as => :string, :placeholder => 'John Doe',
               :input_html => { :class => "span6" }
-    = f.input :source_url, :as => :string, :placeholder => 'Write a description here...',
+    = f.input :source_url, :as => :string, :placeholder => 'http://example.eu',
               :input_html => { :class => "span6" }
-    = f.input :published_on, :as => :date, :placeholder => 'Write a description here...'
-    = f.input :content, :as => :text, :placeholder => 'Write a description here...',
-              :input_html => { :class => "span8 tinymce" }
+    = f.input :published_on, :as => :date
+    = f.input :published
+    = f.input :content, :as => :text, :input_html => { :class => "span8 tinymce" }
 
 
     / # = f.submit 'Save', :class => "btn"
