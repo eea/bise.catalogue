@@ -8,17 +8,24 @@ class Document < ActiveRecord::Base
     attr_accessible :description
     attr_accessible :author
     attr_accessible :downloads
-
     attr_accessible :file
     mount_uploader :file, FileUploader
 
+    validates_presence_of :name, :on => :create, :message => "Can't be blank."
+    validates_presence_of :file, :on => :create, :message => "Can't be blank."
+    validate :uniqueness_of_md5hash, :on => :create
+    before_validation :compute_hash
+    before_save :update_file_info
 
 
-
-    # ELASTIC SEARCH
     index_name "#{Tire::Model::Search.index_prefix}documents"
 
-    # :_source => { :excludes => ['attachment'] }
+
+    refresh = lambda { Tire::Index.new(index_name).refresh }
+    after_save(&refresh)
+    after_destroy(&refresh)
+
+
     mapping  :_source => { :excludes => ['attachment'] } do
         indexes :id, :index    => :not_analyzed
         indexes :name, :analyzer => 'snowball', :boost => 100
@@ -34,19 +41,9 @@ class Document < ActiveRecord::Base
         # }
     end
 
-
-
-
-    validates_presence_of :name, :on => :create, :message => "Can't be blank."
-    validates_presence_of :file, :on => :create, :message => "Can't be blank."
-    validate :uniqueness_of_md5hash, :on => :create
-
-    before_validation :compute_hash
-    before_save :update_file_info
-
-    after_save do
-        self.update_index # if self.state == 'published'
-    end
+    # after_save do
+    #     self.update_index # if self.state == 'published'
+    # end
 
     def self.search(params)
         tire.search :load => true, :page => params[:page], :per_page => 10 do
@@ -60,6 +57,10 @@ class Document < ActiveRecord::Base
 
             facet 'authors' do
                 terms :author
+            end
+
+            facet('timeline') do
+                date :created_at, :interval => 'year'
             end
         end
     end
