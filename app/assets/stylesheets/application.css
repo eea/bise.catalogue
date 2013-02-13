@@ -9,8 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require tinymce/themes/advanced/skins/thebigreason/content
- *= require tinymce/themes/advanced/skins/thebigreason/ui
  *= require layouts
  *= require controls
  *= require articles

@@ -21,7 +21,7 @@ $ ->
         # theme_advanced_resizing : true
 
         # Skin options
-        skin : "thebigreason"
+        # skin : "thebigreason"
         # skin_variant : "black",
 
         # Example content CSS (should be your site CSS)
