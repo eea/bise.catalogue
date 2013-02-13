@@ -25,7 +25,7 @@
             = f.input :source_url, :placeholder => 'http://biodiversity.europa.eu', :input_html => { :class => "input-xlarge" }
             = f.input :published_on, :as => :date, :placeholder => 'Write a description here...'
             = f.input :published
-            = f.input :description, :as => :text, :placeholder => 'Write a description here...', :input_html => { :cols => 50, :rows => 7 }
+            = f.input :description, :as => :text, :input_html => { :class => 'tinymce', :cols => 50, :rows => 7 }
 
             %div.form-actions
                 = f.submit 'Save', :class => "btn btn-success"
