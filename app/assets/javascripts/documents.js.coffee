@@ -36,10 +36,7 @@ $ ->
     d = null
     count = 0
 
-    # $('#document_file').parent().parent().hide()
-
-    $('#dropzone').click( ()->
-        console.log ':: open file selector...'
+    $('#choose_file').click( ()->
         $('#document_file').click()
     )
 
@@ -50,6 +47,7 @@ $ ->
         add: (e, data) ->
             types = /(\.|\/)(pdf|rtf|doc|docx|csv|xls|xlsx|ppt|pptx|txt)$/i
             file = data.files[0]
+
             if types.test(file.type) || types.test(file.name)
 
                 if (count == 0)
@@ -57,6 +55,7 @@ $ ->
                     # data.context = $(tmpl("template-upload", file))
                     data.context = $('.upload')
                     d = data
+
                     fileSize = 0;
                     if (file.size > 1024 * 1024)
                         fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + ' MB'
@@ -66,42 +65,49 @@ $ ->
                     infoBadge = $('<span>').addClass('badge badge-success ').html(fileSize)
                     fileName = $('<strong>').append(file.name)
                     $('#document_name').val(file.name)
-                    fileImage = null
+                    fileImage = 'default'
 
                     switch file.type
                         when 'application/pdf'
-                            fileImage = $('<div>').addClass('pdf')
+                            fileImage = 'pdf'
                         when 'application/rtf'
-                            fileImage = $('<div>').addClass('rtf')
+                            fileImage = 'rtf'
                         when 'application/msword'
-                            fileImage = $('<div>').addClass('word')
+                            fileImage = 'word'
                         when 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-                            fileImage = $('<div>').addClass('word2010')
+                            fileImage = 'word2010'
                         when 'text/csv'
-                            fileImage = $('<div>').addClass('csv')
+                            fileImage = 'csv'
                         when 'application/vnd.ms-excel'
-                            fileImage = $('<div>').addClass('excel')
+                            fileImage = 'excel'
                         when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                            fileImage = $('<div>').addClass('excel2010')
+                            fileImage = 'excel2010'
                         when 'application/vnd.ms-powerpoint'
-                            fileImage = $('<div>').addClass('powerpoint')
+                            fileImage = 'powerpoint'
                         when 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
-                            fileImage = $('<div>').addClass('powerpoint2010')
+                            fileImage = 'powerpoint2010'
                         when 'text/plain'
-                            fileImage = $('<div>').addClass('plaintext')
+                            fileImage = 'plaintext'
 
 
-                    $('#info').append(
-                        $('<a>').addClass('btn btn-small btn-danger pull-right').click( ()->
-                            $('#dropzone').show()
-                            $('#info').html('')
-                        ).html('Delete')
+                    $('#doc-preview').addClass(fileImage)
+
+                    # FILE INFO
+                    $('.file-info').html('').show()
+                    $('.file-info').append(infoBadge)
+                    $('.file-info').append(fileName)
+
+                    # REMOVE BUTTON
+                    $('.file-info').append(
+                        $('<a>').addClass('remove').click( ()->
+                            $('.buttons').show()
+                            $('.file-info').hide()
+                            $('#doc-preview').removeAttr('class').addClass('filetype')
+                            count--
+                        ).html('Remove')
                     )
-                    $('#info').append(fileImage)
-                    $('#info').append(infoBadge)
-                    $('#info').append('</br>')
-                    $('#info').append(fileName)
-                    $('#dropzone').hide()
+
+                    $('.buttons').hide()
                     count++
             else
                 alert("#{file.name} is not a supported file!")

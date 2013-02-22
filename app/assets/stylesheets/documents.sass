@@ -1,24 +1,47 @@
 @import "common"
 
+
+.doc-preview
+    border: 0
+    width: 150px
+    height: 150px
+    margin: 0 auto
+    display: inline-block
+
+.file-info
+    line-height: 30px
+
+    .remove
+        font-size: 12px
+
+    strong
+        padding-left: 10px
+        padding-right: 10px
+
 #dropzone
     +rounded(5px)
-    border: 3px dashed #cdcdcd
-    height: 250px
-    line-height: 30px
-    text-align: center
+    // border: 3px dashed #cdcdcd
+    padding-top: 15px
+    // height: 50px
+    // width: 250px
+    // line-height: 30px
+    // text-align: center
     font-weight: bold
-    width: 90%
+    // float: right
+    // width: 80%
     // background-image: url('/assets/filetypes/default.png')
     // background-size: 100% 250px
 
 #dropzone.in
     font-size: larger
     // background: #f9e46d
-    border: 5px dashed #d4c827
+    // border: 3px dashed #d4c827
+    background: #add68e
 
 #dropzone.hover
     // background: #a5c500
-    border: 7px dashed #a5d411
+    // border: 3px dashed #a5d411
+    background: #c3f29f
 
 #dropzone.fade
     -webkit-transition: all 0.3s ease-out
@@ -31,10 +54,11 @@
 
 
 .filetype
-    width: 250px
-    height: 250px
-    background-size: 250px 250px
+    width: 150px
+    height: 150px
+    background-size: 150px 150px
     background-repeat: none
+    background-image: url('/assets/filetypes/default.png')
 .pdf
     @extend .filetype
     background-image: url('/assets/filetypes/pdf.png')
