@@ -7,39 +7,53 @@
 
 
 = simple_form_for @document, :html => { :class => 'form-horizontal', :multipart => true }, :remote => true do |f|
-    .row
-        .span8
+    / .row
+    /     .span8
 
-            = f.input :name, :placeholder => 'Example Document', :input_html => { :class => "input-xlarge" }
+    / %div{ :style => '' }
+    / %strong
+    /     Drag a file here:
+    /     %small (max. 100MB)
+    / #dropzone.fade
+    / #info
+
+    #dropzone.fade
+
+        .row
+            .span9
+                = f.input :name, :placeholder => 'Example Document', :input_html => { :class => "input-xlarge" }
+                / = f.input :file, :as => :file, :label => 'File', :hint => "Drag a file over the form."
+                .control-group.file.required
+                    %label.file.required.control-label{ :for => 'document_file' }
+                        %abbr{ :title => 'required' } *
+                        File
+                    .controls
+                        .buttons
+                            %a.btn.btn-small.btn-primary#choose_file
+                                %i.icon-search
+                                Select file
+                            %input#document_file.file.required.hide{ :name => 'document[file]', :type => 'file' }
+                            %p.help-block Select or drag a file over the form
+                        .file-info
 
 
-            .control-group.file.required.hide
-                %label.file.required.control-label{ :for => 'document_file' }
-                    %abbr{ :title => 'required' } *
-                    File
-                .controls
-                    %input#document_file.file.required{ :name => 'document[file]', :type => 'file' }
+                = f.input :author, :placeholder => 'Author', :input_html => { :class => "input-xlarge" }
 
-            / = f.input :file, :as => :file, :label => 'File', :hint => "Drag a file over the form."
-            = f.input :author, :placeholder => 'Author', :input_html => { :class => "input-xlarge" }
-            = f.input :source_url, :placeholder => 'http://biodiversity.europa.eu', :input_html => { :class => "input-xlarge" }
-            / = f.input :published_on, :as => :date, :placeholder => 'Write a description here...'
-            = f.input :published_on, :as => :string, :input_html => { :class => 'input-small' }
-            = f.input :published
-            = f.input :description, :as => :text, :input_html => { :class => 'tinymce', :cols => 50, :rows => 7 }
+            .span3
+                #doc-preview.filetype
 
-            %div.form-actions
-                = f.submit 'Save', :class => "btn btn-success"
-                = link_to "Cancel", documents_path, :class => "btn"
 
-        .span4{ :style => 'margin-left: 20px' }
 
-            %div{ :style => '' }
-            / %label No file selected
+        = f.input :source_url, :placeholder => 'http://biodiversity.europa.eu', :input_html => { :class => "input-xlarge" }
+        = f.input :published_on, :as => :string, :input_html => { :class => 'input-small' }
+        = f.input :published
+        = f.input :description, :as => :text, :input_html => { :class => 'span8 tinymce', :cols => 20, :rows => 7 }
 
-            %strong
-                Drag a file here:
-                %small (max. 100MB)
-            #dropzone.fade
-            #info
+
+        %div.form-actions
+            = f.submit 'Save', :class => "btn btn-success"
+            = link_to "Cancel", documents_path, :class => "btn"
+
+            / .span4{ :style => 'margin-left: 20px' }
+
 
