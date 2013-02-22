@@ -39,7 +39,9 @@ gem 'ransack'
 
 gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
-gem 'rdf'
+# gem 'rdf'   #, '~> 0.3.8'
+gem 'ffi'           # , :git => 'git://github.com/ffi/ffi.git'
+gem 'rdf-raptor'    # , :git => 'git://github.com/ruby-rdf/rdf-raptor.git'   # , :tag => '0.4.2'
 
 group :development do
     gem 'better_errors'
@@ -76,6 +78,8 @@ gem 'capistrano'
 # gem 'debugger'
 
 gem "will_paginate"
+
+gem 'acts-as-taggable-on'
 
 gem 'simple_form'
 
