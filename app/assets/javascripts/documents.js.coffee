@@ -129,11 +129,17 @@ $ ->
 
         done: (e, data) ->
             console.log ':: DONE'
-            obj = $.parseJSON(data.xhr().response)
-            console.log obj
-            window.location = '/documents/' + obj.id
+            console.log data
+            if (data.xhr().response != null)
+                obj = $.parseJSON(data.xhr().response)
+                console.log obj
+                window.location = '/documents/' + obj.id
+            else
+                alert('Something rare happened...')
         error: (e, data) ->
+            console.log ':: ERROR'
             if (e != null && e.responseText != null)
+                console.log e.responseText
                 responseObject = $.parseJSON(e.responseText)
                 errors = $('<ul />');
 

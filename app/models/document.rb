@@ -7,9 +7,13 @@ class Document < ActiveRecord::Base
     attr_accessible :name
     attr_accessible :description
     attr_accessible :author
+    attr_accessible :source_url
     attr_accessible :downloads
     attr_accessible :file
     mount_uploader :file, FileUploader
+
+    attr_accessible :published_on
+    attr_accessible :published
 
     validates_presence_of :name, :on => :create, :message => "Can't be blank."
     validates_presence_of :file, :on => :create, :message => "Can't be blank."
