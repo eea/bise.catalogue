@@ -1,0 +1,76 @@
+%p#notice
+  = notice
+
+%p
+  %b Species code:
+  = @species.species_code
+</p>
+
+%p
+  %b Binomial name:
+  = @species.binomial_name
+</p>
+
+%p
+  %b Valid name:
+  = @species.valid_name
+</p>
+
+%p
+  %b Eunis primary name:
+  = @species.eunis_primary_name
+</p>
+
+%p
+  %b Synonym for:
+  = @species.synonym_for
+</p>
+
+%p
+  %b Taxonomic rank:
+  = @species.taxonomic_rank
+</p>
+
+%p
+  %b Taxonomy:
+  = @species.taxonomy
+</p>
+
+%p
+  %b Scientific name authorship:
+  = @species.scientific_name_authorship
+</p>
+
+%p
+  %b Scientific name:
+  = @species.scientific_name
+</p>
+
+%p
+  %b Label:
+  = @species.label
+</p>
+
+%p
+  %b Genus:
+  = @species.genus
+</p>
+
+%p
+  %b Species group:
+  = @species.species_group
+</p>
+
+%p
+  %b Name according to id:
+  = @species.name_according_to_ID
+</p>
+
+%p
+  %b Ignore on match:
+  = @species.ignore_on_match
+</p>
+
+
+= link_to 'Edit', edit_species_path(@species)
+= link_to 'Back', species_index_path

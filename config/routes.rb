@@ -1,14 +1,17 @@
 Catalogue::Application.routes.draw do
-  resources :documents
-
 
   root :to => 'articles#index'
 
+  # ARTICLES
   resources :articles do
     collection { get :search }
   end
 
+  # DOCUMENTS
+  resources :documents
 
+  # SPECIES
+  resources :species
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
