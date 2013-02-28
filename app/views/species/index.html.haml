@@ -40,16 +40,16 @@
                 %tr
                     / %th Species code
                     %th Binomial name
-                    %th Valid name
-                    %th Eunis primary name
+                    / %th Valid name
+                    / %th Eunis primary name
                     / %th Synonym for
                     / %th Taxonomic rank
                     / %th Taxonomy
                     / %th Scientific name authorship
-                    / %th Scientific name
+                    %th Scientific name
                     / %th Label
                     / %th Genus
-                    %th Species group
+                    / %th Species group
                     / %th Name according to id
                     / %th Ignore on match
                     %th
@@ -62,16 +62,16 @@
 
                         / %td= species.species_code
                         %td= species.binomial_name
-                        %td= species.valid_name
-                        %td= species.eunis_primary_name
+                        / %td= species.valid_name
+                        / %td= species.eunis_primary_name
                         / %td= species.synonym_for
                         / %td= species.taxonomic_rank
                         / %td= species.taxonomy
                         / %td= species.scientific_name_authorship
-                        / %td= species.scientific_name
+                        %td= species.scientific_name
                         / %td= species.label
                         / %td= species.genus
-                        %td= species.species_group
+                        / %td= species.species_group
                         / %td= species.name_according_to_ID
                         / %td= species.ignore_on_match
                         / %td= link_to 'Show', species

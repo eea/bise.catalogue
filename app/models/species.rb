@@ -20,16 +20,47 @@ class Species < ActiveRecord::Base
 
     index_name "#{Tire::Model::Search.index_prefix}species"
 
-    mapping do
-        indexes :id, :index    => :not_analyzed
-        indexes :binomial_name, :analyzer => 'snowball', :boost => 100
-        indexes :eunis_primary_name, :analyzer => 'snowball'
-        indexes :created_at, :type => 'date'
+    settings :analysis => {
+        :analyzer => {
+            :search_analyzer => {
+                :tokenizer => "keyword",
+                :filter => ["lowercase"]
+            },
+            :index_ngram_analyzer => {
+                :tokenizer => "keyword",
+                :filter => ["lowercase", "substring"],
+                :type => "custom"
+            }
+        },
+        :filter => {
+            :substring => {
+                :type => "nGram",
+                :min_gram => 1,
+                :max_gram => 20
+            }
+        }
+    } do
+        mapping {
+            indexes :binomial_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            indexes :scientific_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            indexes :author, :type => 'string'
+            indexes :created_at, :type => 'date'
+        }
     end
+
 
     def self.search(params)
         tire.search :load => true, :page => params[:page], :per_page => 10 do
-            query { string params[:query], :default_operator => "AND"} if params[:query].present?
+
+            query do
+                 boolean do
+                  should   { string 'binomial_name:' + params[:query].to_s }
+                  should   { string 'scientific_name:' + params[:query].to_s }
+                  # must_not { string 'published:0' }
+                end
+            end if params[:query].present?
+
+            # query { string params[:query], :default_operator => "AND"} if params[:query].present?
 
             # highlight :name, :options => { :tag => '<strong class="highlight">' }
 
