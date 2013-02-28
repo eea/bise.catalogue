@@ -11,6 +11,7 @@ class Article < ActiveRecord::Base
     attr_accessible :author
     attr_accessible :source_url
     attr_accessible :published_on
+    attr_accessible :published
 
     validates_presence_of :title, :on => :create, :message => "can't be blank"
 
@@ -22,13 +23,37 @@ class Article < ActiveRecord::Base
     after_save(&refresh)
     after_destroy(&refresh)
 
+    settings :analysis => {
+        :analyzer => {
+            :search_analyzer => {
+                :tokenizer => "keyword",
+                :filter => ["lowercase"]
+            },
+            :index_ngram_analyzer => {
+                :tokenizer => "keyword",
+                :filter => ["lowercase", "substring"],
+                :type => "custom"
+            }
+        },
+        :filter => {
+            :substring => {
+                :type => "nGram",
+                :min_gram => 1,
+                :max_gram => 20
+            }
+        }
+    } do
+        mapping {
+            indexes :title, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            indexes :content, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            indexes :author, :type => 'string'
+            indexes :published_on, :type => 'date'
+        }
+    end
 
-    mapping do
-        indexes :id,           :index    => :not_analyzed
-        indexes :title,        :type => 'string', :boots => 300                    #:analyzer => 'whitespace', :tokenizer => 'nGram' , :boost => 100
-        indexes :content       #,      :analyzer => 'snowball'
-        indexes :author        #,       :analyzer => 'snowball'
-        indexes :published_on, :type => 'date' #, :include_in_all => false
+
+    def to_indexed_json
+        self.to_json
     end
 
 
@@ -40,14 +65,16 @@ class Article < ActiveRecord::Base
         if params[:published_on].present?
             year = params[:published_on].to_i
             logger.debug ':: year => ' + year.to_s
-            date_init = DateTime.new(year, 1, 1)
+            date_init = DatedTime.new(year, 1, 1)
             date_end = DateTime.new(year, 12, 31)
         end
 
-
         tire.search :load => true, :page => params[:page], :per_page => 10 do
 
-            query { string params[:query], :default_operator => "AND"} if params[:query].present?
+            query do
+                string 'title:' + params[:query].to_s
+            end if params[:query].present?
+
             # highlight :title
 
             filter :term, :author => params[:author] if params[:author].present?
