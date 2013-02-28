@@ -55,7 +55,7 @@
                         /     = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'
 
         .container
-            .page-header
+            .pageheader
                 %h1
                     = yield :pageheader
 
@@ -67,8 +67,9 @@
                 .inner-container
                     = yield
 
-            %footer
-                %p &copy; BISE Catalogue 2013
+                %footer
+                    = image_tag  "bise_logo.png"
+                    / %p &copy; BISE Catalogue 2013
 
         / Placed at the end of the document so the pages load faster
         = javascript_include_tag "application"

@@ -16,7 +16,7 @@
 @import "twitter/bootstrap/labels-badges.less";
 @import "twitter/bootstrap/hero-unit.less";
 @import "twitter/bootstrap/utilities.less";
-// @import "twitter/bootstrap/responsive";
+@import "twitter/bootstrap/responsive";
 
 // Set the correct sprite paths
 @iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings");
@@ -75,9 +75,9 @@
 @navbarBrandColor: #8aa500;
 
 body{
-    background: #e7e7e7;
-    background-image: url('/assets/bg3.png');
-    background-repeat: repeat;
+    background: #649320;
+    background-image: url('/assets/bg4.jpg');
+    background-repeat: no-repeat;
     // padding-top: 60px;
 }
 body > .container {
@@ -132,10 +132,13 @@ textarea, .uneditable-input {
 
 
 
-.page-header {
+.pageheader {
     margin: 0;
     font-family: 'Roboto Condensed', arial, sans-serif;
     font-size: 24px;
+    h1 {
+        text-decoration: none;
+    }
 }
 
 
@@ -161,3 +164,15 @@ textarea, .uneditable-input {
 .help-block {
     font-weight: normal
 }
+
+
+
+
+
+
+
+
+// input, .search-query {
+//     width: 156px;
+//     margin-right: 30px;
+// }
