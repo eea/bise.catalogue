@@ -65,7 +65,7 @@ class Article < ActiveRecord::Base
         if params[:published_on].present?
             year = params[:published_on].to_i
             logger.debug ':: year => ' + year.to_s
-            date_init = DatedTime.new(year, 1, 1)
+            date_init = DateTime.new(year, 1, 1)
             date_end = DateTime.new(year, 12, 31)
         end
 
