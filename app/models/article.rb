@@ -72,7 +72,11 @@ class Article < ActiveRecord::Base
         tire.search :load => true, :page => params[:page], :per_page => 10 do
 
             query do
-                string 'title:' + params[:query].to_s
+                 boolean do
+                  should   { string 'title:' + params[:query].to_s }
+                  should   { string 'content:' + params[:query].to_s }
+                  # must_not { string 'published:0' }
+                end
             end if params[:query].present?
 
             # highlight :title
