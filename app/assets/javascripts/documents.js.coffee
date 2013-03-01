@@ -122,8 +122,9 @@ $ ->
                         console.log 'after timeout'
                         $('#prog-modal').find('.modal-header')
                             .html('<b>Indexing...</b>')
-                        $('#prog-modal').find('.modal-body')
-                            .html('This process could take a while, please wait.')
+                        loading = $('<div>').addClass('loading pull-right')
+                        msg = 'This process could take a while, please wait.'
+                        $('#prog-modal').find('.modal-body').html('').append(loading).append(msg)
                     , 500)
                     return
 
