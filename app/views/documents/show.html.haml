@@ -22,53 +22,31 @@
 
 .container
 
-    .row
-        %div.span2{ :style => 'text-align:right'}
-            %b Description:
-        %div.span10
-            = raw @document.description
-
-
-    .row
-        .span10.offset2
-            %hr.divider
-
-    .row
-        %div.span2{ :style => 'text-align:right'}
-            %b Author:
-        %div.span10
-            = @document.author
-
-    .row
-        .span10.offset2
-            %hr.divider
-
-    .row
-        %div.span2{ :style => 'text-align:right'}
-            %b Downloads:
-        %div.span10
-            = @document.downloads
-
-    .row
-        .span10.offset2
-            %hr.divider
-
-    .row
-        %div.span2{ :style => 'text-align:right'}
-            %b File :
-        %div.span10
-            = link_to @document.file_url, :class => "btn" do
-                %i.icon-download-alt
-                Download
-                %small
-                    (
-                    = (@document.file_size/1024).round(2)
-                    KB)
-
-
-
-
-
-
-    / = link_to 'Edit', edit_document_path(@document), :class => "btn"
-    / = link_to 'Back', documents_path, :class => "btn"
+    %table.table
+        %tbody
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Description :
+                %td
+                    = raw @document.description
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Author :
+                %td
+                    = @document.author
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Downloads :
+                %td
+                    = @document.downloads
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b File :
+                %td
+                    = link_to @document.file_url, :class => "btn" do
+                        %i.icon-download-alt
+                        Download
+                        %small
+                            (
+                            = (@document.file_size/1024).round(2)
+                            KB)

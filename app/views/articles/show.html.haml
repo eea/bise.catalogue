@@ -22,42 +22,25 @@
 
 .container
 
-    .row
-        %div.span2{ :style => 'text-align:right'}
-            %b Published on:
-        %div.span10
-            = @article.published_on
-
-    .row
-        .span10.offset2
-            %hr.divider
-
-    .row
-        %div.span2{ :style => 'text-align:right'}
-            %b Author :
-        %div.span10
-            = @article.author
-
-    .row
-        .span10.offset2
-            %hr.divider
-
-    .row
-        %div.span2{ :style => 'text-align:right'}
-            %b Source URL :
-        %div.span10
-            = @article.source_url
-
-
-    .row
-        .span10.offset2
-            %hr.divider
-
-    .row
-        %div.span2{ :style => 'text-align:right'}
-            %b Content:
-        %div.span10
-            = raw @article.content
-
-    / = link_to 'Edit', edit_article_path(@article)
-    / = link_to 'Back', articles_path, :class => "btn"
+    %table.table
+        %tbody
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Published on:
+                %td
+                    = @article.published_on
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Author :
+                %td
+                    = @article.author
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Source URL :
+                %td
+                    = @article.source_url
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Content :
+                %td
+                    = raw @article.content
