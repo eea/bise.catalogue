@@ -78,26 +78,3 @@
 
         = page_entries_info @articles
         = will_paginate @articles
-
-
-.row
-    .span12
-
-        / %a.btn{ :href => '#myModal', :role => 'button', :data => {:toggle => 'modal'}}
-        /     Launch
-
-        / %div.modal.hide{ :id => 'myModal'}
-        /     .modal-header
-        /         %button.close{ :type => 'button', :data => { :dismiss => 'modal'}}
-        /             &times;
-        /         / <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        /         %h3 Modal header
-        /     .modal-body
-        /         %p One fine body...
-        /     .modal-footer
-        /         %a.btn{ :href => "#"}
-        /             Close
-        /         %a.btn.btn-primary{ :href => '#' }
-        /             Save changes
-
-        / = content_tag :div, "", id: "articles_graph", data: { articles: articles_by_year }
