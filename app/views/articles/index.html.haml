@@ -11,19 +11,9 @@
 - content_for :js do
     = javascript_include_tag 'articles'
 
-
-
-
 .row
     .span3.menu-wrapper
         %ul.menu
-            / %li.item
-            /     %a.title{ 'href' => '#', :class => 'active' }
-            /         Search
-            /     %ul.subitems
-            /         %li.subitem-search
-            /             = form_tag articles_path, :method => 'get', :class => 'search-query' do       #
-            /                 = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'    #
 
             %li.item
                 %a.title{ 'href' => '#', :class => 'active' }
