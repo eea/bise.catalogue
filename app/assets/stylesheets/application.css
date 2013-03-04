@@ -31,6 +31,7 @@
  *= require layouts
  *= require controls
  *= require articles
+ *= require documents
  *= font-awesome
  *= require bootstrap_and_overrides
  */

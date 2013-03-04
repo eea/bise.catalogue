@@ -33,7 +33,7 @@ gem 'haml'
 gem 'tinymce-rails'
 
 # Advanced Search
-gem 'tire'
+gem 'tire', '~> 0.5.4'
 gem 'ransack'
 
 

@@ -52,11 +52,16 @@
     opacity: 1
 
 
+
+
 .loading
     background-image: url('/assets/loading_green.gif')
     width: 32px
     height: 32px
     background-size: 32px 32px
+
+
+
 
 
 .filetype
@@ -96,3 +101,31 @@
     @extend .filetype
     background-image: url('/assets/filetypes/txt.png')
 
+
+
+
+
+
+
+.document_cell
+    // border: 1px dashed orange
+    border-bottom: 1px dashed #cbcbcb
+    padding-top: 5px
+    padding-bottom: 5px
+
+    .hits
+        background: #8ea04c
+        border-bottom: 1px solid #8ea04c
+        // padding-left: 10px
+        font-size: 10px
+        line-height: 10px
+
+
+    p.hit
+        background: white
+        color: #969696
+        margin-bottom: 0
+
+    em
+        color: #86a000
+        font-weight: bold

@@ -30,20 +30,58 @@ class Document < ActiveRecord::Base
     after_destroy(&refresh)
 
 
-    mapping  :_source => { :excludes => ['attachment'] } do
-        indexes :id, :index    => :not_analyzed
-        indexes :name, :analyzer => 'snowball', :boost => 100
-        indexes :description, :analyzer => 'snowball'
-        indexes :created_at, :type => 'date'
-        indexes :attachment, :type => 'attachment'
-        # indexes :attachment, :type => 'attachment', :fields => {
-        #     :name       => { :store => 'yes' },
-        #     :content    => { :store => 'yes' },
-        #     :title      => { :store => 'yes' },
-        #     :attachment => { :term_vector => 'with_positions_offsets', :store => 'yes' },
-        #     :date       => { :store => 'yes' }
-        # }
+    settings :analysis => {
+        :analyzer => {
+            :search_analyzer => {
+                :tokenizer => "keyword",
+                :filter => ["lowercase"]
+            },
+            :index_ngram_analyzer => {
+                :tokenizer => "keyword",
+                :filter => ["lowercase", "substring"],
+                :type => "custom"
+            }
+        },
+        :filter => {
+            :substring => {
+                :type => "nGram",
+                :min_gram => 1,
+                :max_gram => 20
+            }
+        }
+    } do
+        mapping :_source => { :excludes => ['attachment'] } do
+            indexes :id, :index    => :not_analyzed
+            indexes :name, :analyzer => 'snowball', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer', :boost => 100
+            indexes :description, :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            indexes :created_at, :type => 'date'
+            indexes :author, :type => 'string'
+            indexes :attachment, :type => 'attachment', :fields => {
+                :name       => { :store => 'yes' },  # exists?!?
+                :content    => { :store => 'yes' },
+                :title      => { :store => 'yes' },
+                :attachment => { :term_vector => 'with_positions_offsets', :store => 'yes' },
+                :date       => { :store => 'yes' }
+            }
+            #, :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+        end
     end
+
+    # :_source => { :excludes => ['attachment'] }
+    # mapping do
+    #     indexes :id, :index    => :not_analyzed
+    #     indexes :name, :analyzer => 'snowball', :boost => 100
+    #     indexes :description, :analyzer => 'snowball'
+    #     indexes :created_at, :type => 'date'
+    #     indexes :attachment, :type => 'attachment'
+    #     # indexes :attachment, :type => 'attachment', :fields => {
+    #     #     :name       => { :store => 'yes' },
+    #     #     :content    => { :store => 'yes' },
+    #     #     :title      => { :store => 'yes' },
+    #     #     :attachment => { :term_vector => 'with_positions_offsets', :store => 'yes' },
+    #     #     :date       => { :store => 'yes' }
+    #     # }
+    # end
 
     # after_save do
     #     self.update_index # if self.state == 'published'
@@ -51,9 +89,16 @@ class Document < ActiveRecord::Base
 
     def self.search(params)
         tire.search :load => true, :page => params[:page], :per_page => 10 do
-            query { string params[:query], :default_operator => "AND"} if params[:query].present?
+            query do
+                 boolean do
+                  should   { string 'name:' + params[:query].to_s }
+                  should   { string 'description:' + params[:query].to_s }
+                  # must_not { string 'published:0' }
+                end
+            end if params[:query].present?
 
-            highlight :name, :options => { :tag => '<strong class="highlight">' }
+            # highlight :name, :options => { :tag => '<strong class="highlight">' }
+            highlight :name, :attachment, :description
 
             filter :term, :author => params[:author] if params[:author].present?
 
