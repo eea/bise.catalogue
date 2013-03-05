@@ -13,6 +13,11 @@ Catalogue::Application.routes.draw do
   # SPECIES
   resources :species
 
+  # EXTERNAL API
+  scope '/api' do
+    match '/search' => 'search#index'
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
