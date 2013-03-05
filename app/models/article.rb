@@ -13,6 +13,8 @@ class Article < ActiveRecord::Base
     attr_accessible :published_on
     attr_accessible :published
 
+    belongs_to :site
+
     validates_presence_of :title, :on => :create, :message => "can't be blank"
 
 

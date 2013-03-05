@@ -10,6 +10,8 @@ class CreateArticles < ActiveRecord::Migration
 
       t.boolean   :published
 
+      t.references :site
+
       t.timestamps
 
     end
