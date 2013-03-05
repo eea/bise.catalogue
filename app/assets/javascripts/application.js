@@ -51,15 +51,19 @@
 // require jquery.ui.effect-shake
 // require jquery.ui.effect-slide
 // require jquery.ui.effect-transfer
-
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require tinymce-jquery
+// TWITTER BOOTSTRAP
+//= require twitter/bootstrap
 //= require twitter/bootstrap/bootstrap-transition
 //= require twitter/bootstrap/bootstrap-alert
 //= require twitter/bootstrap/bootstrap-modal
 //= require twitter/bootstrap/bootstrap-button
 //= require twitter/bootstrap/bootstrap-collapse
+//= require twitter/bootstrap/bootstrap-tooltip
+//= require twitter/bootstrap/bootstrap-popover
+//= require bootstrap
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require raphael

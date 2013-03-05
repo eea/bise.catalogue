@@ -1,5 +1,7 @@
 class SearchController < ApplicationController
 
+    layout "embedded"
+
     def index
         @articles = Article.first
         respond_to do |format|
