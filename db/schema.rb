@@ -15,14 +15,17 @@ ActiveRecord::Schema.define(:version => 20130305114237) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
-    t.text     "content"
     t.text     "author"
+    t.text     "content"
+    t.string   "language"
+    t.text     "geographical_coverage"
+    t.text     "biographical_region"
     t.text     "source_url"
     t.date     "published_on"
     t.boolean  "published"
     t.integer  "site_id"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "documents", :force => true do |t|

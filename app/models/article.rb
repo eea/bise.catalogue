@@ -7,14 +7,20 @@ class Article < ActiveRecord::Base
     include Tire::Model::Callbacks
 
     attr_accessible :title
-    attr_accessible :content
     attr_accessible :author
+    attr_accessible :content
+    attr_accessible :language
+    attr_accessible :geographical_coverage
+    attr_accessible :biographical_region
     attr_accessible :source_url
     attr_accessible :published_on
     attr_accessible :published
+    attr_accessible :site_id
 
-    belongs_to :site
 
+    belongs_to      :site
+
+    validates_presence_of :site
     validates_presence_of :title, :on => :create, :message => "can't be blank"
 
 
