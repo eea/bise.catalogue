@@ -18,6 +18,9 @@ Catalogue::Application.routes.draw do
   # SPECIES
   resources :species
 
+  # GEMET, THESAURUS
+  resources :themes
+
   # EXTERNAL API
   scope '/api' do
     match '/search' => 'search#index'

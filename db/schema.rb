@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130305114237) do
+ActiveRecord::Schema.define(:version => 20130307102947) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -70,6 +70,12 @@ ActiveRecord::Schema.define(:version => 20130305114237) do
     t.boolean  "ignore_on_match"
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "themes", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

@@ -1,0 +1,80 @@
+administration:
+    title: 'administration'
+agriculture:
+    title: 'agriculture'
+air:
+    title: 'air'
+animal:
+    title: 'animal husbandry'
+biology:
+    title: 'biology'
+building:
+    title: 'building'
+chemistry:
+    title: 'chemistry'
+climate:
+    title: 'climate'
+disasters:
+    title: 'disasters, accidents, risk'
+economics:
+    title: 'economics'
+energy:
+    title: 'energy'
+environmental:
+    title: 'environmental policy'
+fishery:
+    title: 'fishery'
+food:
+    title: 'food, drinking water'
+forestry:
+    title: 'forestry'
+general:
+    title: 'general'
+geography:
+    title: 'geography'
+human:
+    title: 'human health'
+industry:
+    title: 'industry'
+information:
+    title: 'information'
+legislation:
+    title: 'legislation'
+materials:
+    title: 'materials'
+military:
+    title: 'military aspects'
+natural:
+    title: 'natural areas, landscape, ecosystems'
+natural:
+    title: 'natural dynamics'
+noise:
+    title: 'noise, vibrations'
+physics:
+    title: 'physics'
+pollution:
+    title: 'pollution'
+radiations:
+    title: 'radiations'
+research:
+    title: 'research'
+resources:
+    title: 'resources'
+social:
+    title: 'social aspects, population'
+soil:
+    title: 'soil'
+space:
+    title: 'space'
+tourism:
+    title: 'tourism'
+trade:
+    title: 'trade, services'
+transport:
+    title: 'transport'
+urban:
+    title: 'urban environment, urban stress'
+waste:
+    title: 'waste'
+water:
+    title: 'water'
