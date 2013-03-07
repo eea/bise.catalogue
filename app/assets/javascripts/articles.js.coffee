@@ -11,6 +11,10 @@ $ ->
         style:
             enabled: "success",
             disabled: "danger"
+        label:
+            enabled: "YES",
+            disabled: "NO"
+
     )
 
     # tinyMCE.init
