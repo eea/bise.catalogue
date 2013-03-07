@@ -21,7 +21,7 @@ class Article < ActiveRecord::Base
     belongs_to      :site
 
     validates_presence_of :site
-    validates_presence_of :title, :on => :create, :message => "can't be blank"
+    validates_presence_of :title, :message => "can't be blank"
 
 
     index_name "#{Tire::Model::Search.index_prefix}articles"

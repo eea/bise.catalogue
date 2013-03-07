@@ -9,18 +9,12 @@
     = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true #, :input_html => { :class => "input-xlarge"}
     = f.input :source_url, :as => :string, :placeholder => 'http://example.eu'
 
+    = f.input :published, :wrapper => :toggle do
+        = f.check_box :published
     = f.input :published_on, :wrapper => :prepend do
         %span.add-on
             %i.icon-calendar
         = f.input_field :published_on, :as => :string, :class => 'input-small'
-    /= f.input :published_on, :as => :string , :input_html => { :class => 'input-small' }
-    / = f.input :published
-
-    = f.input :published, :wrapper => :toggle do
-        = f.check_box :published
-        / = f.input :published, :label => false, :class => 'toggle-button'
-
-
 
     = f.input :content, :as => :text, :input_html => { :class => "span8 tinymce" }
 
