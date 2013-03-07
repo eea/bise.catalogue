@@ -7,6 +7,11 @@ $ ->
 
 
     $('#article_published_on').datepicker();
+    $('#article_published').parent().toggleButtons(
+        style:
+            enabled: "success",
+            disabled: "danger"
+    )
 
     # tinyMCE.init
     #     mode: 'textareas'

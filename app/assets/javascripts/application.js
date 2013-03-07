@@ -66,5 +66,6 @@
 //= require bootstrap
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require jquery.toggle.buttons
 //= require raphael
 //= require morris

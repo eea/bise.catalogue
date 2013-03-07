@@ -28,6 +28,7 @@
  *= require jquery.ui.tabs
  * require jquery.ui.tooltip
 
+ *= require bootstrap-toggle-buttons
  *= require layouts
  *= require controls
  *= require articles

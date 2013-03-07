@@ -82,6 +82,17 @@ SimpleForm.setup do |config|
     end
   end
 
+  config.wrappers :toggle, :tag => 'div', :class => 'control-group', :error_class => 'error' do |t|
+    t.use :html5
+    t.use :placeholder
+    t.use :label
+    t.wrapper :tag => 'div', :class => 'controls' do |c|
+      c.wrapper :tag => 'div' do |i|
+        i.use :input
+      end
+    end
+  end
+
   # Wrappers for forms and inputs using the Twitter Bootstrap toolkit.
   # Check the Bootstrap docs (http://twitter.github.com/bootstrap)
   # to learn about the different styles for forms and inputs,
@@ -139,6 +150,7 @@ SimpleForm.setup do |config|
 
   # You can define the class to use on all forms. Default is simple_form.
   # config.form_class = :simple_form
+  config.form_class = 'simple_form form-horizontal'
 
   # You can define which elements should obtain additional classes
   # config.generate_additional_classes_for = [:wrapper, :label, :input]
