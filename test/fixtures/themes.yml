@@ -1,80 +1,120 @@
 administration:
+    id: 1
     title: 'administration'
 agriculture:
+    id: 2
     title: 'agriculture'
 air:
+    id: 3
     title: 'air'
 animal:
+    id: 4
     title: 'animal husbandry'
 biology:
+    id: 5
     title: 'biology'
 building:
+    id: 6
     title: 'building'
 chemistry:
+    id: 7
     title: 'chemistry'
 climate:
+    id: 8
     title: 'climate'
 disasters:
+    id: 9
     title: 'disasters, accidents, risk'
 economics:
+    id: 10
     title: 'economics'
 energy:
+    id: 11
     title: 'energy'
 environmental:
+    id: 12
     title: 'environmental policy'
 fishery:
+    id: 13
     title: 'fishery'
 food:
+    id: 14
     title: 'food, drinking water'
 forestry:
+    id: 15
     title: 'forestry'
 general:
+    id: 16
     title: 'general'
 geography:
+    id: 17
     title: 'geography'
 human:
+    id: 18
     title: 'human health'
 industry:
+    id: 19
     title: 'industry'
 information:
+    id: 20
     title: 'information'
 legislation:
+    id: 21
     title: 'legislation'
 materials:
+    id: 22
     title: 'materials'
 military:
+    id: 23
     title: 'military aspects'
 natural:
+    id: 24
     title: 'natural areas, landscape, ecosystems'
 natural:
+    id: 25
     title: 'natural dynamics'
 noise:
+    id: 26
     title: 'noise, vibrations'
 physics:
+    id: 27
     title: 'physics'
 pollution:
+    id: 28
     title: 'pollution'
 radiations:
+    id: 29
     title: 'radiations'
 research:
+    id: 30
     title: 'research'
 resources:
+    id: 31
     title: 'resources'
 social:
+    id: 32
     title: 'social aspects, population'
 soil:
+    id: 33
     title: 'soil'
 space:
+    id: 34
     title: 'space'
 tourism:
+    id: 35
     title: 'tourism'
 trade:
+    id: 36
     title: 'trade, services'
 transport:
+    id: 37
     title: 'transport'
 urban:
+    id: 38
     title: 'urban environment, urban stress'
 waste:
+    id: 39
     title: 'waste'
 water:
+    id: 40
     title: 'water'

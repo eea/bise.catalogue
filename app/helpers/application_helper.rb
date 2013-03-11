@@ -49,4 +49,48 @@ module ApplicationHelper
         ]
     end
 
+
+    def ecosystems
+        [
+            'Agro-ecosystems and grasslands',
+            'Coastal',
+            'Forest',
+            'Ice / Rock / Polar',
+            'Islands',
+            'Lakes, rivers and wetlands',
+            'Marine',
+            'Mountains',
+            'Heath and scrubs',
+            'Urban'
+        ]
+    end
+
+    def languages
+        [
+            'Bulgarian',
+            'Czech',
+            'Danish',
+            'Dutch',
+            'English',
+            'Estonian',
+            'Finnish',
+            'French',
+            'German',
+            'Greek',
+            'Hungarian',
+            'Irish',
+            'Italian',
+            'Latvian',
+            'Lithuanian',
+            'Maltese',
+            'Polish',
+            'Portuguese',
+            'Romanian',
+            'Slovak',
+            'Slovenian',
+            'Spanish',
+            'Swedish'
+        ]
+    end
+
 end

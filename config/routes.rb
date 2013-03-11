@@ -1,7 +1,5 @@
 Catalogue::Application.routes.draw do
 
-
-
   root :to => 'articles#index'
 
   # SITES
@@ -20,8 +18,9 @@ Catalogue::Application.routes.draw do
 
   # GEMET, THESAURUS
   resources :themes
+  resources :concepts
 
-  # EXTERNAL API
+  # API
   scope '/api' do
     match '/search' => 'search#index'
   end

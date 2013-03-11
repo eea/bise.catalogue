@@ -9,16 +9,20 @@ class Article < ActiveRecord::Base
     attr_accessible :title
     attr_accessible :author
     attr_accessible :content
+
     attr_accessible :language
     attr_accessible :geographical_coverage
     attr_accessible :biographical_region
+
     attr_accessible :source_url
+
     attr_accessible :published_on
     attr_accessible :published
+
     attr_accessible :site_id
-
-
+    attr_accessible :theme_id
     belongs_to      :site
+    belongs_to      :theme
 
     validates_presence_of :site
     validates_presence_of :title, :message => "can't be blank"
@@ -54,8 +58,12 @@ class Article < ActiveRecord::Base
         mapping {
             indexes :title, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :content, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            indexes :language, :type => 'string'
+            indexes :geographical_coverage, :type => 'string'
+            indexes :biographical_region, :type => 'string'
             indexes :author, :type => 'string'
             indexes :published_on, :type => 'date'
+            indexes :theme
         }
     end
 
@@ -90,6 +98,8 @@ class Article < ActiveRecord::Base
             # highlight :title
 
             filter :term, :author => params[:author] if params[:author].present?
+            filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
+            filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
             filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
             sort { by :published_on, "desc" } if params[:query].blank?
@@ -98,12 +108,26 @@ class Article < ActiveRecord::Base
                 terms :author
             end
 
+            facet 'geographical_coverages' do
+                terms :geographical_coverage
+            end
+
+            facet 'biographical_regions' do
+                terms :biographical_region
+            end
+
+            # facet 'themes' do
+            #     terms :theme_id
+            # end
+
             facet('timeline') do
                 date :published_on, :interval => 'year'
             end
-
         end
-
     end
+
+    # def theme
+    #     theme.title
+    # end
 
 end

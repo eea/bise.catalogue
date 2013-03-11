@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130307102947) do
+ActiveRecord::Schema.define(:version => 20130307104456) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -24,24 +24,39 @@ ActiveRecord::Schema.define(:version => 20130307102947) do
     t.date     "published_on"
     t.boolean  "published"
     t.integer  "site_id"
+    t.integer  "theme_id"
     t.datetime "created_at",            :null => false
     t.datetime "updated_at",            :null => false
   end
 
+  create_table "concepts", :force => true do |t|
+    t.string   "title"
+    t.integer  "parent"
+    t.text     "definition"
+    t.integer  "theme_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "documents", :force => true do |t|
-    t.string   "name"
-    t.string   "description"
+    t.string   "title"
     t.string   "author"
+    t.string   "description"
+    t.string   "language"
+    t.text     "geographical_coverage"
+    t.text     "biographical_region"
     t.string   "source_url"
-    t.integer  "downloads"
     t.date     "published_on"
     t.boolean  "published"
+    t.integer  "downloads"
     t.string   "file"
     t.string   "content_type"
     t.float    "file_size"
     t.string   "md5hash"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "site_id"
+    t.integer  "theme_id"
+    t.datetime "created_at",            :null => false
+    t.datetime "updated_at",            :null => false
   end
 
   create_table "sites", :force => true do |t|
@@ -74,8 +89,10 @@ ActiveRecord::Schema.define(:version => 20130307102947) do
 
   create_table "themes", :force => true do |t|
     t.string   "title"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "concepts_id"
+    t.integer  "articles_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
 end

@@ -1,27 +1,9 @@
-/ = @document.errors.full_messages
-
-/ - if @document.errors.any?
-/     - @document.errors.messages.each do |message|
-/         .message
-/             = message.last.last.html_safe
-
-
 = simple_form_for @document, :html => { :multipart => true }, :remote => true do |f|
-    / .row
-    /     .span8
-
-    / %div{ :style => '' }
-    / %strong
-    /     Drag a file here:
-    /     %small (max. 100MB)
-    / #dropzone.fade
-    / #info
-
     #dropzone.fade
-
         .row
             .span9
-                = f.input :name, :placeholder => 'Example Document', :input_html => { :class => "input-xlarge" }
+                = f.association :site #, :input_html => { :class => "input-xxlarge"}
+                = f.input :title, :placeholder => 'Example Document', :input_html => { :class => "input-xlarge" }
                 / = f.input :file, :as => :file, :label => 'File', :hint => "Drag a file over the form."
                 .control-group.file.required
                     %label.file.required.control-label{ :for => 'document_file' }
@@ -44,9 +26,14 @@
 
 
 
+        = f.input :geographical_coverage, :as => :select, :collection => countries, include_blank: true #, :input_html => { :class => "input-xlarge"}
+        = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true #, :input_html => { :class => "input-xlarge"}
+        = f.association :theme
+        = f.input :language, :as => :select, :collection => languages, include_blank: true
+
         = f.input :source_url, :placeholder => 'http://biodiversity.europa.eu', :input_html => { :class => "input-xlarge" }
-        = f.input :published_on, :as => :string, :input_html => { :class => 'input-small' }
         = f.input :published
+        = f.input :published_on, :as => :string, :input_html => { :class => 'input-small' }
         = f.input :description, :as => :text, :input_html => { :class => 'span8 tinymce', :cols => 20, :rows => 7 }
 
 

@@ -5,7 +5,7 @@ gem 'rails', '3.2.9'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
+# gem 'sqlite3'
 gem 'pg'
 
 
@@ -40,9 +40,14 @@ gem 'ransack'
 
 gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
-# gem 'rdf'   #, '~> 0.3.8'
-gem 'ffi'           # , :git => 'git://github.com/ffi/ffi.git'
-gem 'rdf-raptor'    # , :git => 'git://github.com/ruby-rdf/rdf-raptor.git'   # , :tag => '0.4.2'
+# RDF.rb
+gem 'rdf', '~> 0.3.8'
+gem 'rdf-spec'
+gem 'rdf-raptor', '~> 0.4.2'
+#gem 'linkeddata'
+# gem 'do_postgres'
+gem 'ffi'
+#gem 'sparql-client'
 
 group :development do
     gem 'better_errors'

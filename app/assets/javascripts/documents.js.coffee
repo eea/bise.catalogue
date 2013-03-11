@@ -64,7 +64,7 @@ $ ->
 
                     infoBadge = $('<span>').addClass('badge badge-success ').html(fileSize)
                     fileName = $('<strong>').append(file.name)
-                    $('#document_name').val(file.name)
+                    $('#document_title').val(file.name)
                     fileImage = 'default'
 
                     switch file.type

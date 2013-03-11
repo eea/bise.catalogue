@@ -1,0 +1,12 @@
+class CreateConcepts < ActiveRecord::Migration
+  def change
+    create_table :concepts do |t|
+      t.string :title
+      t.integer :parent
+      t.text :definition
+      t.references :theme
+
+      t.timestamps
+    end
+  end
+end

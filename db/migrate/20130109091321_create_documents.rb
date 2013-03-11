@@ -2,19 +2,27 @@ class CreateDocuments < ActiveRecord::Migration
   def change
     create_table :documents do |t|
 
-      t.string      :name
-      t.string      :description
+      t.string      :title
       t.string      :author
-      t.string      :source_url
-      t.integer     :downloads
-      t.date        :published_on
+      t.string      :description
 
+      t.string      :language
+      t.text        :geographical_coverage
+      t.text        :biographical_region
+
+      t.string      :source_url
+
+      t.date        :published_on
       t.boolean     :published
 
+      t.integer     :downloads
       t.string      :file
       t.string      :content_type
       t.float       :file_size
       t.string      :md5hash
+
+      t.references :site
+      t.references :theme
 
       t.timestamps
 
