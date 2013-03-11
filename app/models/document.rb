@@ -67,7 +67,7 @@ class Document < ActiveRecord::Base
             indexes :id, :index    => :not_analyzed
             indexes :title, :analyzer => 'snowball', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer', :boost => 100
             indexes :description, :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-            indexes :created_at, :type => 'date'
+            indexes :published_on, :type => 'date'
             indexes :author, :type => 'string'
             indexes :attachment, :type => 'attachment', :fields => {
                 :name       => { :store => 'yes' },  # exists?!?
@@ -115,7 +115,7 @@ class Document < ActiveRecord::Base
 
             filter :term, :author => params[:author] if params[:author].present?
 
-            sort { by :created_at, "desc" } # if params[:query].blank?
+            sort { by :published_on, "desc" } # if params[:query].blank?
 
             facet 'authors' do
                 terms :author
@@ -130,7 +130,7 @@ class Document < ActiveRecord::Base
             end
 
             facet('timeline') do
-                date :created_at, :interval => 'year'
+                date :published_on, :interval => 'year'
             end
         end
     end
