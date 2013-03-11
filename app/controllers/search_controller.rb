@@ -9,7 +9,7 @@ class SearchController < ApplicationController
         # binding.pry
 
         if !q.nil?
-            @rows = Tire.search %w(catalogue_development_articles catalogue_development_documents) do
+            @rows = Tire.search %w(catalogue_production_articles catalogue_production_documents catalogue_production_species) do
                 query do
                     boolean do
                         should   { string 'title:' + q } # if not q.nil?
