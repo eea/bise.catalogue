@@ -16,10 +16,10 @@ group :assets do
     gem 'coffee-rails', '~> 3.2.1'
 
     gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-    # gem "twitter-bootstrap-rails"
 
     # See https://github.com/sstephenson/execjs#readme for more supported runtimes
     # gem 'therubyracer', :platforms => :ruby
+    gem 'therubyracer'
 
     gem 'uglifier', '>= 1.0.3'
     gem 'jquery-rails'
@@ -28,13 +28,13 @@ group :assets do
     gem "remotipart", "~> 1.0"
 end
 
-gem "therubyracer", :require => 'v8'
+gem 'jquery-rails'
 
 gem 'haml'
 gem 'tinymce-rails'
 
 # Advanced Search
-gem 'tire', '~> 0.5.4'
+gem 'tire', '>= 0.5.4'
 gem 'ransack'
 
 
@@ -61,6 +61,7 @@ group :development, :test do
 
     # gem 'guard-sublime-ctags'
     gem 'gem-ctags'
+    gem 'railroady'
 end
 
 # To use ActiveModel has_secure_password
