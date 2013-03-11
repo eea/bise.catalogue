@@ -31,7 +31,7 @@
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Eunis primary name:
                 %td
-                    = @species.eunis_primary_name
+                    = link_to @species.eunis_primary_name, @species.eunis_primary_name
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Synonym for:
@@ -46,7 +46,7 @@
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Taxonomy:
                 %td
-                    = @species.taxonomy
+                    = link_to @species.taxonomy, @species.taxonomy
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Scientific name authorship:
@@ -71,12 +71,12 @@
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Species group:
                 %td
-                    = @species.species_group
+                    = link_to @species.species_group, @species.species_group
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Name according to id:
                 %td
-                    = @species.name_according_to_ID
+                    = link_to @species.name_according_to_ID, @species.name_according_to_ID
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Ignore on match:
