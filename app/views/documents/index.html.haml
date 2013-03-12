@@ -89,11 +89,13 @@
                 = link_to doc,  :class => "btn btn-success btn-mini pull-right" do
                     / %i.icon-eye-open
                     Read more
-                - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
-                    = raw hit['highlight']['title'].first
-                - else
-                    = doc.title
-                %small{ :style => 'color:#8ba06f' } by #{doc.author} at #{doc.created_at}
+                .title
+                    - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
+                        = raw hit['highlight']['title'].first
+                    - else
+                        = doc.title
+
+                %small by #{doc.author} at #{doc.created_at}
                 %br
                 - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
                     - att_hits = hit['highlight']['attachment']
