@@ -25,43 +25,43 @@
     %table.table
         %tbody
             %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
-                    %b Site:
-                %td
+                %td.collabel
+                    Site:
+                %td.colcontent
                     = @article.site.name
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Geographical Coverage:
-                %td
+                %td.colcontent
                     = @article.geographical_coverage
             %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Author:
-                %td
+                %td.colcontent
                     = @article.author
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Biographical Region:
-                %td
+                %td.colcontent
                     = @article.biographical_region
             %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Published on:
-                %td
+                %td.colcontent
                     = @article.published_on
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Theme:
-                %td
+                %td.colcontent
                     = @article.theme.title unless @article.theme.nil?
             %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Source URL :
-                %td
+                %td.colcontent
                     = @article.source_url
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Language :
-                %td
+                %td.colcontent
                     = @article.language
             %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Content :
                 %td{ :colspan => '3' }
                     = raw @article.content

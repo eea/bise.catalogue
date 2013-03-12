@@ -32,15 +32,15 @@
     %table.table
         %tbody
             %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Site:
-                %td
+                %td.colcontent
                     = @document.site.name unless @document.site.nil?
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Geographical Coverage:
-                %td
+                %td.colcontent
                     = @document.geographical_coverage
-                / %td{ :style => 'width: 20%;text-align: right;' }
+                / %td.collabel
                 /     %b File :
                 / %td
                 /     = link_to @document.file_url, :class => "btn btn-mini" do
@@ -51,34 +51,34 @@
                 /             = (@document.file_size/1024).round(2)
                 /             KB)
             %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Author :
-                %td
+                %td.colcontent
                     = @document.author
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Biographical Region:
-                %td
+                %td.colcontent
                     = @document.biographical_region
             %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Published on:
-                %td
+                %td.colcontent
                     = @document.published_on
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Theme:
-                %td
+                %td.colcontent
                     = @document.theme.title unless @document.theme.nil?
             %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Downloads :
-                %td
+                %td.colcontent
                     = @document.downloads
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Language :
-                %td
+                %td.colcontent
                     = @document.language
             %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
+                %td.collabel
                     %b Description :
                 %td{ :colspan => 3 }
                     = raw @document.description
