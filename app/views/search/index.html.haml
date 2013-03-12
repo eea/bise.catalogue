@@ -94,7 +94,9 @@
                             - if row.class == Article
                                 %p= row.title
                             - elsif row.class == Document
-                                %p= row.name
+                                %p= row.title
+                            - elsif row.class == Species
+                                %p= row.scientific_name
 
 
 
