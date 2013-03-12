@@ -8,6 +8,13 @@
     = link_to  edit_document_path(@document), :class => "btn" do
         %i.icon-pencil
         Edit
+    = link_to @document.file_url, :class => "btn" do
+        %i.icon-download-alt
+        Download
+        %small
+            (
+            = (@document.file_size/1024).round(2)
+            KB)
     = link_to  document_path(@document), :method => :delete, :class => "btn btn-danger pull-right" do
         %i.icon-trash
         Delete
@@ -26,27 +33,53 @@
         %tbody
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
-                    %b Description :
+                    %b Site:
                 %td
-                    = raw @document.description
+                    = @document.site.name unless @document.site.nil?
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Geographical Coverage:
+                %td
+                    = @document.geographical_coverage
+                / %td{ :style => 'width: 20%;text-align: right;' }
+                /     %b File :
+                / %td
+                /     = link_to @document.file_url, :class => "btn btn-mini" do
+                /         %i.icon-download-alt
+                /         Download
+                /         %small
+                /             (
+                /             = (@document.file_size/1024).round(2)
+                /             KB)
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Author :
                 %td
                     = @document.author
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Biographical Region:
+                %td
+                    = @document.biographical_region
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Published on:
+                %td
+                    = @document.published_on
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Theme:
+                %td
+                    = @document.theme.title unless @document.theme.nil?
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Downloads :
                 %td
                     = @document.downloads
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Language :
+                %td
+                    = @document.language
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
-                    %b File :
-                %td
-                    = link_to @document.file_url, :class => "btn" do
-                        %i.icon-download-alt
-                        Download
-                        %small
-                            (
-                            = (@document.file_size/1024).round(2)
-                            KB)
+                    %b Description :
+                %td{ :colspan => 3 }
+                    = raw @document.description
+
