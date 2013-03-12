@@ -26,21 +26,42 @@
         %tbody
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Site:
+                %td
+                    = @article.site.name
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Geographical Coverage:
+                %td
+                    = @article.geographical_coverage
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Author on:
+                %td
+                    = @article.author
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Biographical Region:
+                %td
+                    = @article.biographical_region
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
                     %b Published on:
                 %td
                     = @article.published_on
-            %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
-                    %b Author :
+                    %b Theme:
                 %td
-                    = @article.author
+                    = @article.theme.title
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Source URL :
                 %td
                     = @article.source_url
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Language :
+                %td
+                    = @article.language
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Content :
-                %td
+                %td{ :colspan => '3' }
                     = raw @article.content
