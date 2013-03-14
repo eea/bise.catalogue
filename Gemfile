@@ -92,7 +92,7 @@ gem 'simple_form'
 
 # gem "paperclip"
 gem 'carrierwave'
-gem 'rmagick'
+#gem 'rmagick'
 
 # Versioning
 gem 'vestal_versions', :git => 'git://github.com/laserlemon/vestal_versions'
