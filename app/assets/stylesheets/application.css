@@ -27,6 +27,7 @@
  * require jquery.ui.spinner
  *= require jquery.ui.tabs
  * require jquery.ui.tooltip
+ *= require fancytree/ui.fancytree
 
  *= require bootstrap-toggle-buttons
  *= require layouts

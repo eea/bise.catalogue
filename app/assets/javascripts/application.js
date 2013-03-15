@@ -67,5 +67,9 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require jquery.toggle.buttons
+
+//= require fancytree/jquery.fancytree.js
+//= require fancytree/jquery.fancytree.filter.js
+
 //= require raphael
 //= require morris

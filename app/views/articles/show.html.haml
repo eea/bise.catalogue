@@ -48,18 +48,21 @@
                 %td.colcontent
                     = @article.published_on
                 %td.collabel
-                    %b Theme:
-                %td.colcontent
-                    = @article.theme.title unless @article.theme.nil?
-            %tr
-                %td.collabel
-                    %b Source URL :
-                %td.colcontent
-                    = @article.source_url
-                %td.collabel
                     %b Language :
                 %td.colcontent
                     = @article.language
+            %tr
+                %td{ :colspan => '4 ' }
+                    %b Tags
+                    %ul
+                        - @article.concepts.each do |c|
+                            %li= c.title
+
+                / %td.collabel
+                /     %b Source URL :
+                / %td.colcontent
+                /     = @article.source_url
+
             %tr
                 %td.collabel
                     %b Content :
