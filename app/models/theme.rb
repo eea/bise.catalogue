@@ -3,5 +3,5 @@ class Theme < ActiveRecord::Base
 
     has_many :concepts
 
-    has_many :articles
+    # has_many :articles
 end
