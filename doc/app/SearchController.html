@@ -194,7 +194,7 @@
     <span class="ruby-comment"># binding.pry</span>
 
     <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">q</span>.<span class="ruby-identifier">nil?</span>
-        <span class="ruby-ivar">@rows</span> = <span class="ruby-constant">Tire</span>.<span class="ruby-identifier">search</span> <span class="ruby-node">%w(catalogue_development_articles catalogue_development_documents)</span> <span class="ruby-keyword">do</span>
+        <span class="ruby-ivar">@rows</span> = <span class="ruby-constant">Tire</span>.<span class="ruby-identifier">search</span> <span class="ruby-node">%w(catalogue_production_articles catalogue_production_documents catalogue_production_species)</span> <span class="ruby-keyword">do</span>
             <span class="ruby-identifier">query</span> <span class="ruby-keyword">do</span>
                 <span class="ruby-identifier">boolean</span> <span class="ruby-keyword">do</span>
                     <span class="ruby-identifier">should</span>   { <span class="ruby-identifier">string</span> <span class="ruby-string">'title:'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">q</span> } <span class="ruby-comment"># if not q.nil?</span>

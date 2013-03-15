@@ -212,30 +212,38 @@
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/models/document.rb, line 90</span>
+            <pre><span class="ruby-comment"># File app/models/document.rb, line 104</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>)
     <span class="ruby-identifier">tire</span>.<span class="ruby-identifier">search</span> <span class="ruby-value">:load</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">:page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:page</span>], <span class="ruby-value">:per_page</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">10</span> <span class="ruby-keyword">do</span>
         <span class="ruby-identifier">query</span> <span class="ruby-keyword">do</span>
              <span class="ruby-identifier">boolean</span> <span class="ruby-keyword">do</span>
-              <span class="ruby-identifier">should</span>   { <span class="ruby-identifier">string</span> <span class="ruby-string">'name:'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>].<span class="ruby-identifier">to_s</span> }
+              <span class="ruby-identifier">should</span>   { <span class="ruby-identifier">string</span> <span class="ruby-string">'title:'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>].<span class="ruby-identifier">to_s</span> }
               <span class="ruby-identifier">should</span>   { <span class="ruby-identifier">string</span> <span class="ruby-string">'description:'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>].<span class="ruby-identifier">to_s</span> }
               <span class="ruby-comment"># must_not { string 'published:0' }</span>
             <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">end</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>].<span class="ruby-identifier">present?</span>
 
         <span class="ruby-comment"># highlight :name, :options =&gt; { :tag =&gt; '&lt;strong class=&quot;highlight&quot;&gt;' }</span>
-        <span class="ruby-identifier">highlight</span> <span class="ruby-value">:name</span>, <span class="ruby-value">:attachment</span>, <span class="ruby-value">:description</span>
+        <span class="ruby-identifier">highlight</span> <span class="ruby-value">:title</span>, <span class="ruby-value">:attachment</span>, <span class="ruby-value">:description</span>
 
         <span class="ruby-identifier">filter</span> <span class="ruby-value">:term</span>, <span class="ruby-value">:author</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:author</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:author</span>].<span class="ruby-identifier">present?</span>
 
-        <span class="ruby-identifier">sort</span> { <span class="ruby-identifier">by</span> <span class="ruby-value">:created_at</span>, <span class="ruby-string">&quot;desc&quot;</span> } <span class="ruby-comment"># if params[:query].blank?</span>
+        <span class="ruby-identifier">sort</span> { <span class="ruby-identifier">by</span> <span class="ruby-value">:published_on</span>, <span class="ruby-string">&quot;desc&quot;</span> } <span class="ruby-comment"># if params[:query].blank?</span>
 
         <span class="ruby-identifier">facet</span> <span class="ruby-string">'authors'</span> <span class="ruby-keyword">do</span>
             <span class="ruby-identifier">terms</span> <span class="ruby-value">:author</span>
         <span class="ruby-keyword">end</span>
 
+        <span class="ruby-identifier">facet</span> <span class="ruby-string">'geographical_coverages'</span> <span class="ruby-keyword">do</span>
+            <span class="ruby-identifier">terms</span> <span class="ruby-value">:geographical_coverage</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-identifier">facet</span> <span class="ruby-string">'biographical_regions'</span> <span class="ruby-keyword">do</span>
+            <span class="ruby-identifier">terms</span> <span class="ruby-value">:biographical_region</span>
+        <span class="ruby-keyword">end</span>
+
         <span class="ruby-identifier">facet</span>(<span class="ruby-string">'timeline'</span>) <span class="ruby-keyword">do</span>
-            <span class="ruby-identifier">date</span> <span class="ruby-value">:created_at</span>, <span class="ruby-value">:interval</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'year'</span>
+            <span class="ruby-identifier">date</span> <span class="ruby-value">:published_on</span>, <span class="ruby-value">:interval</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'year'</span>
         <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -271,7 +279,7 @@
 
           
           <div class="method-source-code" id="attachment-source">
-            <pre><span class="ruby-comment"># File app/models/document.rb, line 121</span>
+            <pre><span class="ruby-comment"># File app/models/document.rb, line 143</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">attachment</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">present?</span>
         <span class="ruby-identifier">path_to_file</span> = <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-string">'/public'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">file_url</span>.<span class="ruby-identifier">to_s</span>
@@ -306,7 +314,7 @@
 
           
           <div class="method-source-code" id="to_indexed_json-source">
-            <pre><span class="ruby-comment"># File app/models/document.rb, line 117</span>
+            <pre><span class="ruby-comment"># File app/models/document.rb, line 139</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_indexed_json</span>
     <span class="ruby-identifier">to_json</span>(<span class="ruby-value">:methods</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">:attachment</span>])
 <span class="ruby-keyword">end</span></pre>
@@ -336,7 +344,7 @@
 
           
           <div class="method-source-code" id="uniqueness_of_md5hash-source">
-            <pre><span class="ruby-comment"># File app/models/document.rb, line 130</span>
+            <pre><span class="ruby-comment"># File app/models/document.rb, line 152</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">uniqueness_of_md5hash</span>
     <span class="ruby-keyword">if</span> <span class="ruby-constant">Document</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-value">:md5hash</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">md5hash</span>)
         <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span>(<span class="ruby-value">:file</span>, <span class="ruby-string">&quot;File is already registered.&quot;</span>)

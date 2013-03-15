@@ -22,9 +22,11 @@ class Document < ActiveRecord::Base
     mount_uploader :file, FileUploader
 
     attr_accessible :site_id
-    attr_accessible :theme_id
+    # attr_accessible :theme_id
+
     belongs_to      :site
-    belongs_to      :theme
+    # belongs_to      :theme
+    has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "documents_concepts", :foreign_key => "document m_id"
 
     validates_presence_of :site
     validates_presence_of :title, :message => "can't be blank"

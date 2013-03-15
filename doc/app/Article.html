@@ -207,7 +207,7 @@ catalogue. It should contain at least a title, a content and a user.</p>
 
           
           <div class="method-source-code" id="search-source">
-            <pre><span class="ruby-comment"># File app/models/article.rb, line 68</span>
+            <pre><span class="ruby-comment"># File app/models/article.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>)
 
     <span class="ruby-identifier">date_init</span> = <span class="ruby-keyword">nil</span>
@@ -233,6 +233,8 @@ catalogue. It should contain at least a title, a content and a user.</p>
         <span class="ruby-comment"># highlight :title</span>
 
         <span class="ruby-identifier">filter</span> <span class="ruby-value">:term</span>, <span class="ruby-value">:author</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:author</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:author</span>].<span class="ruby-identifier">present?</span>
+        <span class="ruby-identifier">filter</span> <span class="ruby-value">:term</span>, <span class="ruby-value">:geographical_coverage</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:geographical_coverage</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:geographical_coverage</span>].<span class="ruby-identifier">present?</span>
+        <span class="ruby-identifier">filter</span> <span class="ruby-value">:term</span>, <span class="ruby-value">:biographical_region</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:biographical_region</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:biographical_region</span>].<span class="ruby-identifier">present?</span>
         <span class="ruby-identifier">filter</span> <span class="ruby-value">:range</span>, <span class="ruby-value">:published_on</span> =<span class="ruby-operator">&gt;</span> { <span class="ruby-value">:gte</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">date_init</span> , <span class="ruby-value">:lt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">date_end</span> } <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:published_on</span>].<span class="ruby-identifier">present?</span>
 
         <span class="ruby-identifier">sort</span> { <span class="ruby-identifier">by</span> <span class="ruby-value">:published_on</span>, <span class="ruby-string">&quot;desc&quot;</span> } <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:query</span>].<span class="ruby-identifier">blank?</span>
@@ -241,12 +243,22 @@ catalogue. It should contain at least a title, a content and a user.</p>
             <span class="ruby-identifier">terms</span> <span class="ruby-value">:author</span>
         <span class="ruby-keyword">end</span>
 
+        <span class="ruby-identifier">facet</span> <span class="ruby-string">'geographical_coverages'</span> <span class="ruby-keyword">do</span>
+            <span class="ruby-identifier">terms</span> <span class="ruby-value">:geographical_coverage</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-identifier">facet</span> <span class="ruby-string">'biographical_regions'</span> <span class="ruby-keyword">do</span>
+            <span class="ruby-identifier">terms</span> <span class="ruby-value">:biographical_region</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-comment"># facet 'themes' do</span>
+        <span class="ruby-comment">#     terms :theme_id</span>
+        <span class="ruby-comment"># end</span>
+
         <span class="ruby-identifier">facet</span>(<span class="ruby-string">'timeline'</span>) <span class="ruby-keyword">do</span>
             <span class="ruby-identifier">date</span> <span class="ruby-value">:published_on</span>, <span class="ruby-value">:interval</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'year'</span>
         <span class="ruby-keyword">end</span>
-
     <span class="ruby-keyword">end</span>
-
 <span class="ruby-keyword">end</span></pre>
           </div><!-- search-source -->
           
@@ -280,7 +292,7 @@ catalogue. It should contain at least a title, a content and a user.</p>
 
           
           <div class="method-source-code" id="to_indexed_json-source">
-            <pre><span class="ruby-comment"># File app/models/article.rb, line 63</span>
+            <pre><span class="ruby-comment"># File app/models/article.rb, line 73</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">to_indexed_json</span>
     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">to_json</span>
 <span class="ruby-keyword">end</span></pre>

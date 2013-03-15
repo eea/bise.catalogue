@@ -6,5 +6,6 @@ class Concept < ActiveRecord::Base
 
     belongs_to :theme
     has_and_belongs_to_many :articles, :association_foreign_key => "article_id", :join_table => "articles_concepts", :class_name => "Article"
+    has_and_belongs_to_many :documents, :association_foreign_key => "document_id", :join_table => "documents_concepts", :class_name => "Document"
 
 end
