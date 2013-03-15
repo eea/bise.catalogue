@@ -28,7 +28,6 @@
 
         = f.input :geographical_coverage, :as => :select, :collection => countries, include_blank: true #, :input_html => { :class => "input-xlarge"}
         = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true #, :input_html => { :class => "input-xlarge"}
-        = f.association :theme
         = f.input :language, :as => :select, :collection => languages, include_blank: true
 
         = f.input :source_url, :placeholder => 'http://biodiversity.europa.eu', :input_html => { :class => "input-xlarge" }
