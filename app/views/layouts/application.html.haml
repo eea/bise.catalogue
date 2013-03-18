@@ -60,16 +60,12 @@
                     = yield :pageheader
 
             .outter-container
-                .toolbar
-                    .toolbar-container
-                        = yield :actions
+                = render :partial => 'layouts/toolbar'
 
-                .inner-container
+                .inner-container{ :style => 'border: 0px solid orange;' }
                     = yield
 
-                %footer
-                    = image_tag  "bise_logo.png"
-                    / %p &copy; BISE Catalogue 2013
+                = render :partial => 'layouts/footer'
 
         / Placed at the end of the document so the pages load faster
         = javascript_include_tag "application"

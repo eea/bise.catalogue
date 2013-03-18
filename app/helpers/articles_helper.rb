@@ -1,5 +1,18 @@
 module ArticlesHelper
 
+    def article_for_mustache(article)
+        {
+            :url => article_url(article),
+            :article_title => article.title,
+            :author => article.author,
+            :date => article.created_at.strftime("%d/%m/%Y"),
+            :tags => article.concepts.map do |c|
+                {
+                    :tag => c.title
+                }
+            end
+        }
+    end
 
     def articles_by_year
 
