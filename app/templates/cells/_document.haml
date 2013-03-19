@@ -1,7 +1,5 @@
 .document_cell
-    / = link_to doc,  :class => "btn btn-success btn-mini pull-right" do
-    /     / %i.icon-eye-open
-    /     Read more
+
     - if doc.content_type == 'application/pdf'
         %div.pull-left.mini-icon.pdf
     - elsif doc.content_type == 'application/rtf'
@@ -22,6 +20,7 @@
         %div.pull-left.mini-icon.pdf
     - elsif doc.content_type == 'text/plain'
         %div.pull-left.mini-icon.pdf
+
     .title
         - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
             = link_to raw(hit['highlight']['title'].first), doc

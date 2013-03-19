@@ -18,7 +18,6 @@ group :assets do
     gem 'sass-rails',   '~> 3.2.3'
     gem 'coffee-rails', '~> 3.2.1'
     #gem 'mustache-rails', :require => 'mustache/railtie'
-    gem 'smt_rails', :git => 'git://github.com/railsware/smt_rails.git'
 
     gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 
@@ -34,6 +33,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'smt_rails', :git => 'git://github.com/railsware/smt_rails.git'
 
 gem 'haml'
 gem 'tinymce-rails'

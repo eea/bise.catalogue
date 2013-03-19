@@ -110,7 +110,7 @@ class ArticlesController < ApplicationController
             a = Array.new
             params['ft'].each do |f|
                 a.push Concept.find(f.to_i)
-            end
+            end unless params['ft'].nil?
             return a
         end
 
