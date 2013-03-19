@@ -62,7 +62,7 @@ class ArticlesController < ApplicationController
     # POST /articles.json
     def create
         @article = Article.new(params[:article])
-        @article.concepts = get_concepts(params['ft'])
+        @article.concepts = get_concepts(params['ft']) unless params['ft'].nil?
 
         respond_to do |format|
             if @article.save
@@ -110,7 +110,7 @@ class ArticlesController < ApplicationController
             a = Array.new
             params['ft'].each do |f|
                 a.push Concept.find(f.to_i)
-            end unless params['ft'].nil?
+            end
             return a
         end
 
