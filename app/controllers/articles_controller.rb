@@ -22,6 +22,7 @@ class ArticlesController < ApplicationController
     #     render :action => "index"
     # end
 
+    # FIXME Not going to be used
     # GET /articles/concepts.json
     def concepts
         @themes = Theme.all

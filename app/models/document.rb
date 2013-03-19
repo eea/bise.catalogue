@@ -22,11 +22,8 @@ class Document < ActiveRecord::Base
     mount_uploader :file, FileUploader
 
     attr_accessible :site_id
-    # attr_accessible :theme_id
-
     belongs_to      :site
-    # belongs_to      :theme
-    has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "documents_concepts", :foreign_key => "document m_id"
+    has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "documents_concepts", :foreign_key => "document_id"
 
     validates_presence_of :site
     validates_presence_of :title, :message => "can't be blank"
@@ -45,6 +42,7 @@ class Document < ActiveRecord::Base
     after_destroy(&refresh)
 
 
+    # OPTIMIZE Improve document content nGram
     settings :analysis => {
         :analyzer => {
             :search_analyzer => {
@@ -102,6 +100,7 @@ class Document < ActiveRecord::Base
     #     self.update_index # if self.state == 'published'
     # end
 
+    # TODO Add another facets
     def self.search(params)
         tire.search :load => true, :page => params[:page], :per_page => 10 do
             query do

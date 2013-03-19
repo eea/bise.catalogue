@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.9'
+gem 'zeus'
+
+gem 'rack', '1.4.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -56,19 +59,28 @@ group :development do
 end
 
 group :development, :test do
+
     gem 'pry', '>= 0.9.10'
     gem 'pry-doc'
     gem 'pry-nav'
     gem 'pry-stack_explorer'
     gem 'pry-rails'
-    gem 'ruby-prof'
-    gem 'test-unit'
-    gem 'rspec'
+
+    # gem 'ruby-prof'
+    # gem 'test-unit'
+    # gem 'rspec'
     gem 'rspec-rails'
 
-    # gem 'guard-sublime-ctags'
     gem 'gem-ctags'
     gem 'railroady'
+
+end
+
+group :test do
+    gem 'factory_girl_rails'
+    gem 'capybara'
+    gem 'guard-rspec'
+    gem 'rb-fsevent'
 end
 
 # To use ActiveModel has_secure_password

@@ -85,27 +85,29 @@
 
     .span9
         - @documents.each_with_hit do |doc, hit|
-            .document_cell
-                = link_to doc,  :class => "btn btn-success btn-mini pull-right" do
-                    / %i.icon-eye-open
-                    Read more
-                .title
-                    - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
-                        = raw hit['highlight']['title'].first
-                    - else
-                        = doc.title
+            = render "cells/document", :doc => doc, :hit => hit
 
-                %small by #{doc.author} at #{doc.created_at}
-                %br
-                - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
-                    - att_hits = hit['highlight']['attachment']
+            / .document_cell
+            /     = link_to doc,  :class => "btn btn-success btn-mini pull-right" do
+            /         / %i.icon-eye-open
+            /         Read more
+            /     .title
+            /         - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
+            /             = raw hit['highlight']['title'].first
+            /         - else
+            /             = doc.title
 
-                    .hits
-                        %ol{ :type => "I" }
-                            - att_hits.each do |h|
-                                %li
-                                    %p.hit= raw '...' + h + '...'
-                    / = raw hit['highlight']['attachment'].first
+            /     %small by #{doc.author} at #{doc.created_at}
+            /     %br
+            /     - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
+            /         - att_hits = hit['highlight']['attachment']
+
+            /         .hits
+            /             %ol{ :type => "I" }
+            /                 - att_hits.each do |h|
+            /                     %li
+            /                         %p.hit= raw '...' + h + '...'
+            /         / = raw hit['highlight']['attachment'].first
 
 
         / %table.table.table-striped

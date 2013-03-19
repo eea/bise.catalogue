@@ -20,13 +20,10 @@ class Article < ActiveRecord::Base
     attr_accessible :published
 
     attr_accessible :site_id
-    # attr_accessible :theme_id
-
     belongs_to              :site
-    # belongs_to              :theme
     has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "articles_concepts", :foreign_key => "article_id"
 
-    validates_presence_of :site
+    # validates_presence_of :site
     validates_presence_of :title, :message => "can't be blank"
 
 
