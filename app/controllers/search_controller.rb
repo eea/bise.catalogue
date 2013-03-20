@@ -9,7 +9,7 @@ class SearchController < ApplicationController
         # binding.pry
 
         if !q.nil?
-            @rows = Tire.search %w(catalogue_production_articles catalogue_production_documents catalogue_production_species) do
+            @rows = Tire.search %w(catalogue_production_articles catalogue_production_documents catalogue_production_species), :laod => true, :page => params[:page], :per_page => 30 do
                 query do
                     boolean do
                         should   { string 'title:' + q } # if not q.nil?
@@ -19,7 +19,7 @@ class SearchController < ApplicationController
                 end
             end
         else
-            @rows = nil
+            @rows = Tire::Results::Collection.new
         end
 
 
