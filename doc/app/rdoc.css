@@ -382,7 +382,7 @@ ul.link-list .type {
 /* @group Method Details */
 
 #documentation .method-source-code {
-  /*display: none;*/
+  display: none;
 }
 
 #documentation .method-detail {

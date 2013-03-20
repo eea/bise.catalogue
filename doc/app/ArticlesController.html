@@ -107,6 +107,12 @@
 
   <ul class="link-list">
   
+    <li><a href="./Action.html">Action</a>
+  
+    <li><a href="./ActionsController.html">ActionsController</a>
+  
+    <li><a href="./ActionsHelper.html">ActionsHelper</a>
+  
     <li><a href="./ApplicationController.html">ApplicationController</a>
   
     <li><a href="./ApplicationHelper.html">ApplicationHelper</a>
@@ -146,6 +152,12 @@
     <li><a href="./SpeciesController.html">SpeciesController</a>
   
     <li><a href="./SpeciesHelper.html">SpeciesHelper</a>
+  
+    <li><a href="./Target.html">Target</a>
+  
+    <li><a href="./TargetsController.html">TargetsController</a>
+  
+    <li><a href="./TargetsHelper.html">TargetsHelper</a>
   
     <li><a href="./Theme.html">Theme</a>
   
@@ -195,12 +207,12 @@
 
         <div class="method-description">
           
-          <p>GET /articles/concepts.json</p>
+          <p>FIXME Not going to be used GET /articles/concepts.json</p>
           
 
           
           <div class="method-source-code" id="concepts-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 26</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 27</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">concepts</span>
     <span class="ruby-ivar">@themes</span> = <span class="ruby-constant">Theme</span>.<span class="ruby-identifier">all</span>
     <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
@@ -234,10 +246,10 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 62</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 63</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
     <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:article</span>])
-    <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">concepts</span> = <span class="ruby-identifier">get_concepts</span>(<span class="ruby-identifier">params</span>[<span class="ruby-string">'ft'</span>])
+    <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">concepts</span> = <span class="ruby-identifier">get_concepts</span>(<span class="ruby-identifier">params</span>[<span class="ruby-string">'ft'</span>]) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">'ft'</span>].<span class="ruby-identifier">nil?</span>
 
     <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
         <span class="ruby-keyword">if</span> <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">save</span>
@@ -275,7 +287,7 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 95</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 96</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
     <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
     <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">destroy</span>
@@ -310,7 +322,7 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 56</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 57</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
     <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 <span class="ruby-keyword">end</span></pre>
@@ -374,7 +386,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 47</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 48</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
     <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">new</span>
     <span class="ruby-comment"># respond_to do |format|</span>
@@ -408,7 +420,7 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 37</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 38</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
     <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
     <span class="ruby-comment"># respond_to do |format|</span>
@@ -442,7 +454,7 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 79</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
     <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
     <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">concepts</span> = <span class="ruby-identifier">get_concepts</span>(<span class="ruby-identifier">params</span>)
