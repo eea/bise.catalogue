@@ -91,7 +91,7 @@
                     - @rows.results.each do |row|
                         .cell{ :style => 'padding-top:7px;border-bottom: 1px dashed gray;' }
                             - if row.class == Article
-                                = render "cells/article", :article => row
+                                = render "cells/article", :article => Article.find(row.id)
                             - elsif row.class == Document
                                 = render "cells/document", :doc => row, :hit => Hash.new
                             - elsif row.class == Species

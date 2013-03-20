@@ -1,7 +1,7 @@
 .article_cell
 
     .cell-title
-        = article.title
+        = link_to article.title, article
         / - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
         /     = link_to raw(hit['highlight']['title'].first), doc
         / - else
@@ -18,9 +18,11 @@
     /                 %li
     /                     %p.hit= raw '...' + h + '...'
     /     / = raw hit['highlight']['attachment'].first
-    - unless article.concepts.nil?
-        - article.concepts.each do |t|
-            %span.label.label-success  t.title
+
+    - if not article.concepts.nil?
+        - article.concepts.map do |c|
+            %span.label.label-success
+                = c.title
 
 / <div style="padding: 3px; border-bottom: 1px dotted #6b6b6b; margin-bottom: 4px;">
 /     <div class="cell-title">

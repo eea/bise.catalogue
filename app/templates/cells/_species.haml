@@ -9,10 +9,10 @@
         = link_to species.scientific_name, species
 
     %small by #{species.scientific_name_authorship} at #{species.created_at}
-    %br
-    %small
-        %b Scientist :
-        #{species.scientific_name_authorship}
+    / %small
+    /     %b
+    /         Scientist :
+    /         = species.scientific_name_authorship
 
     / - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
     /     - att_hits = hit['highlight']['attachment']
