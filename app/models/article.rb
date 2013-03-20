@@ -62,7 +62,6 @@ class Article < ActiveRecord::Base
             indexes :biographical_region, :type => 'string'
             indexes :author, :type => 'string'
             indexes :published_on, :type => 'date'
-            indexes :theme
         }
     end
 
@@ -115,18 +114,10 @@ class Article < ActiveRecord::Base
                 terms :biographical_region
             end
 
-            # facet 'themes' do
-            #     terms :theme_id
-            # end
-
             facet('timeline') do
                 date :published_on, :interval => 'year'
             end
         end
     end
-
-    # def theme
-    #     theme.title
-    # end
 
 end
