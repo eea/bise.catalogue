@@ -16,7 +16,6 @@ class CreateArticles < ActiveRecord::Migration
       t.boolean   :published
 
       t.references :site
-      # t.references :theme
       t.references :concepts
 
       t.timestamps
