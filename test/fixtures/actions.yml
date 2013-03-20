@@ -1,0 +1,100 @@
+action1:
+    id: 1
+    target_id:   1
+    title: "Action 1: Complete the establishment of the Natura 2000 network and ensure good management"
+    short_desc: "A1: Natura 2000 establishment"
+action2:
+    id: 2
+    target_id:   1
+    title: "Action 2: Ensure adequate financing of Natura 2000 sites"
+    short_desc: "A2: Financing of Natura 2000 sites"
+action3:
+    id: 3
+    target_id:   1
+    title: "Action 3: Increase stakeholder awareness and involvement and improve enforcement"
+    short_desc: "A3: Increase stakeholders involvement"
+action4:
+    id: 4
+    target_id:   1
+    title: "Action 4: Improve and streamline monitoring and reporting"
+    short_desc: "A4: Improve monitoring and reporting"
+action5:
+    id: 5
+    target_id:   2
+    title: "Action 5: Improve knowledge of ecosystems and their services in the EU"
+    short_desc: "A5: Improve knowledge of ecosystems"
+action6:
+    id: 6
+    target_id:   2
+    title: "Action 6: Set priorities to restore and promote the use of green infrastructure"
+    short_desc: "A6: Promote green infrastructure"
+action7:
+    id: 7
+    target_id:   2
+    title: "Action 7: Ensure no net loss of biodiversity and ecosystem services"
+    short_desc: "A7: No net loss  of biodiversity"
+action8:
+    id: 8
+    target_id:   3
+    title: "Action 8: Enhance direct payments for environmental public goods in the EU Common Agricultural Policy"
+    short_desc: "A8: Payments for environmental public goods"
+action9:
+    id: 9
+    target_id:   3
+    title: "Action 9: Better target Rural Development to biodiversity conservation"
+    short_desc: "A9: Rural development to biodiversity"
+action10:
+    id: 10
+    target_id:  3
+    title: "Action 10: Conserve Europe' s agricultural genetic diversity"
+    short_desc: "A10: Agricultural genetic diversity"
+action11:
+    id: 11
+    target_id:  3
+    title: "Action 11: Encourage forest holders to protect and enhance forest biodiversity"
+    short_desc: "A11: Protect and enhance forest"
+action12:
+    id: 12
+    target_id:  3
+    title: "Action 12: Integrate biodiversity measures in forest management plans"
+    short_desc: "A12: Measures in forest"
+action13:
+    id: 13
+    target_id:  4
+    title: "Action 13: Improve the management of fished stocks"
+    short_desc: "A13: Management of fished stocks"
+action14:
+    id: 14
+    target_id:  4
+    title: "Action 14: Eliminate adverse impacts on fish stocks, species, habitats and ecosystems"
+    short_desc: "A14: Eliminate impacts on fish stocks"
+action15:
+    id: 15
+    target_id:  5
+    title: "Action 15: Strengthen the EU Plant and Animal Health Regimes"
+    short_desc: "A15: EU Plant and Animal Health"
+action16:
+    id: 16
+    target_id:  5
+    title: "Action 16: Establish a dedicated instrument on Invasive Alien Species"
+    short_desc: "A16: Invasive species"
+action17:
+    id: 17
+    target_id:  6
+    title: "Action 17: Reduce indirect drivers of biodiversity loss"
+    short_desc: "A17: Biodiversity loss"
+action18:
+    id: 18
+    target_id:  6
+    title: "Action 18: Mobilise additional resources for global biodiversity conservation"
+    short_desc: "A18: Global biodiversity conservation"
+action19:
+    id: 19
+    target_id:  6
+    title: "Action 19: 'Biodiversity proof' EU development cooperation"
+    short_desc: "A19: 'Biodivertity proof'"
+action20:
+    id: 20
+    target_id:  6
+    title: "Action 20: Regulate access to genetic resources and the fair and equitable sharing of benefits arising from their use"
+    short_desc: "A20: Access to genetic resources"

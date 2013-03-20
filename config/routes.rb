@@ -20,6 +20,10 @@ Catalogue::Application.routes.draw do
   resources :themes
   resources :concepts
 
+  # STRATEGIC PLANS
+  resources :actions
+  resources :targets
+
   # API
   scope '/api' do
     match '/search' => 'search#index'

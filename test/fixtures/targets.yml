@@ -1,0 +1,24 @@
+target1:
+    id: 1
+    title: "Target 1: Fully implement the Birds and Habitats Directives"
+    short_desc: "T1: Birds and Habitats Directives"
+target2:
+    id: 2
+    title: "Target 2: Maintain and restore ecosystems and their services"
+    short_desc: "T2: Maintain and restore ecosystems"
+target3:
+    id: 3
+    title: "Target 3: Increase the contribution of agriculture and forestry to maintaining and enhancing biodiversity"
+    short_desc: "T3: Agriculture and forestry biodiversity "
+target4:
+    id: 4
+    title: "Target 4: Ensure the sustainable use of fisheries resouces"
+    short_desc: "T4: Use of fishering resources"
+target5:
+    id: 5
+    title: "Target 5: Combat invasive alien species"
+    short_desc: "T5: Combat invasive species"
+target6:
+    id: 6
+    title: "Target 6: Help avert global biodiversity loss"
+    short_desc: "T6: Avert biodiversity loss"

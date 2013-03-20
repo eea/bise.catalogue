@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315082446) do
+ActiveRecord::Schema.define(:version => 20130320114215) do
+
+  create_table "actions", :force => true do |t|
+    t.string   "title"
+    t.string   "short_desc"
+    t.integer  "target_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "actions", ["target_id"], :name => "index_actions_on_target_id"
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -100,6 +110,13 @@ ActiveRecord::Schema.define(:version => 20130315082446) do
     t.boolean  "ignore_on_match"
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "targets", :force => true do |t|
+    t.string   "title"
+    t.string   "short_desc"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "themes", :force => true do |t|
