@@ -89,7 +89,7 @@
 
     .span9
         - @articles.results.each do |article|
-            = render "cells/article", :obj => article_for_mustache(article)
+            = render "cells/article", :article => article
 
         / %table.table.table-striped
         /     %thead

@@ -87,17 +87,18 @@
     .span9
         %div{ :style => 'height: 350px;' }
             %div{ :style => 'padding: 15px;'}
-                - if not @rows.nil?
+                - unless @rows.nil?
                     - @rows.results.each do |row|
                         .cell{ :style => 'padding-top:7px;border-bottom: 1px dashed gray;' }
-                            // %small= row.class
                             - if row.class == Article
-                                %p= row.title
+                                = render "cells/article", :article => row
                             - elsif row.class == Document
-                                %p= row.title
+                                = render "cells/document", :doc => row, :hit => Hash.new
                             - elsif row.class == Species
-                                %p= row.scientific_name
+                                = render "cells/species", :species => row
 
+                    = page_entries_info @rows.results
+                    = will_paginate @rows.results
 
 
 
