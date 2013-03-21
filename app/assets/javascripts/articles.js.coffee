@@ -25,26 +25,30 @@ $ ->
 
     # ----------------- CONCEPTS
     $("#concepts_tree").fancytree({
-        autoCollapse: true
-        autoFocus: false
+        autoCollapse: false
+        # autoFocus: false
         extensions: ["filter"]
-        selectMode: 2
+        selectMode: 1
         clickFolderMode: 3
         # checkbox: true
         selectMode: 2
         noLink: true
+        minExpandLevel: 1
         source:
             url: "/themes.json"
         filter:
             mode: "hide"
-        rendernode: (event, data) ->
-            data.node.li.children[0].children[1].style.display = 'none' if (data.node.folder)
+        debugLevel: 0
+        # rendernode: (event, data) ->
+        #     data.node.li.children[0].children[1].style.display = 'none' if (data.node.folder)
         init: (event, data) ->
             $('#filterpane').show()
-            selected = $('#concepts_tree').data('selected')
-            for s in selected
-                console.log s
-                window.tree.getNodeByKey(s).setSelected(true)
+            for n in window.tree.rootNode.children
+                n.setExpanded()
+            # selected = $('#concepts_tree').data('selected')
+            # for s in selected
+            #     console.log s
+            #     window.tree.getNodeByKey(s).setSelected(true)
         activate: (e, data) ->
             # --- ON CLICK ---
             if !(data.node.folder)
@@ -52,6 +56,7 @@ $ ->
                 $('.tag_container').append(tag)
     })
     window.tree = $("#concepts_tree").fancytree("getTree");
+
 
     # ----------------- SEARCH CONCEPTS
     $("input[name=search]").keyup( (e) ->
