@@ -5,18 +5,23 @@
 
 $ ->
 
+    $('ul.nav.nav-tabs li a').click () ->
+        $(this).parent().addClass('active').siblings().removeClass('active')
+        sectionName = $(this).data('article');
+        $(sectionName).siblings().hide();
+        $(sectionName).show()
 
     # ----------------- PUBLISHED
-    $('#article_published_on').datepicker();
-    $('#article_published').parent().toggleButtons(
-        style:
-            enabled: "success",
-            disabled: "danger"
-        label:
-            enabled: "YES",
-            disabled: "NO"
+    # $('#article_published').toggleButtons(
+    #     style:
+    #         enabled: "success",
+    #         disabled: "danger"
+    #     label:
+    #         enabled: "YES",
+    #         disabled: "NO"
 
-    )
+    # )
+    $('#article_published_on').datepicker();
 
     # ----------------- CONCEPTS
     $("#concepts_tree").fancytree({
@@ -25,7 +30,7 @@ $ ->
         extensions: ["filter"]
         selectMode: 2
         clickFolderMode: 3
-        checkbox: true
+        # checkbox: true
         selectMode: 2
         noLink: true
         source:
@@ -42,9 +47,9 @@ $ ->
                 window.tree.getNodeByKey(s).setSelected(true)
         activate: (e, data) ->
             # --- ON CLICK ---
-            # if !(data.node.folder)
-            #     tag = $('<span>').addClass('tag').html(data.node.title)
-            #     $('.tag_container').append(tag)
+            if !(data.node.folder)
+                tag = $('<span>').addClass('tag').html(data.node.title)
+                $('.tag_container').append(tag)
     })
     window.tree = $("#concepts_tree").fancytree("getTree");
 
