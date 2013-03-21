@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320114215) do
+ActiveRecord::Schema.define(:version => 20130321074448) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -44,13 +44,11 @@ ActiveRecord::Schema.define(:version => 20130320114215) do
     t.integer "concept_id"
   end
 
-  add_index "articles_concepts", ["article_id", "concept_id"], :name => "index_articles_concepts_on_article_id_and_concept_id"
-
   create_table "concepts", :force => true do |t|
     t.string   "title"
     t.integer  "parent"
     t.text     "definition"
-    t.integer  "theme_id"
+    t.integer  "themes_id"
     t.integer  "articles_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -81,8 +79,6 @@ ActiveRecord::Schema.define(:version => 20130320114215) do
     t.integer "document_id"
     t.integer "concept_id"
   end
-
-  add_index "documents_concepts", ["document_id", "concept_id"], :name => "index_documents_concepts_on_document_id_and_concept_id"
 
   create_table "sites", :force => true do |t|
     t.string   "name"
@@ -122,9 +118,13 @@ ActiveRecord::Schema.define(:version => 20130320114215) do
   create_table "themes", :force => true do |t|
     t.string   "title"
     t.integer  "concepts_id"
-    t.integer  "articles_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "themes_concepts", :id => false, :force => true do |t|
+    t.integer "theme_id"
+    t.integer "concept_id"
   end
 
 end

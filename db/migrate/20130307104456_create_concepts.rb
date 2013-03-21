@@ -4,7 +4,7 @@ class CreateConcepts < ActiveRecord::Migration
       t.string :title
       t.integer :parent
       t.text :definition
-      t.references :theme
+      t.references :themes
       t.references :articles
 
       t.timestamps

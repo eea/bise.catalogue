@@ -21,8 +21,8 @@ Catalogue::Application.routes.draw do
   resources :concepts
 
   # STRATEGIC PLANS
-  resources :actions
   resources :targets
+  resources :actions
 
   # API
   scope '/api' do

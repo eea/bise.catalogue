@@ -6,12 +6,12 @@ class CreateArticlesConceptsJoinTable < ActiveRecord::Migration
           t.integer :concept_id
         end
 
-        add_index :articles_concepts, [ :article_id, :concept_id ]
+        # add_index :articles_concepts, [ :article_id, :concept_id ]
     end
 
     def down
         drop_table :articles_concepts
-        remove_index :articles_concepts, [ :article_id, :concept_id ]
+        # remove_index :articles_concepts, [ :article_id, :concept_id ]
     end
 
 end
