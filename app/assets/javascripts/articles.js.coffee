@@ -43,12 +43,8 @@ $ ->
         #     data.node.li.children[0].children[1].style.display = 'none' if (data.node.folder)
         init: (event, data) ->
             $('#filterpane').show()
-            for n in window.tree.rootNode.children
-                n.setExpanded()
-            # selected = $('#concepts_tree').data('selected')
-            # for s in selected
-            #     console.log s
-            #     window.tree.getNodeByKey(s).setSelected(true)
+            # for n in window.tree.rootNode.children
+            #     n.setExpanded()
         activate: (e, data) ->
             # --- ON CLICK ---
             if !(data.node.folder)
