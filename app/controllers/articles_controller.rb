@@ -79,7 +79,7 @@ class ArticlesController < ApplicationController
     # PUT /articles/1.json
     def update
         @article = Article.find(params[:id])
-        @article.concepts = get_concepts(params)
+        @article.concepts = get_concepts(params) unless params['ft'].nil?
         respond_to do |format|
             if @article.update_attributes(params[:article])
                 format.html { redirect_to @article, :notice => 'Article was successfully updated.' }
