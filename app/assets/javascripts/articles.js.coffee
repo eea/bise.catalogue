@@ -33,7 +33,7 @@ $ ->
         # checkbox: true
         selectMode: 2
         noLink: true
-        minExpandLevel: 1
+        minExpandLevel: 0
         source:
             url: "/themes.json"
         filter:
