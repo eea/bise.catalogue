@@ -1,0 +1,147 @@
+@import "common"
+
+
+.doc-preview
+    border: 0
+    width: 150px
+    height: 150px
+    margin: 0 auto
+    display: inline-block
+
+.file-info
+    line-height: 30px
+
+    .remove
+        font-size: 12px
+
+    strong
+        padding-left: 10px
+        padding-right: 10px
+
+#dropzone
+    +rounded(5px)
+    // border: 3px dashed #cdcdcd
+    padding-top: 15px
+    // height: 50px
+    // width: 250px
+    // line-height: 30px
+    // text-align: center
+    font-weight: bold
+    // float: right
+    // width: 80%
+    // background-image: url('/assets/filetypes/default.png')
+    // background-size: 100% 250px
+
+#dropzone.in
+    // font-size: larger
+    // background: #f9e46d
+    // border: 3px dashed #d4c827
+    background: #add68e
+
+#dropzone.hover
+    // background: #a5c500
+    // border: 3px dashed #a5d411
+    background: #c3f29f
+
+#dropzone.fade
+    -webkit-transition: all 0.3s ease-out
+    -moz-transition: all 0.3s ease-out
+    -ms-transition: all 0.3s ease-out
+    -o-transition: all 0.3s ease-out
+    transition: all 0.3s ease-out
+    opacity: 1
+
+
+
+
+.loading
+    background-image: url('/assets/loading_green.gif')
+    width: 32px
+    height: 32px
+    background-size: 32px 32px
+
+
+
+
+
+.filetype
+    width: 150px
+    height: 150px
+    background-size: 150px 150px
+    background-repeat: none
+    background-image: url('/assets/filetypes/default.png')
+.pdf
+    @extend .filetype
+    background-image: url('/assets/filetypes/pdf.png')
+.rtf
+    @extend .filetype
+    background-image: url('/assets/filetypes/rtf.png')
+.word
+    @extend .filetype
+    background-image: url('/assets/filetypes/doc.png')
+.word2010
+    @extend .filetype
+    background-image: url('/assets/filetypes/docx.png')
+.csv
+    @extend .filetype
+    background-image: url('/assets/filetypes/csv.png')
+.excel
+    @extend .filetype
+    background-image: url('/assets/filetypes/xls.png')
+.excel2010
+    @extend .filetype
+    background-image: url('/assets/filetypes/xlsx.png')
+.powerpoint
+    @extend .filetype
+    background-image: url('/assets/filetypes/ppt.png')
+.powerpoint2010
+    @extend .filetype
+    background-image: url('/assets/filetypes/pptx.png')
+.plaintext
+    @extend .filetype
+    background-image: url('/assets/filetypes/txt.png')
+
+.mini-icon
+    width: 36px
+    height: 36px
+    background-size: 36px 36px
+    margin-right: 10px
+    border: 0px solid white
+
+
+
+
+
+.document_cell
+    // border: 1px dashed orange
+    border-bottom: 1px dashed #cbcbcb
+    padding-top: 5px
+    padding-bottom: 5px
+
+    .cell-title
+        font-family: Verdana
+        // text-decoration: underline
+
+    small
+        color: #637600
+        font-size: 12px
+
+    .hits
+        // background: #8ea04c
+        border-left: 3px solid #8ea04c
+        border-top: 1px solid #8ea04c
+        // padding-left: 10px
+        font-size: 10px
+        line-height: 10px
+
+        -webkit-box-shadow:  1px 2px 2px 2px rgba(0, 0, 0, 0.3)
+        box-shadow:  1px 2px 2px 2px rgba(0, 0, 0, 0.3)
+
+    p.hit
+        background: white
+        color: #6b6b6b
+        margin-bottom: 0
+
+    em
+        color: #86a000
+        font-weight: bold
