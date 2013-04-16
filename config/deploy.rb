@@ -1,4 +1,6 @@
+require 'capistrano-rbenv'
 require "bundler/capistrano"
+
 
 # server "192.168.1.215", :web, :app, :db, primary: true
 
@@ -18,10 +20,10 @@ set :shared_children, shared_children + %w{public/uploads}
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "192.168.1.225"                          # Your HTTP server, Apache/etc
-role :app, "192.168.1.225"                          # This may be the same as your `Web` server
-role :db,  "192.168.1.225", :primary => true # This is where Rails migrations will run
-role :db,  "192.168.1.225"
+role :web, "89.0.1.129"                          # Your HTTP server, Apache/etc
+role :app, "89.0.1.129"                          # This may be the same as your `Web` server
+role :db,  "89.0.1.129", :primary => true        # This is where Rails migrations will run
+role :db,  "89.0.1.129"
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
@@ -51,6 +53,12 @@ namespace :assets do
 end
 
 namespace :deploy do
+
+    before "deploy:cold", "deploy:install_bundler"
+
+    task :install_bundler, :roles => :app do
+        run "type -P bundle &>/dev/null || { gem install bundler --no-rdoc --no-ri; }"
+    end
 
     %w[start stop restart].each do |command|
         desc "#{command} unicorn server"
