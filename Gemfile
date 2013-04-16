@@ -8,6 +8,7 @@ gem 'rails', '3.2.9'
 gem 'rack', '1.4.1'
 gem 'zeus'
 
+# DATABASES
 gem 'sqlite3'
 gem 'pg'
 
