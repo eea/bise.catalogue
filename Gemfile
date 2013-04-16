@@ -118,9 +118,8 @@ gem 'acts-as-taggable-on'
 
 gem 'simple_form'
 
-# gem "paperclip"
+# File Uploading
 gem 'carrierwave'
-#gem 'rmagick'
 
 # Versioning
 gem 'vestal_versions', :git => 'git://github.com/laserlemon/vestal_versions'
