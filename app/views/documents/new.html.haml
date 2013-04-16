@@ -36,21 +36,6 @@
 = render 'form'
 
 
-/ %script{ :id => 'template-upload', :type => 'text/x-tmpl' }
-/     .upload
-/         .progress.progress-striped{ :style => 'margin-bottom: 0' }
-/             / {%=o.name%}
-/             .bar{ :style => 'width: 0%' }
-
-/ %script{ :id => 'template-table', :type => 'text/x-tmpl' }
-/     %table
-/         %tr
-/             %td{ :id => 'size', :style => 'width:60px' }
-/             %td{ :id => 'name', :style => 'text-align:left;white-space:nowrap' }
-/             %td{ :style => 'width:30px' }
-/                 %a.btn.btn-danger{ :id => 'delete_file', :href => '#' }
-/                     %i.icon-trash
-
 - content_for :js do
     = javascript_include_tag 'documents'
     = tinymce

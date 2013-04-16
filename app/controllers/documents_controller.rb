@@ -44,12 +44,24 @@ class DocumentsController < ApplicationController
     @document = Document.new(params[:document])
 
     respond_to do |format|
+      if remotipart_submitted?
+        puts ":: REMOTIPART"
+      else
+        puts ":: NO REMOTIPART"
+      end
+
       if @document.save
+        puts ":: SAVE"
+        errors = Hash.new
+
         format.html { redirect_to @document, :notice => 'Document was successfully created.' }
         format.json { render :json => @document, :status => :created, :location => @document }
+        format.js { render :json => @document, :status => :created, :location => @document }
       else
+        puts ":: ERROR"
         format.html { render :action => "new" }
         format.json { render :json => @document.errors, :status => :unprocessable_entity }
+        format.js { render :json => @document.errors, :status => :unprocessable_entity }
       end
     end
   end

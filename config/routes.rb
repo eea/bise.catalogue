@@ -29,6 +29,10 @@ Catalogue::Application.routes.draw do
     match '/search' => 'search#index'
   end
 
+  scope '/search' do
+    match '/global' => 'search#index'
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
