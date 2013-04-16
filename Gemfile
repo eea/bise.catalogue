@@ -11,6 +11,7 @@ gem 'zeus'
 gem 'sqlite3'
 gem 'pg'
 
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -37,13 +38,15 @@ gem 'jquery-rails'
 gem 'smt_rails', :git => 'git://github.com/railsware/smt_rails.git'
 
 gem 'haml'
+
+# TINYMCE WYSIWYG EDITOR
 gem 'tinymce-rails'
 
 # Advanced Search
 gem 'tire', '>= 0.5.4'
 gem 'ransack'
 
-
+# TWITTER BOOTSTRAP
 gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 
