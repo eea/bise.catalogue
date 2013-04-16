@@ -1,0 +1,10 @@
+
+bise:
+    id: 1
+    name: BISE
+    origin_url: http://biodiversity.europa.eu
+
+eunis:
+    id: 2
+    name: EUNIS
+    origin_url: http://eunis.eea.europa.eu
