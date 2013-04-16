@@ -1,28 +1,28 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
-gem 'zeus'
-
-gem 'rack', '1.4.1'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '3.2.9'
+
+gem 'rack', '1.4.1'
+gem 'zeus'
 
 gem 'sqlite3'
 gem 'pg'
 
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+
     gem 'sass-rails',   '~> 3.2.3'
     gem 'coffee-rails', '~> 3.2.1'
+    # gem 'mustache'
+    # gem 'mustache_rails3'
     #gem 'mustache-rails', :require => 'mustache/railtie'
 
     gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 
-    # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-    # gem 'therubyracer', :platforms => :ruby
     gem 'therubyracer'
 
     gem 'uglifier', '>= 1.0.3'
@@ -30,6 +30,7 @@ group :assets do
     gem 'jquery-ui-rails'
     gem 'jquery-fileupload-rails'
     gem "remotipart", "~> 1.0"
+
 end
 
 gem 'jquery-rails'
@@ -45,14 +46,23 @@ gem 'ransack'
 
 gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
+
 # RDF.rb
+gem 'linkeddata'
+gem 'equivalent-xml'
+gem 'spira'
 gem 'rdf', '~> 0.3.8'
 gem 'rdf-spec'
 gem 'rdf-raptor', '~> 0.4.2'
-#gem 'linkeddata'
-# gem 'do_postgres'
+# gem 'rdf-gzip'
+# gem 'rdf-xml'
 gem 'ffi'
-#gem 'sparql-client'
+gem 'sparql-client'
+
+
+# DataObjects-backed repositories for RDF.rb
+gem 'rdf-do'
+gem 'do_postgres'
 
 group :development do
     gem 'better_errors'
@@ -94,9 +104,10 @@ gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
+gem 'capistrano-rbenv', '1.0.1'
 
 # To use debugger
-# gem 'debugger'
+gem 'debugger'
 
 gem "will_paginate"
 
