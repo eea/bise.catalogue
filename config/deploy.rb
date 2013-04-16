@@ -6,7 +6,7 @@ require "bundler/capistrano"
 
 set :application, "catalogue"
 
-set :repository,  "git@i3apps.sytes.net:jonarrien/catalogue.git"
+set :repository,  "git@i3apps.sytes.net:bilbomatica/catalogue.git"
 set :branch, "master"
 
 set :user, "deployer"
