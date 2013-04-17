@@ -78,6 +78,9 @@ end
 
 group :development, :test do
 
+    # To use debugger
+    # gem 'debugger'
+
     gem 'pry', '>= 0.9.10'
     gem 'pry-doc'
     gem 'pry-nav'
@@ -114,8 +117,6 @@ gem 'unicorn'
 gem 'capistrano'
 gem 'capistrano-rbenv', '1.0.1'
 
-# To use debugger
-gem 'debugger'
 
 gem "will_paginate"
 
