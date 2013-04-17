@@ -35,11 +35,13 @@ group :assets do
     gem 'jquery-ui-rails'
     gem 'jquery-fileupload-rails'
 
-    # Remote file uploading
-    gem "remotipart"
 
 end
 
+# Remote file uploading
+gem "remotipart"
+
+# Shared Mustache Templates
 gem 'smt_rails', :git => 'git://github.com/railsware/smt_rails.git'
 
 gem 'haml'
