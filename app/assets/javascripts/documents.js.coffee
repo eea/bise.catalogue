@@ -115,7 +115,7 @@ $ ->
     # FILE
     $('#choose_file').click ()-> $('#document_file').click()
     $('#document_file').change ()->
-        _doc = new Document ('#document_file')[0].files[0]
+        _doc = new Document $('#document_file')[0].files[0]
 
 
     $(':submit').click (e)->
