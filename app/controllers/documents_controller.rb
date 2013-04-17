@@ -44,12 +44,6 @@ class DocumentsController < ApplicationController
     @document = Document.new(params[:document])
 
     respond_to do |format|
-      if remotipart_submitted?
-        puts ":: REMOTIPART"
-      else
-        puts ":: NO REMOTIPART"
-      end
-
       if @document.save
         puts ":: SAVE"
         format.html { redirect_to @document, :notice => 'Document was successfully created.' }
@@ -58,7 +52,6 @@ class DocumentsController < ApplicationController
         # format.js { render :json => @document, :status => :ok, :location => @document }
       else
         puts ":: ERROR"
-        binding.pry
         format.html { render :action => "new" }
         format.json { render :json => @document.errors, :status => :unprocessable_entity }
         format.js { render :json => @document.errors, :status => :unprocessable_entity }
@@ -73,12 +66,6 @@ class DocumentsController < ApplicationController
     @document = Document.find(params[:id])
 
     respond_to do |format|
-      if remotipart_submitted?
-        puts ":: REMOTIPART"
-      else
-        puts ":: NO REMOTIPART"
-      end
-
       if @document.update_attributes(params[:document])
         puts ":: SAVE"
         format.html { redirect_to @document, :notice => 'Document was successfully updated.' }
