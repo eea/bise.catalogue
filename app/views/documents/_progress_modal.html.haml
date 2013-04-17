@@ -1,0 +1,10 @@
+#prog-modal.modal.hide
+    /.fade
+    .modal-header
+        %button.close{ :type => 'button', 'aria-hidden' => 'true' , :data => { :dismiss => 'modal' } } x
+        %b File Upload
+    .modal-body
+        .loading.pull-right
+        Document is being uploaded and indexed, please wait.
+    .modal-footer
+        / %a.btn.btn-danger{ :href => '#' } Cancel

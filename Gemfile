@@ -34,11 +34,12 @@ group :assets do
     gem 'jquery-rails'
     gem 'jquery-ui-rails'
     gem 'jquery-fileupload-rails'
-    gem "remotipart", "~> 1.0"
+
+    # Remote file uploading
+    gem "remotipart"
 
 end
 
-gem 'jquery-rails'
 gem 'smt_rails', :git => 'git://github.com/railsware/smt_rails.git'
 
 gem 'haml'

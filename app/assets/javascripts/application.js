@@ -60,7 +60,13 @@
 // require jquery.ui.effect-slide
 // require jquery.ui.effect-transfer
 //= require jquery_ujs
+
+// ----- REMOTIPART
+
 //= require jquery.remotipart
+
+// ----- TINYMCE WYSIWYG EDITOR
+
 //= require tinymce-jquery
 
 // ----- TWITTER BOOTSTRAP

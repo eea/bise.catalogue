@@ -9,29 +9,7 @@
         %i.icon-reply
         Back
 
-#prog-modal.modal.hide
-    /.fade
-    .modal-header
-        %button.close{ :type => 'button', 'aria-hidden' => 'true' , :data => { :dismiss => 'modal' } } x
-        %b Uploading...
-    .modal-body
-        Document is being uploaded, please wait.
-        .upload
-            .progress.progress-striped{ :style => 'margin-bottom: 0' }
-                / {%=o.name%}
-                .bar{ :style => 'width: 0%' }
-    / .modal-footer
-    /     %a.btn.btn-primary{ :href => '#' } Cancel
-
-#err-modal.modal.hide
-    .modal-header
-        / %button.close{ :type => 'button', 'aria-hidden' => 'true' , :data => { :dismiss => 'modal' } } x
-        %b ERROR!
-    .modal-body
-        Couldn't submit the document.
-        .errors
-    .modal-footer
-        %a.btn.btn-primary{ :href => '#' } OK
+= render :partial => 'documents/progress_modal'
 
 = render 'form'
 

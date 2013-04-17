@@ -1,0 +1,8 @@
+// Display a Javascript alert
+<% if remotipart_submitted? %>
+    // alert('remotipart submitted.. ');
+    // $("#flash_notice").html('Document has been saved.')
+    // $("#flash_notice").show(300);
+    // var id = <%= @document.id %>;
+    window.location = '<%= document_path(@document) %>';
+<% end %>

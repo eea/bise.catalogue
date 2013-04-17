@@ -1,3 +1,6 @@
+- content_for :css do
+    = stylesheet_link_tag "documents", :media => "all"
+
 - content_for :pageheader do
     Editing document
 
@@ -9,5 +12,11 @@
         %i.icon-search
         Show
 
+= render :partial => 'documents/progress_modal'
+
 = render 'form'
 
+
+- content_for :js do
+    = javascript_include_tag 'documents'
+    = tinymce
