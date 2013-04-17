@@ -54,7 +54,7 @@ class DocumentsController < ApplicationController
         puts ":: ERROR"
         format.html { render :action => "new" }
         format.json { render :json => @document.errors, :status => :unprocessable_entity }
-        format.js { render :json => @document.errors, :status => :unprocessable_entity }
+        format.js           # { render :json => @document.errors, :status => :unprocessable_entity }
       end
     end
   end
