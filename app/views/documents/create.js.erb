@@ -1,11 +1,4 @@
 // Display a Javascript alert
-// $(document).find("form").prepend('<%= escape_javascript(render("shared/error_messages", :formats => [:html])) %>')
-
 <% if remotipart_submitted? %>
-    // alert('remotipart submitted.. ');
-    // $("#flash_notice").html('Document has been saved.')
-    // $("#flash_notice").show(300);
-    // var id = <%= @document.id %>;
     window.location = '<%= document_path(@document) %>';
 <% end %>
-alert('end of create.js.erb')
