@@ -21,7 +21,6 @@ gem 'pg'
 group :assets do
 
     gem 'sass-rails',   '~> 3.2.3'
-    gem 'coffee-rails', '~> 3.2.1'
     # gem 'mustache'
     # gem 'mustache_rails3'
     #gem 'mustache-rails', :require => 'mustache/railtie'
@@ -30,13 +29,16 @@ group :assets do
 
     gem 'therubyracer'
 
-    gem 'uglifier', '>= 1.0.3'
     gem 'jquery-rails'
     gem 'jquery-ui-rails'
     gem 'jquery-fileupload-rails'
 
 
 end
+
+# Outside assets for production coffee handlers
+gem 'coffee-rails', '~> 3.2.1'
+gem 'uglifier', '>= 1.0.3'
 
 # Remote file uploading
 gem "remotipart"
