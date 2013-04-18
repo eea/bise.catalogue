@@ -8,7 +8,7 @@
     = link_to  edit_species_path(@species), :class => "btn" do
         %i.icon-pencil
         Edit
-    = link_to species_index_path(@document), :method => :delete, :class => "btn btn-danger pull-right" do
+    = link_to species_path(@species), :method => :delete, :class => "btn btn-danger pull-right" do
         %i.icon-trash
         Delete
 
