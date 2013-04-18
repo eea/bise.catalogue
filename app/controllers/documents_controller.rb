@@ -54,7 +54,16 @@ class DocumentsController < ApplicationController
         puts ":: ERROR"
         format.html { render :action => "new" }
         format.json { render :json => @document.errors, :status => :unprocessable_entity }
-        format.js           # { render :json => @document.errors, :status => :unprocessable_entity }
+        # format.js   { render :js => @document.errors }
+        format.js   { render :action => "failure"}
+        # format.js {
+        #   render :partial => 'documents/errors', :locals => { :document => @document }
+        # }
+        # do
+        #   render :update do |page|
+        #     page.replace_html 'secondary_publication_table', :partial=>'publications/table'
+        #   end
+        # end
       end
     end
   end

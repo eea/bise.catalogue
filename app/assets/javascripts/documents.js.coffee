@@ -28,9 +28,7 @@ $ ->
             @file = null
 
         draw: ->
-            console.log ":: DRAW"
             content = SMT['documents/preview'](@)
-            console.log @_node
             $(@_node).show().append(content)
             $(@_node).find('.btn-danger').bind('click', $.proxy(@clear, @))
             $('.buttons').hide()
