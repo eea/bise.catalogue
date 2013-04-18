@@ -76,7 +76,7 @@ class SpeciesController < ApplicationController
     @species.destroy
 
     respond_to do |format|
-      format.html { redirect_to species_url }
+      format.html { redirect_to species_index_path }
       format.json { head :no_content }
     end
   end
