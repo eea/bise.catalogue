@@ -20,6 +20,10 @@ class Species < ActiveRecord::Base
 
     index_name "#{Tire::Model::Search.index_prefix}species"
 
+    refresh = lambda { Tire::Index.new(index_name).refresh }
+    after_save(&refresh)
+    after_destroy(&refresh)
+
     settings :analysis => {
         :analyzer => {
             :search_analyzer => {
