@@ -84,62 +84,24 @@
                                     %span= link_to "Remove", params.except(:published_on)
 
     .span9
+
+        / %ul.media-list
+        /     - @documents.each_with_hit do |doc, hit|
+        /         %li.media
+        /             %a.pull-left
+        /                 = image_tag "filetypes/jpeg.png", :class => 'normal-icon'
+        /                 / %img.media-object{ :data => { :src => 'filetypes/jpg.png' } }
+        /             %div.media-body
+        /                 %h5.media-heading
+        /                     Heading
+        /                 %div.media
+        /                     lkjsdoihhiopuewfiopnewoip fwopein fpoiwen fgopiwengfpoiwen giowp
+
         - @documents.each_with_hit do |doc, hit|
             = render "cells/document", :doc => doc, :hit => hit
 
-            / .document_cell
-            /     = link_to doc,  :class => "btn btn-success btn-mini pull-right" do
-            /         / %i.icon-eye-open
-            /         Read more
-            /     .title
-            /         - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
-            /             = raw hit['highlight']['title'].first
-            /         - else
-            /             = doc.title
-
-            /     %small by #{doc.author} at #{doc.created_at}
-            /     %br
-            /     - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
-            /         - att_hits = hit['highlight']['attachment']
-
-            /         .hits
-            /             %ol{ :type => "I" }
-            /                 - att_hits.each do |h|
-            /                     %li
-            /                         %p.hit= raw '...' + h + '...'
-            /         / = raw hit['highlight']['attachment'].first
-
-
-        / %table.table.table-striped
-        /     %thead
-        /         %tr
-        /             %th Name
-        /             / %th Description
-        /             %th{ :style => 'width: 80px'} Author
-        /             %th{ :style => 'width: 80px'} Created At
-        /             / %th Downloads
-        /             %th{ :style => 'width: 40px'}
-        /             / Actions
-
-        /     %tbody
-        /         - @documents.each do |document|
-        /             %tr
-        /                 / %td= document.name
-        /                 %td= raw document.respond_to?('highlight') ? document.highlight.name[0] : document.name
-        /                 / %td= document.description
-        /                 %td= document.author
-        /                 / %td= document.created_at.strftime('%Y/%m/%d')
-        /                 %td= document.created_at
-        /                 / %td= document.downloads
-        /                 %td.actions
-        /                     = link_to document,  :class => "btn btn-small" do
-        /                         %i.icon-eye-open
-        /                     / = link_to edit_document_path(document),  :class => "btn btn-small" do
-        /                     /     %i.icon-pencil
-        /                     / = link_to document, :method => :delete, :class => "btn" do
-        /                     /     %i.icon-pencil
-
         = page_entries_info @documents
-        = will_paginate @documents
+        %br
+        = will_paginate @documents, :renderer => BootstrapPagination::Rails
 
 %br

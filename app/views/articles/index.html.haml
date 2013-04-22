@@ -115,4 +115,4 @@
         /                     /     %i.icon-trash
 
         = page_entries_info @articles
-        = will_paginate @articles
+        = will_paginate @articles, :renderer => BootstrapPagination::Rails
