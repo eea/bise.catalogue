@@ -11,16 +11,12 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
-
-// ----- JQUERY UI
-
 //= require jquery.ui.core
 //= require jquery.ui.widget
 //= require jquery.ui.mouse
 //= require jquery.ui.position
 
 // ----- JQUERY UI CORE
-
 //= require jquery.ui.draggable
 //= require jquery.ui.droppable
 //= require jquery.ui.resizable
@@ -28,7 +24,6 @@
 //= require jquery.ui.sortable
 
 // ----- JQUERY UI COMPONENTS
-
 //= require jquery.ui.accordion
 //= require jquery.ui.autocomplete
 //= require jquery.ui.button
@@ -43,7 +38,6 @@
 // require jquery.ui.tooltip
 
 // ----- JQUERY UI EFFECTS
-
 // require jquery.ui.effect.all
 // require jquery.ui.effect
 // require jquery.ui.effect-blind
@@ -62,15 +56,12 @@
 //= require jquery_ujs
 
 // ----- REMOTIPART
-
 //= require jquery.remotipart
 
 // ----- TINYMCE WYSIWYG EDITOR
-
 //= require tinymce-jquery
 
 // ----- TWITTER BOOTSTRAP
-
 //= require twitter/bootstrap
 //= require twitter/bootstrap/bootstrap-transition
 //= require twitter/bootstrap/bootstrap-alert
@@ -91,5 +82,8 @@
 //= require morris
 
 //= require mustache
+
 //= require_tree ../../templates
+
+//= require actions
 
