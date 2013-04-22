@@ -26,7 +26,7 @@ class Document < ActiveRecord::Base
     has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "documents_concepts", :foreign_key => "document_id"
 
     validates_presence_of :site
-    validates_presence_of :title, :message => "can't be blank"
+    validates_presence_of :title, :message => "can't be blank", :length => { :maximum => 255 }
     validates_presence_of :file, :on => :create, :message => "Can't be blank."
     validate :uniqueness_of_md5hash, :on => :create
 
@@ -63,6 +63,7 @@ class Document < ActiveRecord::Base
             }
         }
     } do
+        # :_source => { :excludes => ['attachment'] }
         mapping :_source => { :excludes => ['attachment'] } do
             indexes :id, :index    => :not_analyzed
             indexes :title, :analyzer => 'snowball', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer', :boost => 100
@@ -70,11 +71,13 @@ class Document < ActiveRecord::Base
             indexes :published_on, :type => 'date'
             indexes :author, :type => 'string'
             indexes :attachment, :type => 'attachment', :fields => {
-                :name       => { :store => 'yes' },  # exists?!?
-                :content    => { :store => 'yes' },
-                :title      => { :store => 'yes' },
-                :attachment => { :term_vector => 'with_positions_offsets', :store => 'yes' },
-                :date       => { :store => 'yes' }
+                :date       => { :store => 'yes' },
+                :file       => { :index => 'no' },
+                # :title      => { :store => 'yes' },
+                # :name       => { :store => 'yes' },  # exists?!?
+                :content    => { :store => 'yes', :analyzer => 'index_ngram_analyzer' },
+                # :attachment => { :store => 'yes' },  # :term_vector => 'with_positions_offsets',
+                :author     => { :analyzer => 'index_ngram_analyzer' }
             }
             #, :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
         end
@@ -115,6 +118,9 @@ class Document < ActiveRecord::Base
             highlight :title, :attachment, :description
 
             filter :term, :author => params[:author] if params[:author].present?
+            filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
+            filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
+            filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
             sort { by :published_on, "desc" } # if params[:query].blank?
 
@@ -141,6 +147,7 @@ class Document < ActiveRecord::Base
     end
 
     def attachment
+        puts ":: attachment => #{file_url.to_s}"
         if file.present?
             path_to_file = Rails.root.to_s + '/public' + file_url.to_s
             Base64.encode64(open(path_to_file) { |f| f.read })
@@ -165,6 +172,7 @@ class Document < ActiveRecord::Base
         end
 
         def compute_hash
+            puts ":: compute_hash => #{self.file.nil?} - #{self.file.size}"
             self.md5hash = Digest::MD5.hexdigest(self.file.read) if self.file?
         end
 
