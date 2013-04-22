@@ -98,7 +98,7 @@ group :development, :test do
 
     # Documentation
     gem 'railroady'
-    gem 'RedCloth'
+    # gem 'RedCloth'
 
 end
 
