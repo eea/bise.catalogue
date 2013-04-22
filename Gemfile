@@ -5,15 +5,13 @@ source 'https://rubygems.org'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'rails', '3.2.9'
 
-gem 'rack', '1.4.1'
+gem 'rack'      #, '1.4.1'
 gem 'zeus'
 
 # DATABASES
 gem 'sqlite3'
 gem 'pg'
 
-# 1
-# 2
 
 
 # Gems used only for assets and not required
@@ -97,7 +95,10 @@ group :development, :test do
     gem 'rspec-rails'
 
     gem 'gem-ctags'
+
+    # Documentation
     gem 'railroady'
+    gem 'RedCloth'
 
 end
 
@@ -123,6 +124,7 @@ gem 'capistrano-rbenv', '1.0.1'
 
 
 gem "will_paginate"
+gem 'will_paginate-bootstrap'
 
 gem 'acts-as-taggable-on'
 
