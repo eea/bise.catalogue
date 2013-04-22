@@ -1,6 +1,10 @@
+require 'yaml'
+
 Tire.configure do
-    # logger STDERR
-    url "http://89.0.1.129:9200"
+    logger STDERR
+
+    url ES_CONFIG["#{Rails.env.downcase}_url"]
+
     # prefix = "#{Rails.application.class.parent_name.downcase}_#{Rails.env.to_s.downcase}_"
     # Tire::Model::Search.index_prefix(prefix)
 end

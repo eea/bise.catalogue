@@ -1,0 +1,9 @@
+
+development:
+    url: http://89.0.1.129:9200
+
+test:
+    url: http://89.0.1.129:9200
+
+production:
+    url: http://89.0.1.129:9200
