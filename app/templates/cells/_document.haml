@@ -17,9 +17,10 @@
     - elsif doc.content_type == 'application/vnd.ms-powerpoint'
         %div.pull-left.mini-icon.powerpoint
     - elsif doc.content_type == 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
-        %div.pull-left.mini-icon.pdf
+        %div.pull-left.mini-icon.powerpoint2010
     - elsif doc.content_type == 'text/plain'
-        %div.pull-left.mini-icon.pdf
+        %div.pull-left.mini-icon.plaintext
+
 
     .title
         - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
@@ -27,7 +28,20 @@
         - else
             = link_to doc.title, doc
 
-    %small by #{doc.author} at #{doc.created_at}
+
+    - if doc.author?
+        %small by #{doc.author}
+        / at #{doc.created_at}
+
+    - if doc.published?
+        %span.label.label-success.pull-right
+            / %i.icon-ok
+            Published
+    - else
+        %span.label.label-important.pull-right
+            / %i.icon-remove
+            Unpublished
+
     %br
     - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
         - att_hits = hit['highlight']['attachment']
@@ -38,3 +52,37 @@
                     %li
                         %p.hit= raw '...' + h + '...'
         / = raw hit['highlight']['attachment'].first
+
+
+
+
+    / %li.media
+    /     %a.pull-left
+    /         - if doc.content_type == 'application/pdf'
+    /             %div.pull-left.normal-icon.pdf
+    /         - elsif doc.content_type == 'application/rtf'
+    /             %div.pull-left.normal-icon.rtf
+    /         - elsif doc.content_type == 'application/msword'
+    /             %div.pull-left.normal-icon.word
+    /         - elsif doc.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    /             %div.pull-left.normal-icon.word2010
+    /         - elsif doc.content_type == 'text/csv'
+    /             %div.pull-left.normal-icon.csv
+    /         - elsif doc.content_type == 'application/vnd.ms-excel'
+    /             %div.pull-left.normal-icon.excel
+    /         - elsif doc.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    /             %div.pull-left.normal-icon.excel2010
+    /         - elsif doc.content_type == 'application/vnd.ms-powerpoint'
+    /             %div.pull-left.normal-icon.powerpoint
+    /         - elsif doc.content_type == 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+    /             %div.pull-left.normal-icon.powerpoint2010
+    /         - elsif doc.content_type == 'text/plain'
+    /             %div.pull-left.normal-icon.plaintext
+    /     %div.media-body
+    /         %h5.media-heading
+    /             - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
+    /                 = link_to raw(hit['highlight']['title'].first), doc
+    /             - else
+    /                 = link_to doc.title, doc
+    /         %div.media
+    /             lkjsdoihhiopuewfiopnewoip fwopein fpoiwen fgopiwengfpoiwen giowp
