@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130424091309) do
+ActiveRecord::Schema.define(:version => 20130424142215) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -98,6 +98,20 @@ ActiveRecord::Schema.define(:version => 20130424091309) do
   create_table "documents_countries", :id => false, :force => true do |t|
     t.integer "document_id"
     t.integer "country_id"
+  end
+
+  create_table "ecosystem_assessments", :force => true do |t|
+    t.string   "document_type"
+    t.string   "title"
+    t.string   "language"
+    t.string   "english_title"
+    t.integer  "published_year"
+    t.string   "origin"
+    t.string   "url"
+    t.boolean  "is_final"
+    t.string   "license"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
 
   create_table "sites", :force => true do |t|
