@@ -1,0 +1,37 @@
+= form_for @ecosystem_assessment do |f|
+  - if @ecosystem_assessment.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@ecosystem_assessment.errors.count, "error")} prohibited this ecosystem_assessment from being saved:"
+      %ul
+        - @ecosystem_assessment.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :document_type
+    = f.text_field :document_type
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :language
+    = f.text_field :language
+  .field
+    = f.label :english_title
+    = f.text_field :english_title
+  .field
+    = f.label :published_year
+    = f.number_field :published_year
+  .field
+    = f.label :origin
+    = f.text_field :origin
+  .field
+    = f.label :url
+    = f.text_field :url
+  .field
+    = f.label :is_final
+    = f.check_box :is_final
+  .field
+    = f.label :license
+    = f.text_field :license
+  .actions
+    = f.submit 'Save'
