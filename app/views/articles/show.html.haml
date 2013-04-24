@@ -32,7 +32,7 @@
                 %td.collabel
                     %b Geographical Coverage:
                 %td.colcontent
-                    = @article.geographical_coverage
+                /     = @article.geographical_coverage
             %tr
                 %td.collabel
                     %b Author:
@@ -62,6 +62,13 @@
                 /     %b Source URL :
                 / %td.colcontent
                 /     = @article.source_url
+
+            %tr
+                %td{ :colspan => '4' }
+                    %b Countries
+                    %ul
+                        - @article.countries.each do |c|
+                            %li= c.name
 
             %tr
                 %td.collabel

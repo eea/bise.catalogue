@@ -1,6 +1,7 @@
 
 = simple_form_for(@article) do |f|
 
+
     %ul.nav.nav-tabs
         %li.active
             %a{ :data => { :article => '#general' } } General
@@ -14,6 +15,9 @@
     .nav-container
         %section
             %article#general
+                .row
+                    .span12
+                        = f.input :title, :placeholder => 'Example Article' , :input_html => { :class => "span8" }
 
                 .row
                     .span6
@@ -25,7 +29,7 @@
                 .row
                     .span6
 
-                        = f.input :title, :placeholder => 'Example Document' # , :input_html => { :class => "span6" }
+                        / = f.input :title, :placeholder => 'Example Document' # , :input_html => { :class => "span6" }
                         = f.input :author, :as => :string, :placeholder => 'John Doe' # , :input_html => { :class => "span6" }
                         = f.input :source_url, :as => :string, :placeholder => 'http://example.eu' # , :input_html => { :class => "span6" }
 
@@ -43,12 +47,16 @@
                     .span12
                         = f.input :content, :as => :text, :input_html => { :class => "span8 tinymce" }
 
-            %article#geographic.hide
-                .row
+            %article#geographic.hide{ :style => 'padding-left: 20px; padding-right: 20px' }
+                .row-fluid
                     .span6
-                        = f.input :geographical_coverage, :as => :select, :collection => countries, include_blank: true #, :input_html => { :class => "input-xlarge"}
-                    .span6
+                        / = f.input :geographical_coverage, :as => :select, :collection => countries, include_blank: true #, :input_html => { :class => "input-xlarge"}
                         = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true #, :input_html => { :class => "input-xlarge"}
+                    .span6
+                        = render :partial => 'articles/countries', :locals => { :parent => @article }
+
+
+
 
             %article#thesaurus.hide{ :style => 'padding-left: 20px; padding-right: 20px' }
                 .row-fluid
@@ -63,7 +71,7 @@
                         .well
                             %div.tag_container{ :style => 'min-height: 150px'}
                                 %p
-                                    %strong Added tags:
+                                    %strong Tags:
 
             %article#ecosystems.hide
                 %h3 Ecosystems (Not implemented)

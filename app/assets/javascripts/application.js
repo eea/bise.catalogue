@@ -86,4 +86,5 @@
 //= require_tree ../../templates
 
 //= require actions
+//= require countries
 

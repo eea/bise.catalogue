@@ -7,7 +7,7 @@ class CreateArticles < ActiveRecord::Migration
       t.text      :content
 
       t.string    :language
-      t.text      :geographical_coverage
+      # t.text      :geographical_coverage
       t.text      :biographical_region
 
       t.text      :source_url

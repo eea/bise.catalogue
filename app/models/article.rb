@@ -11,7 +11,7 @@ class Article < ActiveRecord::Base
     attr_accessible :content
 
     attr_accessible :language
-    attr_accessible :geographical_coverage
+    # attr_accessible :geographical_coverage
     attr_accessible :biographical_region
 
     attr_accessible :source_url
@@ -21,6 +21,10 @@ class Article < ActiveRecord::Base
 
     attr_accessible :site_id
     belongs_to              :site
+
+    attr_accessible :country_ids
+    has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "articles_countries", :foreign_key => "article_id"
+
     has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "articles_concepts", :foreign_key => "article_id"
 
     # validates_presence_of :site
@@ -58,7 +62,7 @@ class Article < ActiveRecord::Base
             indexes :title, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :content, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :language, :type => 'string'
-            indexes :geographical_coverage, :type => 'string'
+            # indexes :geographical_coverage, :type => 'string'
             indexes :biographical_region, :type => 'string'
             indexes :author, :type => 'string'
             indexes :published_on, :type => 'date'
@@ -96,7 +100,7 @@ class Article < ActiveRecord::Base
             # highlight :title
 
             filter :term, :author => params[:author] if params[:author].present?
-            filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
+            # filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
             filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
             filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
@@ -106,9 +110,9 @@ class Article < ActiveRecord::Base
                 terms :author
             end
 
-            facet 'geographical_coverages' do
-                terms :geographical_coverage
-            end
+            # facet 'geographical_coverages' do
+            #     terms :geographical_coverage
+            # end
 
             facet 'biographical_regions' do
                 terms :biographical_region

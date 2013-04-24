@@ -39,9 +39,12 @@ describe ArticlesController do
 
   describe "GET index" do
     it "assigns all articles as @articles" do
-      article = Article.create! valid_attributes
+      params = Hash.new
+      params[:query] = ''
+
+      articles = Article.search(params)
       get :index, {}, valid_session
-      assigns(:articles).to_a.should eq([article])
+      assigns(:articles).should be_a(Tire::Results::Collection)
     end
   end
 

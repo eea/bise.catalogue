@@ -46,6 +46,7 @@ class ArticlesController < ApplicationController
     # GET /articles/new
     # GET /articles/new.json
     def new
+        @countries = Country.all
         @article = Article.new
         # respond_to do |format|
         #     format.html # new.html.erb
@@ -55,6 +56,7 @@ class ArticlesController < ApplicationController
 
     # GET /articles/1/edit
     def edit
+        @countries = Country.all
         @article = Article.find(params[:id])
     end
 
