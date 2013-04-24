@@ -25,6 +25,7 @@ class DocumentsController < ApplicationController
   # GET /documents/new
   # GET /documents/new.json
   def new
+    @countries = Country.all
     @document = Document.new
 
     respond_to do |format|
@@ -35,6 +36,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents/1/edit
   def edit
+    @countries = Country.all
     @document = Document.find(params[:id])
   end
 

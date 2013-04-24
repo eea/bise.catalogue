@@ -7,7 +7,7 @@ class CreateDocuments < ActiveRecord::Migration
       t.string      :description
 
       t.string      :language
-      t.text        :geographical_coverage
+      # t.text        :geographical_coverage
       t.text        :biographical_region
 
       t.string      :source_url

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130424060453) do
+ActiveRecord::Schema.define(:version => 20130424091309) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(:version => 20130424060453) do
     t.string   "author"
     t.string   "description"
     t.string   "language"
-    t.text     "geographical_coverage"
     t.text     "biographical_region"
     t.string   "source_url"
     t.date     "published_on"
@@ -87,13 +86,18 @@ ActiveRecord::Schema.define(:version => 20130424060453) do
     t.string   "md5hash"
     t.integer  "site_id"
     t.integer  "theme_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "documents_concepts", :id => false, :force => true do |t|
     t.integer "document_id"
     t.integer "concept_id"
+  end
+
+  create_table "documents_countries", :id => false, :force => true do |t|
+    t.integer "document_id"
+    t.integer "country_id"
   end
 
   create_table "sites", :force => true do |t|

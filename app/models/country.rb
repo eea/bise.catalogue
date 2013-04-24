@@ -9,5 +9,6 @@ class Country < ActiveRecord::Base
     attr_accessible :eu28
 
     has_and_belongs_to_many :articles, :association_foreign_key => "article_id", :join_table => "articles_countries", :class_name => "Article"
+    has_and_belongs_to_many :documents, :association_foreign_key => "document_id", :join_table => "documents_countries", :class_name => "Document"
 
 end

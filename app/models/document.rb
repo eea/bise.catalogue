@@ -9,7 +9,7 @@ class Document < ActiveRecord::Base
     attr_accessible :description
 
     attr_accessible :language
-    attr_accessible :geographical_coverage
+    #attr_accessible :geographical_coverage
     attr_accessible :biographical_region
 
     attr_accessible :source_url
@@ -23,6 +23,10 @@ class Document < ActiveRecord::Base
 
     attr_accessible :site_id
     belongs_to      :site
+
+    attr_accessible :country_ids
+    has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "documents_countries", :foreign_key => "document_id"
+
     has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "documents_concepts", :foreign_key => "document_id"
 
     validates_presence_of :site
