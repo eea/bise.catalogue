@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130321074448) do
+ActiveRecord::Schema.define(:version => 20130424060453) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -28,20 +28,24 @@ ActiveRecord::Schema.define(:version => 20130321074448) do
     t.text     "author"
     t.text     "content"
     t.string   "language"
-    t.text     "geographical_coverage"
     t.text     "biographical_region"
     t.text     "source_url"
     t.date     "published_on"
     t.boolean  "published"
     t.integer  "site_id"
     t.integer  "concepts_id"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "articles_concepts", :id => false, :force => true do |t|
     t.integer "article_id"
     t.integer "concept_id"
+  end
+
+  create_table "articles_countries", :id => false, :force => true do |t|
+    t.integer "article_id"
+    t.integer "country_id"
   end
 
   create_table "concepts", :force => true do |t|
@@ -52,6 +56,18 @@ ActiveRecord::Schema.define(:version => 20130321074448) do
     t.integer  "articles_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+  end
+
+  create_table "countries", :force => true do |t|
+    t.string   "name"
+    t.string   "code"
+    t.boolean  "eu15"
+    t.boolean  "eu25"
+    t.boolean  "eu27"
+    t.boolean  "eu28"
+    t.boolean  "eea"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "documents", :force => true do |t|
