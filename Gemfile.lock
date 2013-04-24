@@ -126,6 +126,11 @@ GEM
       rspec (~> 2.11)
     haml (4.0.2)
       tilt
+    haml-rails (0.4)
+      actionpack (>= 3.1, < 4.1)
+      activesupport (>= 3.1, < 4.1)
+      haml (>= 3.1, < 4.1)
+      railties (>= 3.1, < 4.1)
     hashr (0.0.22)
     highline (1.6.18)
     hike (1.2.2)
@@ -378,7 +383,7 @@ DEPENDENCIES
   ffi
   gem-ctags
   guard-rspec
-  haml
+  haml-rails
   jquery-fileupload-rails
   jquery-rails
   jquery-ui-rails

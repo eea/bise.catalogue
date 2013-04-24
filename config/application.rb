@@ -60,5 +60,10 @@ module Catalogue
     config.assets.version = '1.0'
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
+
+    config.generators do |g|
+        g.template_engine :haml
+    end
+
   end
 end

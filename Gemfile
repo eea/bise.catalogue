@@ -44,7 +44,8 @@ gem "remotipart"
 # Shared Mustache Templates
 gem 'smt_rails', :git => 'git://github.com/railsware/smt_rails.git'
 
-gem 'haml'
+# gem 'haml'
+gem "haml-rails"
 
 # TINYMCE WYSIWYG EDITOR
 gem 'tinymce-rails'
