@@ -2,7 +2,8 @@ class EcosystemAssessmentsController < ApplicationController
   # GET /ecosystem_assessments
   # GET /ecosystem_assessments.json
   def index
-    @ecosystem_assessments = EcosystemAssessment.all
+    # @ecosystem_assessments = EcosystemAssessment.all
+    @ecosystem_assessments = EcosystemAssessment.paginate(:page => params[:page], :per_page => 30)
 
     respond_to do |format|
       format.html # index.html.erb

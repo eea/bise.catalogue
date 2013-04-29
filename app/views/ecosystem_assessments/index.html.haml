@@ -1,35 +1,37 @@
-%h1 Listing ecosystem_assessments
+%h1 Ecosystem Assessment
 
-%table
+%table.table
   %tr
     %th Type
     %th Title
-    %th Language
+    / %th Language
     %th English title
     %th Published year
     %th Origin
-    %th Url
+    / %th Url
     %th Is final
-    %th License
+    / %th License
     %th
-    %th
+    / %th
     %th
 
   - @ecosystem_assessments.each do |ecosystem_assessment|
     %tr
       %td= ecosystem_assessment.document_type
       %td= ecosystem_assessment.title
-      %td= ecosystem_assessment.language
+      / %td= ecosystem_assessment.language
       %td= ecosystem_assessment.english_title
       %td= ecosystem_assessment.published_year
-      %td= ecosystem_assessment.origin
+      / %td= ecosystem_assessment.origin
       %td= ecosystem_assessment.url
       %td= ecosystem_assessment.is_final
-      %td= ecosystem_assessment.license
+      / %td= ecosystem_assessment.license
       %td= link_to 'Show', ecosystem_assessment
-      %td= link_to 'Edit', edit_ecosystem_assessment_path(ecosystem_assessment)
+      / %td= link_to 'Edit', edit_ecosystem_assessment_path(ecosystem_assessment)
       %td= link_to 'Destroy', ecosystem_assessment, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
+= page_entries_info @ecosystem_assessments
+= will_paginate @ecosystem_assessments, :renderer => BootstrapPagination::Rails
 
-= link_to 'New Ecosystem assessment', new_ecosystem_assessment_path
+/ = link_to 'New Ecosystem assessment', new_ecosystem_assessment_path

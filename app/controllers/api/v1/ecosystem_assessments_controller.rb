@@ -1,6 +1,14 @@
 module Api
     module V1
         class EcosystemAssessmentsController < ApplicationController
+
+            # We overwrite as_json method to create custom mappings
+            # class EcosystemAssessment < ::EcosystemAssessment
+            #     def as_json(options={})
+            #         super.merge(:released_on => released_at.to_date)
+            #     end
+            # end
+
             respond_to :json
 
             def index
@@ -19,6 +27,12 @@ module Api
 
             def create
                 errors = Array.new
+                puts "::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+                params.each do |p|
+                    puts ":: param => #{p.to_s}"
+                end
+                puts "::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
+                # binding.pry
                 # if params.size > 0
                 #     respond_with EcosystemAssessment.new
                 # else
