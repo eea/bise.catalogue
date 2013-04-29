@@ -15,4 +15,18 @@ class EcosystemAssessment < ActiveRecord::Base
 
     attr_accessible :url
 
+
+    # ---- VALIDATIONS
+    validates_presence_of :title, :message => "can't be blank"
+    validates_length_of :title, :within => 3..255, :message => "must be present"
+
+    validates_presence_of :language, :message => "can't be blank"
+    validates_presence_of :english_title, :message => "can't be blank"
+
+    validates_presence_of :published_year, :message => "can't be blank"
+
+    validates_presence_of :origin, :message => "can't be blank"
+
+    validates_presence_of :is_final, :message => "can't be blank"
+
 end
