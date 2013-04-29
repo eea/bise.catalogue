@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(:version => 20130424142215) do
 
   create_table "documents", :force => true do |t|
     t.string   "title"
+    t.string   "english_title"
     t.string   "author"
     t.string   "description"
     t.string   "language"
@@ -79,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20130424142215) do
     t.string   "source_url"
     t.date     "published_on"
     t.boolean  "published"
+    t.boolean  "approved"
     t.integer  "downloads"
     t.string   "file"
     t.string   "content_type"

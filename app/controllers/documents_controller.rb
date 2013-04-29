@@ -25,6 +25,7 @@ class DocumentsController < ApplicationController
   # GET /documents/new
   # GET /documents/new.json
   def new
+    @targets = Target.all
     @countries = Country.all
     @document = Document.new
 

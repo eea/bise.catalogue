@@ -6,87 +6,128 @@
         %li
             %a{ :data => { :article => '#geographic' } } Geographic
         %li
-            %a{ :data => { :article => '#thesaurus' } } Thesaurus (GEMET)
+            %a{ :data => { :article => '#related' } } Related Resources
         %li
-            %a{ :data => { :article => '#ecosystems' } } Ecosystems Assessments
+            %a{ :data => { :article => '#ecosystems' } } Thematic Area
 
     .nav-container
+
         %section
+
             %article#general
-                .row
-                    .span12
-                        = f.input :title, :placeholder => 'Example Document', :input_html => { :class => "span8" }
 
-                .row
-                    .span6
-                        = f.association :site #, :input_html => { :class => "input-xxlarge"}
-                    .span6
-                        = f.input :language, :as => :select, :collection => languages, include_blank: true
+                / .well
+                .container-fluid
+                    .row-fluid
+                        .span6
+                            %legend Information
+                            = f.association :site, :input_html => { :class => "input-block-level"}
+                            = f.input :title, :placeholder => 'Example Document', :input_html => { :class => "input-block-level" }
+                            = f.input :english_title, :placeholder => 'Example Document', :input_html => { :class => "input-block-level" }
+                            = f.input :language, :as => :select, :collection => languages, include_blank: true, :input_html => { :class => "input-block-level" }
 
-                %hr{ :style => 'margin-top:0' }
+                            / = f.input :approved, :wrapper => :toggle do
+                            /     / = f.check_box :published, :input_html => { :class => 'hide' }
+                            /     .btn-group
+                            /         %a.btn NO
+                            /         %a.btn.btn-success.active YES
 
-                .row
-                    .span6
-                        = f.input :author, :as => :string, :placeholder => 'John Doe' # , :input_html => { :class => "span6" }
-                        = f.input :source_url, :as => :string, :placeholder => 'http://example.eu' # , :input_html => { :class => "span6" }
+                        .span6
+                            %legend Document / File
+                            = f.input :file, :input_html => { :class => "input-block-level" }
+                            .row-fluid
+                                / .span4
+                                /     = f.input :published, :wrapper => :toggle do
+                                /         / = f.check_box :published, :input_html => { :class => 'hide' }
+                                /         .btn-group
+                                /             %a.btn.btn-danger.active NO
+                                /             %a.btn YES
+                                / .span4
+                                /     = f.input :approved, :wrapper => :toggle do
+                                /         / = f.check_box :published, :input_html => { :class => 'hide' }
+                                /         .btn-group
+                                /             %a.btn NO
+                                /             %a.btn.btn-success.active YES
+                                .span4
+                                    = f.input :published_on, :wrapper => :prepend do
+                                        %span.add-on
+                                            %i.icon-calendar
+                                        = f.input_field :published_on, :as => :string, :class => 'input-small'
+                                .span8
+                                    = f.input :author, :as => :string, :placeholder => 'John Doe' , :input_html => { :class => "input-block-level" }
+                            = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
 
-                    .span6
-                        = f.input :published_on, :wrapper => :prepend do
-                            %span.add-on
-                                %i.icon-calendar
-                            = f.input_field :published_on, :as => :string, :class => 'input-small'
-                        = f.input :published, :wrapper => :toggle do
-                            = f.check_box :published
+                            / %legend Publish Options
 
-                .row
-                    .span12
-                        #dropzone.fade
 
-                            .control-group.file.required
-                                %label.file.required.control-label{ :for => 'document_file' }
-                                    %abbr{ :title => 'required' } *
-                                    File
-                                .controls
-                                    .buttons
-                                        %a.btn.btn-small.btn-primary#choose_file
-                                            %i.icon-search
-                                            Select file
-                                        %input#document_file.file.required.hide{ :name => 'document[file]', :type => 'file' }
 
-                                        %p.help-block Select or drag a file over the form
-                                    .file-info
-                .row
-                    .span12
-                        = f.input :description, :as => :text, :input_html => { :class => 'span8 tinymce', :cols => 20, :rows => 7 }
 
-            %article#geographic.hide{ :style => 'padding-left: 20px; padding-right: 20px' }
-                .row-fluid
-                    .span6
-                        = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true #, :input_html => { :class => "input-xlarge"}
-                    .span6
-                        = render :partial => 'common/countries', :locals => { :parent => @document }
+            %article#geographic.hide
+                .container-fluid
+                    .row-fluid
+                        .span12
+                            = render :partial => 'common/countries', :locals => { :parent => @document }
 
-            %article#thesaurus.hide{ :style => 'padding-left: 20px; padding-right: 20px' }
-                %h1 Thesaurus
+            %article#related.hide
+
+                .container-fluid
+                    .row-fluid
+                        .alert.alert-error
+                            %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
+                            %strong
+                                Warning!
+                            This is a prototype, not working yet
+
+                    .row-fluid
+                        .span12
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                Articles
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                Documents
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                Events
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                Links
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                Multimedia
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                News
 
             %article#ecosystems.hide
-                %h1 Ecosystems
+                .container-fluid
+                    .row-fluid
+                        .span12
+                            %legend Biodiversity
+
+                    .row-fluid
+                        .span6
+                            = render :partial => 'common/targets', :locals => { :parent => @document }
+                        .span6
+                            = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
 
 
 
 
-        / = f.input :author, :placeholder => 'Author', :input_html => { :class => "input-xlarge" }
+
+            / = f.input :author, :placeholder => 'Author', :input_html => { :class => "input-xlarge" }
 
 
-        / = f.input :geographical_coverage, :as => :select, :collection => countries, include_blank: true #, :input_html => { :class => "input-xlarge"}
-        / = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true #, :input_html => { :class => "input-xlarge"}
-        / = f.input :language, :as => :select, :collection => languages, include_blank: true
+            / = f.input :geographical_coverage, :as => :select, :collection => countries, include_blank: true #, :input_html => { :class => "input-xlarge"}
+            / = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true #, :input_html => { :class => "input-xlarge"}
+            / = f.input :language, :as => :select, :collection => languages, include_blank: true
 
-        / = f.input :source_url, :placeholder => 'http://biodiversity.europa.eu', :input_html => { :class => "input-xlarge" }
-        / = f.input :published
-        / = f.input :published_on, :as => :string, :input_html => { :class => 'input-small' }
+            / = f.input :source_url, :placeholder => 'http://biodiversity.europa.eu', :input_html => { :class => "input-xlarge" }
+            / = f.input :published
+            / = f.input :published_on, :as => :string, :input_html => { :class => 'input-small' }
 
-        %div.form-actions
-            = f.submit 'Save', :class => "btn btn-success"
-            = link_to "Cancel", documents_path, :class => "btn"
+            .container-fluid
+                %div.form-actions
+                    = f.submit 'Save', :class => "btn btn-success"
+                    = link_to "Cancel", documents_path, :class => "btn"
 

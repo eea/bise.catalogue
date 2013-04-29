@@ -10,18 +10,6 @@ class ArticlesController < ApplicationController
         end
     end
 
-    # GET /articles/search
-    # def search
-    #     # if params[:q] != ""
-    #     #     logger.debug { ":: SEARCHING" }
-    #     @articles = Article.search params
-    #     # else
-    #     #     logger.debug { ":: ALL" }
-    #     #     @articles = Article.all
-    #     # end
-    #     render :action => "index"
-    # end
-
     # FIXME Not going to be used
     # GET /articles/concepts.json
     def concepts
@@ -37,10 +25,10 @@ class ArticlesController < ApplicationController
     # GET /articles/1.json
     def show
         @article = Article.find(params[:id])
-        # respond_to do |format|
-        #     format.html # show.html.erb
-        #     format.json { render json: @article }
-        # end
+        respond_to do |format|
+            format.html # show.html.erb
+            # format.json { render json: @article }
+        end
     end
 
     # GET /articles/new

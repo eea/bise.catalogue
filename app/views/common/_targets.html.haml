@@ -1,0 +1,23 @@
+#targets
+
+    / %legend
+    /     Targets & Actions:
+    .container-fluid
+        .row-fluid
+            .span8
+                %div#targets_tree{ :name => 'targets', :style => 'height: 400px;', :data => { :selected => parent.concepts.map(&:id) } }
+            .span4
+
+    / .tabbable.tabs-left
+
+    /     %ul.nav.nav-tabs
+    /         - @targets.each_with_index do |t, i|
+    /             %li
+    /                 %a{ :id => '#tab'+i.to_s, :href => '#tab'+i.to_s, :data => { :toggle => 'tab' } }
+    /                     = t.short_desc
+
+    /     .tab-content
+    /         - @targets.each_with_index do |t, i|
+    /             .tab-pane{ :id => '#tab'+i.to_s }
+    /                 %p I'm a section 1
+

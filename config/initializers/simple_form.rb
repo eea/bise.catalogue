@@ -150,7 +150,7 @@ SimpleForm.setup do |config|
 
   # You can define the class to use on all forms. Default is simple_form.
   # config.form_class = :simple_form
-  config.form_class = 'simple_form form-horizontal'
+  config.form_class = 'simple_form form-vertical'
 
   # You can define which elements should obtain additional classes
   # config.generate_additional_classes_for = [:wrapper, :label, :input]

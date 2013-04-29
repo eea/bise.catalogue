@@ -30,6 +30,22 @@
 .container
 
     .row
+        .span6
+            %dl.dl-horizontal
+                %dt Site
+                %dd= @document.site.name unless @document.site.nil?
+        .span6
+
+    .row
+        .span6
+            %dl.dl-horizontal
+                %dt Author
+                %dd= @document.author
+
+
+    %hr
+
+    .row
         .span3
             %b Site:
         .span3

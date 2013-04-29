@@ -1,14 +1,36 @@
 class TargetsController < ApplicationController
-  # GET /targets
+
   # GET /targets.json
   def index
-    @targets = Target.all
+      @targets = Target.all.collect do |t|
+          {
+              :key => 'f' + t.id.to_s,
+              :title => t.title,
+              :folder => true,
+              :children => t.actions.order('lower(title)').collect do |c|
+                  { :key => c.id, :title => c.title }
+              end
+          }
+      end.to_json
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @targets }
-    end
+      respond_to do |format|
+          # format.html # index.html.erb
+          format.json { render :json => @targets }
+      end
   end
+
+
+
+  # GET /targets
+  # GET /targets.json
+  # def index
+  #   @targets = Target.all
+
+  #   respond_to do |format|
+  #     format.html # index.html.erb
+  #     format.json { render json: @targets }
+  #   end
+  # end
 
   # GET /targets/1
   # GET /targets/1.json
