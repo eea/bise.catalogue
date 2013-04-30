@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130424142215) do
+ActiveRecord::Schema.define(:version => 20130430092536) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -115,6 +115,23 @@ ActiveRecord::Schema.define(:version => 20130424142215) do
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
+
+  create_table "links", :force => true do |t|
+    t.string   "title"
+    t.string   "english_title"
+    t.string   "author"
+    t.datetime "published_on"
+    t.string   "language"
+    t.string   "source"
+    t.boolean  "approved"
+    t.integer  "countries_id"
+    t.string   "url"
+    t.datetime "approved_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "links", ["countries_id"], :name => "index_links_on_countries_id"
 
   create_table "sites", :force => true do |t|
     t.string   "name"

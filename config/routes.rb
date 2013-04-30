@@ -1,11 +1,5 @@
 Catalogue::Application.routes.draw do
 
-
-
-
-
-
-
 	root :to => 'articles#index'
 
 	# SITES

@@ -32,8 +32,8 @@
             Unpublished
 
     %br
-    - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content'
-        - att_hits = hit['highlight']['content']
+    - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content_without_tags'
+        - att_hits = hit['highlight']['content_without_tags']
 
         .hits
             %ol{ :type => "I" }
