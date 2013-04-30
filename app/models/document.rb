@@ -8,6 +8,8 @@ class Document < ActiveRecord::Base
     attr_accessible :author
     attr_accessible :description
 
+    attr_accessible :english_title
+
     attr_accessible :language
     #attr_accessible :geographical_coverage
     attr_accessible :biographical_region
@@ -76,11 +78,11 @@ class Document < ActiveRecord::Base
             indexes :author, :type => 'string'
             indexes :attachment, :type => 'attachment', :fields => {
                 :date       => { :store => 'yes' },
-                :file       => { :index => 'no' },
+                :file       => { :index => 'no'},
                 # :title      => { :store => 'yes' },
                 # :name       => { :store => 'yes' },  # exists?!?
-                :content    => { :store => 'yes', :analyzer => 'index_ngram_analyzer' },
-                # :attachment => { :store => 'yes' },  # :term_vector => 'with_positions_offsets',
+                :content    => { :store => 'yes', :term_vector => 'with_positions_offsets', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer' },
+                :attachment => { :store => 'yes', :term_vector => 'with_positions_offsets' },
                 :author     => { :analyzer => 'index_ngram_analyzer' }
             }
             #, :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
@@ -111,10 +113,11 @@ class Document < ActiveRecord::Base
     def self.search(params)
         tire.search :load => true, :page => params[:page], :per_page => 10 do
             query do
-                 boolean do
-                  should   { string 'title:' + params[:query].to_s }
-                  should   { string 'description:' + params[:query].to_s }
-                  # must_not { string 'published:0' }
+                boolean do
+                    should   { string 'title:' + params[:query].to_s }
+                    should   { string 'description:' + params[:query].to_s }
+                    should   { string 'attachment:' + params[:query].to_s }
+                    # must_not { string 'published:0' }
                 end
             end if params[:query].present?
 

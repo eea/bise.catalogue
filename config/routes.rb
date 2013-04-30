@@ -38,9 +38,9 @@ Catalogue::Application.routes.draw do
 	# ECOSYSTEM ASSESMENT
 	resources :ecosystem_assessments
 
-	# scope '/api' do
-	#   match '/search' => 'search#index'
-	# end
+	scope '/api' do
+	  match '/search' => 'search#index'
+	end
 
 	# scope '/search' do
 	#   match '/global' => 'search#index'

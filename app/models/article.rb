@@ -60,7 +60,11 @@ class Article < ActiveRecord::Base
     } do
         mapping {
             indexes :title, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-            indexes :content, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            indexes :content, :store => 'yes', :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            # indexes :content, :type => 'attachment', :fields => {
+            #     :content    => { :store => 'yes', :term_vector => 'with_positions_offsets', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer' },
+            # }
+            indexes :content, :store => 'yes', :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :language, :type => 'string'
             # indexes :geographical_coverage, :type => 'string'
             indexes :biographical_region, :type => 'string'
@@ -97,7 +101,7 @@ class Article < ActiveRecord::Base
                 end
             end if params[:query].present?
 
-            # highlight :title
+            highlight :title, :content
 
             filter :term, :author => params[:author] if params[:author].present?
             # filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?

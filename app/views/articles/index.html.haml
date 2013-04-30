@@ -34,21 +34,21 @@
                                     %span= link_to "Remove", params.except(:author)
 
 
-                %li.item
-                    %a.title{ 'href' => '#', :class => 'active' }
-                        Geographical Coverage
-                    %ul.subitems
-                    / - @articles.facets['geographical_coverages']['terms'].each do |facet|
-                    /     - if !current_page?(params.merge(:geographical_coverage => facet['term'], :page => 1))
-                    /         %li.subitem
-                    /             = link_to params.merge(:geographical_coverage => facet['term'], :page => 1) do
-                    /                 = facet['term']
-                    /                 %span
-                    /                     = facet['count']
-                    /     - else
-                    /         %li.subitem.selected
-                    /             = facet['term']
-                    /             %span= link_to "Remove", params.except(:geographical_coverage)
+                / %li.item
+                /     %a.title{ 'href' => '#', :class => 'active' }
+                /         Geographical Coverage
+                /     %ul.subitems
+                /     - @articles.facets['geographical_coverages']['terms'].each do |facet|
+                /         - if !current_page?(params.merge(:geographical_coverage => facet['term'], :page => 1))
+                /             %li.subitem
+                /                 = link_to params.merge(:geographical_coverage => facet['term'], :page => 1) do
+                /                     = facet['term']
+                /                     %span
+                /                         = facet['count']
+                /         - else
+                /             %li.subitem.selected
+                /                 = facet['term']
+                /                 %span= link_to "Remove", params.except(:geographical_coverage)
 
 
                 %li.item
@@ -88,8 +88,10 @@
                                         %span= link_to "Remove", params.except(:published_on)
 
     .span9
-        - @articles.results.each do |article|
-            = render "cells/article", :article => article
+        - @articles.each_with_hit do |article, hit|
+            = render "cells/article", :article => article, :hit => hit
+        / - @articles.results.each do |article|
+        /     = render "cells/article", :article => article
 
         / %table.table.table-striped
         /     %thead

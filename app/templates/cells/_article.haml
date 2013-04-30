@@ -31,6 +31,16 @@
         %span.label.label-important.pull-right
             Unpublished
 
+    %br
+    - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content'
+        - att_hits = hit['highlight']['content']
+
+        .hits
+            %ol{ :type => "I" }
+                - att_hits.each do |h|
+                    %li
+                        %p.hit= raw '...' + h + '...'
+
 / <div style="padding: 3px; border-bottom: 1px dotted #6b6b6b; margin-bottom: 4px;">
 /     <div class="cell-title">
 /         <a href="{{url}}" style="display:inline-block;">{{article_title}}</a>
