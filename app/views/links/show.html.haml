@@ -1,0 +1,36 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @link.title
+%p
+  %b English title:
+  = @link.english_title
+%p
+  %b Author:
+  = @link.author
+%p
+  %b Published on:
+  = @link.published_on
+%p
+  %b Language:
+  = @link.language
+%p
+  %b Source:
+  = @link.source
+%p
+  %b Approved:
+  = @link.approved
+%p
+  %b Countries:
+  = @link.countries
+%p
+  %b Url:
+  = @link.url
+%p
+  %b Approved at:
+  = @link.approved_at
+
+= link_to 'Edit', edit_link_path(@link)
+\|
+= link_to 'Back', links_path

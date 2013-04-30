@@ -1,0 +1,40 @@
+= form_for @link do |f|
+  - if @link.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@link.errors.count, "error")} prohibited this link from being saved:"
+      %ul
+        - @link.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :english_title
+    = f.text_field :english_title
+  .field
+    = f.label :author
+    = f.text_field :author
+  .field
+    = f.label :published_on
+    = f.datetime_select :published_on
+  .field
+    = f.label :language
+    = f.text_field :language
+  .field
+    = f.label :source
+    = f.text_field :source
+  .field
+    = f.label :approved
+    = f.check_box :approved
+  .field
+    = f.label :countries
+    = f.text_field :countries
+  .field
+    = f.label :url
+    = f.text_field :url
+  .field
+    = f.label :approved_at
+    = f.datetime_select :approved_at
+  .actions
+    = f.submit 'Save'

@@ -1,0 +1,37 @@
+%h1 Listing links
+
+%table
+  %tr
+    %th Title
+    %th English title
+    %th Author
+    %th Published on
+    %th Language
+    %th Source
+    %th Approved
+    %th Countries
+    %th Url
+    %th Approved at
+    %th
+    %th
+    %th
+
+  - @links.each do |link|
+    %tr
+      %td= link.title
+      %td= link.english_title
+      %td= link.author
+      %td= link.published_on
+      %td= link.language
+      %td= link.source
+      %td= link.approved
+      %td= link.countries
+      %td= link.url
+      %td= link.approved_at
+      %td= link_to 'Show', link
+      %td= link_to 'Edit', edit_link_path(link)
+      %td= link_to 'Destroy', link, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Link', new_link_path
