@@ -4,6 +4,9 @@ Catalogue::Application.routes.draw do
 
 
 
+  resources :links
+
+
 	root :to => 'articles#index'
 
 	# SITES
