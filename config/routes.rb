@@ -4,7 +4,6 @@ Catalogue::Application.routes.draw do
 
 
 
-  resources :links
 
 
 	root :to => 'articles#index'
@@ -19,6 +18,9 @@ Catalogue::Application.routes.draw do
 
 	# DOCUMENTS
 	resources :documents
+
+	# LINKS
+  	resources :links
 
 	# SPECIES
 	resources :species
