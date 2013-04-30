@@ -75,7 +75,8 @@ class Document < ActiveRecord::Base
             indexes :title, :analyzer => 'snowball', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer', :boost => 100
             indexes :description, :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :published_on, :type => 'date'
-            indexes :author, :type => 'string'
+            indexes :author, :type => 'string', :index => :not_analyzed
+            indexes :biographical_region, :type => 'string', :index => :not_analyzed
             indexes :attachment, :type => 'attachment', :fields => {
                 :date       => { :store => 'yes' },
                 :file       => { :index => 'no'},
