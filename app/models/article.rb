@@ -34,7 +34,10 @@ class Article < ActiveRecord::Base
     index_name "#{Tire::Model::Search.index_prefix}articles"
 
 
-    refresh = lambda { Tire::Index.new(index_name).refresh }
+    refresh = lambda {
+        # self.update_index
+        Tire::Index.new(index_name).refresh
+    }
     after_save(&refresh)
     after_destroy(&refresh)
 
@@ -61,23 +64,25 @@ class Article < ActiveRecord::Base
         mapping {
             indexes :title, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :content, :store => 'yes', :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-            # indexes :content, :type => 'attachment', :fields => {
-            #     :content    => { :store => 'yes', :term_vector => 'with_positions_offsets', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer' },
-            # }
-            indexes :content, :store => 'yes', :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            # indexes :content_without_tags, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            # indexes :content_without_tags, :type => 'string',  :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :language, :type => 'string'
             # indexes :geographical_coverage, :type => 'string'
-            indexes :biographical_region, :type => 'string'
-            indexes :author, :type => 'string'
+            indexes :biographical_region, :type => 'string', :index => :not_analyzed
+            indexes :author, :type => 'string', :index => :not_analyzed
             indexes :published_on, :type => 'date'
         }
     end
 
 
     def to_indexed_json
-        self.to_json
+        # self.to_json
+        self.to_json :methods => [:content_without_tags]
     end
 
+    def content_without_tags
+        self.content.gsub(/<\/?[^>]*>/, "")
+    end
 
     def self.search(params)
 
@@ -96,12 +101,12 @@ class Article < ActiveRecord::Base
             query do
                  boolean do
                   should   { string 'title:' + params[:query].to_s }
-                  should   { string 'content:' + params[:query].to_s }
+                  should   { string 'content_without_tags:' + params[:query].to_s }
                   # must_not { string 'published:0' }
                 end
             end if params[:query].present?
 
-            highlight :title, :content
+            highlight :title, :content_without_tags
 
             filter :term, :author => params[:author] if params[:author].present?
             # filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
@@ -119,7 +124,7 @@ class Article < ActiveRecord::Base
             # end
 
             facet 'biographical_regions' do
-                terms :biographical_region
+                terms :biographical_region # , :script_field => true, :size => 50
             end
 
             facet('timeline') do
