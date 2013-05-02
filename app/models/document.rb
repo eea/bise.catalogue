@@ -74,7 +74,7 @@ class Document < ActiveRecord::Base
             indexes :id, :index    => :not_analyzed
             indexes :title, :analyzer => 'snowball', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer', :boost => 100
             indexes :description, :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-            indexes :published_on, :type => 'date'
+            indexes :published_on, :type => 'date', :index => :not_analyzed
             indexes :author, :type => 'string', :index => :not_analyzed
             indexes :biographical_region, :type => 'string', :index => :not_analyzed
             indexes :attachment, :type => 'attachment', :fields => {
@@ -112,6 +112,20 @@ class Document < ActiveRecord::Base
 
     # TODO Add another facets
     def self.search(params)
+
+        date_init = nil
+        date_end = nil
+
+        if params[:published_on].present?
+            year = params[:published_on].to_i
+            date_init = DateTime.new(year, 1, 1)
+            date_end = DateTime.new(year, 12, 31)
+        end
+        # doc_filter = []
+        # doc_filter << { :terms => { :author => [*params[:author]] }} if params[:author].present?
+        # doc_filter << { :terms => { :biographical_region => [*params[:biographical_region]] }} if params[:biographical_region].present?
+        # doc_filter << { :terms => { :published_on => { :gte => date_init , :lt => date_end } }} if params[:published_on].present?
+
         tire.search :load => true, :page => params[:page], :per_page => 10 do
             query do
                 boolean do
@@ -126,7 +140,7 @@ class Document < ActiveRecord::Base
             highlight :title, :attachment, :description
 
             filter :term, :author => params[:author] if params[:author].present?
-            filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
+            # filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
             filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
             filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
@@ -134,18 +148,34 @@ class Document < ActiveRecord::Base
 
             facet 'authors' do
                 terms :author
+                # facet_filter :and, doc_filter
+                facet_filter :term, :author => params[:author] if params[:author].present?
+                facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
+                facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
             end
 
             facet 'geographical_coverages' do
                 terms :geographical_coverage
+                # facet_filter :and, doc_filter
+                facet_filter :term, :author => params[:author] if params[:author].present?
+                facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
+                facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
             end
 
             facet 'biographical_regions' do
                 terms :biographical_region
+                # facet_filter :and, doc_filter
+                facet_filter :term, :author => params[:author] if params[:author].present?
+                facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
+                facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
             end
 
             facet('timeline') do
                 date :published_on, :interval => 'year'
+                # facet_filter :and, doc_filter
+                facet_filter :term, :author => params[:author] if params[:author].present?
+                facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
+                facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
             end
         end
     end
