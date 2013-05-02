@@ -6,7 +6,6 @@ $ ->
     _form = if $('.new_document').size() > 0 then '.new_document' else '.edit_document'
 
     class Document
-
         _node: '.file-info'
 
         constructor: (@file) ->
@@ -84,30 +83,6 @@ $ ->
         "keyboard"  : true,
         "show"      : false
     })
-
-
-    # errorModal = $("#err-modal").modal({
-    #     "backdrop"  : "static",
-    #     "keyboard"  : true,
-    #     "show"      : false
-    # })
-
-    # $("#err-modal").on("show", () ->
-    #     $("#err-modal a.btn").on("click", (e) ->
-    #         $("#err-modal").modal('hide')
-    #         # Cancel uploads
-    #         upload.ajaxStop()
-    #     )
-    # )
-
-    # $("#prog-modal").on("hide", () ->
-    #     $("#prog-modal a.btn").off("click");
-    # )
-
-    # $("#prog-modal").on("hidden", () ->
-    #     $("#prog-modal").remove();
-    # )
-
 
 
     # FILE
@@ -257,4 +232,28 @@ $ ->
     # ----------------------------------------------------
     # ----------------------------------------------------
     # ----------------------------------------------------
+
+
+    # errorModal = $("#err-modal").modal({
+    #     "backdrop"  : "static",
+    #     "keyboard"  : true,
+    #     "show"      : false
+    # })
+
+    # $("#err-modal").on("show", () ->
+    #     $("#err-modal a.btn").on("click", (e) ->
+    #         $("#err-modal").modal('hide')
+    #         # Cancel uploads
+    #         upload.ajaxStop()
+    #     )
+    # )
+
+    # $("#prog-modal").on("hide", () ->
+    #     $("#prog-modal a.btn").off("click");
+    # )
+
+    # $("#prog-modal").on("hidden", () ->
+    #     $("#prog-modal").remove();
+    # )
+
 

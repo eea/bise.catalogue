@@ -1,21 +1,21 @@
 = simple_form_for @document, :html => { :multipart => true }, :remote => true do |f|
 
-    %ul.nav.nav-tabs
-        %li.active
-            %a{ :data => { :article => '#general' } } General
-        %li
-            %a{ :data => { :article => '#geographic' } } Geographic
-        %li
-            %a{ :data => { :article => '#related' } } Related Resources
-        %li
-            %a{ :data => { :article => '#ecosystems' } } Thematic Area
+    .tabbable
 
-    .nav-container
+        %ul.nav.nav-tabs
 
-        %section
+            %li.active
+                %a{ :href => '#general', :data => { :toggle => 'tab' } } General
+            %li
+                %a{ :href => '#geographic', :data => { :toggle => 'tab' } } Geographic
+            %li
+                %a{ :href => '#related', :data => { :toggle => 'tab' } } Related Resources
+            %li
+                %a{ :href => '#ecosystems', :data => { :toggle => 'tab' } } Thematic Area
 
-            %article#general
+        .tab-content
 
+            #general.tab-pane.active
                 .container-fluid
 
                     %legend Info
@@ -54,17 +54,10 @@
                         .span6
                             = f.input :file, :input_html => { :class => "input-block-level" }
 
+            #geographic.tab-pane
+                = render :partial => 'common/countries', :locals => { :parent => @document }
 
-
-
-            %article#geographic.hide
-                .container-fluid
-                    .row-fluid
-                        .span12
-                            = render :partial => 'common/countries', :locals => { :parent => @document }
-
-            %article#related.hide
-
+            #related.tab-pane
                 .container-fluid
                     .row-fluid
                         .alert.alert-error
@@ -94,7 +87,7 @@
                                 %a.btn.btn-small.pull-right +
                                 News
 
-            %article#ecosystems.hide
+            #ecosystems.tab-pane
                 .container-fluid
                     .row-fluid
                         .span12
@@ -105,24 +98,11 @@
                             = render :partial => 'common/targets', :locals => { :parent => @document }
                         .span6
                             = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
+        .container-fluid
+            %div.form-actions
+                = f.submit 'Save', :class => "btn btn-success"
+                = link_to "Cancel", documents_path, :class => "btn"
 
 
 
-
-
-            / = f.input :author, :placeholder => 'Author', :input_html => { :class => "input-xlarge" }
-
-
-            / = f.input :geographical_coverage, :as => :select, :collection => countries, include_blank: true #, :input_html => { :class => "input-xlarge"}
-            / = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true #, :input_html => { :class => "input-xlarge"}
-            / = f.input :language, :as => :select, :collection => languages, include_blank: true
-
-            / = f.input :source_url, :placeholder => 'http://biodiversity.europa.eu', :input_html => { :class => "input-xlarge" }
-            / = f.input :published
-            / = f.input :published_on, :as => :string, :input_html => { :class => 'input-small' }
-
-            .container-fluid
-                %div.form-actions
-                    = f.submit 'Save', :class => "btn btn-success"
-                    = link_to "Cancel", documents_path, :class => "btn"
 
