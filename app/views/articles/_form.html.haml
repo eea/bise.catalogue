@@ -1,74 +1,70 @@
 
 = simple_form_for(@article) do |f|
 
+    .tabbable
 
-    %ul.nav.nav-tabs
-        %li.active
-            %a{ :data => { :article => '#general' } } General
-        %li
-            %a{ :data => { :article => '#geographic' } } Geographic
-        %li
-            %a{ :data => { :article => '#thesaurus' } } Thesaurus (GEMET)
-        %li
-            %a{ :data => { :article => '#ecosystems' } } Ecosystems Assessments
+        %ul.nav.nav-tabs
+            %li.active
+                %a{ :href => '#general', :data => { :toggle => 'tab' } } General
+            %li
+                %a{ :href => '#geographic', :data => { :toggle => 'tab' } } Geographic
+            %li
+                %a{ :href => '#related', :data => { :toggle => 'tab' } } Related Resources
+            %li
+                %a{ :href => '#ecosystems', :data => { :toggle => 'tab' } } Thematic Area
 
-    .nav-container
+    .tab-content
 
-        %section
+        #general.tab-pane.active
 
-            %article#general
+            .container-fluid
 
-                .container-fluid
+                %legend Info
 
-                    %legend Info
-
-                    .row-fluid
-                        .span6
-                            = f.association :site , :input_html => { :class => "input-block-level"}
-                        .span6
-                            = f.input :language, :as => :select, :collection => languages, include_blank: true, :input_html => { :class => "input-block-level" }
-
-                    .row-fluid
-                        .span6
-                            = f.input :title, :placeholder => 'Example Article' , :input_html => { :class => "input-block-level" }
-                        .span6
-
-                    %legend Publication
-
-                    .row-fluid
-                        .span6
-                            .row-fluid
-                                .span4
-                                    = f.input :published_on, :wrapper => :prepend do
-                                        %span.add-on
-                                            %i.icon-calendar
-                                        = f.input_field :published_on, :as => :string, :class => 'input-small'
-                                .span8
-                                    = f.input :author, :as => :string, :placeholder => 'John Doe' , :input_html => { :class => "input-block-level" }
-                        .span6
-
-                    .row-fluid
-                        .span12
-                            = f.input :content, :as => :text, :input_html => { :class => "input-block-level tinymce" }
-
-            %article#geographic.hide
-
-                .container-fluid
-                    .row-fluid
-                        .span6
-                            / = f.input :geographical_coverage, :as => :select, :collection => countries, include_blank: true #, :input_html => { :class => "input-xlarge"}
-                            = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level" }
-                        .span6
-
-                = render :partial => 'common/countries', :locals => { :parent => @article }
-
-
-
-
-            %article#thesaurus.hide
                 .row-fluid
                     .span6
-                        / .well
+                        = f.association :site , :input_html => { :class => "input-block-level"}
+                    .span6
+                        = f.input :language, :as => :select, :collection => languages, include_blank: true, :input_html => { :class => "input-block-level" }
+
+                .row-fluid
+                    .span6
+                        = f.input :title, :placeholder => 'Example Article' , :input_html => { :class => "input-block-level" }
+                    .span6
+
+                %legend Publication
+
+                .row-fluid
+                    .span6
+                        .row-fluid
+                            .span4
+                                = f.input :published_on, :wrapper => :prepend do
+                                    %span.add-on
+                                        %i.icon-calendar
+                                    = f.input_field :published_on, :as => :string, :class => 'input-small'
+                            .span8
+                                = f.input :author, :as => :string, :placeholder => 'John Doe' , :input_html => { :class => "input-block-level" }
+                    .span6
+
+                .row-fluid
+                    .span12
+                        = f.input :content, :as => :text, :input_html => { :class => "input-block-level tinymce" }
+
+        #geographic.tab-pane
+
+            = render :partial => 'common/countries', :locals => { :parent => @article }
+
+        #related.tab-pane
+
+            .alert.alert-error
+                %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
+                %strong
+                    Warning!
+                This section is under contruction...
+
+            .container-fluid
+                .row-fluid
+                    .span6
                         #filterpane{ :style => 'margin-bottom: 8px;display:none' }
                             %input.string{ :type => 'text', :name => "search", :placeholder => "Filter...", :style => '' }
                             %a.btn#reset &times;
@@ -80,8 +76,8 @@
                                 %p
                                     %strong Tags:
 
-            %article#ecosystems.hide
-                %h3 Ecosystems (Not implemented)
+        #ecosystems.tab-pane
+            %h3 Ecosystems (Not implemented)
 
 
         %div.form-actions
