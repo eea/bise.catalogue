@@ -35,17 +35,17 @@
                     %a.title{ 'href' => '#', :class => 'active' }
                         Geographical Coverage
                     %ul.subitems
-                        - @documents.facets['geographical_coverages']['terms'].each do |facet|
-                            - if !current_page?(params.merge(:geographical_coverage => facet['term'], :page => 1))
+                        - @documents.facets['countries']['terms'].each do |facet|
+                            - if !current_page?(params.merge(:countries => facet['term'], :page => 1))
                                 %li.subitem
-                                    = link_to params.merge(:geographical_coverage => facet['term'], :page => 1) do
+                                    = link_to params.merge(:countries => facet['term'], :page => 1) do
                                         = facet['term']
                                         %span
                                             = facet['count']
                             - else
                                 %li.subitem.selected
                                     = facet['term']
-                                    %span= link_to "Remove", params.except(:geographical_coverage)
+                                    %span= link_to "Remove", params.except(:countries)
 
 
                 %li.item

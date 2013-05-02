@@ -28,12 +28,15 @@ class Document < ActiveRecord::Base
 
     attr_accessible :country_ids
     has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "documents_countries", :foreign_key => "document_id"
-
     has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "documents_concepts", :foreign_key => "document_id"
 
-    validates_presence_of :site
+
+    # ---- VALIDATIONS -----
+    validates_presence_of :site, :message => "can't be blank"
+    validates_presence_of :author, :message => "can't be blank"
     validates_presence_of :title, :message => "can't be blank", :length => { :maximum => 255 }
     validates_presence_of :file, :on => :create, :message => "Can't be blank."
+
     validate :uniqueness_of_md5hash, :on => :create
 
     before_validation :compute_hash
@@ -48,7 +51,8 @@ class Document < ActiveRecord::Base
     after_destroy(&refresh)
 
 
-    # OPTIMIZE Improve document content nGram
+    # ----- TIRE SETTINGS -----
+
     settings :analysis => {
         :analyzer => {
             :search_analyzer => {
@@ -76,6 +80,13 @@ class Document < ActiveRecord::Base
             indexes :description, :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :published_on, :type => 'date', :index => :not_analyzed
             indexes :author, :type => 'string', :index => :not_analyzed
+
+            # indexes :countries,:as       => 'countries.name', :type => 'string', :index => :not_analyzed
+            indexes :countries do
+                indexes :id, :type => 'integer'
+                indexes :name, :type => 'string', :index => :not_analyzed
+            end
+
             indexes :biographical_region, :type => 'string', :index => :not_analyzed
             indexes :attachment, :type => 'attachment', :fields => {
                 :date       => { :store => 'yes' },
@@ -90,32 +101,31 @@ class Document < ActiveRecord::Base
         end
     end
 
-    # :_source => { :excludes => ['attachment'] }
-    # mapping do
-    #     indexes :id, :index    => :not_analyzed
-    #     indexes :name, :analyzer => 'snowball', :boost => 100
-    #     indexes :description, :analyzer => 'snowball'
-    #     indexes :created_at, :type => 'date'
-    #     indexes :attachment, :type => 'attachment'
-    #     # indexes :attachment, :type => 'attachment', :fields => {
-    #     #     :name       => { :store => 'yes' },
-    #     #     :content    => { :store => 'yes' },
-    #     #     :title      => { :store => 'yes' },
-    #     #     :attachment => { :term_vector => 'with_positions_offsets', :store => 'yes' },
-    #     #     :date       => { :store => 'yes' }
-    #     # }
+    # def to_indexed_json
+    #     to_json( :include => { :countries => { :only => [:id, :name] }},  :methods => [:attachment])
     # end
 
-    # after_save do
-    #     self.update_index # if self.state == 'published'
-    # end
+    def to_indexed_json
+        {
+            :title                  => title,
+            :description            => description,
+            :author                 => author,
+            :published_on           => published_on,
 
-    # TODO Add another facets
+            :countries              => countries.map { |c| { :_type  => 'country', :_id    => c.id, :name   => c.name  } },
+
+            :biographical_region    => biographical_region,
+            :attachment             => attachment
+        }.to_json
+    end
+
+
+    # ----- SEARCH  -----
+
     def self.search(params)
 
         date_init = nil
         date_end = nil
-
         if params[:published_on].present?
             year = params[:published_on].to_i
             date_init = DateTime.new(year, 1, 1)
@@ -140,7 +150,7 @@ class Document < ActiveRecord::Base
             highlight :title, :attachment, :description
 
             filter :term, :author => params[:author] if params[:author].present?
-            # filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
+            filter :term, 'countries.name' => params[:countries] if params[:countries].present?
             filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
             filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
@@ -150,14 +160,15 @@ class Document < ActiveRecord::Base
                 terms :author
                 # facet_filter :and, doc_filter
                 facet_filter :term, :author => params[:author] if params[:author].present?
+                facet_filter :term, 'countries.name' => params[:countries] if params[:countries].present?
                 facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
                 facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
             end
 
-            facet 'geographical_coverages' do
-                terms :geographical_coverage
-                # facet_filter :and, doc_filter
+            facet 'countries' do
+                terms 'countries.name'
                 facet_filter :term, :author => params[:author] if params[:author].present?
+                facet_filter :term, 'countries.name' => params[:countries] if params[:countries].present?
                 facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
                 facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
             end
@@ -166,6 +177,7 @@ class Document < ActiveRecord::Base
                 terms :biographical_region
                 # facet_filter :and, doc_filter
                 facet_filter :term, :author => params[:author] if params[:author].present?
+                facet_filter :term, 'countries.name' => params[:countries] if params[:countries].present?
                 facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
                 facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
             end
@@ -173,15 +185,12 @@ class Document < ActiveRecord::Base
             facet('timeline') do
                 date :published_on, :interval => 'year'
                 # facet_filter :and, doc_filter
+                facet_filter :term, 'countries.name' => params[:countries] if params[:countries].present?
                 facet_filter :term, :author => params[:author] if params[:author].present?
                 facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
                 facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
             end
         end
-    end
-
-    def to_indexed_json
-        to_json(:methods => [:attachment])
     end
 
     def attachment
