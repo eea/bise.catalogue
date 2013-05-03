@@ -124,17 +124,18 @@ class Document < ActiveRecord::Base
 
     def self.search(params)
 
-        date_init = nil
-        date_end = nil
+        date_init, date_end = nil
         if params[:published_on].present?
-            year = params[:published_on].to_i
-            date_init = DateTime.new(year, 1, 1)
-            date_end = DateTime.new(year, 12, 31)
+            date_init = DateTime.new(params[:published_on].to_i, 1, 1)
+            date_end = DateTime.new(params[:published_on].to_i, 12, 31)
         end
-        # doc_filter = []
-        # doc_filter << { :terms => { :author => [*params[:author]] }} if params[:author].present?
-        # doc_filter << { :terms => { :biographical_region => [*params[:biographical_region]] }} if params[:biographical_region].present?
-        # doc_filter << { :terms => { :published_on => { :gte => date_init , :lt => date_end } }} if params[:published_on].present?
+
+        document_facet_filter = lambda {
+            facet_filter :term, :author => params[:author] if params[:author].present?
+            facet_filter :term, 'countries.name' => params[:countries] if params[:countries].present?
+            facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
+            facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+        }
 
         tire.search :load => true, :page => params[:page], :per_page => 10 do
             query do
@@ -158,43 +159,28 @@ class Document < ActiveRecord::Base
 
             facet 'authors' do
                 terms :author
-                # facet_filter :and, doc_filter
-                facet_filter :term, :author => params[:author] if params[:author].present?
-                facet_filter :term, 'countries.name' => params[:countries] if params[:countries].present?
-                facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
-                facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+                document_facet_filter
             end
 
             facet 'countries' do
                 terms 'countries.name'
-                facet_filter :term, :author => params[:author] if params[:author].present?
-                facet_filter :term, 'countries.name' => params[:countries] if params[:countries].present?
-                facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
-                facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+                document_facet_filter
             end
 
             facet 'biographical_regions' do
                 terms :biographical_region
-                # facet_filter :and, doc_filter
-                facet_filter :term, :author => params[:author] if params[:author].present?
-                facet_filter :term, 'countries.name' => params[:countries] if params[:countries].present?
-                facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
-                facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+                document_facet_filter
             end
 
             facet('timeline') do
                 date :published_on, :interval => 'year'
-                # facet_filter :and, doc_filter
-                facet_filter :term, 'countries.name' => params[:countries] if params[:countries].present?
-                facet_filter :term, :author => params[:author] if params[:author].present?
-                facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
-                facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+                document_facet_filter
             end
         end
     end
 
     def attachment
-        puts ":: attachment => #{file_url.to_s}"
+        puts ":: Indexing document #{self.id}   => #{file_url.to_s}"
         if file.present?
             path_to_file = Rails.root.to_s + '/public' + file_url.to_s
             Base64.encode64(open(path_to_file) { |f| f.read })
@@ -219,7 +205,7 @@ class Document < ActiveRecord::Base
         end
 
         def compute_hash
-            puts ":: compute_hash => #{self.file.nil?} - #{self.file.size}"
+            # puts ":: compute_hash => #{self.file.nil?} - #{self.file.size}"
             self.md5hash = Digest::MD5.hexdigest(self.file.read) if self.file?
         end
 
