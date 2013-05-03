@@ -133,26 +133,39 @@ class Document < ActiveRecord::Base
         # Facet Filter
         doc_filter = []
         doc_filter << { :term => { :author => params[:author] }} if params[:author].present?
-        doc_filter << { :term => { 'countries.name' => params[:countries] }} if params[:countries].present?
+        doc_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
         doc_filter << { :term => { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
         doc_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
 
 
         tire.search :load => true, :page => params[:page], :per_page => 10 do
             query do
-                boolean do
-                    should   { string 'title:' + params[:query].to_s }
-                    should   { string 'description:' + params[:query].to_s }
-                    should   { string 'attachment:' + params[:query].to_s }
-                    # must_not { string 'published:0' }
+                filtered do
+                    query do
+                        string 'title:' + params[:query].to_s
+                        string 'description:' + params[:query].to_s
+                        string 'attachment:' + params[:query].to_s
+                    end
+                    # filter :term, :author => params[:author] if params[:author].present?
+                    # filter :or, :terms => { :organization_ids => current_user.followed_performers.collect(&:id).map(&:to_s) },
+                    #           :terms => { :watcher_ids =>      [current_user.id.to_s] }
                 end
+                # boolean do
+                #     should   { string 'title:' + params[:query].to_s }
+                #     should   { string 'description:' + params[:query].to_s }
+                #     should   { string 'attachment:' + params[:query].to_s }
+                #     # must_not { string 'published:0' }
+                # end
             end if params[:query].present?
 
             # highlight :name, :options => { :tag => '<strong class="highlight">' }
             highlight :title, :attachment, :description
 
             filter :term, :author => params[:author] if params[:author].present?
-            filter :term, 'countries.name' => params[:countries] if params[:countries].present?
+            # filter :or, :terms => { :countries_names => params[:countries].split(/\//) } if params[:countries].present?
+            # filter :term, 'countries.name' => ['Spain', 'Italy']  # if params[:countries].present?
+            filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
+            # filter :term, :countries_names => params[:countries].split(/\//) if params[:countries].present?
             filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
             filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 

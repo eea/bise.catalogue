@@ -48,13 +48,11 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
-        puts ":: SAVE"
         format.html { redirect_to @document, :notice => 'Document was successfully created.' }
         format.json { render :json => @document, :status => :created, :location => @document }
         format.js           # { render :nothing => true, :status => :ok }
         # format.js { render :json => @document, :status => :ok, :location => @document }
       else
-        puts ":: ERROR"
         format.html { render :action => "new" }
         format.json { render :json => @document.errors, :status => :unprocessable_entity }
         # format.js   { render :js => @document.errors }

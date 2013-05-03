@@ -36,16 +36,16 @@
                         Geographical Coverage
                     %ul.subitems
                         - @documents.facets['countries']['terms'].each do |facet|
-                            - if !current_page?(params.merge(:countries => facet['term'], :page => 1))
+                            - if params[:countries].present? and params[:countries].include?(facet['term'])
+                                %li.subitem.selected
+                                    = facet['term']
+                                    %span= link_to "Remove", remove_country(params, facet['term'])
+                            - else
                                 %li.subitem
-                                    = link_to params.merge(:countries => facet['term'], :page => 1) do
+                                    = link_to merge_countries(params, facet['term']) do
                                         = facet['term']
                                         %span
                                             = facet['count']
-                            - else
-                                %li.subitem.selected
-                                    = facet['term']
-                                    %span= link_to "Remove", params.except(:countries)
 
 
                 %li.item
