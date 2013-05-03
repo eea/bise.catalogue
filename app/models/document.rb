@@ -130,12 +130,13 @@ class Document < ActiveRecord::Base
             date_end = DateTime.new(params[:published_on].to_i, 12, 31)
         end
 
-        document_facet_filter = lambda {
-            facet_filter :term, :author => params[:author] if params[:author].present?
-            facet_filter :term, 'countries.name' => params[:countries] if params[:countries].present?
-            facet_filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
-            facet_filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
-        }
+        # Facet Filter
+        doc_filter = []
+        doc_filter << { :term => { :author => params[:author] }} if params[:author].present?
+        doc_filter << { :term => { 'countries.name' => params[:countries] }} if params[:countries].present?
+        doc_filter << { :term => { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
+        doc_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
+
 
         tire.search :load => true, :page => params[:page], :per_page => 10 do
             query do
@@ -159,22 +160,22 @@ class Document < ActiveRecord::Base
 
             facet 'authors' do
                 terms :author
-                document_facet_filter
+                facet_filter :and, doc_filter unless doc_filter.empty?
             end
 
             facet 'countries' do
                 terms 'countries.name'
-                document_facet_filter
+                facet_filter :and, doc_filter unless doc_filter.empty?
             end
 
             facet 'biographical_regions' do
                 terms :biographical_region
-                document_facet_filter
+                facet_filter :and, doc_filter unless doc_filter.empty?
             end
 
             facet('timeline') do
                 date :published_on, :interval => 'year'
-                document_facet_filter
+                facet_filter :and, doc_filter unless doc_filter.empty?
             end
         end
     end
