@@ -1,6 +1,7 @@
 class CreateLinks < ActiveRecord::Migration
   def change
     create_table :links do |t|
+
       t.string :title
       t.string :english_title
       t.string :author
@@ -8,12 +9,13 @@ class CreateLinks < ActiveRecord::Migration
       t.string :language
       t.string :source
       t.boolean :approved
-      t.references :countries
+      t.text    :biographical_region
       t.string :url
+      t.string :comment
+      t.string :description
       t.datetime :approved_at
-
+      t.references :site
       t.timestamps
     end
-    add_index :links, :countries_id
   end
 end
