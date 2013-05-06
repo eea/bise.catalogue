@@ -1,7 +1,16 @@
-%h1 Editing link
+- content_for :pageheader do
+    Editing link
+
+- content_for :actions do
+    = link_to links_path, :class => "btn" do
+        %i.icon-reply
+        Back
+    = link_to @link, :class => "btn" do
+        %i.icon-search
+        Show
 
 = render 'form'
 
-= link_to 'Show', @link
-\|
-= link_to 'Back', links_path
+- content_for :js do
+    = javascript_include_tag 'links'
+    = tinymce
