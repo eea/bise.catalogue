@@ -10,7 +10,10 @@ class Document < ActiveRecord::Base
 
     attr_accessible :english_title
 
-    attr_accessible :language
+    attr_accessible :language_ids
+    has_and_belongs_to_many :languages, :class_name => "Language", :join_table => "documents_languages", :foreign_key => "document_id"
+
+
     #attr_accessible :geographical_coverage
     attr_accessible :biographical_region
 
@@ -32,11 +35,13 @@ class Document < ActiveRecord::Base
 
 
     # ---- VALIDATIONS -----
+
+
     validates_presence_of :site, :message => "can't be blank"
     validates_presence_of :author, :message => "can't be blank"
     validates_presence_of :title, :message => "can't be blank", :length => { :maximum => 255 }
 
-    validates_presence_of :language, :message => "can't be blank"
+    validates_presence_of :language_ids, :message => "can't be blank"
 
     validates_presence_of :file, :on => :create, :message => "Can't be blank."
 
@@ -81,13 +86,16 @@ class Document < ActiveRecord::Base
             indexes :id, :index    => :not_analyzed
             indexes :title, :analyzer => 'snowball', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer', :boost => 100
 
-            indexes :language, :index => :not_analyzed
+            # indexes :language, :index => :not_analyzed
+            indexes :languages do
+                indexes :id, :type => 'integer'
+                indexes :name, :type => 'string', :index => :not_analyzed
+            end
 
             indexes :description, :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :published_on, :type => 'date', :index => :not_analyzed
             indexes :author, :type => 'string', :index => :not_analyzed
 
-            # indexes :countries,:as       => 'countries.name', :type => 'string', :index => :not_analyzed
             indexes :countries do
                 indexes :id, :type => 'integer'
                 indexes :name, :type => 'string', :index => :not_analyzed
@@ -118,9 +126,9 @@ class Document < ActiveRecord::Base
             :author                 => author,
             :published_on           => published_on,
 
-            :languages              => language,
+            :languages              => languages.map { |l| { :_type  => 'language', :_id => l.id, :name => l.name } },
 
-            :countries              => countries.map { |c| { :_type  => 'country', :_id    => c.id, :name   => c.name  } },
+            :countries              => countries.map { |c| { :_type  => 'country', :_id => c.id, :name => c.name } },
 
             :biographical_region    => biographical_region,
             :attachment             => attachment
@@ -142,6 +150,7 @@ class Document < ActiveRecord::Base
         doc_filter = []
         doc_filter << { :term => { :author => params[:author] }} if params[:author].present?
         doc_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
+        doc_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
         doc_filter << { :term => { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
         doc_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
 
@@ -173,6 +182,7 @@ class Document < ActiveRecord::Base
             # filter :or, :terms => { :countries_names => params[:countries].split(/\//) } if params[:countries].present?
             # filter :term, 'countries.name' => ['Spain', 'Italy']  # if params[:countries].present?
             filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
+            filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
             # filter :term, :countries_names => params[:countries].split(/\//) if params[:countries].present?
             filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
             filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
@@ -194,8 +204,8 @@ class Document < ActiveRecord::Base
                 facet_filter :and, doc_filter unless doc_filter.empty?
             end
 
-            facet 'language' do
-                terms :language
+            facet 'languages' do
+                terms 'languages.name'
                 facet_filter :and, doc_filter unless doc_filter.empty?
             end
 

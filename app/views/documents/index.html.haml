@@ -42,7 +42,7 @@
                                     %span= link_to "Remove", remove_country(params, facet['term'])
                             - else
                                 %li.subitem
-                                    = link_to merge_countries(params, facet['term']) do
+                                    = link_to merge_country(params, facet['term']) do
                                         = facet['term']
                                         %span
                                             = facet['count']
@@ -64,6 +64,22 @@
                                     = facet['term']
                                     %span= link_to "Remove", params.except(:biographical_region)
 
+
+                %li.item
+                    %a.title{ 'href' => '#', :class => 'active' }
+                        Language
+                    %ul.subitems
+                        - @documents.facets['languages']['terms'].each do |facet|
+                            - if params[:languages].present? and params[:languages].include?(facet['term'])
+                                %li.subitem.selected
+                                    = facet['term']
+                                    %span= link_to "Remove", remove_language(params, facet['term'])
+                            - else
+                                %li.subitem
+                                    = link_to merge_language(params, facet['term']) do
+                                        = facet['term']
+                                        %span
+                                            = facet['count']
 
                 %li.item
                     %a.title{ 'href' => '#', :class => 'active' }

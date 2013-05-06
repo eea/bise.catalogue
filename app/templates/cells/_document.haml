@@ -30,7 +30,8 @@
 
 
     - if doc.author?
-        %small by #{doc.author} at #{doc.created_at.strftime("%m/%d/%Y")}
+        %small by #{doc.author} at
+        / #{doc.published_on.strftime("%m/%d/%Y")}
 
     - if doc.published?
         %span.label.label-success.pull-right

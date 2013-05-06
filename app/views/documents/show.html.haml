@@ -82,7 +82,8 @@
         .span3
             %b Language :
         .span3
-            = @document.language
+            - @document.languages.each do |l|
+                = l.name
     .row
         .span12
             %b Description :

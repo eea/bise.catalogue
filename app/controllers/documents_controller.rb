@@ -27,6 +27,7 @@ class DocumentsController < ApplicationController
   def new
     @targets = Target.all
     @countries = Country.all
+    @languages = Language.all
     @document = Document.new
 
     respond_to do |format|
@@ -37,7 +38,9 @@ class DocumentsController < ApplicationController
 
   # GET /documents/1/edit
   def edit
+    @targets = Target.all
     @countries = Country.all
+    @languages = Language.all
     @document = Document.find(params[:id])
   end
 

@@ -1,0 +1,42 @@
+#languages
+
+    %legend Languages
+
+    - quarter = (@languages.size + 4) / 4
+    - class_name = parent.class.name.downcase
+
+    .row-fluid
+        .span3
+            %ul.unstyled
+                - @languages.each_with_index do |l, i|
+                    - if i < quarter
+                        %li
+                            %label.checkbox
+                                = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
+                                = l.name
+
+        .span3
+            %ul.unstyled
+                - @languages.each_with_index do |l, i|
+                    - if i >= quarter and i < quarter * 2
+                        %li
+                            %label.checkbox
+                                = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
+                                = l.name
+        .span3
+            %ul.unstyled
+                - @languages.each_with_index do |l, i|
+                    - if i >= quarter *2 and i < quarter * 3
+                        %li
+                            %label.checkbox
+                                = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
+                                = l.name
+        .span3
+            %ul.unstyled
+                - @languages.each_with_index do |l, i|
+                    - if i >= quarter *3 and i < quarter * 4
+                        %li
+                            %label.checkbox
+                                = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
+                                = l.name
+

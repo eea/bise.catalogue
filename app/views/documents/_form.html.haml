@@ -24,13 +24,15 @@
                         .span6
                             = f.association :site , :input_html => { :class => "input-block-level"}
                         .span6
-                            = f.input :language, :as => :select, :collection => languages, include_blank: true, :input_html => { :class => "input-block-level" }
 
                     .row-fluid
                         .span6
                             = f.input :title, :placeholder => 'Example Document', :input_html => { :class => "input-block-level" }
                         .span6
                             = f.input :english_title, :placeholder => 'Example Document', :input_html => { :class => "input-block-level" }
+
+
+                    = render :partial => 'common/languages', :locals => { :parent => @document }
 
                     %legend Publication
 
@@ -50,12 +52,16 @@
 
                     .row-fluid
                         .span6
-                            = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
-                        .span6
                             = f.input :file, :input_html => { :class => "input-block-level" }
 
+                    .row-fluid
+                        .span6
+                            = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
+                        .span6
+
             #geographic.tab-pane
-                = render :partial => 'common/countries', :locals => { :parent => @document }
+                .container-fluid
+                    = render :partial => 'common/countries', :locals => { :parent => @document }
 
             #related.tab-pane
                 .container-fluid
