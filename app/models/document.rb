@@ -35,6 +35,9 @@ class Document < ActiveRecord::Base
     validates_presence_of :site, :message => "can't be blank"
     validates_presence_of :author, :message => "can't be blank"
     validates_presence_of :title, :message => "can't be blank", :length => { :maximum => 255 }
+
+    validates_presence_of :language, :message => "can't be blank"
+
     validates_presence_of :file, :on => :create, :message => "Can't be blank."
 
     validate :uniqueness_of_md5hash, :on => :create
@@ -77,6 +80,9 @@ class Document < ActiveRecord::Base
         mapping :_source => { :excludes => ['attachment'] } do
             indexes :id, :index    => :not_analyzed
             indexes :title, :analyzer => 'snowball', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer', :boost => 100
+
+            indexes :language, :index => :not_analyzed
+
             indexes :description, :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :published_on, :type => 'date', :index => :not_analyzed
             indexes :author, :type => 'string', :index => :not_analyzed
@@ -111,6 +117,8 @@ class Document < ActiveRecord::Base
             :description            => description,
             :author                 => author,
             :published_on           => published_on,
+
+            :languages              => language,
 
             :countries              => countries.map { |c| { :_type  => 'country', :_id    => c.id, :name   => c.name  } },
 
@@ -183,6 +191,11 @@ class Document < ActiveRecord::Base
 
             facet 'biographical_regions' do
                 terms :biographical_region
+                facet_filter :and, doc_filter unless doc_filter.empty?
+            end
+
+            facet 'language' do
+                terms :language
                 facet_filter :and, doc_filter unless doc_filter.empty?
             end
 
