@@ -35,6 +35,7 @@
  *= require articles
  *= require documents
  *= require species
+ *= require links
  *= font-awesome
  *= require bootstrap_and_overrides
  */

@@ -13,7 +13,8 @@ class Country < ActiveRecord::Base
 
     has_and_belongs_to_many :articles, :association_foreign_key => "article_id", :join_table => "articles_countries", :class_name => "Article"
     has_and_belongs_to_many :documents, :association_foreign_key => "document_id", :join_table => "documents_countries", :class_name => "Document"
-
+    has_and_belongs_to_many :links, :association_foreign_key => "link_id", :join_table => "links_countries", :class_name => "Link"
+    has_and_belongs_to_many :news, :association_foreign_key => "news_id", :join_table => "news_countries", :class_name => "News"
 
 
     index_name "#{Tire::Model::Search.index_prefix}countries"

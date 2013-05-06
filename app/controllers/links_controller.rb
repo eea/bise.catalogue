@@ -2,12 +2,13 @@ class LinksController < ApplicationController
   # GET /links
   # GET /links.json
   def index
-    @links = Link.all
-
+    @links = Link.search(params)
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @links }
+        format.html # show.html.erb
+        format.json { render :json => @links }
     end
+    
+    @links = Link.all
   end
 
   # GET /links/1
@@ -24,8 +25,8 @@ class LinksController < ApplicationController
   # GET /links/new
   # GET /links/new.json
   def new
+    @countries = Country.all
     @link = Link.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @link }
@@ -34,6 +35,7 @@ class LinksController < ApplicationController
 
   # GET /links/1/edit
   def edit
+    @countries = Country.all
     @link = Link.find(params[:id])
   end
 
@@ -41,7 +43,7 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(params[:link])
-
+    @countries = Country.all
     respond_to do |format|
       if @link.save
         format.html { redirect_to @link, notice: 'Link was successfully created.' }
@@ -57,7 +59,7 @@ class LinksController < ApplicationController
   # PUT /links/1.json
   def update
     @link = Link.find(params[:id])
-
+    @countries = Country.all
     respond_to do |format|
       if @link.update_attributes(params[:link])
         format.html { redirect_to @link, notice: 'Link was successfully updated.' }

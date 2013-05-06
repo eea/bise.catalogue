@@ -1,0 +1,108 @@
+= simple_form_for(@news) do |f|
+
+    .tabbable
+
+        %ul.nav.nav-tabs
+
+            %li.active
+                %a{ :href => '#general', :data => { :toggle => 'tab' } } General
+            %li
+                %a{ :href => '#geographic', :data => { :toggle => 'tab' } } Geographic
+            %li
+                %a{ :href => '#related', :data => { :toggle => 'tab' } } Related Resources
+            %li
+                %a{ :href => '#ecosystems', :data => { :toggle => 'tab' } } Thematic Area
+
+        .tab-content
+            #general.tab-pane.active
+                .container-fluid   
+                    %legend Info
+                    .row-fluid
+                        .span6
+                            = f.association :site , :input_html => { :class => "input-block-level"}
+                        .span6
+                            = f.input :language, :as => :select, :collection => languages, include_blank: true, :input_html => { :class => "input-block-level" }
+                    .row-fluid
+                        .span6
+                            = f.input :title, :placeholder => 'Example news' , :input_html => { :class => "input-block-level" }
+                        .span6
+                            = f.input :english_title, :placeholder => 'English title' , :input_html => { :class => "input-block-level" }
+                    / .row-fluid
+                    /     .span12
+                    /         = f.input :source, :input_html => { :class => "input-block-level" }
+                    .row-fluid
+                        .span6
+                            = f.input :abstract, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
+                        .span6
+                            = f.input :url, :placeholder => 'http://www.google.com' , :input_html => { :class => "input-block-level" }                                            
+                    %legend Publication
+                    .row-fluid
+                        .span6
+                            = f.input :author, :as => :string, :placeholder => 'John Doe' , :input_html => { :class => "input-block-level" }
+                        .span6
+                            = f.input :published_on, :wrapper => :prepend do
+                                %span.add-on
+                                    %i.icon-calendar
+                                = f.input_field :published_on, :as => :string, :class => 'input-small'
+                    .row-fluid
+                        .span6
+                            = f.input :approved, as: :radio_buttons
+                        .span6
+                            = f.input :approved_at, :wrapper => :prepend do
+                                %span.add-on
+                                    %i.icon-calendar
+                                = f.input_field :approved_at, :as => :string, :class => 'input-small'
+                    .row-fluid
+                        .span6
+                            = f.input :comment, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 } 
+            #geographic.tab-pane
+                = render :partial => 'common/countries', :locals => { :parent => @news }
+            #related.tab-pane
+                .container-fluid
+                    .row-fluid
+                        .alert.alert-error
+                            %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
+                            %strong
+                                Warning!
+                            This is a prototype, not working yet
+
+                    .row-fluid
+                        .span12
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                Articles
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                Documents
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                Events
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                Links
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                Multimedia
+                            %legend
+                                %a.btn.btn-small.pull-right +
+                                News
+            #ecosystems.tab-pane
+                .container-fluid
+                    .row-fluid
+                        .span12
+                            %legend Biodiversity
+
+                    .row-fluid
+                        .span6
+                            /= render :partial => 'common/targets', :locals => { :parent => @document }
+                        .span6
+                            = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
+        .container-fluid
+            %div.form-actions
+                = f.submit 'Save', :class => "btn btn-success"
+                = link_to "Cancel", news_index_path, :class => "btn"            
+            
+- content_for :js do
+    = javascript_include_tag 'news'
+            
+  

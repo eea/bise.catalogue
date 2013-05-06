@@ -2,5 +2,5 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 $ ->
-    $('#link_published_on').datepicker();
-    $('#link_approved_at').datepicker();
+    $('#news_published_on').datepicker();
+    $('#news_approved_at').datepicker();
