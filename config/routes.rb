@@ -16,6 +16,9 @@ Catalogue::Application.routes.draw do
 	# LINKS
   	resources :links
 
+  	# NEWS
+  	resources :news
+
 	# SPECIES
 	resources :species
 
