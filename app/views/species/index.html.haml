@@ -17,6 +17,44 @@
 
             %li.item
                 %a.title{ 'href' => '#', :class => 'active' }
+                    Taxonomy Rank
+
+                %ul.subitems
+                    - if @species.respond_to?('facets')
+                        - @species.facets['taxonomic_rank']['terms'].each do |facet|
+
+                            - if !current_page?(params.merge(:taxonomic_rank => facet['term'], :page => 1))
+                                %li.subitem
+                                    = link_to params.merge(:taxonomic_rank => facet['term'], :page => 1) do
+                                        = facet['term']
+                                        %span= facet['count']
+
+                            - else
+                                %li.subitem.selected
+                                    = facet['term']
+                                    %span= link_to "Remove", params.except(:taxonomic_rank)
+
+            %li.item
+                %a.title{ 'href' => '#', :class => 'active' }
+                    Genus
+
+                %ul.subitems
+                    - if @species.respond_to?('facets')
+                        - @species.facets['genus']['terms'].each do |facet|
+
+                            - if !current_page?(params.merge(:genus => facet['term'], :page => 1))
+                                %li.subitem
+                                    = link_to params.merge(:genus => facet['term'], :page => 1) do
+                                        = facet['term']
+                                        %span= facet['count']
+
+                            - else
+                                %li.subitem.selected
+                                    = facet['term']
+                                    %span= link_to "Remove", params.except(:genus)
+
+            %li.item
+                %a.title{ 'href' => '#', :class => 'active' }
                     Timeline
 
                 %ul.subitems

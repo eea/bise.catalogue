@@ -47,6 +47,10 @@ class Species < ActiveRecord::Base
         mapping {
             indexes :binomial_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :scientific_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+
+            indexes :taxonomic_rank, :type => 'string', :index => :not_analyzed
+            indexes :genus, :type => 'string', :index => :not_analyzed
+
             indexes :author, :type => 'string'
             indexes :created_at, :type => 'date'
         }
@@ -54,12 +58,16 @@ class Species < ActiveRecord::Base
 
 
     def self.search(params)
-        tire.search :load => true, :page => params[:page], :per_page => 10 do
+        tire.search :load => true, :page => params[:page], :per_page => 20 do
+
+            # species_filter = []
+            # species_filter << { :term => { :taxonomic_rank => params[:taxonomic_rank] } } if params[:taxonomic_rank].present?
 
             query do
                  boolean do
                   should   { string 'binomial_name:' + params[:query].to_s }
                   should   { string 'scientific_name:' + params[:query].to_s }
+                  # should     { string 'taxonomic_rank:Species'}
                   # must_not { string 'published:0' }
                 end
             end if params[:query].present?
@@ -69,11 +77,23 @@ class Species < ActiveRecord::Base
             # highlight :name, :options => { :tag => '<strong class="highlight">' }
 
             # filter :term, :author => params[:author] if params[:author].present?
+            filter :term, :taxonomic_rank => params[:taxonomic_rank] if params[:taxonomic_rank].present?
 
-            sort { by :created_at, "desc" } # if params[:query].blank?
+            # sort { by :binomial_name, "asc" } # if params[:query].blank?
 
-            facet('timeline') do
+            facet 'taxonomic_rank' do
+                terms :taxonomic_rank
+                # facet_filter :and, species_filter
+            end
+
+            facet 'genus' do
+                terms :genus
+                # facet_filter :and, species_filter
+            end
+
+            facet 'timeline' do
                 date :created_at, :interval => 'year'
+                # facet_filter :and, species_filter
             end
         end
     end
