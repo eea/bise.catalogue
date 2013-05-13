@@ -63,8 +63,9 @@ class Species < ActiveRecord::Base
     def self.search(params)
         tire.search :load => true, :page => params[:page], :per_page => 20 do
 
-            # species_filter = []
-            # species_filter << { :term => { :taxonomic_rank => params[:taxonomic_rank] } } if params[:taxonomic_rank].present?
+            species_filter = []
+            species_filter << { :term => { :species_group => params[:species_group] } } if params[:species_group].present?
+            species_filter << { :term => { :taxonomic_rank => params[:taxonomic_rank] } } if params[:taxonomic_rank].present?
 
             query do
                 boolean do
@@ -80,6 +81,7 @@ class Species < ActiveRecord::Base
             # highlight :name, :options => { :tag => '<strong class="highlight">' }
 
             # filter :term, :author => params[:author] if params[:author].present?
+            filter :term, :species_group => params[:species_group] if params[:species_group].present?
             filter :term, :taxonomic_rank => params[:taxonomic_rank] if params[:taxonomic_rank].present?
 
             # sort { by :binomial_name, "asc" } # if params[:query].blank?
@@ -87,26 +89,30 @@ class Species < ActiveRecord::Base
 
             facet 'species_group' do
                 terms :species_group, :size => 15
+                facet_filter :and, species_filter  unless species_filter.empty?
             end
 
             facet 'taxonomic_rank' do
                 terms :taxonomic_rank, :size => 15
-                # facet_filter :and, species_filter
+                facet_filter :and, species_filter  unless species_filter.empty?
             end
 
             facet 'genus' do
                 terms :genus, :order => 'term'
                 # :all_terms => true,
+                facet_filter :and, species_filter  unless species_filter.empty?
             end
 
             facet 'valid_name' do
                 terms :valid_name, :size => 2
                 # facet_filter :and, species_filter
+                facet_filter :and, species_filter  unless species_filter.empty?
             end
 
             facet 'timeline' do
                 date :created_at, :interval => 'year'
                 # facet_filter :and, species_filter
+                facet_filter :and, species_filter  unless species_filter.empty?
             end
         end
     end
