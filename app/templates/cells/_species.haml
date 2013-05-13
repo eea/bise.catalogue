@@ -6,7 +6,7 @@
         / - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
         /     = raw hit['highlight']['title'].first
         / - else
-        = link_to species.scientific_name, species
+        = link_to species.binomial_name, species
 
     %small by #{species.scientific_name_authorship} at #{species.created_at}
     / %small
