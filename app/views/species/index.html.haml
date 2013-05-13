@@ -15,8 +15,33 @@
     .span3.menu-wrapper
         %ul.menu
 
+            /******************************************************************
+            /*                       SPECIES GROUP
+            /******************************************************************
             %li.item
-                %a.title{ 'href' => '#', :class => 'active' }
+                %a.title{ :href => '#', :class => 'active' }
+                    Species Groups
+
+                %ul.subitems
+                    - if @species.respond_to?('facets')
+                        - @species.facets['species_group']['terms'].each do |facet|
+
+                            - if !current_page?(params.merge(:species_group => facet['term'], :page => 1))
+                                %li.subitem
+                                    = link_to params.merge(:species_group => facet['term'], :page => 1) do
+                                        = facet['term']
+                                        %span= facet['count']
+
+                            - else
+                                %li.subitem.selected
+                                    = facet['term']
+                                    %span= link_to "Remove", params.except(:species_group)
+
+            /******************************************************************
+            /*                        TAXONOMY RANK
+            /******************************************************************
+            %li.item
+                %a.title{ :href => '#', :class => 'active' }
                     Taxonomy Rank
 
                 %ul.subitems
@@ -34,93 +59,80 @@
                                     = facet['term']
                                     %span= link_to "Remove", params.except(:taxonomic_rank)
 
-            %li.item
-                %a.title{ 'href' => '#', :class => 'active' }
-                    Genus
+            /******************************************************************
+            /*                           GENUS
+            /******************************************************************
 
-                %ul.subitems
-                    - if @species.respond_to?('facets')
-                        - @species.facets['genus']['terms'].each do |facet|
+            / %li.item
+            /     %a.title{ :href => '#', :class => 'active' }
+            /         Genus
 
-                            - if !current_page?(params.merge(:genus => facet['term'], :page => 1))
-                                %li.subitem
-                                    = link_to params.merge(:genus => facet['term'], :page => 1) do
-                                        = facet['term']
-                                        %span= facet['count']
+            /     %ul.subitems
+            /         - if @species.respond_to?('facets')
+            /             - @species.facets['genus']['terms'].each do |facet|
+            /                 - if !current_page?(params.merge(:genus => facet['term'], :page => 1))
+            /                     %li.subitem
+            /                         = link_to params.merge(:genus => facet['term'], :page => 1) do
+            /                             = facet['term']
+            /                             %span= facet['count']
 
-                            - else
-                                %li.subitem.selected
-                                    = facet['term']
-                                    %span= link_to "Remove", params.except(:genus)
+            /                 - else
+            /                     %li.subitem.selected
+            /                         = facet['term']
+            /                         %span= link_to "Remove", params.except(:genus)
 
-            %li.item
-                %a.title{ 'href' => '#', :class => 'active' }
-                    Timeline
+            /******************************************************************
+            /*                           VALID NAME
+            /******************************************************************
 
-                %ul.subitems
-                    - if @species.respond_to?('facets')
-                        - @species.facets['timeline']['entries'].each do |facet|
-                            - year = Time.at(facet['time']/1000).strftime("%Y")
-                            - if !current_page?(params.merge(:published_on => year, :page => 1))
-                                %li.subitem
-                                    = link_to params.merge(:published_on => year, :page => 1) do
-                                        = year
-                                        %span= facet['count']
+            / %li.item
+            /     %a.title{ :href => '#' }
+            /         Valid Name
 
-                            - else
-                                %li.subitem.selected
-                                    = year.to_s
-                                    %span= link_to "Remove", params.except(:published_on)
+            /     %ul.subitems
+            /         - if !current_page?(params.merge(:valid => true))
+            /             %li.subitem
+            /                 = link_to params.merge(:valid_name => true, :page => 1) do
+            /                     True
+            /         - else
+            /             %li.subitem.selected
+            /                 True
+            /                 %span= link_to "Remove", params.except(:valid_name)
+
+            /         - if !current_page?(params.merge(:valid => false))
+            /             %li.subitem
+            /                 = link_to params.merge(:valid_name => false, :page => 1) do
+            /                     False
+            /         - else
+            /             %li.subitem.selected
+            /                 False
+            /                 %span= link_to "Remove", params.except(:valid_name)
+
+            /******************************************************************
+            /*                           TIMELINE
+            /******************************************************************
+            / %li.item
+            /     %a.title{ 'href' => '#', :class => 'active' }
+            /         Timeline
+
+            /     %ul.subitems
+            /         - if @species.respond_to?('facets')
+            /             - @species.facets['timeline']['entries'].each do |facet|
+            /                 - year = Time.at(facet['time']/1000).strftime("%Y")
+            /                 - if !current_page?(params.merge(:published_on => year, :page => 1))
+            /                     %li.subitem
+            /                         = link_to params.merge(:published_on => year, :page => 1) do
+            /                             = year
+            /                             %span= facet['count']
+
+            /                 - else
+            /                     %li.subitem.selected
+            /                         = year.to_s
+            /                         %span= link_to "Remove", params.except(:published_on)
 
     .span9
         - @species.results.each do |s|
             = render "cells/species", :species => s
-        / %table.table.table-striped
-        /     %thead
-        /         %tr
-        /             / %th Species code
-        /             %th Binomial name
-        /             / %th Valid name
-        /             / %th Eunis primary name
-        /             / %th Synonym for
-        /             / %th Taxonomic rank
-        /             / %th Taxonomy
-        /             / %th Scientific name authorship
-        /             %th Scientific name
-        /             / %th Label
-        /             / %th Genus
-        /             / %th Species group
-        /             / %th Name according to id
-        /             / %th Ignore on match
-        /             %th
-        /             / %th
-        /             / %th
-
-        /     %tbody
-        /         - @species.results.each do |s|
-        /             = render "cells/species", :species => s
-        /             / %tr
-
-        /             /     / %td= species.species_code
-        /             /     %td= species.binomial_name
-        /             /     / %td= species.valid_name
-        /             /     / %td= species.eunis_primary_name
-        /             /     / %td= species.synonym_for
-        /             /     / %td= species.taxonomic_rank
-        /             /     / %td= species.taxonomy
-        /             /     / %td= species.scientific_name_authorship
-        /             /     %td= species.scientific_name
-        /             /     / %td= species.label
-        /             /     / %td= species.genus
-        /             /     / %td= species.species_group
-        /             /     / %td= species.name_according_to_ID
-        /             /     / %td= species.ignore_on_match
-        /             /     / %td= link_to 'Show', species
-        /             /     / %td= link_to 'Edit', edit_species_path(species)
-        /             /     / %td= link_to 'Destroy', species, method: :delete, data: { confirm: 'Are you sure?' }
-        /             /     %td.actions
-        /             /         = link_to species, :class => "btn btn-small" do
-        /             /             %i.icon-eye-open
 
         = page_entries_info @species
         = will_paginate @species, :renderer => BootstrapPagination::Rails

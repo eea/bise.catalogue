@@ -48,8 +48,11 @@ class Species < ActiveRecord::Base
             indexes :binomial_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :scientific_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
 
+            indexes :species_group, :type => 'string', :index => :not_analyzed
             indexes :taxonomic_rank, :type => 'string', :index => :not_analyzed
             indexes :genus, :type => 'string', :index => :not_analyzed
+
+            indexes :valid_name, :type => 'boolean', :index => :not_analyzed
 
             indexes :author, :type => 'string'
             indexes :created_at, :type => 'date'
@@ -64,11 +67,11 @@ class Species < ActiveRecord::Base
             # species_filter << { :term => { :taxonomic_rank => params[:taxonomic_rank] } } if params[:taxonomic_rank].present?
 
             query do
-                 boolean do
-                  should   { string 'binomial_name:' + params[:query].to_s }
-                  should   { string 'scientific_name:' + params[:query].to_s }
-                  # should     { string 'taxonomic_rank:Species'}
-                  # must_not { string 'published:0' }
+                boolean do
+                    should   { string 'binomial_name:' + params[:query].to_s }
+                    should   { string 'scientific_name:' + params[:query].to_s }
+                    # should     { string 'taxonomic_rank:Species'}
+                    # must_not { string 'published:0' }
                 end
             end if params[:query].present?
 
@@ -81,13 +84,23 @@ class Species < ActiveRecord::Base
 
             # sort { by :binomial_name, "asc" } # if params[:query].blank?
 
+
+            facet 'species_group' do
+                terms :species_group, :size => 15
+            end
+
             facet 'taxonomic_rank' do
-                terms :taxonomic_rank
+                terms :taxonomic_rank, :size => 15
                 # facet_filter :and, species_filter
             end
 
             facet 'genus' do
-                terms :genus
+                terms :genus, :order => 'term'
+                # :all_terms => true,
+            end
+
+            facet 'valid_name' do
+                terms :valid_name, :size => 2
                 # facet_filter :and, species_filter
             end
 
