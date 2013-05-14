@@ -3,6 +3,8 @@ class Species < ActiveRecord::Base
     include Tire::Model::Search
     include Tire::Model::Callbacks
 
+    belongs_to :taxonomy
+
     attr_accessible :binomial_name
     attr_accessible :eunis_primary_name
     attr_accessible :genus
@@ -15,7 +17,6 @@ class Species < ActiveRecord::Base
     attr_accessible :species_group
     attr_accessible :synonym_for
     attr_accessible :taxonomic_rank
-    attr_accessible :taxonomy
     attr_accessible :valid_name
 
     index_name "#{Tire::Model::Search.index_prefix}species"
@@ -48,15 +49,88 @@ class Species < ActiveRecord::Base
             indexes :binomial_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :scientific_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
 
+            indexes :author, :type => 'string'
+            indexes :created_at, :type => 'date'
+
             indexes :species_group, :type => 'string', :index => :not_analyzed
             indexes :taxonomic_rank, :type => 'string', :index => :not_analyzed
             indexes :genus, :type => 'string', :index => :not_analyzed
 
             indexes :valid_name, :type => 'boolean', :index => :not_analyzed
 
-            indexes :author, :type => 'string'
-            indexes :created_at, :type => 'date'
+            indexes :kingdom, :index => :not_analyzed
+            indexes :phylum, :index => :not_analyzed
+            indexes :classis, :index => :not_analyzed
+
         }
+    end
+
+    # self.to_json :methods => [:content_without_tags]
+    def to_indexed_json
+        {
+            :binomial_name          => binomial_name,
+            :scientific_name        => scientific_name,
+            :author                 => scientific_name_authorship,
+            :created_at             => created_at,
+            :species_group          => species_group,
+            :taxonomic_rank         => taxonomic_rank,
+            :genus                  => genus,
+
+            :valid_name             => valid_name,
+
+            :kingdom                => kingdom,
+            :phylum                 => phylum_division,
+            :classis                => classis
+        }.to_json
+    end
+
+    # Returns the kingdom of a species
+    def kingdom
+        kingdom = nil
+        unless self.taxonomy.nil?
+            taxonomy = self.taxonomy
+            while taxonomy.level != 'Kingdom'
+                taxonomy = taxonomy.parent
+            end
+            kingdom = taxonomy.name
+        end
+        kingdom
+    end
+
+    def phylum_division
+        pd = nil
+        unless self.taxonomy.nil?
+            taxonomy = self.taxonomy
+            while taxonomy.level != 'Phylum' and taxonomy.level != 'Division'
+                taxonomy = taxonomy.parent
+            end
+            pd = taxonomy.name
+        end
+        pd
+    end
+
+    def classis
+        clazz = nil
+        unless self.taxonomy.nil?
+            taxonomy = self.taxonomy
+            while taxonomy.level != 'Class'
+                taxonomy = taxonomy.parent
+            end
+            clazz = taxonomy.name
+        end
+        clazz
+    end
+
+    def order
+
+    end
+
+    def family
+
+    end
+
+    def genus
+
     end
 
 
@@ -66,6 +140,7 @@ class Species < ActiveRecord::Base
             species_filter = []
             species_filter << { :term => { :species_group => params[:species_group] } } if params[:species_group].present?
             species_filter << { :term => { :taxonomic_rank => params[:taxonomic_rank] } } if params[:taxonomic_rank].present?
+            species_filter << { :term => { :kingdom => params[:kingdom] } } if params[:kingdom].present?
 
             query do
                 boolean do
@@ -84,8 +159,25 @@ class Species < ActiveRecord::Base
             filter :term, :species_group => params[:species_group] if params[:species_group].present?
             filter :term, :taxonomic_rank => params[:taxonomic_rank] if params[:taxonomic_rank].present?
 
+            filter :term, :kingdom => params[:kingdom] if params[:kingdom].present?
+
             # sort { by :binomial_name, "asc" } # if params[:query].blank?
 
+
+            facet 'kingdom' do
+                terms :kingdom
+                facet_filter :and, species_filter  unless species_filter.empty?
+            end
+
+            facet 'phylum' do
+                terms :phylum
+                facet_filter :and, species_filter  unless species_filter.empty?
+            end
+
+            facet 'classis' do
+                terms :classis
+                facet_filter :and, species_filter  unless species_filter.empty?
+            end
 
             facet 'species_group' do
                 terms :species_group, :size => 15

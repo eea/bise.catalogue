@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430092536) do
+ActiveRecord::Schema.define(:version => 20130513083711) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -102,6 +102,11 @@ ActiveRecord::Schema.define(:version => 20130430092536) do
     t.integer "country_id"
   end
 
+  create_table "documents_languages", :id => false, :force => true do |t|
+    t.integer "document_id"
+    t.integer "language_id"
+  end
+
   create_table "ecosystem_assessments", :force => true do |t|
     t.string   "document_type"
     t.string   "title"
@@ -116,6 +121,12 @@ ActiveRecord::Schema.define(:version => 20130430092536) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "languages", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "links", :force => true do |t|
     t.string   "title"
     t.string   "english_title"
@@ -124,14 +135,44 @@ ActiveRecord::Schema.define(:version => 20130430092536) do
     t.string   "language"
     t.string   "source"
     t.boolean  "approved"
-    t.integer  "countries_id"
+    t.text     "biographical_region"
     t.string   "url"
+    t.string   "comment"
+    t.string   "description"
     t.datetime "approved_at"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "site_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
-  add_index "links", ["countries_id"], :name => "index_links_on_countries_id"
+  create_table "links_countries", :id => false, :force => true do |t|
+    t.integer "link_id"
+    t.integer "country_id"
+  end
+
+  create_table "news", :force => true do |t|
+    t.boolean  "approved"
+    t.datetime "approved_at"
+    t.string   "author"
+    t.string   "english_title"
+    t.string   "language"
+    t.datetime "published_on"
+    t.string   "source"
+    t.string   "title"
+    t.string   "url"
+    t.string   "abstract"
+    t.string   "comment"
+    t.string   "published"
+    t.integer  "site_id"
+    t.text     "biographical_region"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "newss_countries", :id => false, :force => true do |t|
+    t.integer "news_id"
+    t.integer "country_id"
+  end
 
   create_table "sites", :force => true do |t|
     t.string   "name"
@@ -149,7 +190,6 @@ ActiveRecord::Schema.define(:version => 20130430092536) do
     t.string   "eunis_primary_name"
     t.string   "synonym_for"
     t.string   "taxonomic_rank"
-    t.string   "taxonomy"
     t.string   "scientific_name_authorship"
     t.string   "scientific_name"
     t.string   "label"
@@ -157,6 +197,7 @@ ActiveRecord::Schema.define(:version => 20130430092536) do
     t.string   "species_group"
     t.string   "name_according_to_ID"
     t.boolean  "ignore_on_match"
+    t.integer  "taxonomy_id"
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
   end
@@ -167,6 +208,17 @@ ActiveRecord::Schema.define(:version => 20130430092536) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "taxonomies", :force => true do |t|
+    t.integer  "code"
+    t.string   "name"
+    t.string   "level"
+    t.integer  "parent_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "taxonomies", ["parent_id"], :name => "index_taxonomies_on_parent_id"
 
   create_table "themes", :force => true do |t|
     t.string   "title"

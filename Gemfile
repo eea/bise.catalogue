@@ -18,7 +18,7 @@ gem 'pg'
 # in production environments by default.
 group :assets do
 
-    gem 'sass-rails',   '~> 3.2.3'
+    gem 'sass-rails'            ,   '~> 3.2.3'
     # gem 'mustache'
     # gem 'mustache_rails3'
     #gem 'mustache-rails', :require => 'mustache/railtie'
@@ -31,18 +31,17 @@ group :assets do
     gem 'jquery-ui-rails'
     gem 'jquery-fileupload-rails'
 
-
 end
 
 # Outside assets for production coffee handlers
-gem 'coffee-rails', '~> 3.2.1'
-gem 'uglifier', '>= 1.0.3'
+gem 'coffee-rails'              , '~> 3.2.1'
+gem 'uglifier'                  , '>= 1.0.3'
 
 # Remote file uploading
 gem "remotipart"
 
 # Shared Mustache Templates
-gem 'smt_rails', :git => 'git://github.com/railsware/smt_rails.git'
+gem 'smt_rails'                 , :git => 'git://github.com/railsware/smt_rails.git'
 
 # gem 'haml'
 gem "haml-rails"
@@ -55,16 +54,19 @@ gem 'tire', '>= 0.5.4'
 gem 'ransack'
 
 # TWITTER BOOTSTRAP
-gem "twitter-bootstrap-rails", :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem "twitter-bootstrap-rails"   , :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 
 
 # RDF.rb
-gem 'linkeddata'
-gem 'equivalent-xml'
-gem 'spira'
-gem 'rdf', '~> 0.3.8'
+# gem 'linkeddata'
+# gem 'equivalent-xml'
+
+gem 'rdf'                       , '~> 1.0'
+gem 'rdf-isomorphic'            , '~> 1.0'
 gem 'rdf-spec'
-gem 'rdf-raptor', '~> 0.4.2'
+gem 'rdf-raptor'                , '~> 1.0.1'    # , '~> 0.4.2'
+
+gem 'spira'                     , '~> 0.5.0'
 # gem 'rdf-gzip'
 # gem 'rdf-xml'
 gem 'ffi'
@@ -74,6 +76,7 @@ gem 'sparql-client'
 # DataObjects-backed repositories for RDF.rb
 gem 'rdf-do'
 gem 'do_postgres'
+
 
 group :development do
     gem 'better_errors'
