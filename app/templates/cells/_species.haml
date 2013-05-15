@@ -8,7 +8,10 @@
         / - else
         = link_to species.binomial_name, species
 
-    %small by #{species.scientific_name_authorship} at #{species.created_at}
+    %small
+        %strong
+            Authorship:
+        = species.scientific_name_authorship
     / %small
     /     %b
     /         Scientist :
