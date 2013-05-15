@@ -141,6 +141,8 @@ class Species < ActiveRecord::Base
             species_filter << { :term => { :species_group => params[:species_group] } } if params[:species_group].present?
             species_filter << { :term => { :taxonomic_rank => params[:taxonomic_rank] } } if params[:taxonomic_rank].present?
             species_filter << { :term => { :kingdom => params[:kingdom] } } if params[:kingdom].present?
+            species_filter << { :term => { :phylum => params[:phylum] } } if params[:phylum].present?
+            species_filter << { :term => { :classis => params[:classis] } } if params[:classis].present?
 
             query do
                 boolean do
