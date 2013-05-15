@@ -86,12 +86,11 @@ class Species < ActiveRecord::Base
 
     # Returns the kingdom of a species
     def kingdom
+        puts ":: kingdom for id => #{self.id}"
         kingdom = nil
         unless self.taxonomy.nil?
             taxonomy = self.taxonomy
-            while taxonomy.level != 'Kingdom'
-                taxonomy = taxonomy.parent
-            end
+            taxonomy = taxonomy.parent while taxonomy.level != 'Kingdom'
             kingdom = taxonomy.name
         end
         kingdom
@@ -101,8 +100,9 @@ class Species < ActiveRecord::Base
         pd = nil
         unless self.taxonomy.nil?
             taxonomy = self.taxonomy
-            while taxonomy.level != 'Phylum' and taxonomy.level != 'Division'
+            while taxonomy.level != 'Phylum' and taxonomy.level != 'Division' do
                 taxonomy = taxonomy.parent
+                return '' if taxonomy.level != 'Kingdom'
             end
             pd = taxonomy.name
         end
@@ -113,8 +113,9 @@ class Species < ActiveRecord::Base
         clazz = nil
         unless self.taxonomy.nil?
             taxonomy = self.taxonomy
-            while taxonomy.level != 'Class'
+            while taxonomy.level != 'Class' do
                 taxonomy = taxonomy.parent
+                return '' if taxonomy.level != 'Kingdom'
             end
             clazz = taxonomy.name
         end
@@ -162,6 +163,8 @@ class Species < ActiveRecord::Base
             filter :term, :taxonomic_rank => params[:taxonomic_rank] if params[:taxonomic_rank].present?
 
             filter :term, :kingdom => params[:kingdom] if params[:kingdom].present?
+            filter :term, :phylum => params[:phylum] if params[:phylum].present?
+            filter :term, :classis => params[:classis] if params[:classis].present?
 
             # sort { by :binomial_name, "asc" } # if params[:query].blank?
 
