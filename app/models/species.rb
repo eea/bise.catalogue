@@ -102,7 +102,7 @@ class Species < ActiveRecord::Base
             taxonomy = self.taxonomy
             while taxonomy.level != 'Phylum' and taxonomy.level != 'Division' do
                 taxonomy = taxonomy.parent
-                return '' if taxonomy.level != 'Kingdom'
+                return '' if taxonomy.level == 'Kingdom'
             end
             pd = taxonomy.name
         end
@@ -115,7 +115,7 @@ class Species < ActiveRecord::Base
             taxonomy = self.taxonomy
             while taxonomy.level != 'Class' do
                 taxonomy = taxonomy.parent
-                return '' if taxonomy.level != 'Kingdom'
+                return '' if taxonomy.level == 'Kingdom'
             end
             clazz = taxonomy.name
         end
