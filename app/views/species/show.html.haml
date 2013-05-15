@@ -46,7 +46,7 @@
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Taxonomy:
                 %td
-                    = link_to @species.taxonomy, @species.taxonomy
+                    = @species.taxonomy.name
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Scientific name authorship:
@@ -72,13 +72,13 @@
                     %b Species group:
                 %td
                     = link_to @species.species_group, @species.species_group
-            %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
-                    %b Name according to id:
-                %td
-                    = link_to @species.name_according_to_ID, @species.name_according_to_ID
-            %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
-                    %b Ignore on match:
-                %td
-                    = @species.ignore_on_match
+            / %tr
+            /     %td{ :style => 'width: 20%;text-align: right;' }
+            /         %b Name according to id:
+            /     %td
+            /         = link_to @species.name_according_to_ID, @species.name_according_to_ID
+            / %tr
+            /     %td{ :style => 'width: 20%;text-align: right;' }
+            /         %b Ignore on match:
+            /     %td
+            /         = @species.ignore_on_match
