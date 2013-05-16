@@ -94,14 +94,21 @@ $header-font: 'Homenaje', arial, sans-serif
         // +rounded-bottom(4px)
 
     .accordion-inner
-        padding: 4px 15px
+        padding: 4px 10px
         > ul
             margin-bottom: 0
             > li
+                display:block
+                height: 21px
+                white-space:nowrap
                 > a
                     font-size: 14px
                     font-family: $content-font
                     color: $header-text-color
+                    display: inline-block
+                    white-space: nowrap
+                    width: 200px
+
                     .badge
                         font-size: 11px
             > li.selected
