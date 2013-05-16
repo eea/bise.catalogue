@@ -83,6 +83,12 @@ class Document < ActiveRecord::Base
     } do
         # :_source => { :excludes => ['attachment'] }
         mapping :_source => { :excludes => ['attachment'] } do
+
+            indexes :site do
+                indexes :id, :type => 'integer'
+                indexes :name, :type => 'string', :index => :not_analyzed
+            end
+
             indexes :id, :index    => :not_analyzed
             indexes :title, :analyzer => 'snowball', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer', :boost => 100
 
@@ -121,6 +127,8 @@ class Document < ActiveRecord::Base
 
     def to_indexed_json
         {
+            :site                   => { :_type => 'site', :_id => site.id, :name => site.name },
+
             :title                  => title,
             :description            => description,
             :author                 => author,
@@ -188,6 +196,11 @@ class Document < ActiveRecord::Base
             filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
             sort { by :published_on, "desc" } # if params[:query].blank?
+
+            facet 'sites' do
+                terms 'site.name'
+                facet_filter :and, doc_filter unless doc_filter.empty?
+            end
 
             facet 'authors' do
                 terms :author

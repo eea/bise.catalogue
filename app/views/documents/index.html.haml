@@ -11,6 +11,7 @@
 .row
 
     .span3
+        = render "facets/facet_sites"       , :objs => @documents
         = render "facets/facet_authors"     , :objs => @documents
         = render "facets/facet_languages"   , :objs => @documents
         = render "facets/facet_countries"   , :objs => @documents
