@@ -6,12 +6,31 @@
         / - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
         /     = raw hit['highlight']['title'].first
         / - else
-        = link_to species.binomial_name, species
+
+        - if hit.has_key?'highlight' and hit['highlight'].has_key? 'binomial_name'
+            = link_to raw(hit['highlight']['binomial_name'][0]), species
+        - else
+            = link_to species.binomial_name, species
+        /     = raw hit['highlight']['binomial_name']
+        / - att_hits = hit['highlight']['attachment']
+
+        / .hits
+        /     %ol{ :type => "I" }
+        /         - att_hits.each do |h|
+        /             %li
+        /                 %p.hit= raw '...' + h + '...'
 
     %small
         %strong
             Authorship:
         = species.scientific_name_authorship
+
+
+
+
+
+
+
     / %small
     /     %b
     /         Scientist :

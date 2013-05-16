@@ -8,26 +8,7 @@
 
     / .btn-group
     /     %button.btn.dropdown-toggle{ :data => { :toggle => "dropdown" } }
-    /         Taxonomic Rank
-    /         %span.caret
-    /     %ul.dropdown-menu
-    /         - if @species.respond_to?('facets')
-    /             - @species.facets['taxonomic_rank']['terms'].each do |facet|
-    /                 - if !current_page?(params.merge(:taxonomic_rank => facet['term'], :page => 1))
-    /                     %li.subitem
-    /                         = link_to params.merge(:taxonomic_rank => facet['term'], :page => 1) do
-    /                             = facet['term']
-    /                             %span.pull-right= facet['count']
-
-    /                 - else
-    /                     %li.subitem.selected
-    /                         = facet['term']
-    /                         %span.pull-right= link_to "Remove", params.except(:taxonomic_rank)
-
-
-    / .btn-group
-    /     %button.btn.dropdown-toggle{ :data => { :toggle => "dropdown" } }
-    /         Kingdom
+    /         20 results
     /         %span.caret
     /     %ul.dropdown-menu
     /         - if @species.respond_to?('facets')
@@ -35,26 +16,7 @@
     /                 %li
     /                     %a{ :href => '#', :onclick => 'return false;' }
     /                         = facet['term']
-    / .btn-group
-    /     %button.btn.dropdown-toggle{ :data => { :toggle => "dropdown" } }
-    /         Phylum
-    /         %span.caret
-    /     %ul.dropdown-menu
-    /         - if @species.respond_to?('facets')
-    /             - @species.facets['phylum']['terms'].each do |facet|
-    /                 %li
-    /                     %a{ :href => '#', :onclick => 'return false;' }
-    /                         = facet['term']
-    / .btn-group
-    /     %button.btn.dropdown-toggle{ :data => { :toggle => "dropdown" } }
-    /         Classis
-    /         %span.caret
-    /     %ul.dropdown-menu
-    /         - if @species.respond_to?('facets')
-    /             - @species.facets['classis']['terms'].each do |facet|
-    /                 %li
-    /                     %a{ :href => '#', :onclick => 'return false;' }
-    /                         = facet['term']
+
     = form_tag species_index_path, :method => 'get', :class => 'search-query pull-right' do       #
         = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search species...'    #
 
@@ -379,8 +341,10 @@
             /                         %span= link_to "Remove", params.except(:published_on)
 
     .span9
-        - @species.results.each do |s|
-            = render "cells/species", :species => s
+        - @species.each_with_hit do |s, hit|
+            = render "cells/species", :species => s, :hit => hit
+        / - @species.results.each do |s|
+        /     = render "cells/species", :species => s
 
         = page_entries_info @species
         = will_paginate @species, :renderer => BootstrapPagination::Rails
