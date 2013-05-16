@@ -1,0 +1,21 @@
+.accordion#timeline
+    .accordion-group
+        .accordion-head
+            %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#timeline-list', :data => { :toggle => 'collapse', :parent => '#timeline' } }
+                Timeline
+                %span.caret
+        .accordion-body.in#timeline-list
+            .accordion-inner
+                %ul.unstyled
+                    - if objs.respond_to?('facets')
+                        - objs.facets['timeline']['entries'].each do |facet|
+                            - year = Time.at(facet['time']/1000).strftime("%Y")
+                            - if !current_page?(params.merge(:published_on => year, :page => 1))
+                                %li
+                                    = link_to params.merge(:published_on => year, :page => 1) do
+                                        = year
+                                        %span.badge.badge-info.pull-right= facet['count']
+                            - else
+                                %li.selected
+                                    = year
+                                    %span.pull-right= link_to "Remove", params.except(:published_on)
