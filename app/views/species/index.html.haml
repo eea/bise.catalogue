@@ -2,9 +2,59 @@
     Species
 
 - content_for :actions do
-    = link_to  new_species_path, :class => "btn" do
-        %i.icon-plus
-        New Species
+    / = link_to  new_species_path, :class => "btn" do
+    /     %i.icon-plus
+    /     New Species
+
+    / .btn-group
+    /     %button.btn.dropdown-toggle{ :data => { :toggle => "dropdown" } }
+    /         Taxonomic Rank
+    /         %span.caret
+    /     %ul.dropdown-menu
+    /         - if @species.respond_to?('facets')
+    /             - @species.facets['taxonomic_rank']['terms'].each do |facet|
+    /                 - if !current_page?(params.merge(:taxonomic_rank => facet['term'], :page => 1))
+    /                     %li.subitem
+    /                         = link_to params.merge(:taxonomic_rank => facet['term'], :page => 1) do
+    /                             = facet['term']
+    /                             %span.pull-right= facet['count']
+
+    /                 - else
+    /                     %li.subitem.selected
+    /                         = facet['term']
+    /                         %span.pull-right= link_to "Remove", params.except(:taxonomic_rank)
+
+
+    / .btn-group
+    /     %button.btn.dropdown-toggle{ :data => { :toggle => "dropdown" } }
+    /         Kingdom
+    /         %span.caret
+    /     %ul.dropdown-menu
+    /         - if @species.respond_to?('facets')
+    /             - @species.facets['kingdom']['terms'].each do |facet|
+    /                 %li
+    /                     %a{ :href => '#', :onclick => 'return false;' }
+    /                         = facet['term']
+    / .btn-group
+    /     %button.btn.dropdown-toggle{ :data => { :toggle => "dropdown" } }
+    /         Phylum
+    /         %span.caret
+    /     %ul.dropdown-menu
+    /         - if @species.respond_to?('facets')
+    /             - @species.facets['phylum']['terms'].each do |facet|
+    /                 %li
+    /                     %a{ :href => '#', :onclick => 'return false;' }
+    /                         = facet['term']
+    / .btn-group
+    /     %button.btn.dropdown-toggle{ :data => { :toggle => "dropdown" } }
+    /         Classis
+    /         %span.caret
+    /     %ul.dropdown-menu
+    /         - if @species.respond_to?('facets')
+    /             - @species.facets['classis']['terms'].each do |facet|
+    /                 %li
+    /                     %a{ :href => '#', :onclick => 'return false;' }
+    /                         = facet['term']
     = form_tag species_index_path, :method => 'get', :class => 'search-query pull-right' do       #
         = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search species...'    #
 
@@ -13,118 +63,249 @@
 
 .row
     .span3.menu-wrapper
-        %ul.menu
 
+
+        /******************************************************************
+        /*                       KINGDOM
+        /******************************************************************
+
+        .accordion#kingdoms
+            .accordion-group
+                .accordion-head
+                    %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#kingdom-list', :data => { :toggle => 'collapse', :parent => '#kingdoms' } }
+                        Kingdom
+                        %span.caret
+                .accordion-body.in#kingdom-list
+                    .accordion-inner
+                        %ul.unstyled
+                            / - if @species.respond_to?('facets')
+                            - @species.facets['kingdom']['terms'].each do |facet|
+                                - if !current_page?(params.merge(:kingdom => facet['term'], :page => 1))
+                                    %li
+                                        = link_to params.merge(:kingdom => facet['term'], :page => 1) do
+                                            = facet['term']
+                                            %span.badge.badge-info.pull-right= facet['count']
+                                - else
+                                    %li.selected
+                                        = facet['term']
+                                        %span.pull-right= link_to "Remove", params.except(:kingdom)
+
+        /******************************************************************
+        /*                       PHYLUM
+        /******************************************************************
+
+        .accordion#phylums
+            .accordion-group
+                .accordion-head
+                    %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#phylum-list', :data => { :toggle => 'collapse', :parent => '#phylums' } }
+                        Phylum
+                        %span.caret
+                / .collapse
+                .accordion-body.in#phylum-list
+                    .accordion-inner
+                        %ul.unstyled
+                            / - if @species.respond_to?('facets')
+                            - @species.facets['phylum']['terms'].each do |facet|
+                                - if !current_page?(params.merge(:phylum => facet['term'], :page => 1))
+                                    %li
+                                        = link_to params.merge(:phylum => facet['term'], :page => 1) do
+                                            = facet['term']
+                                            %span.badge.badge-info.pull-right= facet['count']
+                                - else
+                                    %li.selected
+                                        = facet['term']
+                                        %span.pull-right= link_to "Remove", params.except(:phylum)
+
+        /******************************************************************
+        /*                       CLASSIS
+        /******************************************************************
+
+        .accordion#classis
+            .accordion-group
+                .accordion-head
+                    %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#classis-list', :data => { :toggle => 'collapse', :parent => '#classis' } }
+                        Class
+                        %span.caret
+                / .collapse
+                .accordion-body.in#classis-list
+                    .accordion-inner
+                        %ul.unstyled
+                            / - if @species.respond_to?('facets')
+                            - @species.facets['classis']['terms'].each do |facet|
+                                - if !current_page?(params.merge(:classis => facet['term'], :page => 1))
+                                    %li
+                                        = link_to params.merge(:classis => facet['term'], :page => 1) do
+                                            = facet['term']
+                                            %span.badge.badge-info.pull-right= facet['count']
+                                - else
+                                    %li.selected
+                                        = facet['term']
+                                        %span.pull-right= link_to "Remove", params.except(:classis)
+
+        /******************************************************************
+        /*                       SPECIES GROUP
+        /******************************************************************
+
+        .accordion#species_group
+            .accordion-group
+                .accordion-head
+                    %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#species_group-list', :data => { :toggle => 'collapse', :parent => '#species_group' } }
+                        Species Groups
+                        %span.caret
+                / .collapse
+                .accordion-body.in#species_group-list
+                    .accordion-inner
+                        %ul.unstyled
+                            / - if @species.respond_to?('facets')
+                            - @species.facets['species_group']['terms'].each do |facet|
+                                - if !current_page?(params.merge(:species_group => facet['term'], :page => 1))
+                                    %li
+                                        = link_to params.merge(:species_group => facet['term'], :page => 1) do
+                                            %span.badge.badge-info.pull-right= facet['count']
+                                            = facet['term']
+                                - else
+                                    %li.selected
+                                        = facet['term']
+                                        %span.pull-right= link_to "Remove", params.except(:species_group)
+
+        /******************************************************************
+        /*                       TAXONOMY RANK
+        /******************************************************************
+
+        .accordion#taxonomic_rank
+            .accordion-group
+                .accordion-head
+                    %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#taxonomic_rank-list', :data => { :toggle => 'collapse', :parent => '#taxonomic_rank' } }
+                        Taxonomic Rank
+                        %span.caret
+                / .collapse
+                .accordion-body.in#taxonomic_rank-list
+                    .accordion-inner
+                        %ul.unstyled
+                            / - if @species.respond_to?('facets')
+                            - @species.facets['taxonomic_rank']['terms'].each do |facet|
+                                - if !current_page?(params.merge(:taxonomic_rank => facet['term'], :page => 1))
+                                    %li
+                                        = link_to params.merge(:taxonomic_rank => facet['term'], :page => 1) do
+                                            %span.badge.badge-info.pull-right= facet['count']
+                                            = facet['term']
+                                - else
+                                    %li.selected
+                                        = facet['term']
+                                        %span.pull-right= link_to "Remove", params.except(:taxonomic_rank)
+
+
+        %ul.menu
             /******************************************************************
             /*                       KINGDOM
             /******************************************************************
-            %li.item
-                %a.title{ :href => '#', :class => 'active' }
-                    Kingdom
+            / %li.item
+            /     %a.title{ :href => '#', :class => 'active' }
+            /         Kingdom
 
-                %ul.subitems
-                    - if @species.respond_to?('facets')
-                        - @species.facets['kingdom']['terms'].each do |facet|
+            /     %ul.subitems
+            /         - if @species.respond_to?('facets')
+            /             - @species.facets['kingdom']['terms'].each do |facet|
 
-                            - if !current_page?(params.merge(:kingdom => facet['term'], :page => 1))
-                                %li.subitem
-                                    = link_to params.merge(:kingdom => facet['term'], :page => 1) do
-                                        = facet['term']
-                                        %span= facet['count']
+            /                 - if !current_page?(params.merge(:kingdom => facet['term'], :page => 1))
+            /                     %li.subitem
+            /                         = link_to params.merge(:kingdom => facet['term'], :page => 1) do
+            /                             = facet['term']
+            /                             %span= facet['count']
 
-                            - else
-                                %li.subitem.selected
-                                    = facet['term']
-                                    %span= link_to "Remove", params.except(:kingdom)
+            /                 - else
+            /                     %li.subitem.selected
+            /                         = facet['term']
+            /                         %span= link_to "Remove", params.except(:kingdom)
 
             /******************************************************************
             /*                       PHYLUM / DIVISION
             /******************************************************************
-            %li.item
-                %a.title{ :href => '#', :class => 'active' }
-                    Phylum
+            / %li.item
+            /     %a.title{ :href => '#', :class => 'active' }
+            /         Phylum
 
-                %ul.subitems
-                    - if @species.respond_to?('facets')
-                        - @species.facets['phylum']['terms'].each do |facet|
+            /     %ul.subitems
+            /         - if @species.respond_to?('facets')
+            /             - @species.facets['phylum']['terms'].each do |facet|
 
-                            - if !current_page?(params.merge(:phylum => facet['term'], :page => 1))
-                                %li.subitem
-                                    = link_to params.merge(:phylum => facet['term'], :page => 1) do
-                                        = facet['term']
-                                        %span= facet['count']
+            /                 - if !current_page?(params.merge(:phylum => facet['term'], :page => 1))
+            /                     %li.subitem
+            /                         = link_to params.merge(:phylum => facet['term'], :page => 1) do
+            /                             = facet['term']
+            /                             %span= facet['count']
 
-                            - else
-                                %li.subitem.selected
-                                    = facet['term']
-                                    %span= link_to "Remove", params.except(:phylum)
+            /                 - else
+            /                     %li.subitem.selected
+            /                         = facet['term']
+            /                         %span= link_to "Remove", params.except(:phylum)
 
             /******************************************************************
             /*                       CLASS
             /******************************************************************
-            %li.item
-                %a.title{ :href => '#', :class => 'active' }
-                    Class
+            / %li.item
+            /     %a.title{ :href => '#', :class => 'active' }
+            /         Class
 
-                %ul.subitems
-                    - if @species.respond_to?('facets')
-                        - @species.facets['classis']['terms'].each do |facet|
+            /     %ul.subitems
+            /         - if @species.respond_to?('facets')
+            /             - @species.facets['classis']['terms'].each do |facet|
 
-                            - if !current_page?(params.merge(:classis => facet['term'], :page => 1))
-                                %li.subitem
-                                    = link_to params.merge(:classis => facet['term'], :page => 1) do
-                                        = facet['term']
-                                        %span= facet['count']
+            /                 - if !current_page?(params.merge(:classis => facet['term'], :page => 1))
+            /                     %li.subitem
+            /                         = link_to params.merge(:classis => facet['term'], :page => 1) do
+            /                             = facet['term']
+            /                             %span= facet['count']
 
-                            - else
-                                %li.subitem.selected
-                                    = facet['term']
-                                    %span= link_to "Remove", params.except(:classis)
+            /                 - else
+            /                     %li.subitem.selected
+            /                         = facet['term']
+            /                         %span= link_to "Remove", params.except(:classis)
 
 
             /******************************************************************
             /*                       SPECIES GROUP
             /******************************************************************
-            %li.item
-                %a.title{ :href => '#', :class => 'active' }
-                    Species Groups
+            / %li.item
+            /     %a.title{ :href => '#', :class => 'active' }
+            /         Species Groups
 
-                %ul.subitems
-                    - if @species.respond_to?('facets')
-                        - @species.facets['species_group']['terms'].each do |facet|
+            /     %ul.subitems
+            /         - if @species.respond_to?('facets')
+            /             - @species.facets['species_group']['terms'].each do |facet|
 
-                            - if !current_page?(params.merge(:species_group => facet['term'], :page => 1))
-                                %li.subitem
-                                    = link_to params.merge(:species_group => facet['term'], :page => 1) do
-                                        = facet['term']
-                                        %span= facet['count']
+            /                 - if !current_page?(params.merge(:species_group => facet['term'], :page => 1))
+            /                     %li.subitem
+            /                         = link_to params.merge(:species_group => facet['term'], :page => 1) do
+            /                             = facet['term']
+            /                             %span= facet['count']
 
-                            - else
-                                %li.subitem.selected
-                                    = facet['term']
-                                    %span= link_to "Remove", params.except(:species_group)
+            /                 - else
+            /                     %li.subitem.selected
+            /                         = facet['term']
+            /                         %span= link_to "Remove", params.except(:species_group)
 
             /******************************************************************
             /*                        TAXONOMY RANK
             /******************************************************************
-            %li.item
-                %a.title{ :href => '#', :class => 'active' }
-                    Taxonomy Rank
+            / %li.item
+            /     %a.title{ :href => '#', :class => 'active' }
+            /         Taxonomy Rank
 
-                %ul.subitems
-                    - if @species.respond_to?('facets')
-                        - @species.facets['taxonomic_rank']['terms'].each do |facet|
+            /     %ul.subitems
+            /         - if @species.respond_to?('facets')
+            /             - @species.facets['taxonomic_rank']['terms'].each do |facet|
 
-                            - if !current_page?(params.merge(:taxonomic_rank => facet['term'], :page => 1))
-                                %li.subitem
-                                    = link_to params.merge(:taxonomic_rank => facet['term'], :page => 1) do
-                                        = facet['term']
-                                        %span= facet['count']
+            /                 - if !current_page?(params.merge(:taxonomic_rank => facet['term'], :page => 1))
+            /                     %li.subitem
+            /                         = link_to params.merge(:taxonomic_rank => facet['term'], :page => 1) do
+            /                             = facet['term']
+            /                             %span= facet['count']
 
-                            - else
-                                %li.subitem.selected
-                                    = facet['term']
-                                    %span= link_to "Remove", params.except(:taxonomic_rank)
+            /                 - else
+            /                     %li.subitem.selected
+            /                         = facet['term']
+            /                         %span= link_to "Remove", params.except(:taxonomic_rank)
 
             /******************************************************************
             /*                           GENUS

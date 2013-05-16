@@ -50,9 +50,74 @@ $text-dark-green: #718700
 $content-font: 'Roboto Condensed', arial, sans-serif
 $header-font: 'Homenaje', arial, sans-serif
 
-/*
-    MENU
- */
+
+
+
+// ACCORDION 
+.accordion
+    margin-bottom: 0px
+
+    .accordion-group
+        border: 0px solid #e5e5e5
+        -webkit-border-radius: 4px
+        -moz-border-radius: 4px
+        border-radius: 4px
+
+    .accordion-head
+
+        .accordion-toggle
+            font-family: $header-font
+            font-size: 18px
+            color: $header-text-color
+
+            // border-bottom: 1px solid #86a000
+
+            height: 20px
+            line-height: 1.0em
+            line-height: 18px
+
+            display: block
+            position: relative
+            text-decoration: none
+            text-align: left
+
+            margin-top: 10px
+
+    .accordion-body
+        border: 0
+        // border-bottom: 1px solid #86a000
+        // border-left: 4px solid #86a000
+        // border-right: 1px solid #86a000
+        // -webkit-box-shadow:  1px 1px 3px 2px rgba(0, 0, 0, 0.4)
+        // box-shadow:  1px 1px 3px 2px rgba(0, 0, 0, 0.4)
+
+        // +rounded-bottom(4px)
+
+    .accordion-inner
+        padding: 4px 15px
+        > ul
+            margin-bottom: 0
+            > li
+                > a
+                    font-size: 14px
+                    font-family: $content-font
+                    color: $header-text-color
+                    .badge
+                        font-size: 11px
+            > li.selected
+                font-size: 14px
+                font-family: $content-font
+                color: $header-text-color
+
+
+
+
+
+
+
+
+
+// MENU
 .menu-wrapper
     // border-top: 0px solid black
     min-height: 150px

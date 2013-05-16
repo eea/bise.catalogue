@@ -29,6 +29,7 @@
  * require jquery.ui.tooltip
  *= require fancytree/ui.fancytree
 
+ *= require bootstrap_and_overrides
  *= require bootstrap-toggle-buttons
  *= require layouts
  *= require controls
@@ -37,5 +38,4 @@
  *= require species
  *= require links
  *= font-awesome
- *= require bootstrap_and_overrides
  */
