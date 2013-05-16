@@ -156,6 +156,7 @@ class Species < ActiveRecord::Base
 
             # query { string params[:query], :default_operator => "AND"} if params[:query].present?
 
+            highlight :binomial_name
             # highlight :name, :options => { :tag => '<strong class="highlight">' }
 
             # filter :term, :author => params[:author] if params[:author].present?
