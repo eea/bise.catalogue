@@ -1,0 +1,55 @@
+- content_for :pageheader do
+    Sites
+
+- content_for :actions do
+    = link_to  new_protected_area_path, :class => "btn" do
+        %i.icon-plus
+        New Site
+    = form_tag protected_areas_path, :method => 'get', :class => 'search-query pull-right' do       #
+        = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search site...'    #
+
+.row
+    .span3
+
+    .span9
+        - @protected_areas.each_with_hit do |site, hit|
+            = render "cells/protected_area", :site => site, :hit => hit
+
+        = page_entries_info @protected_areas
+        = will_paginate @protected_areas, :renderer => BootstrapPagination::Rails
+
+
+/ %table
+/   %tr
+/     %th Code
+/     %th Uri
+/     %th Name
+/     %th Designation year
+/     %th Nuts code
+/     %th Area
+/     %th Length
+/     %th Long
+/     %th Lat
+/     %th Source db
+/     %th
+/     %th
+/     %th
+
+/   - @protected_areas.each do |protected_area|
+/     %tr
+/       %td= protected_area.code
+/       %td= protected_area.uri
+/       %td= protected_area.name
+/       %td= protected_area.designation_year
+/       %td= protected_area.nuts_code
+/       %td= protected_area.area
+/       %td= protected_area.length
+/       %td= protected_area.long
+/       %td= protected_area.lat
+/       %td= protected_area.source_db
+/       %td= link_to 'Show', protected_area
+/       %td= link_to 'Edit', edit_protected_area_path(protected_area)
+/       %td= link_to 'Destroy', protected_area, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+
+
