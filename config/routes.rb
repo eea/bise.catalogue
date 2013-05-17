@@ -19,7 +19,9 @@ Catalogue::Application.routes.draw do
   	# NEWS
   	resources :news
 
-	# SPECIES
+	# EUNIS (Species, Sites, Habitats)
+	resources :protected_areas
+  	resources :habitats
 	resources :species
 
 	# GEMET, THESAURUS

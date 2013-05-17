@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130513083711) do
+ActiveRecord::Schema.define(:version => 20130517082744) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -121,6 +121,21 @@ ActiveRecord::Schema.define(:version => 20130513083711) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "habitats", :force => true do |t|
+    t.string   "uri"
+    t.integer  "code"
+    t.string   "name"
+    t.integer  "natura2000_code"
+    t.string   "habitat_code"
+    t.integer  "level"
+    t.integer  "originally_published_code"
+    t.string   "description"
+    t.string   "comment"
+    t.string   "national_name"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
   create_table "languages", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -172,6 +187,22 @@ ActiveRecord::Schema.define(:version => 20130513083711) do
   create_table "newss_countries", :id => false, :force => true do |t|
     t.integer "news_id"
     t.integer "country_id"
+  end
+
+  create_table "protected_areas", :force => true do |t|
+    t.integer  "code"
+    t.string   "iucnat"
+    t.string   "uri"
+    t.string   "name"
+    t.integer  "designation_year"
+    t.string   "nuts_code"
+    t.float    "area"
+    t.float    "length"
+    t.float    "long"
+    t.float    "lat"
+    t.string   "source_db"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "sites", :force => true do |t|
