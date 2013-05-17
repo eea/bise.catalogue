@@ -52,13 +52,13 @@
                             %li
                                 = link_to "Links", links_path
                             %li
-                                = link_to "Species", species_index_path
+                                = link_to "News", news_index_path
                             %li
                                 = link_to "Sites", protected_areas_path
                             %li
                                 = link_to "Habitats", habitats_path
                             %li
-                                = link_to "News", news_index_path
+                                = link_to "Species", species_index_path
                         / = form_tag articles_path, :method => 'get', :class => 'navbar-search pull-right form-search ' do
                         /     = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'
 
