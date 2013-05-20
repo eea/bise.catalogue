@@ -30,6 +30,6 @@ class EcosystemAssessment < ActiveRecord::Base
 
     validates_presence_of :origin, :message => "can't be blank"
 
-    validates_presence_of :is_final, :message => "can't be blank"
+    validates_inclusion_of :is_final, :in => [true, false], :message => "can't be blank"
 
 end
