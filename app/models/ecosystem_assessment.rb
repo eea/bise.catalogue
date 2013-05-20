@@ -11,7 +11,8 @@ class EcosystemAssessment < ActiveRecord::Base
 
     attr_accessible :is_final
 
-    attr_accessible :license
+    # license
+    attr_accessible :availability
 
     attr_accessible :url
 

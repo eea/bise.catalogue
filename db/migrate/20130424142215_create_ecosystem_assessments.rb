@@ -9,7 +9,7 @@ class CreateEcosystemAssessments < ActiveRecord::Migration
       t.string :origin
       t.string :url
       t.boolean :is_final
-      t.string :license
+      t.string :availability
 
       t.timestamps
     end
