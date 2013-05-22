@@ -78,6 +78,10 @@ gem 'rdf-do'
 gem 'do_postgres'
 
 
+group :test do
+end
+
+
 group :development do
     gem 'better_errors'
 end
@@ -96,9 +100,12 @@ group :development, :test do
     # gem 'ruby-prof'
     # gem 'test-unit'
     # gem 'rspec'
-    gem 'rspec-rails'
 
     gem 'gem-ctags'
+
+    # TEST
+    gem "rspec-rails"
+    gem 'cucumber-rails', :require => false
 
     # Documentation
     gem 'railroady'
@@ -110,7 +117,11 @@ group :test do
     gem 'factory_girl_rails'
     gem 'capybara'
     gem 'guard-rspec'
-    gem 'rb-fsevent'
+    gem 'guard-cucumber'
+    # gem 'guard-zeus'
+    gem 'guard-zeus-client'
+    gem 'database_cleaner'
+    # gem 'guard-livereload'
 end
 
 # To use ActiveModel has_secure_password

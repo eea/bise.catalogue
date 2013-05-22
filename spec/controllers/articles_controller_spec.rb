@@ -26,7 +26,8 @@ describe ArticlesController do
   def valid_attributes
     {
       :title => "Example Article",
-      :author => "jon"
+      :author => "jon",
+      :content => "This is an example Article... "
     }
   end
 
