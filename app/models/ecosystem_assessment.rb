@@ -17,7 +17,7 @@ class EcosystemAssessment < ActiveRecord::Base
     attr_accessible :url
 
     # ---- VALIDATIONS
-    validates_inclusion_of :resource_type, :in => %w( Literature Tool Event Website Maps ), :message => "Resource type %s is not included in the list"
+    validates_inclusion_of :resource_type, :in => %w( Literature Tool Event Website Maps ), :message => "Resource type is not included in the list"
 
     validates_presence_of :title, :message => "can't be blank"
     validates_length_of :title, :within => 3..255, :message => "must be present"
