@@ -54,7 +54,8 @@ gem 'tire', '>= 0.5.4'
 gem 'ransack'
 
 # TWITTER BOOTSTRAP
-gem "twitter-bootstrap-rails"   , :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem "twitter-bootstrap-rails"  # , :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+# gem "font-awesome-rails"
 
 
 # RDF.rb
