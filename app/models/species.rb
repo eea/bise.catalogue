@@ -49,7 +49,7 @@ class Species < ActiveRecord::Base
             indexes :binomial_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :scientific_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
 
-            indexes :author, :type => 'string'
+            indexes :author, :type => 'string', :index => :not_analyzed
             indexes :created_at, :type => 'date'
 
             indexes :species_group, :type => 'string', :index => :not_analyzed
@@ -70,7 +70,7 @@ class Species < ActiveRecord::Base
         {
             :binomial_name          => binomial_name,
             :scientific_name        => scientific_name,
-            :author                 => scientific_name_authorship,
+            :authorship             => scientific_name_authorship,
             :created_at             => created_at,
             :species_group          => species_group,
             :taxonomic_rank         => taxonomic_rank,
