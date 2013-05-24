@@ -19,7 +19,6 @@ module Api
             end
 
             def index
-                puts ":: search#index"
                 q = params[:query]
                 q = nil if q == ''
 
@@ -44,6 +43,7 @@ module Api
                 # end
 
                 if !q.nil?
+                    # page = if params[:page].nil? then 1 else params[:page] end
                     @rows = Tire.search indexes, :laod => true, :page => params[:page], :per_page => 30 do
                         query do
                             boolean do
@@ -57,33 +57,30 @@ module Api
                                 # must_not { string 'published:0' }
                             end
                         end
+
+                        facet 'authors' do
+                            terms :author
+                        end
                     end
                 else
                     @rows = nil
                 end
 
-                # binding.pry
+
+                response = Hash.new
+                response['total'] = @rows.results.total
+                response['results'] = @rows.results
+                response['facets'] = @rows.results.facets
 
                 if @rows and @rows.results
-                    respond_with @rows.results
+                    # respond_with @rows.results
+                    respond_with response
                 else
                     result = { :results => 0 }
                     respond_with result
                 end
-                # # @articles = Article.first
-                # respond_to do |format|
-                #     format.html
-                #     format.json { render :json => @rows.results }
-                # end
 
-                # rows = EcosystemAssessment.find(:all, :order => "id desc", :limit => 3)
-                # res = {
-                #     :count => EcosystemAssessment.all.size,
-                #     :last_3_assessment => rows
-                # }
-                # respond_with res
             end
-
         end
     end
 end
