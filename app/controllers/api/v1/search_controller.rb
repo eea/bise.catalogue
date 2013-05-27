@@ -58,8 +58,28 @@ module Api
                             end
                         end
 
+                        facet 'sites' do
+                            terms 'site.name'
+                        end
+
                         facet 'authors' do
                             terms :author
+                        end
+
+                        facet 'countries' do
+                            terms 'countries.name'
+                        end
+
+                        facet 'biographical_regions' do
+                            terms :biographical_region
+                        end
+
+                        facet 'languages' do
+                            terms 'languages.name'
+                        end
+
+                        facet('timeline') do
+                            date :published_on, :interval => 'year'
                         end
                     end
                 else
