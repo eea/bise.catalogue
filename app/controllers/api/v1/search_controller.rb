@@ -30,8 +30,8 @@ module Api
                     'protected_areas',
                     'habitats',
                     'species'
-                    # ].map { |i| "deployer_catalogue_#{Rails.env.downcase}_#{i}" }
-                ].map { |i| "deployer_catalogue_production_#{i}" }
+                ].map { |i| "jon_catalogue_development_#{i}" }
+                # ].map { |i| "deployer_catalogue_production_#{i}" }
 
                 puts indexes
 
@@ -46,7 +46,7 @@ module Api
                     # page = if params[:page].nil? then 1 else params[:page] end
                     puts ":: params :page => #{params[:page]}"
                     puts ":: params :page => #{params[:per_page]}"
-                    @rows = Tire.search indexes, :load => true, :page => params[:page], :per_page => 30 do
+                    @rows = Tire.search indexes, :load => false, :page => params[:page], :per_page => 30 do
                         query do
                             boolean do
                                 # Article & Documents titles
@@ -90,6 +90,7 @@ module Api
 
 
                 unless @rows.results.nil?
+                    binding.pry
                     response = Hash.new
                     response['total'] = @rows.results.total
                     response['results'] = @rows.results
