@@ -90,7 +90,6 @@ module Api
 
 
                 unless @rows.results.nil?
-                    binding.pry
                     response = Hash.new
                     response['total'] = @rows.results.total
                     response['results'] = @rows.results
