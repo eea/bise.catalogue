@@ -94,6 +94,7 @@ module Api
                     response['total'] = @rows.results.total
                     response['results'] = @rows.results
                     response['facets'] = @rows.results.facets
+                end
 
                 if @rows and @rows.results
                     # respond_with @rows.results
@@ -107,4 +108,3 @@ module Api
         end
     end
 end
-
