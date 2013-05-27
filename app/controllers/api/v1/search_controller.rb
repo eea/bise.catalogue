@@ -89,10 +89,11 @@ module Api
                 end
 
 
-                response = Hash.new
-                response['total'] = @rows.results.total
-                response['results'] = @rows.results
-                response['facets'] = @rows.results.facets
+                unless @rows.results.nil?
+                    response = Hash.new
+                    response['total'] = @rows.results.total
+                    response['results'] = @rows.results
+                    response['facets'] = @rows.results.facets
 
                 if @rows and @rows.results
                     # respond_with @rows.results
