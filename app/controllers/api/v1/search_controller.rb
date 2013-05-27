@@ -44,7 +44,9 @@ module Api
 
                 if !q.nil?
                     # page = if params[:page].nil? then 1 else params[:page] end
-                    @rows = Tire.search indexes, :laod => true, :page => params[:page], :per_page => 30 do
+                    puts ":: params :page => #{params[:page]}"
+                    puts ":: params :page => #{params[:per_page]}"
+                    @rows = Tire.search indexes, :load => true, :page => params[:page], :per_page => 30 do
                         query do
                             boolean do
                                 # Article & Documents titles
