@@ -80,9 +80,9 @@ module Api
                             terms 'languages.name'
                         end
 
-                        facet('timeline') do
-                            date :published_on, :interval => 'year'
-                        end
+                        # facet('timeline') do
+                        #     date :published_on, :interval => 'year'
+                        # end
                     end
                 else
                     @rows = nil
