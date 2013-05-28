@@ -40,18 +40,13 @@ module Api
 
                 puts indexes
 
-                # indexes = indexes.map { |i| "catalogue_#{i}_#{Rails.env.downcase}"}
-                # if Rails.env.production?
-                #     indexes = %w(catalogue_production_articles catalogue_production_documents catalogue_production_species)
-                # elsif Rails.env.development?
-                #     indexes = %w(catalogue_development_articles catalogue_development_documents catalogue_development_species)
-                # end
-
                 if !q.nil?
-                    # page = if params[:page].nil? then 1 else params[:page] end
-                    puts ":: params :page => #{params[:page]}"
-                    puts ":: params :page => #{params[:per_page]}"
-                    @rows = Tire.search indexes, :load => false, :page => params[:page], :per_page => 30 do
+
+                    page = (params[:page].to_i || 1)
+                    per  = if params[:per_page].present? then params[:per_page].to_i else 10 end
+                    from = if page == 1 then 0 else (page - 1) * per end
+
+                    @rows = Tire.search indexes, :load => false, :from => from, :size => per do
                         query do
                             boolean do
                                 # Article & Documents titles
