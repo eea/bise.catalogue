@@ -44,7 +44,6 @@ module Api
 
                     page = if params[:page].present? then params[:page].to_i else 1 end
                     per  = if params[:per_page].present? then params[:per_page].to_i else 10 end
-                    binding.pry
                     from = if page == 1 then 0 else (page - 1) * per end
 
                     @rows = Tire.search indexes, :load => false, :from => from, :size => per do
