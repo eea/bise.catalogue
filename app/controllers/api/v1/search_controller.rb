@@ -31,7 +31,7 @@ module Api
                     'habitats',
                     'species'
                 ].map do |i|
-                    if Rails.env.downcase == production
+                    if Rails.env.production?
                         "deployer_catalogue_production_#{i}"
                     else
                         "jon_catalogue_development_#{i}"
