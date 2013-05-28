@@ -30,8 +30,13 @@ module Api
                     'protected_areas',
                     'habitats',
                     'species'
-                ].map { |i| "jon_catalogue_development_#{i}" }
-                # ].map { |i| "deployer_catalogue_production_#{i}" }
+                ].map do |i|
+                    if Rails.env.downcase == production
+                        "deployer_catalogue_production_#{i}"
+                    else
+                        "jon_catalogue_development_#{i}"
+                    end
+                end
 
                 puts indexes
 
