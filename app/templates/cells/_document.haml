@@ -22,7 +22,7 @@
         %div.pull-left.mini-icon.plaintext
 
 
-    .title
+    .cell-title
         - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
             = link_to raw(hit['highlight']['title'].first), doc
         - else

@@ -86,9 +86,10 @@ $ ->
 
 
     # FILE
-    $('#choose_file').click ()-> $('#document_file').click()
+    $('#file_select').click ()-> $('#document_file').click()
     $('#document_file').change ()->
         _doc = new Document $('#document_file')[0].files[0]
+        $('#file_title').val $('#document_file')[0].files[0].name
 
 
     $(':submit').click (e)->
