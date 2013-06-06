@@ -18,6 +18,8 @@
 # end
 
 # :zeus => true, :bundler => false, :command_prefix => 'zeus'
+
+# , :command_prefix => 'zeus'
 guard 'rspec', :command_prefix => 'zeus' do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
