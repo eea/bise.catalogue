@@ -19,6 +19,8 @@
         %i.icon-trash
         Delete
 
+#document-preview{ :style => "margin: 30px; float: left;" }
+
 
 - if notice
     %div.alert.alert-success
@@ -146,3 +148,7 @@
 
 
     %iframe{ :src => "http://docs.google.com/gview?url=http://infolab.stanford.edu/pub/papers/google.pdf&embedded=true", :style => "width:100%; height:650px;", :frameborder => 0 }
+
+
+- content_for :js do
+    = javascript_include_tag 'documents'
