@@ -38,4 +38,26 @@
  *= require species
  *= require links
  *= font-awesome
+
+ *= require DV/components/reset
+ *= require DV/components/structure
+ *= require DV/components/ui
+ *= require DV/components/annotations
+ *= require DV/components/pages
+ *= require DV/components/ui-header
+ *= require DV/components/ui-footer
+ *= require DV/components/ui-menu
+ *= require DV/components/ui-navigation
+ *= require DV/components/ui-search
+ *= require DV/components/ui-text
+ *= require DV/components/ui-zoom
+ *= require DV/components/minimode
+ *= require DV/components/view-annotations
+ *= require DV/components/view-document
+ *= require DV/components/view-search
+ *= require DV/components/view-text
+ *= require DV/components/view-thumbnails
+ *= require DV/components/unsupported
+ *= require DV/themes/plain
+
  */

@@ -5,6 +5,16 @@ $ ->
 
     _form = if $('.new_document').size() > 0 then '.new_document' else '.edit_document'
 
+    console.log '... drawing doc viewer... '
+    docUrl = 'http://www.documentcloud.org/documents/6800-memo-on-alternatives-to-comprehensive-immigration-reform.js';
+    DV.load(docUrl, {
+      container: '#document-preview',
+      width: 572,
+      height: 500,
+      sidebar: true
+    })
+
+
     class Document
         _node: '.file-info'
 
@@ -103,34 +113,34 @@ $ ->
             alert('File can\'t be empty')
 
 
-        # ----------------- CONCEPTS
-    $("#targets_tree").fancytree({
-        autoCollapse: false
-        extensions: ["filter"]
-        selectMode: 1
-        clickFolderMode: 3
-        checkbox: true
-        selectMode: 2
-        noLink: true
-        minExpandLevel: 0
-        source:
-            url: "/targets.json"
-        filter:
-            mode: "hide"
-        debugLevel: 0
-        # rendernode: (event, data) ->
-        #     data.node.li.children[0].children[1].style.display = 'none' if (data.node.folder)
-        init: (event, data) ->
-            # $('#filterpane').show()
-            # for n in window.tree.rootNode.children
-            #     n.setExpanded()
-        activate: (e, data) ->
-            # --- ON CLICK ---
-            # if !(data.node.folder)
-            #     tag = $('<span>').addClass('tag').html(data.node.title)
-            #     $('.tag_container').append(tag)
-    })
-    window.tree = $("#targets_tree").fancytree("getTree");
+    # ----------------- CONCEPTS
+    # $("#targets_tree").fancytree({
+    #     autoCollapse: false
+    #     extensions: ["filter"]
+    #     selectMode: 1
+    #     clickFolderMode: 3
+    #     checkbox: true
+    #     selectMode: 2
+    #     noLink: true
+    #     minExpandLevel: 0
+    #     source:
+    #         url: "/targets.json"
+    #     filter:
+    #         mode: "hide"
+    #     debugLevel: 0
+    #     # rendernode: (event, data) ->
+    #     #     data.node.li.children[0].children[1].style.display = 'none' if (data.node.folder)
+    #     init: (event, data) ->
+    #         # $('#filterpane').show()
+    #         # for n in window.tree.rootNode.children
+    #         #     n.setExpanded()
+    #     activate: (e, data) ->
+    #         # --- ON CLICK ---
+    #         # if !(data.node.folder)
+    #         #     tag = $('<span>').addClass('tag').html(data.node.title)
+    #         #     $('.tag_container').append(tag)
+    # })
+    # window.tree = $("#targets_tree").fancytree("getTree");
 
     # ----------------------------------------------------
     # ----------------------------------------------------
