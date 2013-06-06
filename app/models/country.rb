@@ -11,6 +11,20 @@ class Country < ActiveRecord::Base
     attr_accessible :eu27
     attr_accessible :eu28
 
+
+    attr_accessible :iso_code2
+    attr_accessible :iso_code3
+    attr_accessible :iso_n
+    attr_accessible :iso_2_wcmc
+    attr_accessible :iso_3_wcmc
+    attr_accessible :iso_3_wcmc_parent
+    attr_accessible :areucd
+    attr_accessible :surface
+    attr_accessible :population
+    attr_accessible :capital
+
+    attr_accessible :selection
+
     has_and_belongs_to_many :articles, :association_foreign_key => "article_id", :join_table => "articles_countries", :class_name => "Article"
     has_and_belongs_to_many :documents, :association_foreign_key => "document_id", :join_table => "documents_countries", :class_name => "Document"
     has_and_belongs_to_many :links, :association_foreign_key => "link_id", :join_table => "links_countries", :class_name => "Link"
