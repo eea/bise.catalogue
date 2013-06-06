@@ -44,7 +44,7 @@ class Document < ActiveRecord::Base
 
     validates_presence_of :language_ids, :message => "can't be blank"
 
-    validates_presence_of :file, :on => :create, :message => "Can't be blank."
+    validates_presence_of :file, :on => :create, :message => "can't be blank"
 
     validate :uniqueness_of_md5hash, :on => :create
 
