@@ -66,8 +66,19 @@ ActiveRecord::Schema.define(:version => 20130517082744) do
     t.boolean  "eu27"
     t.boolean  "eu28"
     t.boolean  "eea"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "iso_code2"
+    t.string   "iso_code3"
+    t.integer  "iso_n"
+    t.string   "iso_2_wcmc"
+    t.string   "iso_3_wcmc"
+    t.string   "iso_3_wcmc_parent"
+    t.string   "areucd"
+    t.integer  "surface"
+    t.integer  "population"
+    t.string   "capital"
+    t.boolean  "selection"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "documents", :force => true do |t|
@@ -108,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20130517082744) do
   end
 
   create_table "ecosystem_assessments", :force => true do |t|
-    t.string   "document_type"
+    t.string   "resource_type"
     t.string   "title"
     t.string   "language"
     t.string   "english_title"
@@ -116,7 +127,7 @@ ActiveRecord::Schema.define(:version => 20130517082744) do
     t.string   "origin"
     t.string   "url"
     t.boolean  "is_final"
-    t.string   "license"
+    t.string   "availability"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
