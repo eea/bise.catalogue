@@ -52,16 +52,13 @@
 
                     .row-fluid
                         .span6
+                            = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
+                        .span6
                             .input-append
                                 = f.input :file, :input_html => { :class => "hide" }
                                 %input#file_title.string.required.input-xlarge{ :type => 'text', :disabled => :disabled }
                                 %button#file_select.btn{ :type => 'button' }
                                     Select
-
-                    .row-fluid
-                        .span6
-                            = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
-                        .span6
 
             #geographic.tab-pane
                 .container-fluid
