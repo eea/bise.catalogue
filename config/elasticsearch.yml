@@ -1,0 +1,9 @@
+
+development_url: http://89.0.1.129:9200
+# development_url: http://192.168.0.10:9200
+
+test_url: http://89.0.1.129:9200
+# test_url: http://192.168.0.10:9200
+
+production_url: http://89.0.1.129:9200
+# production_url: http://192.168.0.10:9200

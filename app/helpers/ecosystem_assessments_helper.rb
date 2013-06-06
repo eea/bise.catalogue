@@ -1,0 +1,2 @@
+module EcosystemAssessmentsHelper
+end

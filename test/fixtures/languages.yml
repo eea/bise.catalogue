@@ -1,0 +1,91 @@
+Bulgarian:
+    id: 1
+    name: Bulgarian
+
+Czech:
+    id: 2
+    name: Czech
+
+Danish:
+    id: 3
+    name: Danish
+
+Dutch:
+    id: 4
+    name: Dutch
+
+English:
+    id: 5
+    name: English
+
+Estonian:
+    id: 6
+    name: Estonian
+
+Finnish:
+    id: 7
+    name: Finnish
+
+French:
+    id: 8
+    name: French
+
+German:
+    id: 9
+    name: German
+
+Greek:
+    id: 10
+    name: Greek
+
+Hungarian:
+    id: 11
+    name: Hungarian
+
+Irish:
+    id: 12
+    name: Irish
+
+Italian:
+    id: 13
+    name: Italian
+
+Latvian:
+    id: 14
+    name: Latvian
+
+Lithuanian:
+    id: 15
+    name: Lithuanian
+
+Maltese:
+    id: 16
+    name: Maltese
+
+Polish:
+    id: 17
+    name: Polish
+
+Portuguese:
+    id: 18
+    name: Portuguese
+
+Romanian:
+    id: 19
+    name: Romanian
+
+Slovak:
+    id: 20
+    name: Slovak
+
+Slovenian:
+    id: 21
+    name: Slovenian
+
+Spanish:
+    id: 22
+    name: Spanish
+
+Swedis:
+    id: 23
+    name: Swedish

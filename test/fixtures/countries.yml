@@ -1,0 +1,320 @@
+
+austria:
+    id: 1
+    code: AT
+    name: Austria
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+belgica:
+    id: 2
+    code: BE
+    name: Belgium
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+bulgaria:
+    id: 3
+    code: BG
+    name: Bulgaria
+    eu15: false
+    eu25: false
+    eu27: true
+    eu28: true
+    eea:  true
+
+cyprus:
+    id: 4
+    code: CY
+    name: Cyprus
+    eu15: false
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+czech_republic:
+    id: 5
+    code: CZ
+    name: Czech Republic
+    eu15: false
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+denmark:
+    id: 6
+    code: DK
+    name: Denmark
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+estonia:
+    id: 7
+    code: EE
+    name: Estonia
+    eu15: false
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+finland:
+    id: 8
+    code: FI
+    name: Finland
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+france:
+    id: 9
+    code: FR
+    name: France
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+germany:
+    id: 10
+    code: DE
+    name: Germany
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+greece:
+    id: 11
+    code: EL
+    name: Greece
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+hungary:
+    id: 12
+    code: HU
+    name: Hungary
+    eu15: false
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+ireland:
+    id: 13
+    code: IE
+    name: Ireland
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+italy:
+    id: 14
+    code: IT
+    name: Italy
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+latvia:
+    id: 15
+    code: LV
+    name: Latvia
+    eu15: false
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+lithuania:
+    id: 16
+    code: LT
+    name: Lithuania
+    eu15: false
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+luxembourg:
+    id: 17
+    code: LU
+    name: Luxembourg
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+malta:
+    id: 18
+    code: MT
+    name: Malta
+    eu15: false
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+netherlands:
+    id: 19
+    code: NL
+    name: Netherlands
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+poland:
+    id: 20
+    code: PL
+    name: Poland
+    eu15: false
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+portugal:
+    id: 21
+    code: PT
+    name: Portugal
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+romania:
+    id: 22
+    code: RO
+    name: Romania
+    eu15: false
+    eu25: false
+    eu27: true
+    eu28: true
+    eea:  true
+
+slovakia:
+    id: 23
+    code: SK
+    name: Slovakia
+    eu15: false
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+slovenia:
+    id: 24
+    code: SL
+    name: Slovenia
+    eu15: false
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+spain:
+    id: 25
+    code: ES
+    name: Spain
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+sweden:
+    id: 26
+    code: SE
+    name: Sweden
+    eu15: false
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+uk:
+    id: 27
+    code: UK
+    name: United Kingdom
+    eu15: true
+    eu25: true
+    eu27: true
+    eu28: true
+    eea:  true
+
+iceland:
+    id: 28
+    code: IS
+    name: Iceland
+    eu15: false
+    eu25: false
+    eu27: false
+    eu28: false
+    eea:  true
+
+liechtenstein:
+    id: 29
+    code: LI
+    name: Liechtenstein
+    eu15: false
+    eu25: false
+    eu27: false
+    eu28: false
+    eea:  true
+
+norway:
+    id: 30
+    code: NO
+    name: Norway
+    eu15: false
+    eu25: false
+    eu27: false
+    eu28: false
+    eea:  true
+
+switzerland:
+    id: 31
+    code: CH
+    name: Switzerland
+    eu15: false
+    eu25: false
+    eu27: false
+    eu28: false
+    eea:  true
+
+turkey:
+    id: 32
+    code: TR
+    name: Turkey
+    eu15: false
+    eu25: false
+    eu27: false
+    eu28: false
+    eea:  true

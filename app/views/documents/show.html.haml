@@ -1,0 +1,148 @@
+- content_for :pageheader do
+    = @document.title
+
+- content_for :actions do
+    = link_to  documents_path, :class => "btn" do
+        %i.icon-reply
+        Back
+    = link_to  edit_document_path(@document), :class => "btn" do
+        %i.icon-pencil
+        Edit
+    = link_to @document.file_url, :class => "btn" do
+        %i.icon-download-alt
+        Download
+        %small
+            (
+            = (@document.file_size/1024).round(2)
+            KB)
+    = link_to  document_path(@document), :method => :delete, :class => "btn btn-danger pull-right" do
+        %i.icon-trash
+        Delete
+
+
+- if notice
+    %div.alert.alert-success
+        %button.close{ :type => "button", 'data-dismiss' => 'alert' }
+            &times;
+        %h4 Success!
+        = notice
+
+.container
+
+    .row
+        .span6
+            %dl.dl-horizontal
+                %dt Site
+                %dd= @document.site.name unless @document.site.nil?
+        .span6
+
+    .row
+        .span6
+            %dl.dl-horizontal
+                %dt Author
+                %dd= @document.author
+
+
+    %hr
+
+    .row
+        .span3
+            %b Site:
+        .span3
+            = @document.site.name unless @document.site.nil?
+        .span3
+            / %b Geographical Coverage:
+        .span3
+            / = @document.geographical_coverage
+
+    .row
+        .span3
+            %b Author :
+        .span3
+            = @document.author
+        .span3
+            %b Biographical Region:
+        .span3
+            = @document.biographical_region
+
+    .row
+        .span3
+            %b Published on:
+        .span3
+            = @document.published_on
+        .span3
+            / %b Theme:
+        .span3
+
+    .row
+        .span3
+            %b Downloads :
+        .span3
+            = @document.downloads
+        .span3
+            %b Language :
+        .span3
+            - @document.languages.each do |l|
+                = l.name
+    .row
+        .span12
+            %b Description :
+        .span12
+            = raw @document.description
+
+    / %table.table
+    /     %tbody
+    /         %tr
+    /             %td.collabel
+    /                 %b Site:
+    /             %td.colcontent
+    /                 = @document.site.name unless @document.site.nil?
+    /             %td.collabel
+    /                 %b Geographical Coverage:
+    /             %td.colcontent
+    /                 = @document.geographical_coverage
+    /             / %td.collabel
+    /             /     %b File :
+    /             / %td
+    /             /     = link_to @document.file_url, :class => "btn btn-mini" do
+    /             /         %i.icon-download-alt
+    /             /         Download
+    /             /         %small
+    /             /             (
+    /             /             = (@document.file_size/1024).round(2)
+    /             /             KB)
+    /         %tr
+    /             %td.collabel
+    /                 %b Author :
+    /             %td.colcontent
+    /                 = @document.author
+    /             %td.collabel
+    /                 %b Biographical Region:
+    /             %td.colcontent
+    /                 = @document.biographical_region
+    /         %tr
+    /             %td.collabel
+    /                 %b Published on:
+    /             %td.colcontent
+    /                 = @document.published_on
+    /             %td.collabel
+    /                 / %b Theme:
+    /             %td.colcontent
+
+    /         %tr
+    /             %td.collabel
+    /                 %b Downloads :
+    /             %td.colcontent
+    /                 = @document.downloads
+    /             %td.collabel
+    /                 %b Language :
+    /             %td.colcontent
+    /                 = @document.language
+    /         %tr
+    /             %td.collabel
+    /                 %b Description :
+    /             %td{ :colspan => 3 }
+    /                 = raw @document.description
+
+
+    %iframe{ :src => "http://docs.google.com/gview?url=http://infolab.stanford.edu/pub/papers/google.pdf&embedded=true", :style => "width:100%; height:650px;", :frameborder => 0 }

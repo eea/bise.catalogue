@@ -1,0 +1,58 @@
+.article_cell
+
+    .cell-title
+        = link_to article.title, article
+        / - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
+        /     = link_to raw(hit['highlight']['title'].first), doc
+        / - else
+        /     = link_to doc.title, doc
+
+    %small by #{article.author} at #{article.created_at.strftime("%m/%d/%Y")}
+    / %br
+    / - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
+    /     - att_hits = hit['highlight']['attachment']
+
+    /     .hits
+    /         %ol{ :type => "I" }
+    /             - att_hits.each do |h|
+    /                 %li
+    /                     %p.hit= raw '...' + h + '...'
+    /     / = raw hit['highlight']['attachment'].first
+
+    / - if not article.concepts.nil?
+    /     - article.concepts.map do |c|
+    /         %span.label.label-success
+    /             = c.title
+
+    - if article.published?
+        %span.label.label-success.pull-right
+            Published
+    - else
+        %span.label.label-important.pull-right
+            Unpublished
+
+    %br
+    - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content_without_tags'
+        - att_hits = hit['highlight']['content_without_tags']
+
+        .hits
+            %ol{ :type => "I" }
+                - att_hits.each do |h|
+                    %li
+                        %p.hit= raw '...' + h + '...'
+
+/ <div style="padding: 3px; border-bottom: 1px dotted #6b6b6b; margin-bottom: 4px;">
+/     <div class="cell-title">
+/         <a href="{{url}}" style="display:inline-block;">{{article_title}}</a>
+/     </div>
+/     <small>
+/         by {{author}} at {{date}}
+/     </small>
+/     <div>
+/         {{#tags}}
+/             <span class="label label-success">
+/                 {{tag}}
+/             </span >
+/         {{/tags}}
+/     </div>
+/ </div>

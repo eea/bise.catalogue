@@ -1,0 +1,22 @@
+- content_for :css do
+    = stylesheet_link_tag "documents", :media => "all"
+
+- content_for :pageheader do
+    Editing document
+
+- content_for :actions do
+    = link_to documents_path, :class => "btn" do
+        %i.icon-reply
+        Back
+    = link_to @document, :class => "btn" do
+        %i.icon-search
+        Show
+
+= render :partial => 'documents/modals'
+
+= render 'form'
+
+
+- content_for :js do
+    = javascript_include_tag 'documents'
+    = tinymce

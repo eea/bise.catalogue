@@ -1,0 +1,13 @@
+- content_for :pageheader do
+    New piece of news
+
+- content_for :actions do
+    = link_to news_index_path, :class => "btn" do
+        %i.icon-reply
+        Back
+
+= render 'form'
+
+- content_for :js do
+    = javascript_include_tag 'news'
+    = tinymce

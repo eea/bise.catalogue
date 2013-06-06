@@ -1,0 +1,58 @@
+#countries
+
+    %legend
+        .btn-group.pull-right{ :style => 'margin-bottom: 15px' }
+            %a.btn.btn-small.eu15
+                EU15
+            %a.btn.btn-small.eu25
+                EU25
+            %a.btn.btn-small.eu27
+                EU27
+            %a.btn.btn-small.eu28
+                EU28
+            %a.btn.btn-small.eea-members
+                EEA Members
+            %a.btn.btn-small.no-country
+                None
+        Countries:
+
+
+    - quarter = @countries.size / 4
+    - class_name = parent.class.name.downcase
+
+    .row-fluid
+        .span3
+            %ul.unstyled
+                - @countries.each_with_index do |c, i|
+                    - if i < quarter
+                        %li
+                            / = @article.country_ids.include?(c.id)
+                            %label.checkbox
+                                = check_box_tag class_name + '[country_ids][]', c.id, parent.country_ids.include?(c.id), { :id => c.name.parameterize }
+                                = c.name
+
+        .span3
+            %ul.unstyled
+                - @countries.each_with_index do |c, i|
+                    - if i >= quarter and i < quarter * 2
+                        %li
+                            %label.checkbox
+                                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { :id => c.name.parameterize }
+                                = c.name
+                            /     / %input{ :id => c.name.parameterize, :name => class_name + '[countries][]', :type => 'checkbox' }
+        .span3
+            %ul.unstyled
+                - @countries.each_with_index do |c, i|
+                    - if i >= quarter *2 and i < quarter * 3
+                        %li
+                            %label.checkbox
+                                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { :id => c.name.parameterize }
+                                = c.name
+        .span3
+            %ul.unstyled
+                - @countries.each_with_index do |c, i|
+                    - if i >= quarter *3 and i < quarter * 4
+                        %li
+                            %label.checkbox
+                                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { :id => c.name.parameterize }
+                                = c.name

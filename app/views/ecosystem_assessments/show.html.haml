@@ -1,0 +1,33 @@
+%p#notice= notice
+
+%p
+  %b Type:
+  = @ecosystem_assessment.resource_type
+%p
+  %b Title:
+  = @ecosystem_assessment.title
+%p
+  %b Language:
+  = @ecosystem_assessment.language
+%p
+  %b English title:
+  = @ecosystem_assessment.english_title
+%p
+  %b Published year:
+  = @ecosystem_assessment.published_year
+%p
+  %b Origin:
+  = @ecosystem_assessment.origin
+%p
+  %b Url:
+  = @ecosystem_assessment.url
+%p
+  %b Is final:
+  = @ecosystem_assessment.is_final
+%p
+  %b License:
+  = @ecosystem_assessment.availability
+
+= link_to 'Edit', edit_ecosystem_assessment_path(@ecosystem_assessment)
+\|
+= link_to 'Back', ecosystem_assessments_path

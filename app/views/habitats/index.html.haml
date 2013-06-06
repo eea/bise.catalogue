@@ -1,0 +1,59 @@
+- content_for :pageheader do
+    Habitats
+
+- content_for :actions do
+    = link_to new_habitat_path, :class => "btn" do
+        %i.icon-plus
+        New Habitat
+    = form_tag habitats_path, :method => 'get', :class => 'form-search pull-right' do
+        = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search habitat..'
+
+.row
+
+    .span3
+    .span9
+        - @habitats.each_with_hit do |habitat, hit|
+            = render "cells/habitat", :habitat => habitat, :hit => hit
+
+        = page_entries_info @habitats
+        %br
+        = will_paginate @habitats, :renderer => BootstrapPagination::Rails
+
+
+/ %h1 Listing habitats
+
+/ %table
+/   %tr
+/     %th Uri
+/     %th Code
+/     %th Name
+/     %th Natura2000 code
+/     %th Habitat code
+/     %th Level
+/     %th Originally published code
+/     %th Description
+/     %th Comment
+/     %th National name
+/     %th
+/     %th
+/     %th
+
+/   - @habitats.each do |habitat|
+/     %tr
+/       %td= habitat.uri
+/       %td= habitat.code
+/       %td= habitat.name
+/       %td= habitat.natura2000_code
+/       %td= habitat.habitat_code
+/       %td= habitat.level
+/       %td= habitat.originally_published_code
+/       %td= habitat.description
+/       %td= habitat.comment
+/       %td= habitat.national_name
+/       %td= link_to 'Show', habitat
+/       %td= link_to 'Edit', edit_habitat_path(habitat)
+/       %td= link_to 'Destroy', habitat, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+/ %br
+
+/ = link_to 'New Habitat', new_habitat_path

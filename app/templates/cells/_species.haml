@@ -1,0 +1,47 @@
+.species_cell
+    / = link_to species,  :class => "btn btn-success btn-mini pull-right" do
+    /     / %i.icon-eye-open
+    /     Read more
+    .cell-title
+        / - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
+        /     = raw hit['highlight']['title'].first
+        / - else
+
+        - if hit.has_key?'highlight' and hit['highlight'].has_key? 'binomial_name'
+            = link_to raw(hit['highlight']['binomial_name'][0]), species
+        - else
+            = link_to species.binomial_name, species
+        /     = raw hit['highlight']['binomial_name']
+        / - att_hits = hit['highlight']['attachment']
+
+        / .hits
+        /     %ol{ :type => "I" }
+        /         - att_hits.each do |h|
+        /             %li
+        /                 %p.hit= raw '...' + h + '...'
+
+    %small
+        %strong
+            Authorship:
+        = species.scientific_name_authorship
+
+
+
+
+
+
+
+    / %small
+    /     %b
+    /         Scientist :
+    /         = species.scientific_name_authorship
+
+    / - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
+    /     - att_hits = hit['highlight']['attachment']
+
+    /     .hits
+    /         %ol{ :type => "I" }
+    /             - att_hits.each do |h|
+    /                 %li
+    /                     %p.hit= raw '...' + h + '...'
+    /     / = raw hit['highlight']['attachment'].first

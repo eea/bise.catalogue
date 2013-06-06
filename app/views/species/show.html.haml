@@ -1,0 +1,84 @@
+- content_for :pageheader do
+    = @species.binomial_name
+
+- content_for :actions do
+    = link_to  species_index_path, :class => "btn" do
+        %i.icon-reply
+        Back
+    = link_to  edit_species_path(@species), :class => "btn" do
+        %i.icon-pencil
+        Edit
+    = link_to species_path(@species), :method => :delete, :class => "btn btn-danger pull-right" do
+        %i.icon-trash
+        Delete
+
+
+.container
+
+    %table.table
+        %tbody
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Species code:
+                %td
+                    = @species.species_code
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Valid name:
+                %td
+                    = @species.valid_name
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Eunis primary name:
+                %td
+                    = link_to @species.eunis_primary_name, @species.eunis_primary_name
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Synonym for:
+                %td
+                    = link_to @species.synonym_for, @species.synonym_for
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Taxonomic rank:
+                %td
+                    = @species.taxonomic_rank
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Taxonomy:
+                %td
+                    = @species.taxonomy.name
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Scientific name authorship:
+                %td
+                    = @species.scientific_name_authorship
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Scientific name:
+                %td
+                    = @species.scientific_name
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Label:
+                %td
+                    = @species.label
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Genus:
+                %td
+                    = @species.genus
+            %tr
+                %td{ :style => 'width: 20%;text-align: right;' }
+                    %b Species group:
+                %td
+                    = link_to @species.species_group, @species.species_group
+            / %tr
+            /     %td{ :style => 'width: 20%;text-align: right;' }
+            /         %b Name according to id:
+            /     %td
+            /         = link_to @species.name_according_to_ID, @species.name_according_to_ID
+            / %tr
+            /     %td{ :style => 'width: 20%;text-align: right;' }
+            /         %b Ignore on match:
+            /     %td
+            /         = @species.ignore_on_match
