@@ -9,14 +9,26 @@ module RDF
     module DataObjects
         class Repository < ::RDF::Repository
 
+            # def begin_transaction(context)
+            #     # ...
+            # end
+
+            # def rollback_transaction(tx)
+            #     # ...
+            # end
+
+            # def commit_transaction(tx)
+            #     # ...
+            # end
+
             def initialize(options)
                 @db = ::DataObjects::Connection.new(options)
                 exec('CREATE TABLE IF NOT EXISTS quads (
-                    `subject` varchar(255),
-                    `predicate` varchar(255),
-                    `object` varchar(255),
-                    `context` varchar(255),
-                    UNIQUE (`subject`, `predicate`, `object`, `context`))')
+                    subject varchar(255),
+                    predicate varchar(255),
+                    object varchar(255),
+                    context varchar(255),
+                    UNIQUE (subject, predicate, object, context))')
             end
 
             # @see RDF::Enumerable#each.
@@ -37,14 +49,14 @@ module RDF
 
             # @see RDF::Mutable#insert_statement
             def insert_statement(statement)
-                sql = 'REPLACE INTO `quads` (subject, predicate, object, context) VALUES (?, ?, ?, ?)'
+                sql = 'INSERT INTO quads (subject, predicate, object, context) VALUES (?, ?, ?, ?)'
                 exec(sql,serialize(statement.subject),serialize(statement.predicate),
                          serialize(statement.object), serialize(statement.context))
             end
 
             # @see RDF::Mutable#delete_statement
             def delete_statement(statement)
-                sql = 'DELETE FROM `quads` where (subject = ? AND predicate = ? AND object = ? AND context = ?)'
+                sql = 'DELETE FROM quads where (subject = ? AND predicate = ? AND object = ? AND context = ?)'
                 exec(sql,serialize(statement.subject),serialize(statement.predicate),
                          serialize(statement.object), serialize(statement.context))
             end

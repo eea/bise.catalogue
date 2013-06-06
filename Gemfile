@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.13'
 
 gem 'rack'      #, '1.4.1'
 gem 'zeus'
@@ -32,6 +32,8 @@ group :assets do
     gem 'jquery-fileupload-rails'
 
 end
+
+gem 'underscore-rails'
 
 # Outside assets for production coffee handlers
 gem 'coffee-rails'              , '~> 3.2.1'
@@ -79,10 +81,6 @@ gem 'rdf-do'
 gem 'do_postgres'
 
 
-group :test do
-end
-
-
 group :development do
     gem 'better_errors'
 end
@@ -122,6 +120,9 @@ group :test do
     # gem 'guard-zeus'
     gem 'guard-zeus-client'
     gem 'database_cleaner'
+
+    gem 'shoulda'
+    gem 'shoulda-matchers', :require => false
     # gem 'guard-livereload'
 end
 

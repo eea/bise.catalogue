@@ -52,12 +52,13 @@
 
                     .row-fluid
                         .span6
-                            = f.input :file, :input_html => { :class => "input-block-level" }
-
-                    .row-fluid
-                        .span6
                             = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
                         .span6
+                            .input-append
+                                = f.input :file, :input_html => { :class => "hide" }
+                                %input#file_title.string.required.input-xlarge{ :type => 'text', :disabled => :disabled }
+                                %button#file_select.btn{ :type => 'button' }
+                                    Select
 
             #geographic.tab-pane
                 .container-fluid
@@ -95,15 +96,9 @@
 
             #ecosystems.tab-pane
                 .container-fluid
-                    .row-fluid
-                        .span12
-                            %legend Biodiversity
+                    = render :partial => 'common/targets', :locals => { :parent => @document }
+                    = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
 
-                    .row-fluid
-                        .span6
-                            = render :partial => 'common/targets', :locals => { :parent => @document }
-                        .span6
-                            = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
         .container-fluid
             %div.form-actions
                 = f.submit 'Save', :class => "btn btn-success"

@@ -9,6 +9,19 @@ class CreateCountries < ActiveRecord::Migration
       t.boolean :eu28
       t.boolean :eea
 
+      t.string :iso_code2
+      t.string :iso_code3
+      t.integer :iso_n
+      t.string :iso_2_wcmc
+      t.string :iso_3_wcmc
+      t.string :iso_3_wcmc_parent
+      t.string :areucd
+      t.integer :surface
+      t.integer :population
+      t.string :capital
+
+      t.boolean :selection
+
       t.timestamps
     end
   end
