@@ -54,7 +54,7 @@
                             %li
                                 = link_to "News", news_index_path
                             %li
-                                = link_to "Sites", protected_areas_path
+                                = link_to "Protected Areas", protected_areas_path
                             %li
                                 = link_to "Habitats", habitats_path
                             %li
@@ -73,7 +73,7 @@
                 .inner-container{ :style => 'border: 0px solid orange;' }
                     = yield
 
-                = render :partial => 'layouts/footer'
+            = render :partial => 'layouts/footer'
 
         / Placed at the end of the document so the pages load faster
         = javascript_include_tag "application"

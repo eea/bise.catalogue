@@ -8,6 +8,11 @@
     = link_to  documents_path, :class => "btn" do
         %i.icon-reply
         Back
+    .btn-group.pull-right
+        %a.btn.active{ :href => '#general', :data => { :toggle => 'tab' } } General
+        %a.btn{ :href => '#geographic', :data => { :toggle => 'tab' } } Geographic
+        %a.btn{ :href => '#related', :data => { :toggle => 'tab' } } Related Resources
+        %a.btn{ :href => '#ecosystems', :data => { :toggle => 'tab' } } Thematic Area
 
     / .pull-right
     /     %div{ :style => 'display:inline-block;padding-right: 150px' } Approved:

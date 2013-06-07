@@ -1,23 +1,11 @@
 
 = simple_form_for(@article) do |f|
 
-    .tabbable
-
-        %ul.nav.nav-pills
-            %li.active
-                %a{ :href => '#general', :data => { :toggle => 'tab' } } General
-            %li
-                %a{ :href => '#geographic', :data => { :toggle => 'tab' } } Geographic
-            %li
-                %a{ :href => '#related', :data => { :toggle => 'tab' } } Related Resources
-            %li
-                %a{ :href => '#ecosystems', :data => { :toggle => 'tab' } } Thematic Area
-
     .tab-content
 
         #general.tab-pane.active
 
-            .container-fluid{ :style => 'padding: 0' }
+            .container-fluid
 
                 = render :partial => 'common/common_info', :locals => { :f => f }
 
@@ -26,43 +14,30 @@
                 = render :partial => 'common/publication', :locals => { :f => f }
 
                 %legend Article
-
                 .row-fluid
                     .span12
                         = f.input :content, :as => :text, :input_html => { :class => "input-block-level tinymce" }
-        #geographic.tab-pane
 
-            = render :partial => 'common/countries', :locals => { :parent => @article }
+        #geographic.tab-pane
+            .container-fluid
+                = render :partial => 'common/countries', :locals => { :parent => @article }
 
         #related.tab-pane
 
-            .alert.alert-error
-                %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
-                %strong
-                    Warning!
-                This section is under contruction...
-
-                / .container-fluid{ :style => 'padding: 0' }
-                /     / .row-fluid
-                /     /     .span6
-                /     /         #filterpane{ :style => 'margin-bottom: 8px;display:none' }
-                /     /             %input.string{ :type => 'text', :name => "search", :placeholder => "Filter...", :style => '' }
-                /     /             %a.btn#reset &times;
-                /     /             %span#matches
-                /     /         %div#concepts_tree{ :name => 'concepts', :style => 'height: 400px;', :data => { :selected => @article.concepts.map(&:id) } }
-                /     /     .span6
-                /     /         .well
-                /     /             %div.tag_container{ :style => 'min-height: 150px'}
-                /     /                 %p
-                /     /                     %strong Tags:
+            .container-fluid
+                .alert.alert-error
+                    %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
+                    %strong
+                        Warning!
+                    This section is under contruction...
 
         #ecosystems.tab-pane
-            .alert.alert-error
-                %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
-                %strong
-                    Warning!
-                This section is under contruction...
-
+            .container-fluid
+                .alert.alert-error
+                    %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
+                    %strong
+                        Warning!
+                    This section is under contruction...
 
         %div.form-actions
             = f.submit 'Save', :class => "btn btn-success"
