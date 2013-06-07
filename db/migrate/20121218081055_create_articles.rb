@@ -3,6 +3,7 @@ class CreateArticles < ActiveRecord::Migration
     create_table :articles do |t|
 
       t.string    :title
+      t.string    :english_title
       t.text      :author
       t.text      :content
 

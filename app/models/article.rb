@@ -7,10 +7,14 @@ class Article < ActiveRecord::Base
     include Tire::Model::Callbacks
 
     attr_accessible :title
+    attr_accessible :english_title
     attr_accessible :author
     attr_accessible :content
 
-    attr_accessible :language
+    attr_accessible :language_ids
+    has_and_belongs_to_many :languages, :class_name => "Language", :join_table => "articles_languages", :foreign_key => "article_id"
+
+
     # attr_accessible :geographical_coverage
     attr_accessible :biographical_region
 
@@ -20,14 +24,14 @@ class Article < ActiveRecord::Base
     attr_accessible :published
 
     attr_accessible :site_id
-    belongs_to              :site
+    belongs_to      :site
 
     attr_accessible :country_ids
     has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "articles_countries", :foreign_key => "article_id"
 
     has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "articles_concepts", :foreign_key => "article_id"
 
-    # validates_presence_of :site
+    validates_presence_of :site
     validates_presence_of :title, :message => "can't be blank"
 
 

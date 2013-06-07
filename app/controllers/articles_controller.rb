@@ -35,6 +35,7 @@ class ArticlesController < ApplicationController
     # GET /articles/new.json
     def new
         @countries = Country.all
+        @languages = Language.all
         @article = Article.new
         # respond_to do |format|
         #     format.html # new.html.erb

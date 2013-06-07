@@ -3,7 +3,7 @@
 
     .tabbable
 
-        %ul.nav.nav-tabs
+        %ul.nav.nav-pills
             %li.active
                 %a{ :href => '#general', :data => { :toggle => 'tab' } } General
             %li
@@ -17,20 +17,30 @@
 
         #general.tab-pane.active
 
-            .container-fluid
+            .container-fluid{ :style => 'padding: 0' }
 
                 %legend Info
 
                 .row-fluid
-                    .span6
+                    .span2
                         = f.association :site , :input_html => { :class => "input-block-level"}
-                    .span6
-                        = f.input :language, :as => :select, :collection => languages, include_blank: true, :input_html => { :class => "input-block-level" }
+                    .span8
+                        = f.input :title, :placeholder => 'Example Article' , :input_html => { :class => "input-block-level" }
+                        / = f.input :language, :as => :select, :collection => languages, include_blank: true, :input_html => { :class => "input-block-level" }
+                    .span2
+                        .control-group.required.article_published
+                            %label.required.control-label{ :for => "article_published" }
+                                Published
+                            .controls
+                                .btn-group
+                                    %a.btn NO
+                                    %a.btn.btn-success.active YES
 
                 .row-fluid
-                    .span6
-                        = f.input :title, :placeholder => 'Example Article' , :input_html => { :class => "input-block-level" }
-                    .span6
+                    .span8.offset2
+                        = f.input :english_title, :placeholder => 'Example Document', :input_html => { :class => "input-block-level" }
+
+                = render :partial => 'common/languages', :locals => { :parent => @article }
 
                 %legend Publication
 
@@ -62,22 +72,26 @@
                     Warning!
                 This section is under contruction...
 
-            .container-fluid
-                .row-fluid
-                    .span6
-                        #filterpane{ :style => 'margin-bottom: 8px;display:none' }
-                            %input.string{ :type => 'text', :name => "search", :placeholder => "Filter...", :style => '' }
-                            %a.btn#reset &times;
-                            %span#matches
-                        %div#concepts_tree{ :name => 'concepts', :style => 'height: 400px;', :data => { :selected => @article.concepts.map(&:id) } }
-                    .span6
-                        .well
-                            %div.tag_container{ :style => 'min-height: 150px'}
-                                %p
-                                    %strong Tags:
+                / .container-fluid{ :style => 'padding: 0' }
+                /     / .row-fluid
+                /     /     .span6
+                /     /         #filterpane{ :style => 'margin-bottom: 8px;display:none' }
+                /     /             %input.string{ :type => 'text', :name => "search", :placeholder => "Filter...", :style => '' }
+                /     /             %a.btn#reset &times;
+                /     /             %span#matches
+                /     /         %div#concepts_tree{ :name => 'concepts', :style => 'height: 400px;', :data => { :selected => @article.concepts.map(&:id) } }
+                /     /     .span6
+                /     /         .well
+                /     /             %div.tag_container{ :style => 'min-height: 150px'}
+                /     /                 %p
+                /     /                     %strong Tags:
 
         #ecosystems.tab-pane
-            %h3 Ecosystems (Not implemented)
+            .alert.alert-error
+                %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
+                %strong
+                    Warning!
+                This section is under contruction...
 
 
         %div.form-actions

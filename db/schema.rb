@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130517082744) do
+ActiveRecord::Schema.define(:version => 20130606123752) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20130517082744) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
+    t.string   "english_title"
     t.text     "author"
     t.text     "content"
     t.string   "language"
@@ -46,6 +47,11 @@ ActiveRecord::Schema.define(:version => 20130517082744) do
   create_table "articles_countries", :id => false, :force => true do |t|
     t.integer "article_id"
     t.integer "country_id"
+  end
+
+  create_table "articles_languages", :id => false, :force => true do |t|
+    t.integer "article_id"
+    t.integer "language_id"
   end
 
   create_table "concepts", :force => true do |t|

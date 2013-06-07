@@ -8,4 +8,5 @@ vendor/elasticsearch-0.19.0/
 .tags
 .tags_sorted_by_file
 tags
+/eunis
 species.rdf
