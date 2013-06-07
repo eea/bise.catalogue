@@ -2,57 +2,58 @@
 
     %legend Languages
 
-    - sixth = (@languages.size + 6) / 6
-    - class_name = parent.class.name.downcase
+    - unless @languages.nil? or @languages.size.nil?
+        - sixth = (@languages.size + 6) / 6
+        - class_name = parent.class.name.downcase
 
-    .row-fluid
-        .span2
-            %ul.unstyled
-                - @languages.each_with_index do |l, i|
-                    - if i < sixth
-                        %li
-                            %label.checkbox
-                                = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
-                                = l.name
+        .row-fluid
+            .span2
+                %ul.unstyled
+                    - @languages.each_with_index do |l, i|
+                        - if i < sixth
+                            %li
+                                %label.checkbox
+                                    = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
+                                    = l.name
 
-        .span2
-            %ul.unstyled
-                - @languages.each_with_index do |l, i|
-                    - if i >= sixth and i < sixth * 2
-                        %li
-                            %label.checkbox
-                                = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
-                                = l.name
-        .span2
-            %ul.unstyled
-                - @languages.each_with_index do |l, i|
-                    - if i >= sixth *2 and i < sixth * 3
-                        %li
-                            %label.checkbox
-                                = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
-                                = l.name
-        .span2
-            %ul.unstyled
-                - @languages.each_with_index do |l, i|
-                    - if i >= sixth *3 and i < sixth * 4
-                        %li
-                            %label.checkbox
-                                = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
-                                = l.name
-        .span2
-            %ul.unstyled
-                - @languages.each_with_index do |l, i|
-                    - if i >= sixth *4 and i < sixth * 5
-                        %li
-                            %label.checkbox
-                                = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
-                                = l.name
-        .span2
-            %ul.unstyled
-                - @languages.each_with_index do |l, i|
-                    - if i >= sixth *5 and i < sixth * 6
-                        %li
-                            %label.checkbox
-                                = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
-                                = l.name
+            .span2
+                %ul.unstyled
+                    - @languages.each_with_index do |l, i|
+                        - if i >= sixth and i < sixth * 2
+                            %li
+                                %label.checkbox
+                                    = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
+                                    = l.name
+            .span2
+                %ul.unstyled
+                    - @languages.each_with_index do |l, i|
+                        - if i >= sixth *2 and i < sixth * 3
+                            %li
+                                %label.checkbox
+                                    = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
+                                    = l.name
+            .span2
+                %ul.unstyled
+                    - @languages.each_with_index do |l, i|
+                        - if i >= sixth *3 and i < sixth * 4
+                            %li
+                                %label.checkbox
+                                    = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
+                                    = l.name
+            .span2
+                %ul.unstyled
+                    - @languages.each_with_index do |l, i|
+                        - if i >= sixth *4 and i < sixth * 5
+                            %li
+                                %label.checkbox
+                                    = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
+                                    = l.name
+            .span2
+                %ul.unstyled
+                    - @languages.each_with_index do |l, i|
+                        - if i >= sixth *5 and i < sixth * 6
+                            %li
+                                %label.checkbox
+                                    = check_box_tag class_name + '[language_ids][]', l.id, parent.language_ids.include?(l.id), { :id => l.name.parameterize }
+                                    = l.name
 

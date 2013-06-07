@@ -1,0 +1,14 @@
+%legend Publication
+
+.row-fluid
+    .span6
+        .row-fluid
+            .span4
+                = f.input :published_on, :wrapper => :prepend do
+                    %span.add-on
+                        %i.icon-calendar
+                    = f.input_field :published_on, :as => :string, :class => 'input-small'
+            .span8
+                = f.input :author, :as => :string, :placeholder => 'John Doe' , :input_html => { :class => "input-block-level" }
+    .span6
+

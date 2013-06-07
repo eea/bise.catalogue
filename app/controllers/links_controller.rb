@@ -7,7 +7,7 @@ class LinksController < ApplicationController
         format.html # show.html.erb
         format.json { render :json => @links }
     end
-    
+
     @links = Link.all
   end
 
@@ -26,6 +26,7 @@ class LinksController < ApplicationController
   # GET /links/new.json
   def new
     @countries = Country.all
+    @languages = Language.all
     @link = Link.new
     respond_to do |format|
       format.html # new.html.erb

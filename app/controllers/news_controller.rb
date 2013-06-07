@@ -26,6 +26,7 @@ class NewsController < ApplicationController
   def new
     @news = News.new
     @countries = Country.all
+    @languages = Language.all
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @news }
@@ -36,6 +37,7 @@ class NewsController < ApplicationController
   def edit
     @news = News.find(params[:id])
     @countries = Country.all
+    @languages = Language.all
   end
 
   # POST /news

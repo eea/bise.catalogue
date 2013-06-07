@@ -1,6 +1,3 @@
-# Article is a model for saving articles in the catalogue.
-# It should contain at least a title, a content and a user.
-
 class Article < ActiveRecord::Base
 
     include Tire::Model::Search

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130606123752) do
+ActiveRecord::Schema.define(:version => 20130607095259) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -182,6 +182,11 @@ ActiveRecord::Schema.define(:version => 20130606123752) do
     t.integer "country_id"
   end
 
+  create_table "links_languages", :id => false, :force => true do |t|
+    t.integer "link_id"
+    t.integer "language_id"
+  end
+
   create_table "news", :force => true do |t|
     t.boolean  "approved"
     t.datetime "approved_at"
@@ -199,6 +204,11 @@ ActiveRecord::Schema.define(:version => 20130606123752) do
     t.text     "biographical_region"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+  end
+
+  create_table "news_languages", :id => false, :force => true do |t|
+    t.integer "news_id"
+    t.integer "language_id"
   end
 
   create_table "newss_countries", :id => false, :force => true do |t|

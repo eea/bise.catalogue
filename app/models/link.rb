@@ -1,42 +1,50 @@
 class Link < ActiveRecord::Base
-  
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
-    
-  # belongs_to :countries
-  attr_accessible :approved
-  attr_accessible :approved_at
-  attr_accessible :author
-  attr_accessible :english_title
-  attr_accessible :language
-  attr_accessible :published_on
-  attr_accessible :source
-  attr_accessible :title
-  attr_accessible :url
-  attr_accessible :description
-  attr_accessible :comment
-  attr_accessible :site_id
-  belongs_to      :site
-  attr_accessible :published
-  attr_accessible :country_ids
-  has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "links_countries", :foreign_key => "link_id"
-  attr_accessible :biographical_region
 
-  # validates_presence_of :site
-  validates_presence_of :title, :message => "cannot be blank"
-  validates_presence_of :url, :message => "cannot be blank"
-  validates_presence_of :author, :message => "cannot be blank"
-  validates_presence_of :site, :message => "cannot be blank"
-  validates_format_of :url, :with => /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
+    include Tire::Model::Search
+    include Tire::Model::Callbacks
+
+    attr_accessible :title
+    attr_accessible :english_title
+    attr_accessible :author
+
+    attr_accessible :language_ids
+    has_and_belongs_to_many :languages, :class_name => "Language", :join_table => "links_languages", :foreign_key => "link_id"
+
+    attr_accessible :biographical_region
+
+    attr_accessible :source
+
+    attr_accessible :published_on
+    attr_accessible :published
+
+    attr_accessible :site_id
+    belongs_to      :site
+
+    attr_accessible :country_ids
+    has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "links_countries", :foreign_key => "link_id"
+
+    attr_accessible :approved
+    attr_accessible :approved_at
+    attr_accessible :language
+    attr_accessible :url
+    attr_accessible :description
+    attr_accessible :comment
+
+    # validates_presence_of :site
+    validates_presence_of :title, :message => "cannot be blank"
+    validates_presence_of :url, :message => "cannot be blank"
+    validates_presence_of :author, :message => "cannot be blank"
+    validates_presence_of :site, :message => "cannot be blank"
+    validates_format_of :url, :with => /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
 
 
-  index_name "#{Tire::Model::Search.index_prefix}links"
-  
-  refresh = lambda { Tire::Index.new(index_name).refresh }
-  after_save(&refresh)
-  after_destroy(&refresh)
-  
-  settings :analysis => {
+    index_name "#{Tire::Model::Search.index_prefix}links"
+
+    refresh = lambda { Tire::Index.new(index_name).refresh }
+    after_save(&refresh)
+    after_destroy(&refresh)
+
+    settings :analysis => {
         :analyzer => {
             :search_analyzer => {
                 :tokenizer => "keyword",
@@ -71,20 +79,20 @@ class Link < ActiveRecord::Base
             end
         }
     end
-    
+
     def to_indexed_json
-      {
-          :title                  => title,
-          :description            => description,
-          :author                 => author,
-          :published_on           => published_on,
+        {
+            :title                  => title,
+            :description            => description,
+            :author                 => author,
+            :published_on           => published_on,
 
-          :countries              => countries.map { |c| { :_type  => 'country', :_id    => c.id, :name   => c.name  } },
+            :countries              => countries.map { |c| { :_type  => 'country', :_id    => c.id, :name   => c.name  } },
 
-          :biographical_region    => biographical_region
-      }.to_json
+            :biographical_region    => biographical_region
+        }.to_json
     end
-    
+
     def self.search(params)
 
         date_init = nil
