@@ -21,15 +21,14 @@
 
 #document-preview{ :style => "margin: 30px; float: left;" }
 
+.container-fluid
 
-- if notice
-    %div.alert.alert-success
-        %button.close{ :type => "button", 'data-dismiss' => 'alert' }
-            &times;
-        %h4 Success!
-        = notice
-
-.container
+    - if notice
+        %div.alert.alert-success
+            %button.close{ :type => "button", 'data-dismiss' => 'alert' }
+                &times;
+            %h4 Success!
+            = notice
 
     .row
         .span6
@@ -92,62 +91,10 @@
         .span12
             = raw @document.description
 
-    / %table.table
-    /     %tbody
-    /         %tr
-    /             %td.collabel
-    /                 %b Site:
-    /             %td.colcontent
-    /                 = @document.site.name unless @document.site.nil?
-    /             %td.collabel
-    /                 %b Geographical Coverage:
-    /             %td.colcontent
-    /                 = @document.geographical_coverage
-    /             / %td.collabel
-    /             /     %b File :
-    /             / %td
-    /             /     = link_to @document.file_url, :class => "btn btn-mini" do
-    /             /         %i.icon-download-alt
-    /             /         Download
-    /             /         %small
-    /             /             (
-    /             /             = (@document.file_size/1024).round(2)
-    /             /             KB)
-    /         %tr
-    /             %td.collabel
-    /                 %b Author :
-    /             %td.colcontent
-    /                 = @document.author
-    /             %td.collabel
-    /                 %b Biographical Region:
-    /             %td.colcontent
-    /                 = @document.biographical_region
-    /         %tr
-    /             %td.collabel
-    /                 %b Published on:
-    /             %td.colcontent
-    /                 = @document.published_on
-    /             %td.collabel
-    /                 / %b Theme:
-    /             %td.colcontent
-
-    /         %tr
-    /             %td.collabel
-    /                 %b Downloads :
-    /             %td.colcontent
-    /                 = @document.downloads
-    /             %td.collabel
-    /                 %b Language :
-    /             %td.colcontent
-    /                 = @document.language
-    /         %tr
-    /             %td.collabel
-    /                 %b Description :
-    /             %td{ :colspan => 3 }
-    /                 = raw @document.description
-
-
-    %iframe{ :src => "http://docs.google.com/gview?url=http://infolab.stanford.edu/pub/papers/google.pdf&embedded=true", :style => "width:100%; height:650px;", :frameborder => 0 }
+    .row
+        .span12
+            - url = "http://#{request.host}:#{request.port}#{@document.file}"
+    %iframe{ :src => "http://docs.google.com/gview?url=#{url}&embedded=true", :style => "width:100%; height:650px;", :frameborder => 0 }
 
 
 - content_for :js do
