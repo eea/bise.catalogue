@@ -1,8 +1,6 @@
 .DS_Store
-log/*.log
 tmp/**/*
 public/uploads/**/*
-config/deploy.rb
 db/*.sqlite3
 vendor/elasticsearch-0.19.0/
 .tags
