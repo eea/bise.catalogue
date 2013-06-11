@@ -9,3 +9,5 @@ vendor/elasticsearch-0.19.0/
 tags
 /eunis
 species.rdf
+log/development.log
+log/test.log

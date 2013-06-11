@@ -46,6 +46,7 @@ class ArticlesController < ApplicationController
     # GET /articles/1/edit
     def edit
         @countries = Country.all
+        @languages = Language.all
         @article = Article.find(params[:id])
     end
 

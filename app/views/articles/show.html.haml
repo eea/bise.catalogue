@@ -8,70 +8,104 @@
     = link_to  edit_article_path(@article), :class => "btn" do
         %i.icon-pencil
         Edit
-    = link_to  article_path(@article), :method => :delete, :class => "btn btn-danger pull-right" do
+    = link_to  article_path(@article), :method => :delete, :class => "btn btn-danger" do
         %i.icon-trash
         Delete
+    .btn-group.pull-right
+        %a.btn.active{ :href => '#general', :data => { :toggle => 'tab' } } General
+        %a.btn{ :href => '#geographic', :data => { :toggle => 'tab' } } Geographic
+        %a.btn{ :href => '#related', :data => { :toggle => 'tab' } } Related Resources
+        %a.btn{ :href => '#ecosystems', :data => { :toggle => 'tab' } } Thematic Area
 
 
-- if notice
-    %div.alert.alert-success
-        %button.close{ :type => "button", 'data-dismiss' => 'alert' }
-            &times;
-        %h4 Success!
-        = notice
 
-.container
+.tab-content
 
-    %table.table
-        %tbody
-            %tr
-                %td.collabel
+    - if notice
+        .container-fluid
+            .row-fluid
+                %div.alert.alert-success
+                    %button.close{ :type => "button", 'data-dismiss' => 'alert' }
+                        &times;
+                    %h4 Success!
+                    = notice
+
+    #general.tab-pane.active
+
+        .container-fluid
+            .row-fluid
+                .span12
+                    %legend Info
+            .row-fluid
+                .span2.control-label.text-right
+                    Title:
+                .span4
+                    = @article.title
+                .span2.control-label.text-right
                     Site:
-                %td.colcontent
+                .span4
                     = @article.site.name
-                %td.collabel
-                    %b Geographical Coverage:
-                %td.colcontent
-                /     = @article.geographical_coverage
-            %tr
-                %td.collabel
-                    %b Author:
-                %td.colcontent
+            .row-fluid
+                .span2.control-label.text-right
+                    English title:
+                .span4
+                    = @article.english_title
+                .span2.control-label.text-right
+                    Published:
+                .span4
+                    = @article.published
+            .row-fluid
+                .span2.control-label.text-right
+                    English Author:
+                .span4
                     = @article.author
-                %td.collabel
-                    %b Biographical Region:
-                %td.colcontent
-                    = @article.biographical_region
-            %tr
-                %td.collabel
-                    %b Published on:
-                %td.colcontent
+                .span2.control-label.text-right
+                    Published on:
+                .span4
                     = @article.published_on
-                %td.collabel
-                    %b Language :
-                %td.colcontent
-                    = @article.language
-            %tr
-                %td{ :colspan => '4 ' }
-                    %b Tags
-                    %ul
-                        - @article.concepts.each do |c|
-                            %li= c.title
 
-                / %td.collabel
-                /     %b Source URL :
-                / %td.colcontent
-                /     = @article.source_url
+            .row-fluid
+                .span12
+                    %legend Languages
+            .row-fluid
+                .span12.text-right
+                    - for a in @article.languages
+                        %span.label.label-success= a.name
 
-            %tr
-                %td{ :colspan => '4' }
-                    %b Countries
-                    %ul
-                        - @article.countries.each do |c|
-                            %li= c.name
-
-            %tr
-                %td.collabel
-                    %b Content :
-                %td{ :colspan => '3' }
+            .row-fluid
+                .span12
+                    %legend Article
+            .row-fluid
+                .span12
                     = raw @article.content
+            %br
+
+    #geographic.tab-pane
+
+        .container-fluid
+            .row-fluid
+                .span12
+                    %legend Countries
+            .row-fluid
+                .span12.text-right
+                    - for c in @article.countries
+                        %span.label.label-success= c.name
+
+    #related.tab-pane
+
+        .container-fluid
+            .alert.alert-error
+                %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
+                %strong
+                    Warning!
+                This section is under contruction...
+
+    #ecosystems.tab-pane
+
+        .container-fluid
+            .alert.alert-error
+                %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
+                %strong
+                    Warning!
+                This section is under contruction...
+

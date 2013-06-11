@@ -14,7 +14,7 @@ class CreateArticles < ActiveRecord::Migration
       t.text      :source_url
 
       t.date      :published_on
-      t.boolean   :published
+      t.boolean   :published    , default: false
 
       t.references :site
       t.references :concepts

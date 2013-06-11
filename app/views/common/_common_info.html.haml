@@ -11,9 +11,11 @@
         = f.input :english_title, :placeholder => 'Example Document', :input_html => { :class => "input-block-level" }
     .span3
         .control-group.required.article_published
-            %label.required.control-label{ :for => "article_published" }
-                Published
-            .controls
-                .btn-group
-                    %a.btn NO
-                    %a.btn.btn-success.active YES
+            = f.input :published, as: :radio_buttons
+
+            / %label.required.control-label{ :for => "article_published" }
+            /     Published
+            / .controls
+            /     .btn-group
+            /         %a.btn NO
+            /         %a.btn.btn-success.active YES

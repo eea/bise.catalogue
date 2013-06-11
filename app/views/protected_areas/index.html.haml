@@ -10,7 +10,13 @@
 
 .container-fluid
     .row-fluid
+
         .span3
+            /= render "facets/facet_sites"       , :objs => @protected_areas
+            /= render "facets/facet_authors"     , :objs => @protected_areas
+            / = render "facets/facet_languages"   , :objs => @protected_areas
+            /= render "facets/facet_countries"   , :objs => @protected_areas
+            /= render "facets/facet_timeline"    , :objs => @protected_areas
 
         .span9
             - @protected_areas.each_with_hit do |site, hit|
