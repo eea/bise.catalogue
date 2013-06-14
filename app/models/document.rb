@@ -23,6 +23,8 @@ class Document < ActiveRecord::Base
     attr_accessible :published
 
     attr_accessible :downloads
+
+    attr_accessible :thumbnail
     attr_accessible :file
     mount_uploader :file, FileUploader
 
@@ -237,6 +239,15 @@ class Document < ActiveRecord::Base
             Base64.encode64(open(path_to_file) { |f| f.read })
         else
             Base64.encode64("missing")
+        end
+    end
+
+    def thumbnail
+        if file.present?
+            name = file.file.filename
+            dot = name.rindex('.') - 1
+            thumbnail_name = "#{name[0..dot]}_1.jpg"
+            file_url[0..file_url.rindex('/')] + thumbnail_name
         end
     end
 

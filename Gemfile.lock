@@ -103,6 +103,7 @@ GEM
     diff-lcs (1.2.4)
     do_postgres (0.10.13)
       data_objects (= 0.10.13)
+    docsplit (0.7.2)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -353,6 +354,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   do_postgres
+  docsplit
   factory_girl_rails
   ffi
   gem-ctags

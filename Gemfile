@@ -149,6 +149,7 @@ gem 'simple_form'
 
 # File Uploading
 gem 'carrierwave'
+gem 'docsplit'
 
 # Versioning
 gem 'vestal_versions', :git => 'git://github.com/laserlemon/vestal_versions'

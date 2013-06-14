@@ -1,26 +1,28 @@
 class CreateArticles < ActiveRecord::Migration
-  def change
-    create_table :articles do |t|
 
-      t.string    :title
-      t.string    :english_title
-      t.text      :author
-      t.text      :content
+    def change
+        create_table :articles do |t|
 
-      t.string    :language
-      # t.text      :geographical_coverage
-      t.text      :biographical_region
+            t.string    :title
+            t.string    :english_title
+            t.text      :author
+            t.text      :content
 
-      t.text      :source_url
+            t.string    :language
+            # t.text      :geographical_coverage
+            t.text      :biographical_region
 
-      t.date      :published_on
-      t.boolean   :published    , default: false
+            t.text      :source_url
 
-      t.references :site
-      t.references :concepts
+            t.date      :published_on
+            t.boolean   :published    , default: false
 
-      t.timestamps
+            t.references :site
+            t.references :concepts
 
+            t.timestamps
+
+        end
     end
-  end
+
 end
