@@ -69,7 +69,9 @@ gem 'rdf-isomorphic'            , '~> 1.0'
 gem 'rdf-spec'
 gem 'rdf-raptor'                , '~> 1.0.1'    # , '~> 0.4.2'
 
-gem 'spira'                     , '~> 0.5.0'
+# gem 'spira'                     , '~> 0.5.0'
+gem 'spira'                     , :git => 'git@github.com:ruby-rdf/spira.git'
+
 # gem 'rdf-gzip'
 # gem 'rdf-xml'
 gem 'ffi'
@@ -83,18 +85,21 @@ gem 'do_postgres'
 
 group :development do
     gem 'better_errors'
+
+    gem 'ruby-debug19'
+    gem 'pry', '>= 0.9.10'
+    gem 'pry-doc'
+    gem 'pry-nav'
+    gem 'pry-stack_explorer'
+    gem 'pry-rails'
+
+    gem 'rubocop'
 end
 
 group :development, :test do
 
     # To use debugger
     # gem 'debugger'
-
-    gem 'pry', '>= 0.9.10'
-    gem 'pry-doc'
-    gem 'pry-nav'
-    gem 'pry-stack_explorer'
-    gem 'pry-rails'
 
     # gem 'ruby-prof'
     # gem 'test-unit'
