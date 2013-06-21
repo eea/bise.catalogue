@@ -1,36 +1,51 @@
+- content_for :pageheader do
+    = @habitat.name
+
+- content_for :actions do
+    = link_to habitats_path, :class => "btn" do
+        %i.icon-reply
+        Back
+    = link_to  edit_habitat_path(@habitat), :class => "btn" do
+        %i.icon-pencil
+        Edit
+
 %p#notice= notice
 
-%p
-  %b Uri:
-  = @habitat.uri
-%p
-  %b Code:
-  = @habitat.code
-%p
-  %b Name:
-  = @habitat.name
-%p
-  %b Natura2000 code:
-  = @habitat.natura2000_code
-%p
-  %b Habitat code:
-  = @habitat.habitat_code
-%p
-  %b Level:
-  = @habitat.level
-%p
-  %b Originally published code:
-  = @habitat.originally_published_code
-%p
-  %b Description:
-  = @habitat.description
-%p
-  %b Comment:
-  = @habitat.comment
-%p
-  %b National name:
-  = @habitat.national_name
+.container-fluid
+    .row-fluid
+        .span6
+            %p
+                %b Code:
+                = @habitat.code
+            %p
+                %b Name:
+                = @habitat.name
+            %p
+                %b Natura2000 code:
+                = @habitat.natura2000_code
+            %p
+                %b Habitat code:
+                = @habitat.habitat_code
+            %p
+                %b Level:
+                = @habitat.level
+            %p
+                %b Originally published code:
+                = @habitat.originally_published_code
+            %p
+                %b Comment:
+                = @habitat.comment
+            %p
+                %b National name:
+                = @habitat.national_name
+            %p
+                %b Description:
+                = @habitat.description
+        .span6
+            %h4 Typical Species
+            %ul
+            - @habitat.species.each do |s|
+                %li
+                    = link_to s.binomial_name, species_path(s)
 
-= link_to 'Edit', edit_habitat_path(@habitat)
-\|
-= link_to 'Back', habitats_path
+

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130607095259) do
+ActiveRecord::Schema.define(:version => 20130619090501) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -54,6 +54,18 @@ ActiveRecord::Schema.define(:version => 20130607095259) do
     t.integer "language_id"
   end
 
+  create_table "biogeo_regions", :force => true do |t|
+    t.string   "code"
+    t.string   "area_name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "biogeo_regions_protected_areas", :id => false, :force => true do |t|
+    t.integer "biogeo_region_id"
+    t.integer "protected_area_id"
+  end
+
   create_table "concepts", :force => true do |t|
     t.string   "title"
     t.integer  "parent"
@@ -85,6 +97,16 @@ ActiveRecord::Schema.define(:version => 20130607095259) do
     t.boolean  "selection"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "countries_biogeoregions", :id => false, :force => true do |t|
+    t.integer "country_id"
+    t.integer "biogeo_region_id"
+  end
+
+  create_table "countries_protected_areas", :id => false, :force => true do |t|
+    t.integer "country_id"
+    t.integer "protected_area_id"
   end
 
   create_table "documents", :force => true do |t|
@@ -258,6 +280,16 @@ ActiveRecord::Schema.define(:version => 20130607095259) do
     t.integer  "taxonomy_id"
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
+  end
+
+  create_table "species_habitats", :id => false, :force => true do |t|
+    t.integer "species_id"
+    t.integer "habitat_id"
+  end
+
+  create_table "species_protected_areas", :id => false, :force => true do |t|
+    t.integer "species_id"
+    t.integer "protected_area_id"
   end
 
   create_table "targets", :force => true do |t|

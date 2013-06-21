@@ -1,36 +1,49 @@
 %p#notice= notice
 
-%p
-  %b Code:
-  = @protected_area.code
-%p
-  %b Uri:
-  = @protected_area.uri
-%p
-  %b Name:
-  = @protected_area.name
-%p
-  %b Designation year:
-  = @protected_area.designation_year
-%p
-  %b Nuts code:
-  = @protected_area.nuts_code
-%p
-  %b Area:
-  = @protected_area.area
-%p
-  %b Length:
-  = @protected_area.length
-%p
-  %b Long:
-  = @protected_area.long
-%p
-  %b Lat:
-  = @protected_area.lat
-%p
-  %b Source db:
-  = @protected_area.source_db
 
-= link_to 'Edit', edit_protected_area_path(@protected_area)
-\|
-= link_to 'Back', protected_areas_path
+.row
+  .span6
+    %p
+      %b Code:
+      = @protected_area.code
+    %p
+      %b Uri:
+      = @protected_area.uri
+    %p
+      %b Name:
+      = @protected_area.name
+    %p
+      %b Designation year:
+      = @protected_area.designation_year
+    %p
+      %b Nuts code:
+      = @protected_area.nuts_code
+    %p
+      %b Area:
+      = @protected_area.area
+    %p
+      %b Length:
+      = @protected_area.length
+    %p
+      %b Long:
+      = @protected_area.long
+    %p
+      %b Lat:
+      = @protected_area.lat
+    %p
+      %b Source db:
+      = @protected_area.source_db
+  .span6
+
+
+    %h3 Species
+    %ul
+      - @protected_area.species.each do |species|
+        %li
+          = link_to species.binomial_name, species_path(species)
+
+    %hr
+
+    = link_to 'Edit', edit_protected_area_path(@protected_area)
+    \|
+    = link_to 'Back', protected_areas_path

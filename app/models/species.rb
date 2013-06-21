@@ -19,6 +19,9 @@ class Species < ActiveRecord::Base
     attr_accessible :taxonomic_rank
     attr_accessible :valid_name
 
+    has_and_belongs_to_many :habitats       , association_foreign_key: "habitat_id"       , join_table: "species_habitats", class_name: "Habitat"
+    has_and_belongs_to_many :protected_areas, association_foreign_key: "protected_area_id", join_table: "species_protected_areas", class_name: "ProtectedArea"
+
     index_name "#{Tire::Model::Search.index_prefix}species"
 
     refresh = lambda { Tire::Index.new(index_name).refresh }

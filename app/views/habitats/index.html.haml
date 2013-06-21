@@ -11,6 +11,7 @@
 .row
 
     .span3
+        %h3
     .span9
         - @habitats.each_with_hit do |habitat, hit|
             = render "cells/habitat", :habitat => habitat, :hit => hit

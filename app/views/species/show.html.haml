@@ -46,7 +46,7 @@
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Taxonomy:
                 %td
-                    = @species.taxonomy.name
+                    = @species.taxonomy.name unless @species.taxonomy.nil?
             %tr
                 %td{ :style => 'width: 20%;text-align: right;' }
                     %b Scientific name authorship:

@@ -25,11 +25,13 @@ class Country < ActiveRecord::Base
 
     attr_accessible :selection
 
-    has_and_belongs_to_many :articles, :association_foreign_key => "article_id", :join_table => "articles_countries", :class_name => "Article"
-    has_and_belongs_to_many :documents, :association_foreign_key => "document_id", :join_table => "documents_countries", :class_name => "Document"
-    has_and_belongs_to_many :links, :association_foreign_key => "link_id", :join_table => "links_countries", :class_name => "Link"
-    has_and_belongs_to_many :news, :association_foreign_key => "news_id", :join_table => "news_countries", :class_name => "News"
+    has_and_belongs_to_many :biogeo_regions , association_foreign_key: "biogeo_region_id", join_table: "countries_biogeoregions", class_name: "BiogeoRegion"
+    has_and_belongs_to_many :protected_areas, association_foreign_key: "protected_area_id", join_table: "countries_protected_areas", class_name: "ProtectedArea"
 
+    has_and_belongs_to_many :articles       , association_foreign_key: "article_id" , join_table: "articles_countries"  , class_name: "Article"
+    has_and_belongs_to_many :documents      , association_foreign_key: "document_id", join_table: "documents_countries" , class_name: "Document"
+    has_and_belongs_to_many :links          , association_foreign_key: "link_id"    , join_table: "links_countries"     , class_name: "Link"
+    has_and_belongs_to_many :news           , association_foreign_key: "news_id"    , join_table: "news_countries"      , class_name: "News"
 
     index_name "#{Tire::Model::Search.index_prefix}countries"
 

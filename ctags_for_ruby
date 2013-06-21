@@ -11,7 +11,9 @@ if File.exist?('./Gemfile')
     project_path = Dir.pwd.to_s
     gem_paths = Bundler.load.specs.map(&:full_gem_path).join(' ')
     puts "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-    project_and_gems = project_path.concat(' ').concat(gem_paths)
+    puts "::                        Generating Ruby CTags                                       "
+    puts project_path
+    project_and_gems = project_path.concat('/app ').concat(gem_paths)
     puts "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-    system("/usr/local/bin/ctags -R -f .gemtags #{project_and_gems}")
+    system("/usr/local/bin/ctags -V -R --languages=ruby --exclude=.git --exclude=log --exclude=eunis --exclude='*.coffee' -R -f .tags #{project_and_gems}")
 end

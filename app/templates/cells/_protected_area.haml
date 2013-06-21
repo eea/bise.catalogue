@@ -1,7 +1,8 @@
 .article_cell
 
-    %span.label.label-info.pull-right
-        = site.nuts_code
+    - unless site.nuts_code.nil?
+        %span.label.label-info.pull-right
+            = site.nuts_code
     .cell-title
         = link_to site.name, site
 
