@@ -48,7 +48,6 @@ module Api
 
                     site   = params[:sites] if params[:sites].present?
                     author = params[:authors] if params[:authors].present?
-                    # binding.pry
 
                     search_filter = []
                     search_filter << { :term => { 'site.name' => params[:sites] }} if params[:sites].present?

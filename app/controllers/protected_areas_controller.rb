@@ -1,4 +1,5 @@
 class ProtectedAreasController < ApplicationController
+
   # GET /protected_areas
   # GET /protected_areas.json
   def index

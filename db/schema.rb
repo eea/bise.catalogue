@@ -32,11 +32,11 @@ ActiveRecord::Schema.define(:version => 20130619090501) do
     t.text     "biographical_region"
     t.text     "source_url"
     t.date     "published_on"
-    t.boolean  "published"
+    t.boolean  "published",           :default => false
     t.integer  "site_id"
     t.integer  "concepts_id"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   create_table "articles_concepts", :id => false, :force => true do |t|
@@ -168,8 +168,8 @@ ActiveRecord::Schema.define(:version => 20130619090501) do
     t.string   "habitat_code"
     t.integer  "level"
     t.integer  "originally_published_code"
-    t.string   "description"
-    t.string   "comment"
+    t.text     "description"
+    t.text     "comment"
     t.string   "national_name"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(:version => 20130619090501) do
     t.string   "english_title"
     t.string   "author"
     t.datetime "published_on"
+    t.boolean  "published",           :default => false
     t.string   "language"
     t.string   "source"
     t.boolean  "approved"
@@ -195,8 +196,8 @@ ActiveRecord::Schema.define(:version => 20130619090501) do
     t.string   "description"
     t.datetime "approved_at"
     t.integer  "site_id"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
   create_table "links_countries", :id => false, :force => true do |t|
@@ -239,7 +240,7 @@ ActiveRecord::Schema.define(:version => 20130619090501) do
   end
 
   create_table "protected_areas", :force => true do |t|
-    t.integer  "code"
+    t.string   "code"
     t.string   "iucnat"
     t.string   "uri"
     t.string   "name"

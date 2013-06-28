@@ -32,7 +32,6 @@ module Api
                     puts ":: param => #{p.to_s}"
                 end
                 puts "::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-                # binding.pry
                 # if params.size > 0
                 #     respond_with EcosystemAssessment.new
                 # else

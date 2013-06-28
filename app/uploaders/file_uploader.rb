@@ -59,7 +59,6 @@ class FileUploader < CarrierWave::Uploader::Base
   # end
 
   # def extract()
-  #   binding.pry
   #   images = Magick::ImageList.new(current_path)
   #   images.write "out.jpg"
   # end

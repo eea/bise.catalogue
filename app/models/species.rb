@@ -89,7 +89,6 @@ class Species < ActiveRecord::Base
 
     # Returns the kingdom of a species
     def kingdom
-        puts ":: kingdom for id => #{self.id}"
         kingdom = nil
         unless self.taxonomy.nil?
             taxonomy = self.taxonomy

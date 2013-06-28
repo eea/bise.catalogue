@@ -32,7 +32,6 @@ module RDF
 
             def each(&block)
                 s = Tire.search('articles')
-                binding.pry
                 if block_given?
                     reader = result('select * from quads')
                     while reader.next!

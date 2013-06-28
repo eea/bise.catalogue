@@ -14,3 +14,4 @@ log/test.log
 .idea/.capistranoTasks
 .idea/.generators
 .idea/.rakeTasks
+rspec_guard_result
