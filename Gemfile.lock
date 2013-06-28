@@ -1,12 +1,4 @@
 GIT
-  remote: git://github.com/laserlemon/vestal_versions
-  revision: c7aa512666b22e1a47b4fb36bb1679cb847a532e
-  specs:
-    vestal_versions (1.2.3)
-      activerecord (~> 3.0)
-      activesupport (~> 3.0)
-
-GIT
   remote: git://github.com/railsware/smt_rails.git
   revision: 7fb874e99c8f0985696ef9e26b1c267c9e1ce508
   specs:
@@ -15,6 +7,15 @@ GIT
       rails (>= 3.1.0)
       sprockets (>= 2.0.3)
       tilt (>= 1.3.3)
+
+GIT
+  remote: git@github.com:jonarrien/rdf-virtuoso.git
+  revision: d887a56c326ab8c6ddb96d39a501abceb73060e9
+  specs:
+    rdf-virtuoso (0.1.4)
+      api_smith (~> 1.2.0)
+      httparty (~> 0.10.2)
+      rdf (~> 1.0.3)
 
 GIT
   remote: git@github.com:ruby-rdf/spira.git
@@ -61,7 +62,10 @@ GEM
       rails (>= 3, < 5)
     addressable (2.3.4)
     ansi (1.4.3)
-    archive-tar-minitar (0.5.2)
+    api_smith (1.2.0)
+      hashie (~> 1.0)
+      httparty
+      net-http-persistent
     arel (3.0.2)
     ast (1.1.0)
     better_errors (0.9.0)
@@ -98,7 +102,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
-    columnize (0.3.6)
     commonjs (0.2.6)
     cucumber (1.3.2)
       builder (>= 2.1.2)
@@ -118,6 +121,9 @@ GEM
     do_postgres (0.10.13)
       data_objects (= 0.10.13)
     docsplit (0.7.2)
+    ebnf (0.3.1)
+      rdf
+      sxp
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
@@ -153,9 +159,13 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
+    hashie (1.2.0)
     hashr (0.0.22)
     highline (1.6.19)
     hike (1.2.2)
+    httparty (0.10.2)
+      multi_json (~> 1.0)
+      multi_xml (>= 0.5.2)
     i18n (0.6.1)
     journey (1.0.4)
     jquery-fileupload-rails (0.4.1)
@@ -176,8 +186,6 @@ GEM
       actionpack (>= 3.1)
       less (~> 2.3.1)
     libv8 (3.11.8.17)
-    linecache19 (0.5.12)
-      ruby_core_source (>= 0.1.4)
     listen (1.1.4)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -188,7 +196,8 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.1)
     mime-types (1.23)
-    multi_json (1.7.4)
+    multi_json (1.7.7)
+    multi_xml (0.5.4)
     mustache (0.99.4)
     net-http-persistent (2.8)
     net-scp (1.1.1)
@@ -256,8 +265,10 @@ GEM
       ffi (>= 0.5.0)
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
-    rdf (1.0.6)
+    rdf (1.0.7)
       addressable (>= 2.2)
+    rdf-aggregate-repo (0.1.2)
+      rdf (>= 1.0)
     rdf-do (0.3.3)
       data_objects (>= 0.10.2)
       rdf (>= 0.2.3)
@@ -268,6 +279,9 @@ GEM
       rdf (>= 1.0.0)
     rdf-spec (1.0.6)
       rspec (>= 2.12)
+    rdf-xsd (1.0.2.1)
+      nokogiri (>= 1.5.0)
+      rdf (>= 0.3.4)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
@@ -292,16 +306,6 @@ GEM
     rubocop (0.8.3)
       parser (= 2.0.0.beta5)
       rainbow (>= 1.1.4)
-    ruby-debug-base19 (0.11.25)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby_core_source (>= 0.1.4)
-    ruby-debug19 (0.11.6)
-      columnize (>= 0.3.1)
-      linecache19 (>= 0.5.11)
-      ruby-debug-base19 (>= 0.11.19)
-    ruby_core_source (0.1.5)
-      archive-tar-minitar (>= 0.5.2)
     sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -317,7 +321,16 @@ GEM
       actionpack (~> 3.0)
       activemodel (~> 3.0)
     slop (3.4.5)
-    sparql-client (1.0.1)
+    sparql (1.0.8)
+      builder (>= 3.0)
+      ebnf (>= 0.3.0)
+      json (>= 1.7)
+      rdf (>= 1.0.6)
+      rdf-aggregate-repo
+      rdf-xsd (>= 1.0)
+      sparql-client (>= 1.0)
+      sxp (>= 0.1.0)
+    sparql-client (1.0.4.1)
       json_pure (>= 1.4)
       net-http-persistent (>= 1.4)
       rdf (>= 1.0)
@@ -327,6 +340,8 @@ GEM
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
+    sxp (0.1.3)
+      json (>= 1.1.1)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
@@ -408,16 +423,16 @@ DEPENDENCIES
   rdf-isomorphic (~> 1.0)
   rdf-raptor (~> 1.0.1)
   rdf-spec
+  rdf-virtuoso!
   remotipart
   rspec-rails
   rubocop
-  ruby-debug19
   sass-rails (~> 3.2.3)
   shoulda
   shoulda-matchers
   simple_form
   smt_rails!
-  sparql-client
+  sparql
   spira!
   sqlite3
   therubyracer
@@ -427,7 +442,6 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   underscore-rails
   unicorn
-  vestal_versions!
   will_paginate
   will_paginate-bootstrap
   zeus

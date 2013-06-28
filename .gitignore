@@ -11,3 +11,6 @@ tags
 species.rdf
 log/development.log
 log/test.log
+.idea/.capistranoTasks
+.idea/.generators
+.idea/.rakeTasks

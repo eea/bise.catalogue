@@ -68,14 +68,16 @@ gem 'rdf'                       , '~> 1.0'
 gem 'rdf-isomorphic'            , '~> 1.0'
 gem 'rdf-spec'
 gem 'rdf-raptor'                , '~> 1.0.1'    # , '~> 0.4.2'
+gem 'rdf-virtuoso'              , git: 'git@github.com:jonarrien/rdf-virtuoso.git'
 
 # gem 'spira'                     , '~> 0.5.0'
-gem 'spira'                     , :git => 'git@github.com:ruby-rdf/spira.git'
+gem 'spira'                     , git: 'git@github.com:ruby-rdf/spira.git'
 
 # gem 'rdf-gzip'
 # gem 'rdf-xml'
 gem 'ffi'
-gem 'sparql-client'
+gem 'sparql'
+# gem 'sparql-client'
 
 
 # DataObjects-backed repositories for RDF.rb
@@ -86,7 +88,7 @@ gem 'do_postgres'
 group :development do
     gem 'better_errors'
 
-    gem 'ruby-debug19'
+    # gem 'ruby-debug19'
     gem 'pry', '>= 0.9.10'
     gem 'pry-doc'
     gem 'pry-nav'
@@ -157,4 +159,4 @@ gem 'carrierwave'
 gem 'docsplit'
 
 # Versioning
-gem 'vestal_versions', :git => 'git://github.com/laserlemon/vestal_versions'
+# gem 'vestal_versions', :git => 'git://github.com/laserlemon/vestal_versions'
