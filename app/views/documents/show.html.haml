@@ -106,7 +106,8 @@
                 .span12
                     %b Tags:
                     / = @document.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')
-                    = @document.tag_list
+                    - @document.tag_list.each do |t|
+                        .label.label-success= t
 
             .row
                 .span12

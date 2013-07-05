@@ -13,7 +13,7 @@
                         %li
                             %label.checkbox
                                 = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
-                                = c
+                                .label.label-success= c
 
         .span4
             %ul.unstyled
@@ -22,7 +22,7 @@
                         %li
                             %label.checkbox
                                 = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
-                                = c
+                                .label.label-success= c
 
         .span4
             %ul.unstyled
@@ -31,7 +31,7 @@
                         %li
                             %label.checkbox
                                 = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
-                                = c
+                                .label.label-success= c
 
     / - tags.each_with_index do |tag, i|
     /     %label.checkbox{ style: 'display:inline-block; margin-right: 7px' }
