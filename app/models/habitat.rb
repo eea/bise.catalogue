@@ -14,7 +14,8 @@ class Habitat < ActiveRecord::Base
     attr_accessible :originally_published_code
     attr_accessible :uri
 
-    has_and_belongs_to_many :species , association_foreign_key: "species_id", join_table: "species_habitats", class_name: "Species"
+    has_and_belongs_to_many :protected_areas , association_foreign_key: "protected_area_id" , join_table: "protected_areas_habitats", class_name: "ProtectedArea"
+    has_and_belongs_to_many :species         , association_foreign_key: "species_id"        , join_table: "species_habitats"        , class_name: "Species"
 
     index_name "#{Tire::Model::Search.index_prefix}habitats"
 

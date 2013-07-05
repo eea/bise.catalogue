@@ -1,49 +1,88 @@
-%p#notice= notice
+- content_for :pageheader do
+  = @protected_area.name
+
+- content_for :actions do
+  = link_to  protected_areas_path, :class => "btn" do
+    %i.icon-reply
+    Back
+  = link_to  @protected_area.uri, :class => "btn", :target => "_blank" do
+    %i.icon-eye-open
+    Watch in EUNIS
+
+  / = link_to 'Edit', edit_protected_area_path(@protected_area)
 
 
-.row
-  .span6
-    %p
-      %b Code:
-      = @protected_area.code
-    %p
-      %b Uri:
-      = @protected_area.uri
-    %p
-      %b Name:
-      = @protected_area.name
-    %p
-      %b Designation year:
-      = @protected_area.designation_year
-    %p
-      %b Nuts code:
-      = @protected_area.nuts_code
-    %p
-      %b Area:
-      = @protected_area.area
-    %p
-      %b Length:
-      = @protected_area.length
-    %p
-      %b Long:
-      = @protected_area.long
-    %p
-      %b Lat:
-      = @protected_area.lat
-    %p
-      %b Source db:
-      = @protected_area.source_db
-  .span6
+.container-fluid
+
+  .row-fluid
+    %p#notice= notice
+
+  .row-fluid
+    .span12
+      %iframe{ src: "http://discomap.eea.europa.eu/map/Filtermap/?webmap=0b2680c2bc544431a9a97119aa63d707&SiteCode=#{@protected_area.code}&autoquery=false&zoomto=true", style: "height: 380px; width: 100%;" }
+
+  .row-fluid
+    .span6
+      %legend
+        Site Information:
 
 
-    %h3 Species
-    %ul
-      - @protected_area.species.each do |species|
-        %li
-          = link_to species.binomial_name, species_path(species)
+      %dl.dl-horizontal
+        %dt Source:
+        %dd= @protected_area.source_db
 
-    %hr
+      %dl.dl-horizontal
+        %dt Code:
+        %dd= @protected_area.code
 
-    = link_to 'Edit', edit_protected_area_path(@protected_area)
-    \|
-    = link_to 'Back', protected_areas_path
+      %dl.dl-horizontal
+        %dt Name:
+        %dd= @protected_area.name
+
+      %dl.dl-horizontal
+        %dt Area:
+        %dd= @protected_area.area
+
+      %dl.dl-horizontal
+        %dt Length:
+        %dd= @protected_area.length
+
+      %dl.dl-horizontal
+        %dt Latitude:
+        %dd= @protected_area.lat
+
+      %dl.dl-horizontal
+        %dt Longitude:
+        %dd= @protected_area.long
+
+      %dl.dl-horizontal
+        %dt Designation Year:
+        %dd= @protected_area.designation_year
+
+
+
+    .span6#authors
+      %legend Habitats
+      .accordion-inner
+        %ul.unstyled
+          - @protected_area.habitats.each do |h|
+            %li
+              = link_to h.name, habitat_path(h)
+
+      %legend Species
+      - groups = @protected_area.species.select('species.*, species.species_group').group_by(&:species_group)
+      - groups.keys.each do |key|
+
+        .accordion{ id: "#{key.downcase}" }
+          .accordion-group
+            .accordion-head
+              %a.accordion-toggle.btn.btn-link.btn-small{ href: "##{key.downcase}-list", data: { toggle: 'collapse', parent: "##{key.downcase}" } }
+                = "#{key} (#{groups[key].size})"
+                %span.caret
+            .accordion-body.collapse{ id: "#{key.downcase}-list" }
+              .accordion-inner
+                %ul.unstyled
+                  - groups[key].each do |s|
+                    %li= link_to s.binomial_name, species_path(s)
+
+

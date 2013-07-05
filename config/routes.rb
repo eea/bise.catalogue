@@ -1,110 +1,112 @@
 Catalogue::Application.routes.draw do
 
-	root :to => 'articles#index'
+  get "home/index"
 
-	# SITES
-	resources :sites
+  root :to => 'home#index'
 
-	# ARTICLES
-	resources :articles do
-		collection { get :search }
-	end
+  # SITES
+  resources :sites
 
-	# DOCUMENTS
-	resources :documents
+  # ARTICLES
+  resources :articles do
+    collection { get :search }
+  end
 
-	# LINKS
-  	resources :links
+  # DOCUMENTS
+  resources :documents
 
-  	# NEWS
-  	resources :news
+  # LINKS
+  resources :links
 
-	# EUNIS (Species, Sites, Habitats)
-	resources :protected_areas
-  	resources :habitats
-	resources :species
+  # NEWS
+  resources :news
 
-	# GEMET, THESAURUS
-	resources :themes
-	resources :concepts
+  # EUNIS (Species, Sites, Habitats)
+  resources :protected_areas
+  resources :habitats
+  resources :species
 
-	# STRATEGIC PLANS
-	resources :targets
-	resources :actions
+  # GEMET, THESAURUS
+  resources :themes
+  resources :concepts
 
-	# API
-	namespace :api, :defaults => { :format => 'json' } do
-		namespace :v1 do
-			resources :ecosystem_assessments
-			match '/search' => 'search#index'
-		end
-	end
+  # STRATEGIC PLANS
+  resources :targets
+  resources :actions
 
-	# ECOSYSTEM ASSESMENT
-	resources :ecosystem_assessments
+  # API
+  namespace :api, :defaults => { :format => 'json' } do
+    namespace :v1 do
+      resources :ecosystem_assessments
+      match '/search' => 'search#index'
+    end
+  end
 
-	scope '/api' do
-	  match '/search' => 'search#index'
-	end
+  # ECOSYSTEM ASSESMENT
+  resources :ecosystem_assessments
 
-	# scope '/search' do
-	#   match '/global' => 'search#index'
-	# end
+  scope '/api' do
+    match '/search' => 'search#index'
+  end
 
-	# The priority is based upon order of creation:
-	# first created -> highest priority.
+  # scope '/search' do
+  #   match '/global' => 'search#index'
+  # end
 
-	# Sample of regular route:
-	#   match 'products/:id' => 'catalog#view'
-	# Keep in mind you can assign values other than :controller and :action
+  # The priority is based upon order of creation:
+  # first created -> highest priority.
 
-	# Sample of named route:
-	#   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-	# This route can be invoked with purchase_url(:id => product.id)
+  # Sample of regular route:
+  #   match 'products/:id' => 'catalog#view'
+  # Keep in mind you can assign values other than :controller and :action
 
-	# Sample resource route (maps HTTP verbs to controller actions automatically):
-	#   resources :products
+  # Sample of named route:
+  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
+  # This route can be invoked with purchase_url(:id => product.id)
 
-	# Sample resource route with options:
-	#   resources :products do
-	#     member do
-	#       get 'short'
-	#       post 'toggle'
-	#     end
-	#
-	#     collection do
-	#       get 'sold'
-	#     end
-	#   end
+  # Sample resource route (maps HTTP verbs to controller actions automatically):
+  #   resources :products
 
-	# Sample resource route with sub-resources:
-	#   resources :products do
-	#     resources :comments, :sales
-	#     resource :seller
-	#   end
+  # Sample resource route with options:
+  #   resources :products do
+  #     member do
+  #       get 'short'
+  #       post 'toggle'
+  #     end
+  #
+  #     collection do
+  #       get 'sold'
+  #     end
+  #   end
 
-	# Sample resource route with more complex sub-resources
-	#   resources :products do
-	#     resources :comments
-	#     resources :sales do
-	#       get 'recent', :on => :collection
-	#     end
-	#   end
+  # Sample resource route with sub-resources:
+  #   resources :products do
+  #     resources :comments, :sales
+  #     resource :seller
+  #   end
 
-	# Sample resource route within a namespace:
-	#   namespace :admin do
-	#     # Directs /admin/products/* to Admin::ProductsController
-	#     # (app/controllers/admin/products_controller.rb)
-	#     resources :products
-	#   end
+  # Sample resource route with more complex sub-resources
+  #   resources :products do
+  #     resources :comments
+  #     resources :sales do
+  #       get 'recent', :on => :collection
+  #     end
+  #   end
 
-	# You can have the root of your site routed with "root"
-	# just remember to delete public/index.html.
-	# root :to => 'welcome#index'
+  # Sample resource route within a namespace:
+  #   namespace :admin do
+  #     # Directs /admin/products/* to Admin::ProductsController
+  #     # (app/controllers/admin/products_controller.rb)
+  #     resources :products
+  #   end
 
-	# See how all your routes lay out with "rake routes"
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
+  # root :to => 'welcome#index'
 
-	# This is a legacy wild controller route that's not recommended for RESTful applications.
-	# Note: This route will make all actions in every controller accessible via GET requests.
-	# match ':controller(/:action(/:id))(.:format)'
+  # See how all your routes lay out with "rake routes"
+
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  # match ':controller(/:action(/:id))(.:format)'
 end

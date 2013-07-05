@@ -49,25 +49,10 @@ module ApplicationHelper
         ]
     end
 
-
-    def ecosystems
-        [
-            'Agro-ecosystems and grasslands',
-            'Coastal',
-            'Forest',
-            'Ice / Rock / Polar',
-            'Islands',
-            'Lakes, rivers and wetlands',
-            'Marine',
-            'Mountains',
-            'Heath and scrubs',
-            'Urban'
-        ]
-    end
-
     def languages
         [
             'Bulgarian',
+            'Croatian',
             'Czech',
             'Danish',
             'Dutch',
@@ -90,6 +75,37 @@ module ApplicationHelper
             'Slovenian',
             'Spanish',
             'Swedish'
+        ]
+    end
+
+    def tags
+        [
+            'Agriculture',
+            'Air pollution',
+            'Biodiversity',
+            'Chemicals',
+            'Climate change',
+            'Coasts and seas',
+            'Energy',
+            'Environment and health',
+            'Environmental scenarios',
+            'Environmental technology',
+            'Fisheries',
+            'Green economy',
+            'Household consumption',
+            'Industry',
+            'Land use',
+            'Natural resources',
+            'Noise',
+            'Policy instruments',
+            'Soil',
+            'Specific regions',
+            'Tourism',
+            'Transport',
+            'Urban environment',
+            'Various other issues',
+            'Waste and material resources',
+            'Water'
         ]
     end
 

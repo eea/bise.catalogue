@@ -2,90 +2,94 @@ Bulgarian:
     id: 1
     name: Bulgarian
 
-Czech:
+Croatian:
     id: 2
+    name: Croatian
+
+Czech:
+    id: 3
     name: Czech
 
 Danish:
-    id: 3
+    id: 4
     name: Danish
 
 Dutch:
-    id: 4
+    id: 5
     name: Dutch
 
 English:
-    id: 5
+    id: 6
     name: English
 
 Estonian:
-    id: 6
+    id: 7
     name: Estonian
 
 Finnish:
-    id: 7
+    id: 8
     name: Finnish
 
 French:
-    id: 8
+    id: 9
     name: French
 
 German:
-    id: 9
+    id: 10
     name: German
 
 Greek:
-    id: 10
+    id: 11
     name: Greek
 
 Hungarian:
-    id: 11
+    id: 12
     name: Hungarian
 
 Irish:
-    id: 12
+    id: 13
     name: Irish
 
 Italian:
-    id: 13
+    id: 14
     name: Italian
 
 Latvian:
-    id: 14
+    id: 15
     name: Latvian
 
 Lithuanian:
-    id: 15
+    id: 16
     name: Lithuanian
 
 Maltese:
-    id: 16
+    id: 17
     name: Maltese
 
 Polish:
-    id: 17
+    id: 18
     name: Polish
 
 Portuguese:
-    id: 18
+    id: 19
     name: Portuguese
 
 Romanian:
-    id: 19
+    id: 20
     name: Romanian
 
 Slovak:
-    id: 20
+    id: 21
     name: Slovak
 
 Slovenian:
-    id: 21
+    id: 22
     name: Slovenian
 
 Spanish:
-    id: 22
+    id: 23
     name: Spanish
 
 Swedis:
-    id: 23
+    id: 24
     name: Swedish

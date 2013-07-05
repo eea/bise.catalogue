@@ -2,19 +2,20 @@ class ThemesController < ApplicationController
 
     # GET /themes.json
     def index
-        @themes = Theme.all.collect do |theme|
-            {
-                :key => 'f' + theme.id.to_s,
-                :title => theme.title,
-                :folder => true,
-                :children => theme.concepts.order('lower(title)').collect do |c|
-                    { :key => c.id, :title => c.title }
-                end
-            }
-        end.to_json
+        @themes = Theme.all
+        # @themes = Theme.all.collect do |theme|
+        #     {
+        #         :key => 'f' + theme.id.to_s,
+        #         :title => theme.title,
+        #         :folder => true,
+        #         :children => theme.concepts.order('lower(title)').collect do |c|
+        #             { :key => c.id, :title => c.title }
+        #         end
+        #     }
+        # end
 
         respond_to do |format|
-            # format.html # index.html.erb
+            format.html # index.html.erb
             format.json { render :json => @themes }
         end
     end

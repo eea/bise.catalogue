@@ -16,6 +16,8 @@ describe Document do
 
     it "is invalid without site" do
         should validate_presence_of(:site)
+        @document.site_id = nil
+        @document.should_not be_valid
     end
 
     it "is invalid without title" do
@@ -29,6 +31,7 @@ describe Document do
     it "is invalid without author" do
         should validate_presence_of(:author)
     end
+
 
     it "is invalid without file" do
         should validate_presence_of(:file)
@@ -47,15 +50,9 @@ describe Document do
         @document.should be_valid
     end
 
-    it "is invalid without site" do
-        @document.site_id = nil
-        @document.should_not be_valid
-    end
-
     it "is invalid if file exists" do
         tmp_doc = @document.dup
         tmp_doc.should have(1).error_on(:file)
     end
-
 
 end

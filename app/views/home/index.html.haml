@@ -1,0 +1,36 @@
+- content_for :pageheader do
+  Dashboard
+
+.container-fluid
+  .row-fluid
+    .span3
+      %legend
+        Articles
+      #articles-graph{ style: 'height: 230px' }
+    .span3
+      %legend
+        Documents
+      #documents-graph{ style: 'height: 230px' }
+    .span3
+      %legend
+        News
+      #news-graph{ style: 'height: 230px' }
+    .span3
+      %legend
+        Links
+      #links-graph{ style: 'height: 230px' }
+
+  / .row-fluid
+  /   .span12
+  /     #timeline-graph{ style: 'height: 330px' }
+  /     %br
+  /     %br
+  /     %br
+  /     %br
+  /     %br
+  /     %br
+
+
+
+- content_for :js do
+  = javascript_include_tag 'home'

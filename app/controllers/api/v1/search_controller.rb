@@ -54,7 +54,7 @@ module Api
                     search_filter << { :term => { :author => params[:authors] }} if params[:authors].present?
                     # search_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
                     # search_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
-                    # search_filter << { :term => { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
+                    search_filter << { :term => { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
                     # search_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
 
                     @rows = Tire.search indexes, :load => false, :from => from, :size => per do
@@ -90,7 +90,7 @@ module Api
                             facet_filter :and, search_filter unless search_filter.empty?
                         end
 
-                        facet 'biographical_regions' do
+                        facet 'biographical_region' do
                             terms :biographical_region
                             facet_filter :and, search_filter unless search_filter.empty?
                         end
