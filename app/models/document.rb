@@ -3,12 +3,14 @@ class Document < ActiveRecord::Base
     include Tire::Model::Search
     include Tire::Model::Callbacks
 
-    # attr_accessible :document_id
+    attr_accessible :site_id
+    belongs_to      :site
+
     attr_accessible :title
+    attr_accessible :english_title
     attr_accessible :author
     attr_accessible :description
 
-    attr_accessible :english_title
 
     attr_accessible :language_ids
     has_and_belongs_to_many :languages, :class_name => "Language", :join_table => "documents_languages", :foreign_key => "document_id"
@@ -28,13 +30,14 @@ class Document < ActiveRecord::Base
     attr_accessible :file
     mount_uploader :file, FileUploader
 
-    attr_accessible :site_id
-    belongs_to      :site
 
     attr_accessible :country_ids
     has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "documents_countries", :foreign_key => "document_id"
     has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "documents_concepts", :foreign_key => "document_id"
 
+    # TAGS
+    attr_accessible :tag_list
+    acts_as_taggable
 
     # ---- VALIDATIONS -----
 

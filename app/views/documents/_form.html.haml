@@ -23,6 +23,8 @@
                     .span6
                         = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
 
+                = render :partial => 'common/targets', :locals => { :parent => @document, f: f }
+
         #geographic.tab-pane
             .container-fluid
                 = render :partial => 'common/countries', :locals => { :parent => @document }
@@ -64,7 +66,6 @@
                     %strong
                         Warning!
                     This is a prototype, not working yet
-                = render :partial => 'common/targets', :locals => { :parent => @document }
                 = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
 
     %div.form-actions

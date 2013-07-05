@@ -22,6 +22,14 @@ $ ->
     #     organization: 117
     # })
 
+    # $(".tm-input").tagsManager(
+    #     typeahead: true,
+    #     typeaheadSource: () ->
+    #         $(this.$element).data('tags')
+    #     ,
+    #     blinkBGColor_1: '#FFFF9C',
+    #     blinkBGColor_2: '#CDE69C'
+    # );
 
     class Document
         _node: '.file-info'

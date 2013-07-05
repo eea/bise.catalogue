@@ -49,6 +49,12 @@ class DocumentsController < ApplicationController
   def create
     @document = Document.new(params[:document])
 
+    unless params[:tags].blank?
+      tags = params[:tags]
+      @document.tag_list = tags
+    end
+
+
     respond_to do |format|
       if @document.save
 
@@ -78,6 +84,11 @@ class DocumentsController < ApplicationController
   def update
 
     @document = Document.find(params[:id])
+
+    unless params[:tags].blank?
+      tags = params[:tags]
+      @document.tag_list = tags
+    end
 
     respond_to do |format|
       if @document.update_attributes(params[:document])

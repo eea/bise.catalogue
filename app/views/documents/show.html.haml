@@ -19,7 +19,7 @@
         %i.icon-trash
         Delete
 
-#document-preview{ :style => "margin: 30px; float: left;" }
+/ #document-preview{ :style => "margin: 30px; float: left;" }
 
 .container-fluid
 
@@ -30,71 +30,88 @@
             %h4 Success!
             = notice
 
-    .row
-        .span6
-            %dl.dl-horizontal
-                %dt Site
-                %dd= @document.site.name unless @document.site.nil?
-        .span6
+    .row-fluid
+        .span3.text-center{ style: '' }
+            %img{ src: "#{@document.thumbnail}", style: 'width: 170px; border: 1px solid black;margin:0 auto;' }
+            / %img{ src: "#{@document.thumbnail}", style: 'width: 170px; border: 1px solid black;' }
+            / %img{ src: "#{@document.thumbnail}", style: 'width: 170px; border: 1px solid black;' }
+            / %img{ src: "#{@document.thumbnail}", style: 'width: 170px; border: 1px solid black;' }
+            / %img{ src: "#{@document.thumbnail}", style: 'width: 170px; border: 1px solid black;' }
+        .span9{ style: '' }
+            / %p
+            /     Authors: Gabriella Camarsa (Environment Senior Expert), Justin Toland, Tim Hudson, Wendy Jones, Jon El- dridge, Ed Thorpe, Eamon O’Hara, Jonathan Roberts, Christophe Thévignot (AEIDL, Communications Team Coordinator). Managing Editor: Hervé Martin, European Commission, Environment DG, LIFE E.4 – BU-9, 02/1, 200 rue de la Loi, B-1049 Brussels. LIFE Focus series coordination: Simon Goss (LIFE Communications Coordinator), Valerie O’Brien (DG Environment Communications Coordinator). Technical assistance: Pekka Hänninen, Roberto Ghezzi, Audrey Thénard, Peter Karsch, Georgia Valaoras, Katerina Raftopoulou, Marion Pinatel, Thomas Mayer, Iñigo Ortiz de Urbina, Benoit Cnockaert, Capucine Dubois, Christina Marouli, Claudia Pfirrmann, Donald Lunan, Yael Meroz, Aixa Sopeña, João Salgado, Eric Evrard (Astrale GEIE). The following people also worked on this issue: Joaquim Capitão, Alban de Villepin, Amélie Petit (Environment DG, LIFE Environment and Eco-innovation Unit). Production: Monique Braem (AEIDL). Graphic design: Daniel Renders, Anita Cortés (AEIDL). Photos database: Sophie Brynart. Acknowledgements: Thanks to all LIFE project beneficiaries who contributed comments, photos and other useful material for this report. Photos: Unless otherwise specified; photos are from the respective projects.
 
-    .row
-        .span6
-            %dl.dl-horizontal
-                %dt Author
-                %dd= @document.author
+            / .row
+            /     .span6
+            /         %dl.dl-horizontal
+            /             %dt Site
+            /             %dd= @document.site.name unless @document.site.nil?
+            /     .span6
+
+            / .row
+            /     .span6
+            /         %dl.dl-horizontal
+            /             %dt Author
+            /             %dd= @document.author
 
 
-    %hr
+            / %hr
 
-    .row
-        .span3
-            %b Site:
-        .span3
-            = @document.site.name unless @document.site.nil?
-        .span3
-            / %b Geographical Coverage:
-        .span3
-            / = @document.geographical_coverage
+            .row
+                .span3
+                    %b Site:
+                .span3
+                    = @document.site.name unless @document.site.nil?
+                .span3
+                    / %b Geographical Coverage:
+                .span3
+                    / = @document.geographical_coverage
 
-    .row
-        .span3
-            %b Author :
-        .span3
-            = @document.author
-        .span3
-            %b Biographical Region:
-        .span3
-            = @document.biographical_region
+            .row
+                .span3
+                    %b Author :
+                .span3
+                    = @document.author
+                .span3
+                    %b Biographical Region:
+                .span3
+                    = @document.biographical_region
 
-    .row
-        .span3
-            %b Published on:
-        .span3
-            = @document.published_on
-        .span3
-            / %b Theme:
-        .span3
+            .row
+                .span3
+                    %b Published on:
+                .span3
+                    = @document.published_on
+                .span3
+                    / %b Theme:
+                .span3
 
-    .row
-        .span3
-            %b Downloads :
-        .span3
-            = @document.downloads
-        .span3
-            %b Language :
-        .span3
-            - @document.languages.each do |l|
-                = l.name
-    .row
-        .span12
-            %b Description :
-        .span12
-            = raw @document.description
+            .row
+                .span3
+                    %b Downloads :
+                .span3
+                    = @document.downloads
+                .span3
+                    %b Language :
+                .span3
+                    - @document.languages.each do |l|
+                        = l.name
+            .row
+                .span12
+                    %b Description :
+                .span12
+                    = raw @document.description
 
-    .row
-        .span12
-            - url = "http://#{request.host}:#{request.port}#{@document.file}"
-    %iframe{ :src => "http://docs.google.com/gview?url=#{url}&embedded=true", :style => "width:100%; height:650px;", :frameborder => 0 }
+            .row
+                .span12
+                    %b Tags:
+                    / = @document.tag_list.map { |t| link_to t, tag_path(t) }.join(', ')
+                    = @document.tag_list
+
+            .row
+                .span12
+                    - url = "http://#{request.host}:#{request.port}#{@document.file}"
+/ %iframe{ :src => "http://docs.google.com/gview?url=#{url}&embedded=true", :style => "width:100%; height:650px;", :frameborder => 0 }
 
 
 - content_for :js do
