@@ -32,12 +32,14 @@
         %dd= @protected_area.source_db
 
       %dl.dl-horizontal
+        %dt Country:
+        %dd
+          .label.label-info.label-large= @protected_area.countries.first.name unless @protected_area.countries.nil?
+
+      %dl.dl-horizontal
         %dt Code:
         %dd= @protected_area.code
 
-      %dl.dl-horizontal
-        %dt Name:
-        %dd= @protected_area.name
 
       %dl.dl-horizontal
         %dt Area:
