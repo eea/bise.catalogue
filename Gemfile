@@ -43,7 +43,7 @@ gem 'uglifier'                  , '>= 1.0.3'
 gem "remotipart"
 
 # Shared Mustache Templates
-gem 'smt_rails'                 , :git => 'git://github.com/railsware/smt_rails.git'
+gem 'smt_rails'                 , :git => 'https://github.com/railsware/smt_rails.git'
 
 # gem 'haml'
 gem "haml-rails"
@@ -68,10 +68,10 @@ gem 'rdf'                       , '~> 1.0'
 gem 'rdf-isomorphic'            , '~> 1.0'
 gem 'rdf-spec'
 gem 'rdf-raptor'                , '~> 1.0.1'    # , '~> 0.4.2'
-gem 'rdf-virtuoso'              , git: 'git@github.com:jonarrien/rdf-virtuoso.git'
+gem 'rdf-virtuoso'              , git: 'https://github.com/jonarrien/rdf-virtuoso.git'
 
 # gem 'spira'                     , '~> 0.5.0'
-gem 'spira'                     , git: 'git@github.com:ruby-rdf/spira.git'
+gem 'spira'                     , git: 'https://github.com/ruby-rdf/spira.git'
 
 # gem 'rdf-gzip'
 # gem 'rdf-xml'
