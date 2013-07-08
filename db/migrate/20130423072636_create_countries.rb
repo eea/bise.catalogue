@@ -1,6 +1,7 @@
 class CreateCountries < ActiveRecord::Migration
   def change
     create_table :countries do |t|
+      t.string :uri
       t.string :name
       t.string :code
       t.boolean :eu15

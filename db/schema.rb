@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20130705105229) do
   end
 
   create_table "biogeo_regions", :force => true do |t|
+    t.string   "uri"
     t.string   "code"
     t.string   "area_name"
     t.datetime "created_at", :null => false
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20130705105229) do
   end
 
   create_table "countries", :force => true do |t|
+    t.string   "uri"
     t.string   "name"
     t.string   "code"
     t.boolean  "eu15"
@@ -270,6 +272,7 @@ ActiveRecord::Schema.define(:version => 20130705105229) do
   end
 
   create_table "species", :force => true do |t|
+    t.string   "uri"
     t.integer  "species_code"
     t.string   "binomial_name"
     t.string   "valid_name"
@@ -323,6 +326,7 @@ ActiveRecord::Schema.define(:version => 20130705105229) do
   end
 
   create_table "taxonomies", :force => true do |t|
+    t.string   "uri"
     t.integer  "code"
     t.string   "name"
     t.string   "level"

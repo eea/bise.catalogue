@@ -3,6 +3,7 @@ class BiogeoRegion < ActiveRecord::Base
     include Tire::Model::Search
     include Tire::Model::Callbacks
 
+    attr_accessible :uri
     attr_accessible :code
     attr_accessible :area_name
 

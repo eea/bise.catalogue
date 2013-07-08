@@ -2,6 +2,7 @@ class CreateSpecies < ActiveRecord::Migration
 
     def change
         create_table :species do |t|
+            t.string :uri
             t.integer :species_code
             t.string :binomial_name
             t.string :valid_name

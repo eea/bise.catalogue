@@ -110,8 +110,8 @@ class ProtectedArea < ActiveRecord::Base
                 facet_filter :and, protected_area_filter unless protected_area_filter.empty?
             end
 
-            facet 'country', size: 20 do
-                terms :country
+            facet 'country' do
+                terms :country, size: 60
                 facet_filter :and, protected_area_filter unless protected_area_filter.empty?
             end
 

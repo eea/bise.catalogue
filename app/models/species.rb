@@ -5,6 +5,7 @@ class Species < ActiveRecord::Base
 
     belongs_to :taxonomy
 
+    attr_accessible :uri
     attr_accessible :binomial_name
     attr_accessible :eunis_primary_name
     attr_accessible :genus

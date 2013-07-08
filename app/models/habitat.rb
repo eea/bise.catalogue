@@ -40,8 +40,42 @@ class Habitat < ActiveRecord::Base
         }
     } do
         mapping {
+            indexes :uri, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
             indexes :name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            indexes :habitat_code, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+            indexes :level, :type => 'integer', index: :not_analyzed
+            indexes :description, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+
+            indexes :countries do
+                indexes :id, :type => 'integer'
+                indexes :name, :type => 'string', :index => :not_analyzed
+            end
         }
+    end
+
+    def countries
+        ret = Set.new
+        if protected_areas.size > 0
+            protected_areas.each do |pa|
+                country = pa.countries.first
+                ret.add(pa.countries.first) unless ret.include?(country) or country.nil?
+            end
+        end
+        print "." + ret.to_a.size.to_s
+        ret.to_a
+    end
+
+    def to_indexed_json
+        {
+            :uri          => uri,
+            :name         => name,
+            :habitat_code => habitat_code,
+            :level        => level,
+            :description  => description,
+            :countries    => countries.map do |c|
+                { :_type  => 'country', :_id => c.id, :name => c.name }
+            end
+        }.to_json
     end
 
     def self.search(params)
@@ -53,6 +87,10 @@ class Habitat < ActiveRecord::Base
             end if params[:query].present?
 
             highlight :name
+
+            facet 'countries' do
+                terms 'countries.name', size: 30
+            end
         end
     end
 

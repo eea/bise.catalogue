@@ -1,6 +1,7 @@
 class CreateTaxonomies < ActiveRecord::Migration
   def change
     create_table :taxonomies do |t|
+      t.string :uri
       t.integer :code
       t.string :name
       t.string :level
