@@ -135,6 +135,8 @@ GEM
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
     ffi (1.9.0)
+    font-awesome-rails (3.2.1.2)
+      railties (>= 3.2, < 5.0)
     formatador (0.2.4)
     gem-ctags (1.0.5)
     gherkin (2.12.0)
@@ -405,6 +407,7 @@ DEPENDENCIES
   docsplit
   factory_girl_rails
   ffi
+  font-awesome-rails
   gem-ctags
   guard-cucumber
   guard-rspec
