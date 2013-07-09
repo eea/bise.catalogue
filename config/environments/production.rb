@@ -46,7 +46,7 @@ Catalogue::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( articles.js documents.js documents.css links.js links.css news.js news.css species.js species.css)
+  config.assets.precompile += %w(home.js articles.js documents.js documents.css links.js links.css news.js news.css species.js species.css)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
