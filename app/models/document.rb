@@ -41,13 +41,14 @@ class Document < ActiveRecord::Base
 
     # ---- VALIDATIONS -----
 
-
     validates_presence_of :site, :message => "can't be blank"
-    validates_presence_of :author, :message => "can't be blank"
     validates_presence_of :title, :message => "can't be blank", :length => { :maximum => 255 }
     validates_presence_of :english_title, :message => "can't be blank", :length => { :maximum => 255 }
+    validates_presence_of :author, :message => "can't be blank"
 
     validates_presence_of :language_ids, :message => "can't be blank"
+
+    validates_presence_of :published_on, message: "can't be blank"
 
     validates_presence_of :file, :on => :create, :message => "can't be blank"
 
