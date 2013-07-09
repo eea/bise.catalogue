@@ -1,47 +1,13 @@
 $ ->
 
-    _doc = null
     _data = null
-
     _form = if $('.new_document').size() > 0 then '.new_document' else '.edit_document'
-
-    console.log '... drawing doc viewer... '
-    docUrl = 'http://www.documentcloud.org/documents/6800-memo-on-alternatives-to-comprehensive-immigration-reform.js';
-    # DV.load(docUrl, {
-    #     container: '#document-preview',
-    #     width: 572,
-    #     height: 500,
-    #     sidebar: true
-    # })
-    # DV.load('http://www.documentcloud.org/search/embed/', {
-    #     q: "projectid: 8-epa-flouride",
-    #     container: "#document-previewe",
-    #     order: "title",
-    #     per_page: 12,
-    #     search_bar: true,
-    #     organization: 117
-    # })
-
-    # $(".tm-input").tagsManager(
-    #     typeahead: true,
-    #     typeaheadSource: () ->
-    #         $(this.$element).data('tags')
-    #     ,
-    #     blinkBGColor_1: '#FFFF9C',
-    #     blinkBGColor_2: '#CDE69C'
-    # );
 
     class Document
         _node: '.file-info'
 
-        constructor: (@file) ->
-            $('.buttons').hide()
-            if @checkFile()
-                @draw()
-            else
-                alert("#{@file.name} is not a supported file!")
-                $('.buttons').show()
-                @clear()
+        constructor: () ->
+
 
         checkFile: =>
             types = /(\.|\/)(pdf|rtf|doc|docx|csv|xls|xlsx|ppt|pptx|txt)$/i
@@ -53,10 +19,15 @@ $ ->
             @file = null
 
         draw: ->
+            $(@_node).html('')
             content = SMT['documents/preview'](@)
             $(@_node).show().append(content)
-            $(@_node).find('.btn-danger').bind('click', $.proxy(@clear, @))
-            $('.buttons').hide()
+
+        hasChanged: ->
+            window.doc.file = $('#document_file')[0].files[0]
+            $('#file_title').val window.doc.file.name
+            if window.doc.checkFile()
+                window.doc.draw()
 
         hasFile: ->
             if @file? then true else false
@@ -84,8 +55,28 @@ $ ->
                     img = 'powerpoint2010'
                 when 'text/plain'
                     img = 'plaintext'
-
-        upload: ->
+        type: ->
+            switch @file.type
+                when 'application/pdf'
+                    'PDF'
+                when 'application/rtf'
+                    'RTF'
+                when 'application/msword'
+                    'DOC'
+                when 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                    'DOCX'
+                when 'text/csv'
+                    'CSV'
+                when 'application/vnd.ms-excel'
+                    'XLS'
+                when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                    'XLSX'
+                when 'application/vnd.ms-powerpoint'
+                    'PPT'
+                when 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                    'PPTX'
+                when 'text/plain'
+                    'TXT'
 
         title: ->
             @file.name
@@ -98,6 +89,9 @@ $ ->
             else
                 (Math.round(@file.size * 100 / kb) / 100).toString() + ' KB'
 
+
+    # Create singleton Document
+    window.doc = new Document()
 
     # ----- CALENDAR
     $('#document_published_on').datepicker();
@@ -113,18 +107,18 @@ $ ->
 
     # FILE
     $('#file_select').click ()-> $('#document_file').click()
-    $('#document_file').change ()->
-        _doc = new Document $('#document_file')[0].files[0]
-        $('#file_title').val $('#document_file')[0].files[0].name
+    $('#document_file').change window.doc.hasChanged
 
 
     $(':submit').click (e)->
-        if _form == '.new_document' and _doc? and _doc.hasFile()
+        # e.preventDefault()
+        if _form == '.new_document' and window.doc? and window.doc.hasFile()
             progressModal.modal('show')
-            progressModal.find('.modal-footer').html _doc.title()
+            progressModal.find('.modal-footer').html window.doc.title()
         else if _form == '.edit_document'
             progressModal.modal('show')
-        else
-            e.preventDefault()
-            alert('File can\'t be empty')
+        # $('#new_document').submit()
+        # else
+        # e.preventDefault()
+        # alert('File can\'t be empty')
 

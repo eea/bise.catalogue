@@ -256,7 +256,7 @@ class Document < ActiveRecord::Base
 
     def uniqueness_of_md5hash
         if Document.exists?(:md5hash => self.md5hash)
-            errors.add :file, "is already registered."
+            errors.add :file, "is already registered. Documents must be unique."
         end
     end
 

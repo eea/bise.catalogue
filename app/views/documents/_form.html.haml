@@ -16,7 +16,8 @@
                 .row-fluid
                     .span6
                         .input-append
-                            = f.input :file, :input_html => { :class => "hide" }
+                            = f.input :file , :input_html => { :class => "hide" }
+                            .file-info
                             %input#file_title.string.required.input-xlarge{ :type => 'text', :disabled => :disabled }
                             %button#file_select.btn{ :type => 'button' }
                                 Select

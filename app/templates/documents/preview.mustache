@@ -1,35 +1,8 @@
-<table border="0">
-    <tr>
-        <td rowspan="2">
-            <span class="normal-icon {{image}}"></span>
-        </td>
-        <td colspan="2" style="font-size:11px">
-            {{file.name}}
-        </td>
-    </tr>
-    <tr>
-        <td style="vertical-align:middle; line-height: 44px;">
-            <span class="badge badge-success">
-                {{size}}
-            </span>
-        </td>
-        <td style="text-align:right; line-height: 44px;">
-            <a class="btn btn-mini btn-danger">
-                <i class="icon-remove"></i>
-                Remove
-            </a>
-        </td>
-    </tr>
-</table>
-
-
-
-
-
-
-<!--  # img = $('<div>').addClass('mini-icon').addClass @image()
-            # badge = $('<span>').addClass('badge badge-success').html @size()
-            # container = $('<span>').css('width','50px').css('display', 'inline-block').append(img).append(@file.name).append(badge)
-
-            # removeButton = $('<a>').addClass('remove').html('Remove').click(@clear())
- -->
+<div class="row-fluid">
+    <div class="page-header" style="margin:0">
+        <span class="mini-icon {{image}}"></span>
+        <h1 style="display: inline-block">
+             {{type}} &nbsp;<small>{{size}}</small>
+        </h1>
+    </div>
+</div>
