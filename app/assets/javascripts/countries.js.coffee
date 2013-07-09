@@ -38,11 +38,11 @@ $ ->
     ]
 
     eu28 = eu27.concat [
-
+        'croatia'
     ]
 
     eea = [
-        'austria', 'belgium', 'bulgaria', 'cyprus', 'czech-republic', 'denmark',
+        'austria', 'belgium', 'bulgaria', 'croatia', 'cyprus', 'czech-republic', 'denmark',
         'estonia', 'finland', 'france', 'germany', 'greece', 'hungary', 'ireland',
         'italy', 'latvia', 'lithuania', 'luxembourg', 'malta', 'netherlands',
         'poland', 'portugal', 'romania', 'slovakia', 'slovenia', 'spain', 'sweden',
@@ -68,6 +68,8 @@ $ ->
                 $('#' + c).prop('checked', true);
         else if $(@).hasClass('eu28')
             $('#countries').find('input').prop('checked', false)
+            for c in eu28
+                $('#' + c).prop('checked', true);
         else if $(@).hasClass('eea-members')
             for c in eea
                 $('#' + c).prop('checked', true);
