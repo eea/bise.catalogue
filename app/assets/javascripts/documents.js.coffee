@@ -16,6 +16,7 @@ $ ->
         clear: ->
             $('.buttons').show()
             $(@_node).hide().html('')
+            $('#file_title').val('')
             @file = null
 
         draw: ->
@@ -28,6 +29,9 @@ $ ->
             $('#file_title').val window.doc.file.name
             if window.doc.checkFile()
                 window.doc.draw()
+            else
+                alert('File type not allowed.')
+                window.doc.clear()
 
         hasFile: ->
             if @file? then true else false
