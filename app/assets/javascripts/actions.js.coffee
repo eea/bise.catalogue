@@ -4,8 +4,10 @@
 
 $ ->
 
-    # $('ul.nav.nav-tabs li a').click () ->
-    #     $(this).parent().addClass('active').siblings().removeClass('active')
-    #     sectionName = $(this).data('article');
-    #     $(sectionName).siblings().hide();
-    #     $(sectionName).show()
+  $('a.btn').click ()->
+    $(this).removeClass('active')
+    return
+
+  $('a.btn.back').click ()->
+    window.history.back()
+    return false
