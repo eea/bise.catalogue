@@ -16,7 +16,7 @@
             (
             = (@document.file_size/1024).round(2)
             KB)
-    = link_to  document_path(@document), :method => :delete, :class => "btn btn-danger pull-right" do
+    = link_to  document_path(@document), :method => :delete, :class => "btn btn-danger pull-right", :confirm=>'Are you sure?' do
         %i.icon-trash
         Delete
 
