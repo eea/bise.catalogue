@@ -5,7 +5,7 @@
         = f.input :title, :placeholder => 'Example' , :input_html => { :class => "input-block-level" }
         / = f.input :language, :as => :select, :collection => languages, include_blank: true, :input_html => { :class => "input-block-level" }
     .span3
-        = f.association :site , :input_html => { :class => "input-block-level" }
+        = f.association :site , :input_html => { :class => "input-block-level" }, default: '1'
 .row-fluid
     .span9
         = f.input :english_title, :placeholder => 'Example', :input_html => { :class => "input-block-level" }
