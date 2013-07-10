@@ -6,7 +6,7 @@ class CreateDocuments < ActiveRecord::Migration
             t.string      :title
             t.string      :english_title
             t.string      :author
-            t.string      :description
+            t.text        :description
 
             t.string      :language
             # t.text        :geographical_coverage
