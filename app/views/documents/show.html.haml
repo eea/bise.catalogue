@@ -53,7 +53,7 @@
 
             %dl.dl-horizontal
                 %dt Published on:
-                %dd= @document.published_on
+                %dd= @document.published_on.strftime('%m/%d/%Y')
 
             %dl.dl-horizontal
                 %dt Languages:
