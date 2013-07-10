@@ -48,7 +48,7 @@ class Document < ActiveRecord::Base
 
     validates_presence_of :language_ids, :message => "can't be blank"
 
-    validates_presence_of :published_on, message: "can't be blank"
+    validate :published_on_is_valid_date
 
     validates_presence_of :file, :on => :create, :message => "can't be blank"
 
@@ -56,6 +56,16 @@ class Document < ActiveRecord::Base
 
     before_validation :compute_hash
     before_save :update_file_info
+
+
+    def published_on_is_valid_date
+        begin
+            DateTime.parse(published_on)
+        rescue Exception => e
+            errors.add(:published_on, 'must be a valid date')
+        end
+        # if ((DateTime.parse(published_on) rescue ArgumentError) == ArgumentError)
+    end
 
 
     index_name "#{Tire::Model::Search.index_prefix}documents"
