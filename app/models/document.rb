@@ -90,6 +90,7 @@ class Document < ActiveRecord::Base
 
       indexes :id            , :index    => :not_analyzed
       indexes :title         , :analyzer => 'snowball'    , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'search_analyzer' , :boost => 100
+      indexes :sort_title    , :index    => :not_analyzed
       indexes :english_title , :analyzer => 'snowball'    , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'search_analyzer' , :boost => 100
       indexes :description   , :analyzer => 'snowball'    , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'search_analyzer'
 
@@ -141,6 +142,7 @@ class Document < ActiveRecord::Base
       :site                   => { :_type => 'site', :_id => site.id, :name => site.name },
 
       :title                  => title,
+      :sort_title             => title,
       :english_title          => english_title,
       :description            => description,
       :author                 => author,
@@ -176,7 +178,7 @@ class Document < ActiveRecord::Base
     doc_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
 
 
-    tire.search :load => true, :page => params[:page], :per_page => 10 do
+    tire.search :load => true, :page => params[:page], :per_page => params[:per_page] do
       query do
         filtered do
           query do
@@ -211,7 +213,12 @@ class Document < ActiveRecord::Base
       filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
       filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
-      sort { by :published_on, "desc" } # if params[:query].blank?
+      if params[:sort].present? and params[:sort] != "published_on"
+        sort { by params[:sort].to_sym, "asc" }
+      else
+        sort { by :published_on, "desc" }
+      end
+
 
       facet 'sites' do
         terms 'site.name'
