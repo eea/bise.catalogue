@@ -7,7 +7,7 @@
                 = f.input :published_on, :wrapper => :prepend do
                     %span.add-on
                         %i.icon-calendar
-                    = f.input_field :published_on, :as => :string, :class => 'input-small'
+                    = f.input_field :published_on, :as => :string, :class => 'input-small', :value => l(published_on, :format => :default)
             .span8
                 = f.input :author, :as => :string, :placeholder => 'John Doe' , :input_html => { :class => "input-block-level" }
     .span6

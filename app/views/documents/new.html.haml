@@ -5,9 +5,9 @@
     New document
 
 - content_for :actions do
-    %a.btn.back
-        %i.icon-reply
-        Back
+    = link_to documents_path, class: 'btn' do
+        / %i.icon-reply
+        Cancel
     .btn-group.pull-right
         %a.btn.active{ :href => '#general', :data => { :toggle => 'tab' } } General
         %a.btn{ :href => '#geographic', :data => { :toggle => 'tab' } } Geographic

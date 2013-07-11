@@ -9,7 +9,7 @@
 
                 = render :partial => 'common/languages', :locals => { :parent => @document }
 
-                = render :partial => 'common/publication', :locals => { :f => f }
+                = render :partial => 'common/publication', :locals => { :f => f, published_on: @document.published_on }
 
                 %legend Document / File
 
