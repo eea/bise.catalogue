@@ -171,6 +171,7 @@ class Document < ActiveRecord::Base
 
     # Facet Filter
     doc_filter = []
+    doc_filter << { :term => { 'site.name' => params[:site] }} if params[:site].present?
     doc_filter << { :term => { :author => params[:author] }} if params[:author].present?
     doc_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
     doc_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
@@ -204,6 +205,7 @@ class Document < ActiveRecord::Base
       # highlight :name, :options => { :tag => '<strong class="highlight">' }
       highlight :title, :attachment, :description
 
+      filter :term, 'site.name' => params[:site] if params[:site].present?
       filter :term, :author => params[:author] if params[:author].present?
       # filter :or, :terms => { :countries_names => params[:countries].split(/\//) } if params[:countries].present?
       # filter :term, 'countries.name' => ['Spain', 'Italy']  # if params[:countries].present?
