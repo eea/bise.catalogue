@@ -147,6 +147,7 @@ gem 'capistrano'
 gem 'capistrano-rbenv', '1.0.1'
 
 
+gem 'custom_error_message'
 gem "will_paginate"
 gem 'will_paginate-bootstrap'
 

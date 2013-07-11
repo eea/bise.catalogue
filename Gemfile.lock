@@ -115,6 +115,7 @@ GEM
       cucumber (>= 1.2.0)
       nokogiri (>= 1.5.0)
       rails (~> 3.0)
+    custom_error_message (1.1.1)
     data_objects (0.10.13)
       addressable (~> 2.1)
     database_cleaner (1.0.1)
@@ -402,6 +403,7 @@ DEPENDENCIES
   carrierwave
   coffee-rails (~> 3.2.1)
   cucumber-rails
+  custom_error_message
   database_cleaner
   do_postgres
   docsplit
