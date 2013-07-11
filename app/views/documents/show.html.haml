@@ -2,10 +2,14 @@
     = @document.title
 
 - content_for :actions do
-    %a.btn.back{ href: '#'}
-        / = link_to  documents_path, :class => "btn" do
-        %i.icon-reply
-        Back
+    - if request.env["HTTP_REFERER"].include?('documents/new')
+        = link_to documents_path, :class => "btn" do
+            %i.icon-reply
+            Back to List
+    - else
+        = link_to :back, :class => "btn" do
+            %i.icon-reply
+            Back
     = link_to  edit_document_path(@document), :class => "btn" do
         %i.icon-pencil
         Edit

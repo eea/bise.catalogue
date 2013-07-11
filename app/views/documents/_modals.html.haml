@@ -9,6 +9,15 @@
     .modal-footer
         / %a.btn.btn-danger{ :href => '#' } Cancel
 
+#success-modal.modal.hide
+    .modal-header
+        %button.close{ :type => 'button', 'aria-hidden' => 'true' , :data => { :dismiss => 'modal' } } x
+        %b Success!
+    .modal-body
+        Document has been successfully saved and indexed.
+    .modal-footer
+        %a.btn.btn-primary{ :href => '#', :data => { :dismiss => 'modal' } } Ok
+
 #error-modal.modal.hide
     /.fade
     .modal-header

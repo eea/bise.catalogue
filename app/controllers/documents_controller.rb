@@ -54,23 +54,11 @@ class DocumentsController < ApplicationController
       @document.tag_list = tags
     end
 
-
     respond_to do |format|
       if @document.save
-
-        begin
-          require 'docsplit'
-          file = "#{Rails.root}/public#{@document.file_url}"
-          last_index = file.rindex '/'
-          output = file[0..last_index]
-          Docsplit.extract_images file, size: '180x', format: [:jpg], pages: 1, output: output
-        rescue Exception => e
-          logger.debug { ":: Document thumbnail can't be generated" }
-        end
-
         format.html { redirect_to @document, :notice => 'Document was successfully created.' }
         format.json { render :json => @document, :status => :created, :location => @document }
-        format.js
+        format.js   { render :action => "success"}
       else
         format.html { render :action => "new" }
         format.json { render :json => @document.errors, :status => :unprocessable_entity }

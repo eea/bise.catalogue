@@ -8,6 +8,6 @@ $ ->
     $(this).removeClass('active')
     return
 
-  $('a.btn.back').click ()->
-    window.history.back()
-    return false
+  # $('a.btn.back').click ()->
+  #   window.history.back()
+  #   return false
