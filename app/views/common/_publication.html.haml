@@ -4,11 +4,22 @@
     .span6
         .row-fluid
             .span4
-                = f.input :published_on, :wrapper => :prepend do
-                    %span.add-on
-                        %i.icon-calendar
-                    = f.input_field :published_on, :as => :string, :class => 'input-small', value: published_on.nil? ? '' : l(published_on, :format => :default)
+                .control-group.date.optional.document_published_on
+                    %label.date.optional.control-label{:for => "document_published_on"}
+                        %abbr{ title:"required" } *
+                        Published on
+                    .controls
+                        .input-prepend
+                            %span.add-on
+                                %i.icon-calendar
+                            = f.input_field :published_on, :as => :string, :class => 'input-small', :required => true, autocomplete: 'off', value: published_on.nil? ? '' : l(published_on, :format => :default)
+                            /%input#document_published_on.string.required.input-small{:name => "document[published_on]", :required => "required", :size => "50", :type => "text", :value => ""}/
+
+                / = f.input :published_on, :wrapper => :prepend do
+                /     %span.add-on
+                /         %i.icon-calendar
+                /     = f.input_field :published_on, :as => :string, :class => 'input-small', :required => true, value: published_on.nil? ? '' : l(published_on, :format => :default)
             .span8
-                = f.input :author, :as => :string, :placeholder => 'John Doe' , :input_html => { :class => "input-block-level" }
+                = f.input :author, :as => :string, :placeholder => 'John Doe' , :input_html => { :class => "input-block-level", required: true }
     .span6
 

@@ -1,8 +1,12 @@
 #languages
 
-    %legend
-        Languages
-        %abbr{ title: "required" } *
+    .control-group.string.required.document_title
+        %label.string.required.control-label
+            %abbr{:title => "required"} *
+            Languages
+    / %legend
+    /     Languages
+    /     %abbr{ title: "required" } *
 
     - unless @languages.nil? or @languages.size.nil?
         - sixth = (@languages.size + 6) / 6

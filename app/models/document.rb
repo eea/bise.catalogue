@@ -5,22 +5,22 @@ class Document < ActiveRecord::Base
 
   attr_accessible :site_id
   belongs_to      :site
-  validates_presence_of :site, :message => "can't be blank"
+  validates_presence_of :site, :message => "^Please, fill in the site."
 
   attr_accessible :title
-  validates_presence_of :title, :message => "can't be blank", :length => { :maximum => 255 }
+  validates_presence_of :title, :message => "^Please, fill in the title.", :length => { :maximum => 255 }
 
   attr_accessible :english_title
-  validates_presence_of :english_title, :message => "can't be blank", :length => { :maximum => 255 }
+  validates_presence_of :english_title, :message => "^Please, fill in the english title.", :length => { :maximum => 255 }
 
   attr_accessible :author
-  validates_presence_of :author, :message => "can't be blank"
+  validates_presence_of :author, :message => "^Please, fill in the author."
 
   attr_accessible :description
 
   attr_accessible :language_ids
   has_and_belongs_to_many :languages, :class_name => "Language", :join_table => "documents_languages", :foreign_key => "document_id"
-  validates_presence_of :language_ids, :message => "can't be blank"
+  validates_presence_of :language_ids, :message => "^Please, select one language at least."
 
   #attr_accessible :geographical_coverage
   attr_accessible :biographical_region
@@ -37,7 +37,7 @@ class Document < ActiveRecord::Base
   attr_accessible :thumbnail
   attr_accessible :file
   mount_uploader :file, FileUploader
-  validates_presence_of :file, :on => :create, :message => "can't be blank"
+  validates_presence_of :file, :on => :create, :message => "^Please, choose a file to upload."
   validate :uniqueness_of_md5hash, :on => :create
   before_validation :compute_hash
   before_save :update_file_info
@@ -49,6 +49,7 @@ class Document < ActiveRecord::Base
   # TAGS
   attr_accessible :tag_list
   acts_as_taggable
+
 
   # INDEXES
   index_name "#{Tire::Model::Search.index_prefix}documents"
