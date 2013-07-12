@@ -7,6 +7,7 @@ class CreateSpeciesTranslations < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :species_translations, :species_id
+    # add_index :species_translations, :species_id
+    add_index :species_translations, ["species_id", "locale"], :unique => true
   end
 end
