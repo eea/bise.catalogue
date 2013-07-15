@@ -58,19 +58,24 @@ class Document < ActiveRecord::Base
   after_destroy(&refresh)
 
 
+
   # ----- TIRE SETTINGS -----
 
 
   settings :analysis => {
+
+
+    # An analyzer of type snowball that uses the standard tokenizer, with standard filter, lowercase filter, stop filter, and snowball filter.
     :analyzer => {
       :search_analyzer => {
+        :type => "custom",
         :tokenizer => "keyword",
         :filter => ["lowercase"]
       },
       :index_ngram_analyzer => {
+        :type => "custom",
         :tokenizer => "keyword",
-        :filter => ["lowercase", "substring"],
-        :type => "custom"
+        :filter => [ "lowercase", "snowball", "substring" ]
       }
     },
     :filter => {
@@ -90,10 +95,10 @@ class Document < ActiveRecord::Base
       end
 
       indexes :id            , :index    => :not_analyzed
-      indexes :title         , :analyzer => 'snowball'    , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'search_analyzer' , :boost => 100
+      indexes :title         , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball' , :boost => 100
       indexes :sort_title    , :index    => :not_analyzed
-      indexes :english_title , :analyzer => 'snowball'    , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'search_analyzer' , :boost => 100
-      indexes :description   , :analyzer => 'snowball'    , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'search_analyzer'
+      indexes :english_title , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball' , :boost => 100
+      indexes :description   , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
 
       # indexes :language, :index => :not_analyzed
       indexes :languages do
@@ -182,29 +187,31 @@ class Document < ActiveRecord::Base
 
     tire.search :load => true, :page => params[:page], :per_page => params[:per_page] do
       query do
-        filtered do
-          query do
-            string 'title:' + params[:query].to_s
-            string 'english_title:' + params[:query].to_s
-            should   { string 'description:' + params[:query].to_s }
-            # string 'description:' + params[:query].to_s
-            string 'attachment:' + params[:query].to_s
-            string 'tags.name:' + params[:query].to_s
-          end
-          # filter :term, :author => params[:author] if params[:author].present?
-          # filter :or, :terms => { :organization_ids => current_user.followed_performers.collect(&:id).map(&:to_s) },
-          #           :terms => { :watcher_ids =>      [current_user.id.to_s] }
-        end
-        # boolean do
-        #     should   { string 'title:' + params[:query].to_s }
+        # filtered do
+        #   query do
+        #     string 'title:' + params[:query].to_s
+        #     string 'english_title:' + params[:query].to_s
         #     should   { string 'description:' + params[:query].to_s }
-        #     should   { string 'attachment:' + params[:query].to_s }
-        #     # must_not { string 'published:0' }
+        #     # string 'description:' + params[:query].to_s
+        #     string 'attachment:' + params[:query].to_s
+        #     # string 'tags.name:' + params[:query].to_s
+        #   end
+        #   # filter :term, :author => params[:author] if params[:author].present?
+        #   # filter :or, :terms => { :organization_ids => current_user.followed_performers.collect(&:id).map(&:to_s) },
+        #   #           :terms => { :watcher_ids =>      [current_user.id.to_s] }
         # end
+        boolean do
+            should   { string 'title:' + params[:query].to_s }
+            # should   { string 'description:' + params[:query].to_s }
+            should   { string 'attachment:' + params[:query].to_s }
+            # should   { string 'tags.name:' + params[:query].to_s }
+            # must_not { string 'published:0' }
+        end
       end if params[:query].present?
 
       # highlight :name, :options => { :tag => '<strong class="highlight">' }
-      highlight :title, :attachment, :description
+      # highlight :title, :attachment, :description
+      highlight :attachment, :description
 
       filter :term, 'site.name' => params[:site] if params[:site].present?
       filter :term, :author => params[:author] if params[:author].present?
@@ -216,10 +223,11 @@ class Document < ActiveRecord::Base
       filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
       filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
-      if params[:sort].present? and params[:sort] != "published_on"
+      if params[:sort].present?
         sort { by params[:sort].to_sym, "asc" }
       else
-        sort { by :published_on, "desc" }
+        # if no query, sort by published_on
+        sort { by :published_on, "desc" } unless params[:query].present?
       end
 
 
