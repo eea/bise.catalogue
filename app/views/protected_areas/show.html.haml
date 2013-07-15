@@ -19,60 +19,63 @@
 
   .row-fluid
     .span12
-      %iframe{ src: "http://discomap.eea.europa.eu/map/Filtermap/?webmap=0b2680c2bc544431a9a97119aa63d707&SiteCode=#{@protected_area.code}&autoquery=false&zoomto=true", style: "height: 380px; width: 100%;" }
+      %iframe{ src: "http://discomap.eea.europa.eu/map/Filtermap/?webmap=0b2680c2bc544431a9a97119aa63d707&SiteCode=#{@protected_area.code}&autoquery=false&zoomto=true", scrolling: "no", style: "height: 380px; width: 100%;" }
 
   .row-fluid
-    .span6
+    .span12
+
+  .row-fluid
+    .span8
       %legend
         Site Information:
+      .well
+        .row-fluid
+          .span6
+            %dl.dl-vertical
+              %dt Source:
+              %dd= @protected_area.source_db
+            %dl.dl-vertical
+              %dt Country:
+              %dd
+                .label.label-info.label-large= @protected_area.countries.first.name unless @protected_area.countries.nil?
+            %dl.dl-vertical
+              %dt Code:
+              %dd= @protected_area.code
+            %dl.dl-vertical
+              %dt Biogeoregions:
+              %dd
+                - @protected_area.biogeo_regions.each do |b|
+                  .label.label-info= b.area_name
+            %dl.dl-vertical
+              %dt Designation Date:
+              %dd= @protected_area.designation_year
 
+          .span6
+            %dl.dl-vertical
+              %dt Area:
+              %dd
+                = "#{@protected_area.area} Ha"
+            %dl.dl-vertical
+              %dt Length:
+              %dd= @protected_area.length
+            %dl.dl-vertical
+              %dt Latitude:
+              %dd
+                = "#{@protected_area.lat} (decimal deg.)"
+            %dl.dl-vertical
+              %dt Longitude:
+              %dd
+                = "#{@protected_area.long} (decimal deg.)"
 
-      %dl.dl-horizontal
-        %dt Source:
-        %dd= @protected_area.source_db
-
-      %dl.dl-horizontal
-        %dt Country:
-        %dd
-          .label.label-info.label-large= @protected_area.countries.first.name unless @protected_area.countries.nil?
-
-      %dl.dl-horizontal
-        %dt Code:
-        %dd= @protected_area.code
-
-
-      %dl.dl-horizontal
-        %dt Area:
-        %dd
-          = "#{@protected_area.area} Ha"
-
-      %dl.dl-horizontal
-        %dt Length:
-        %dd= @protected_area.length
-
-      %dl.dl-horizontal
-        %dt Latitude:
-        %dd= @protected_area.lat
-
-      %dl.dl-horizontal
-        %dt Longitude:
-        %dd= @protected_area.long
-
-      %dl.dl-horizontal
-        %dt Designation Year:
-        %dd= @protected_area.designation_year
-
-
-
-    .span6#authors
       %legend Habitats
       .accordion-inner
-        %ul.unstyled
+        %ul
           - @protected_area.habitats.each do |h|
             %li
               = link_to h.name, habitat_path(h)
 
-      %legend Species
+    .span4
+      %legend Fauna and Flora
       - groups = @protected_area.species.select('species.*, species.species_group').group_by(&:species_group)
       - groups.keys.each do |key|
 
@@ -87,5 +90,11 @@
                 %ul.unstyled
                   - groups[key].each do |s|
                     %li= link_to s.binomial_name, species_path(s)
+
+  .row-fluid
+    .span5
+
+    .span7
+
 
 
