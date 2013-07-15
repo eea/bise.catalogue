@@ -17,12 +17,13 @@
   .row-fluid
     %p#notice= notice
 
-  .row-fluid
-    .span12
-      %iframe{ src: "http://discomap.eea.europa.eu/map/Filtermap/?webmap=0b2680c2bc544431a9a97119aa63d707&SiteCode=#{@protected_area.code}&autoquery=false&zoomto=true", scrolling: "no", style: "height: 380px; width: 100%;" }
+  - if map_exists?(@protected_area.code)
+    .row-fluid
+      .span12
+        %iframe{ src: "http://discomap.eea.europa.eu/map/Filtermap/?webmap=0b2680c2bc544431a9a97119aa63d707&SiteCode=#{@protected_area.code}&autoquery=false&zoomto=true", scrolling: "no", style: "height: 380px; width: 100%;" }
 
-  .row-fluid
-    .span12
+  / .row-fluid
+  /   .span12
 
   .row-fluid
     .span8
@@ -79,13 +80,13 @@
       - groups = @protected_area.species.select('species.*, species.species_group').group_by(&:species_group)
       - groups.keys.each do |key|
 
-        .accordion{ id: "#{key.downcase}" }
+        .accordion{ id: "#{key.downcase.parameterize}" }
           .accordion-group
             .accordion-head
-              %a.accordion-toggle.btn.btn-link.btn-small{ href: "##{key.downcase}-list", data: { toggle: 'collapse', parent: "##{key.downcase}" } }
+              %a.accordion-toggle.btn.btn-link.btn-small{ href: "##{key.downcase.parameterize}-list", data: { toggle: 'collapse', parent: "##{key.downcase.parameterize}" } }
                 = "#{key} (#{groups[key].size})"
                 %span.caret
-            .accordion-body.collapse{ id: "#{key.downcase}-list" }
+            .accordion-body.collapse{ id: "#{key.downcase.parameterize}-list" }
               .accordion-inner
                 %ul.unstyled
                   - groups[key].each do |s|
