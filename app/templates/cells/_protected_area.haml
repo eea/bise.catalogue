@@ -1,9 +1,11 @@
 .article_cell
 
-    - unless site.nuts_code.nil?
+    - unless site.source_db.nil?
         %span.label.label-info.pull-right
-            = site.nuts_code
+            = site.source_db
     .cell-title
+        .span2
+            = site.country_name
         = link_to site.name, site
 
     / %small by #{article.author} at #{article.created_at.strftime("%m/%d/%Y")}
