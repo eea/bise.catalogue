@@ -2,7 +2,7 @@
     = @document.title
 
 - content_for :actions do
-    - if request.env["HTTP_REFERER"].include?('documents/new')
+    - if !request.env["HTTP_REFERER"].nil? and request.env["HTTP_REFERER"].include?('documents/new')
         = link_to documents_path, :class => "btn" do
             %i.icon-reply
             Back to List
@@ -20,7 +20,7 @@
             (
             = (@document.file_size/1024).round(2)
             KB)
-    = link_to  document_path(@document), :method => :delete, :class => "btn btn-danger pull-right", :confirm=>'Are you sure?' do
+    = link_to  document_path(@document), :method => :delete, :class => "btn btn-danger pull-right", :confirm=>'Please confirm you want to delete the resource.' do
         %i.icon-trash
         Delete
 
