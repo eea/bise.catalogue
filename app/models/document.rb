@@ -92,6 +92,7 @@ class Document < ActiveRecord::Base
       indexes :site do
         indexes :id, :type => 'integer'
         indexes :name, :type => 'string', :index => :not_analyzed
+        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
       end
 
       indexes :id            , :index    => :not_analyzed
@@ -102,24 +103,28 @@ class Document < ActiveRecord::Base
 
       # indexes :language, :index => :not_analyzed
       indexes :languages do
-        indexes :id   , :type => 'integer'
-        indexes :name , :type => 'string'  , :index => :not_analyzed
+        indexes :id         , :type => 'integer'
+        indexes :name       , :type => 'string'                         , :index => :not_analyzed
+        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
       end
 
       indexes :published_on , :type => 'date'                           , :index => :not_analyzed
       indexes :author       , :type => 'string'                         , :index => :not_analyzed
 
       indexes :countries do
-        indexes :id, :type => 'integer'
-        indexes :name, :type => 'string', :index => :not_analyzed
+        indexes :id         , :type => 'integer'
+        indexes :name       , :type => 'string'                         , :index => :not_analyzed
+        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
       end
 
       indexes :tags do
-        indexes :name, :type => 'string', :index => :not_analyzed
-        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :name       , :type => 'string'                         , :index => :not_analyzed
+        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
       end
 
-      indexes :biographical_region, :type => 'string', :index => :not_analyzed
+      indexes :biographical_region       , :type => 'string'                         , :index => :not_analyzed
+      indexes :biographical_region_ngram , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+
       indexes :attachment, :type => 'attachment', :fields => {
         :date       => { :store => 'yes' },
         :file       => { :index => 'no'},
@@ -146,22 +151,23 @@ class Document < ActiveRecord::Base
 
   def to_indexed_json
     {
-      :site                   => { :_type => 'site', :_id => site.id, :name => site.name },
+      :site                      => { _type: 'site', _id: site.id, name: site.name, ngram_name: site.name },
 
-      :title                  => title,
-      :sort_title             => title,
-      :english_title          => english_title,
-      :description            => description,
-      :author                 => author,
-      :published_on           => published_on,
+      :title                     => title,
+      :sort_title                => title,
+      :english_title             => english_title,
+      :description               => description,
+      :author                    => author,
+      :published_on              => published_on,
 
-      :languages              => languages.map { |l| { :_type  => 'language', :_id => l.id, :name => l.name } },
+      :languages                 => languages.map { |l| { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name } },
 
-      :countries              => countries.map { |c| { :_type  => 'country', :_id => c.id, :name => c.name } },
-      :tags                   => tags.map { |c| { name: c.name, ngram_name: c.name } },
+      :countries                 => countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
+      :tags                      => tags.map { |c| { name: c.name, ngram_name: c.name } },
 
-      :biographical_region    => biographical_region,
-      :attachment             => attachment
+      :biographical_region       => biographical_region,
+      :biographical_region_ngram => biographical_region,
+      :attachment                => attachment
     }.to_json
   end
 
@@ -188,31 +194,20 @@ class Document < ActiveRecord::Base
 
     tire.search :load => true, :page => params[:page], :per_page => params[:per_page] do
       query do
-        # filtered do
-        #   query do
-        #     string 'title:' + params[:query].to_s
-        #     string 'english_title:' + params[:query].to_s
-        #     should   { string 'description:' + params[:query].to_s }
-        #     # string 'description:' + params[:query].to_s
-        #     string 'attachment:' + params[:query].to_s
-        #     # string 'tags.name:' + params[:query].to_s
-        #   end
-        #   # filter :term, :author => params[:author] if params[:author].present?
-        #   # filter :or, :terms => { :organization_ids => current_user.followed_performers.collect(&:id).map(&:to_s) },
-        #   #           :terms => { :watcher_ids =>      [current_user.id.to_s] }
-        # end
         boolean do
+            should   { string 'site.ngram_name:' + params[:query].to_s }
             should   { string 'title:' + params[:query].to_s }
             should   { string 'english_title:' + params[:query].to_s }
             should   { string 'description:' + params[:query].to_s }
             should   { string 'attachment:' + params[:query].to_s }
+            should   { string 'countries.ngram_name:' + params[:query].to_s }
+            should   { string 'languages.ngram_name:' + params[:query].to_s }
             should   { string 'tags.ngram_name:' + params[:query].to_s }
+            should   { string 'biographical_region_ngram:' + params[:query].to_s}
             # must_not { string 'published:0' }
         end
       end if params[:query].present?
 
-      # highlight :name, :options => { :tag => '<strong class="highlight">' }
-      # highlight :title, :attachment, :description
       highlight :attachment, :description
 
       filter :term, 'site.name' => params[:site] if params[:site].present?
