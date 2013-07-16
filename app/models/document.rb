@@ -64,17 +64,16 @@ class Document < ActiveRecord::Base
 
   settings :analysis => {
 
-
     # An analyzer of type snowball that uses the standard tokenizer, with standard filter, lowercase filter, stop filter, and snowball filter.
     :analyzer => {
       :search_analyzer => {
         :type => "custom",
-        :tokenizer => "keyword",
-        :filter => ["lowercase"]
+        :tokenizer => "standard",
+        :filter => ["lowercase", "snowball"]
       },
       :index_ngram_analyzer => {
         :type => "custom",
-        :tokenizer => "keyword",
+        :tokenizer => "standard",
         :filter => [ "lowercase", "snowball", "substring" ]
       }
     },
@@ -82,7 +81,8 @@ class Document < ActiveRecord::Base
       :substring => {
         :type => "nGram",
         :min_gram => 1,
-        :max_gram => 20
+        :max_gram => 40,
+        :token_chars => [ "letter", "digit" ]
       }
     }
   } do
@@ -116,6 +116,7 @@ class Document < ActiveRecord::Base
 
       indexes :tags do
         indexes :name, :type => 'string', :index => :not_analyzed
+        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
       end
 
       indexes :biographical_region, :type => 'string', :index => :not_analyzed
@@ -157,7 +158,7 @@ class Document < ActiveRecord::Base
       :languages              => languages.map { |l| { :_type  => 'language', :_id => l.id, :name => l.name } },
 
       :countries              => countries.map { |c| { :_type  => 'country', :_id => c.id, :name => c.name } },
-      :tags                   => tags.map { |c| { :name => c.name } },
+      :tags                   => tags.map { |c| { name: c.name, ngram_name: c.name } },
 
       :biographical_region    => biographical_region,
       :attachment             => attachment
@@ -202,9 +203,10 @@ class Document < ActiveRecord::Base
         # end
         boolean do
             should   { string 'title:' + params[:query].to_s }
-            # should   { string 'description:' + params[:query].to_s }
+            should   { string 'english_title:' + params[:query].to_s }
+            should   { string 'description:' + params[:query].to_s }
             should   { string 'attachment:' + params[:query].to_s }
-            # should   { string 'tags.name:' + params[:query].to_s }
+            should   { string 'tags.ngram_name:' + params[:query].to_s }
             # must_not { string 'published:0' }
         end
       end if params[:query].present?
