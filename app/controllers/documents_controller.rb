@@ -2,13 +2,15 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = Document.search(params )
-    # @documents = Document.all
+    params[:per_page] = 1000 if params[:format] == 'xls'
+    @documents = Document.search(params)
 
-    # respond_to do |format|
-    #   format.html # index.html.erb
-    #   format.json { render json: @documents }
-    # end
+    respond_to do |format|
+      format.html
+      # format.json { render json: @documents }
+      format.csv { send_data @documents.results.first.to_csv }
+      format.xls
+    end
   end
 
   # GET /documents/1
