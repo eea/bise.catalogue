@@ -53,6 +53,7 @@
 // require jquery.ui.effect-shake
 // require jquery.ui.effect-slide
 // require jquery.ui.effect-transfer
+
 //= require jquery_ujs
 
 // ----- REMOTIPART
@@ -71,8 +72,8 @@
 //= require twitter/bootstrap/bootstrap-tooltip
 //= require twitter/bootstrap/bootstrap-popover
 //= require bootstrap
-//= require jquery-fileupload/basic
-//= require jquery-fileupload/vendor/tmpl
+// require jquery-fileupload/basic
+// require jquery-fileupload/vendor/tmpl
 //= require jquery.toggle.buttons
 
 //= require fancytree/jquery.fancytree.js
