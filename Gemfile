@@ -146,8 +146,8 @@ end
 gem 'unicorn'
 
 # Deploy with Capistrano
-gem 'capistrano'
-gem 'capistrano-rbenv', '1.0.1'
+gem 'capistrano'      , '~> 2.15.5'
+gem 'capistrano-rbenv', '1.0.5'
 
 
 gem 'custom_error_message'
