@@ -244,7 +244,7 @@ class Document < ActiveRecord::Base
       end
 
       facet 'biographical_regions' do
-        terms :biographical_region
+        terms :biographical_region, size: 60
         facet_filter :and, doc_filter unless doc_filter.empty?
       end
 
