@@ -31,6 +31,7 @@ group :assets do
     gem 'jquery-rails'
     gem 'jquery-ui-rails'
     gem 'yui-compressor'
+    gem 'turbo-sprockets-rails3',    '~> 0.3.6'
     #gem 'jquery-fileupload-rails'
 
 end
