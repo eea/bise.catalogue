@@ -23,36 +23,6 @@ $ ->
     # )
     $('#article_published_on').datepicker();
 
-    # ----------------- CONCEPTS
-    $("#concepts_tree").fancytree({
-        autoCollapse: false
-        # autoFocus: false
-        extensions: ["filter"]
-        selectMode: 1
-        clickFolderMode: 3
-        # checkbox: true
-        selectMode: 2
-        noLink: true
-        minExpandLevel: 0
-        source:
-            url: "/themes.json"
-        filter:
-            mode: "hide"
-        debugLevel: 0
-        # rendernode: (event, data) ->
-        #     data.node.li.children[0].children[1].style.display = 'none' if (data.node.folder)
-        init: (event, data) ->
-            $('#filterpane').show()
-            # for n in window.tree.rootNode.children
-            #     n.setExpanded()
-        activate: (e, data) ->
-            # --- ON CLICK ---
-            if !(data.node.folder)
-                tag = $('<span>').addClass('tag').html(data.node.title)
-                $('.tag_container').append(tag)
-    })
-    window.tree = $("#concepts_tree").fancytree("getTree");
-
 
     # ----------------- SEARCH CONCEPTS
     $("input[name=search]").keyup( (e) ->
@@ -71,12 +41,6 @@ $ ->
         $("span#matches").html("")
         window.tree.clearFilter()
     ).attr("disabled", true)
-
-    # ----------------- SUBMIT
-    $("form").submit( () ->
-        # Render hidden <input> elements for active and selected nodes
-        $("#concepts_tree").fancytree("getTree").generateFormElements();
-    )
 
 
     # tinyMCE.init

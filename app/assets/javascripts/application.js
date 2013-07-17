@@ -74,9 +74,6 @@
 //= require bootstrap
 // require jquery.toggle.buttons
 
-// require fancytree/jquery.fancytree.js
-// require fancytree/jquery.fancytree.filter.js
-
 //= require raphael
 //= require morris
 
