@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby "1.9.3"
 
 
 # Bundle edge Rails instead:
@@ -84,6 +85,7 @@ gem 'sparql'
 gem 'rdf-do'
 gem 'do_postgres'
 
+# gem 'iconv'
 
 group :development do
     gem 'better_errors'
@@ -94,6 +96,7 @@ group :development do
     gem 'pry-nav'
     gem 'pry-stack_explorer'
     gem 'pry-rails'
+    gem 'pry-remote'
 
     gem 'rubocop'
 end
