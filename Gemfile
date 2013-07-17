@@ -30,7 +30,7 @@ group :assets do
 
     gem 'jquery-rails'
     gem 'jquery-ui-rails'
-    gem 'jquery-fileupload-rails'
+    #gem 'jquery-fileupload-rails'
 
 end
 
