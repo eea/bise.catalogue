@@ -239,11 +239,11 @@ class Document < ActiveRecord::Base
       end
 
       facet 'countries' do
-        terms 'countries.name'
+        terms 'countries.name', size: 60
         facet_filter :and, doc_filter unless doc_filter.empty?
       end
 
-      facet 'biographical_regions', size: 60 do
+      facet 'biographical_regions' do
         terms :biographical_region
         facet_filter :and, doc_filter unless doc_filter.empty?
       end
