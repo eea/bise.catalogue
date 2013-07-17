@@ -26,10 +26,11 @@ group :assets do
 
     gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 
-    gem 'therubyracer'
+    gem 'therubyracer'          ,    '~> 0.11.4'
 
     gem 'jquery-rails'
     gem 'jquery-ui-rails'
+    gem 'yui-compressor'
     #gem 'jquery-fileupload-rails'
 
 end
@@ -134,6 +135,11 @@ group :test do
     gem 'shoulda'
     gem 'shoulda-matchers', :require => false
     # gem 'guard-livereload'
+end
+
+group :production do
+  gem "libv8"
+  # gem "therubyracer", :require => 'v8'
 end
 
 # To use ActiveModel has_secure_password
