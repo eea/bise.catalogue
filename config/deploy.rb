@@ -10,7 +10,7 @@ set :branch, "master"
 set :user, "deployer"
 set :password, "saretex1"
 set :deploy_to, "/home/#{user}/apps/#{application}"
-set :deploy_via, :remote_cache
+set :deploy_via, :copy
 set :use_sudo, false
 
 set :shared_children, shared_children + %w{public/uploads}
