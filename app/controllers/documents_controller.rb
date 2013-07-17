@@ -2,7 +2,11 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    params[:per_page] = 1000 if params[:format] == 'xls'
+    if params[:format] == 'xls'
+      params[:per_page] = 1000
+      response.headers["ContentType"]="application/vnd.ms-excel"
+      response.headers["Content-Disposition"]="attachment"
+    end
     @documents = Document.search(params)
 
     respond_to do |format|
