@@ -3,6 +3,8 @@ require "bundler/capistrano"
 
 set :application, "catalogue"
 
+set :rbenv_ruby_version, "1.9.3-p392"
+
 # set :repository,  "git@i3apps.sytes.net:bilbomatica/catalogue.git"
 set :repository,  "https://github.com/eea/bise.catalogue.git"
 set :branch, "master"
@@ -14,6 +16,10 @@ set :deploy_via, :copy
 set :use_sudo, false
 
 set :shared_children, shared_children + %w{public/uploads}
+
+set :default_environment, {
+  'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
+}
 
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
