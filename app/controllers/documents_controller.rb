@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   # GET /documents
-  # GET /documents.json
+  # GET /documents.xml
   def index
     if params[:format] == 'xls'
       params[:per_page] = 1000
@@ -12,7 +12,6 @@ class DocumentsController < ApplicationController
     respond_to do |format|
       format.html
       # format.json { render json: @documents }
-      format.csv { send_data @documents.results.first.to_csv }
       format.xls
     end
   end

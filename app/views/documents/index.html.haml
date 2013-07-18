@@ -5,7 +5,7 @@
     = link_to new_document_path, :class => "btn" do
         %i.icon-plus
         New Document
-    = link_to documents_path(:format => :xml), :class => "btn" do
+    = link_to documents_path(:format => 'xls'), :class => "btn" do
         %i.icon-xls
         Export XLS
     = form_tag documents_path, :method => 'get', :class => 'form-search pull-right' do
