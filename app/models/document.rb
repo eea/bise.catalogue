@@ -51,6 +51,11 @@ class Document < ActiveRecord::Base
   acts_as_taggable
 
 
+  before_destroy do |document|
+    document.remove_file!
+  end
+
+
   # INDEXES
   index_name "#{Tire::Model::Search.index_prefix}documents"
   refresh = lambda { Tire::Index.new(index_name).refresh }
