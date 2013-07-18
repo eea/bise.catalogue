@@ -228,7 +228,7 @@ class Document < ActiveRecord::Base
       filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
       if params[:sort].present?
-        sort { by params[:sort].to_sym, "asc" }
+        sort { by params[:sort].to_sym, params[:sort] == "published_on" ? "desc" : "asc" }
       else
         # if no query, sort by published_on
         sort { by :published_on, "desc" } unless params[:query].present?
