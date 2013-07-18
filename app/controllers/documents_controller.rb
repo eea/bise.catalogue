@@ -4,7 +4,8 @@ class DocumentsController < ApplicationController
   def index
     if params[:format] == 'xls'
       params[:per_page] = 1000
-      response.headers["ContentType"]="application/vnd.ms-excel"
+      response.headers["ContentType"]="text/xml"
+      # response.headers["ContentType"]="application/vnd.ms-excel"
       response.headers["Content-Disposition"]="attachment"
     end
     @documents = Document.search(params)
