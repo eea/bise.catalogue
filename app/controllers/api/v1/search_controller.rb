@@ -32,9 +32,9 @@ module Api
                     'species'
                 ].map do |i|
                     if Rails.env.production?
-                        "deployer_catalogue_production_#{i}"
+                        "catalogue_production_#{i}"
                     else
-                        "jon_catalogue_development_#{i}"
+                        "catalogue_development_#{i}"
                     end
                 end
 
