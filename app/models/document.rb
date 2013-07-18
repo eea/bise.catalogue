@@ -115,6 +115,7 @@ class Document < ActiveRecord::Base
 
       indexes :published_on , :type => 'date'                           , :index => :not_analyzed
       indexes :author       , :type => 'string'                         , :index => :not_analyzed
+      indexes :ngram_author , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
 
       indexes :countries do
         indexes :id         , :type => 'integer'
@@ -163,6 +164,7 @@ class Document < ActiveRecord::Base
       :english_title             => english_title,
       :description               => description,
       :author                    => author,
+      :ngram_author              => author,
       :published_on              => published_on,
 
       :languages                 => languages.map { |l| { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name } },
@@ -204,6 +206,7 @@ class Document < ActiveRecord::Base
             should   { string 'title:' + params[:query].to_s }
             should   { string 'english_title:' + params[:query].to_s }
             should   { string 'description:' + params[:query].to_s }
+            should   { string 'ngram_author:' + params[:query].to_s }
             should   { string 'attachment:' + params[:query].to_s }
             should   { string 'countries.ngram_name:' + params[:query].to_s }
             should   { string 'languages.ngram_name:' + params[:query].to_s }
