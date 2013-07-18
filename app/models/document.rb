@@ -183,6 +183,8 @@ class Document < ActiveRecord::Base
 
   def self.search(params)
 
+    params[:query].gsub!(/[\+\-\:\"\~\*\?\{\}\[\]\(\)]/, '\\1')                          if params[:query].present?
+
     date_init, date_end = nil
     if params[:published_on].present?
       date_init = DateTime.new(params[:published_on].to_i, 1, 1)
