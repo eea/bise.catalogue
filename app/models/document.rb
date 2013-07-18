@@ -183,7 +183,7 @@ class Document < ActiveRecord::Base
 
   def self.search(params)
 
-    params[:query].gsub!(/[\+\-\:\"\~\*\?\{\}\[\]\(\)]/, '\\1')                          if params[:query].present?
+    params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)]/, '\\1')                          if params[:query].present?
 
     date_init, date_end = nil
     if params[:published_on].present?
