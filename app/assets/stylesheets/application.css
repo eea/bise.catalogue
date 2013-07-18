@@ -32,6 +32,7 @@
  * require jquery.ui.tooltip
 
  *= require bootstrap_and_overrides
+ *= require font-awesome
  * require bootstrap-toggle-buttons
 
  *= require home
@@ -43,6 +44,5 @@
  *= require protected_areas
  *= require layouts
  *= require controls
- *= font-awesome
 
  */
