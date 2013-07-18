@@ -191,27 +191,27 @@ class Document < ActiveRecord::Base
 
     # Facet Filter
     doc_filter = []
-    doc_filter << { :term => { 'site.name' => params[:site] }} if params[:site].present?
-    doc_filter << { :term => { :author => params[:author] }} if params[:author].present?
-    doc_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
-    doc_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
-    doc_filter << { :term => { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
+    doc_filter << { :term => { 'site.name' => params[:site] }}                            if params[:site].present?
+    doc_filter << { :term => { :author => params[:author] }}                              if params[:author].present?
+    doc_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }}      if params[:countries].present?
+    doc_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }}      if params[:languages].present?
+    doc_filter << { :term => { :biographical_region => params[:biographical_region] }}    if params[:biographical_region].present?
     doc_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
 
 
     tire.search :load => true, :page => params[:page], :per_page => params[:per_page] do
       query do
         boolean do
-            should   { string 'site.ngram_name:' + params[:query].to_s }
-            should   { string 'title:' + params[:query].to_s }
-            should   { string 'english_title:' + params[:query].to_s }
-            should   { string 'description:' + params[:query].to_s }
-            should   { string 'ngram_author:' + params[:query].to_s }
-            should   { string 'attachment:' + params[:query].to_s }
-            should   { string 'countries.ngram_name:' + params[:query].to_s }
-            should   { string 'languages.ngram_name:' + params[:query].to_s }
-            should   { string 'tags.ngram_name:' + params[:query].to_s }
-            should   { string 'biographical_region_ngram:' + params[:query].to_s}
+            should { string 'site.ngram_name:'           + params[:query].to_s }
+            should { string 'title:'                     + params[:query].to_s }
+            should { string 'english_title:'             + params[:query].to_s }
+            should { string 'description:'               + params[:query].to_s }
+            should { string 'ngram_author:'              + params[:query].to_s }
+            should { string 'attachment:'                + params[:query].to_s }
+            should { string 'countries.ngram_name:'      + params[:query].to_s }
+            should { string 'languages.ngram_name:'      + params[:query].to_s }
+            should { string 'tags.ngram_name:'           + params[:query].to_s }
+            should { string 'biographical_region_ngram:' + params[:query].to_s}
             # must_not { string 'published:0' }
         end
       end if params[:query].present?
@@ -220,11 +220,8 @@ class Document < ActiveRecord::Base
 
       filter :term, 'site.name' => params[:site] if params[:site].present?
       filter :term, :author => params[:author] if params[:author].present?
-      # filter :or, :terms => { :countries_names => params[:countries].split(/\//) } if params[:countries].present?
-      # filter :term, 'countries.name' => ['Spain', 'Italy']  # if params[:countries].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
-      # filter :term, :countries_names => params[:countries].split(/\//) if params[:countries].present?
       filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
       filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
