@@ -131,6 +131,8 @@ class Document < ActiveRecord::Base
       indexes :biographical_region       , :type => 'string'                         , :index => :not_analyzed
       indexes :biographical_region_ngram , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
 
+      indexes :content_type , :type => 'string'                         , :index => :not_analyzed
+
       indexes :attachment, :type => 'attachment', :fields => {
         :date       => { :store => 'yes' },
         :file       => { :index => 'no'},
@@ -174,6 +176,7 @@ class Document < ActiveRecord::Base
 
       :biographical_region       => biographical_region,
       :biographical_region_ngram => biographical_region,
+      :content_type              => content_type,
       :attachment                => attachment
     }.to_json
   end

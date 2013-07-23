@@ -25,8 +25,8 @@ module Api
                 indexes = [
                     'articles',
                     'documents',
-                    'news',
-                    'links',
+                    # 'news',
+                    # 'links',
                     'protected_areas',
                     'habitats',
                     'species'
@@ -62,6 +62,7 @@ module Api
                             boolean do
                                 # Article & Documents titles
                                 should   { string 'title:' + q }
+                                should   { string 'english_title:' + q }
 
                                 # Species scientifi name
                                 should   { string 'scientific_name:' + q }
