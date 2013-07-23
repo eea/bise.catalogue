@@ -27,7 +27,7 @@ module Api
                     'documents',
                     # 'news',
                     # 'links',
-                    # 'protected_areas',
+                    'protected_areas',
                     # 'habitats',
                     'species'
                 ].map do |i|
@@ -73,9 +73,6 @@ module Api
                                 # SITE
                                 should   { string 'site.ngram_name:'           + q }
 
-                                # Species scientifi name
-                                should   { string 'scientific_name:'           + q }
-
                                 # Countries & Languages
                                 should   { string 'countries.ngram_name:'      + q }
                                 should   { string 'languages.ngram_name:'      + q }
@@ -85,6 +82,12 @@ module Api
 
                                 # Biographical Region
                                 should   { string 'biographical_region_ngram:' + q }
+
+                                # Species scientifi name
+                                should   { string 'scientific_name:'           + q }
+
+                                # Protected Area name
+                                should   { string 'name:'                      + q }
 
                                 # must     { string 'author:' + author } unless author.nil?
                                 # should   { string 'content:' + params[:query].to_s }

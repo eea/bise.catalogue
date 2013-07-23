@@ -35,6 +35,10 @@ class Article < ActiveRecord::Base
 
   validates_presence_of :language_ids, :message => "can't be blank"
 
+  # TAGS
+  attr_accessible :tag_list
+  acts_as_taggable
+
   index_name "#{Tire::Model::Search.index_prefix}articles"
 
 
@@ -48,29 +52,56 @@ class Article < ActiveRecord::Base
   settings :analysis => {
     :analyzer => {
       :search_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase"]
+        :type => "custom",
+        :tokenizer => "standard",
+        :filter => ["lowercase", "snowball"]
       },
       :index_ngram_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase", "substring"],
-        :type => "custom"
+        :type => "custom",
+        :tokenizer => "standard",
+        :filter => [ "lowercase", "snowball", "substring" ]
       }
     },
     :filter => {
       :substring => {
         :type => "nGram",
         :min_gram => 1,
-        :max_gram => 20
+        :max_gram => 40,
+        :token_chars => [ "letter", "digit" ]
       }
     }
   } do
     mapping {
+
+      indexes :site do
+        indexes :id, :type => 'integer'
+        indexes :name, :type => 'string', :index => :not_analyzed
+        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+      end
+
       indexes :title, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
       indexes :content, :store => 'yes', :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+
+      # indexes :language, :type => 'string'
+      indexes :languages do
+        indexes :id         , :type => 'integer'
+        indexes :name       , :type => 'string'                         , :index => :not_analyzed
+        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+      end
+
+      indexes :countries do
+        indexes :id         , :type => 'integer'
+        indexes :name       , :type => 'string'                         , :index => :not_analyzed
+        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+      end
+
+      indexes :tags do
+        indexes :name       , :type => 'string'                         , :index => :not_analyzed
+        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+      end
+
       # indexes :content_without_tags, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
       # indexes :content_without_tags, :type => 'string',  :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      indexes :language, :type => 'string'
       # indexes :geographical_coverage, :type => 'string'
       indexes :biographical_region, :type => 'string', :index => :not_analyzed
       indexes :author, :type => 'string', :index => :not_analyzed
@@ -82,6 +113,28 @@ class Article < ActiveRecord::Base
   def to_indexed_json
     # self.to_json
     self.to_json :methods => [:content_without_tags]
+  end
+
+  def to_indexed_json
+    {
+      :site                      => { _type: 'site', _id: site.id, name: site.name, ngram_name: site.name },
+
+      :title                     => title,
+      :sort_title                => title,
+      :english_title             => english_title,
+      :content                   => content_without_tags,
+      :author                    => author,
+      :ngram_author              => author,
+      :published_on              => published_on,
+
+      :languages                 => languages.map { |l| { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name } },
+
+      :countries                 => countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
+      :tags                      => tags.map { |c| { name: c.name, ngram_name: c.name } },
+
+      :biographical_region       => biographical_region,
+      :biographical_region_ngram => biographical_region
+    }.to_json
   end
 
   def content_without_tags
@@ -104,8 +157,19 @@ class Article < ActiveRecord::Base
 
       query do
         boolean do
-          should   { string 'title:' + params[:query].to_s }
+          should { string 'site.ngram_name:'           + params[:query].to_s }
+          should { string 'title:'                     + params[:query].to_s }
+          should { string 'english_title:'             + params[:query].to_s }
+          should { string 'description:'               + params[:query].to_s }
+          should { string 'ngram_author:'              + params[:query].to_s }
+          should { string 'attachment:'                + params[:query].to_s }
+          should { string 'countries.ngram_name:'      + params[:query].to_s }
+          should { string 'languages.ngram_name:'      + params[:query].to_s }
+          should { string 'tags.ngram_name:'           + params[:query].to_s }
+          should { string 'biographical_region_ngram:' + params[:query].to_s}
+
           should   { string 'content_without_tags:' + params[:query].to_s }
+          # must_not { string 'published:0' }
           # must_not { string 'published:0' }
         end
       end if params[:query].present?
