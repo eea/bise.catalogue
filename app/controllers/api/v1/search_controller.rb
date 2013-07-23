@@ -27,8 +27,8 @@ module Api
                     'documents',
                     # 'news',
                     # 'links',
-                    'protected_areas',
-                    'habitats',
+                    # 'protected_areas',
+                    # 'habitats',
                     'species'
                 ].map do |i|
                     if Rails.env.production?
@@ -61,11 +61,30 @@ module Api
                         query do
                             boolean do
                                 # Article & Documents titles
-                                should   { string 'title:' + q }
-                                should   { string 'english_title:' + q }
+                                should   { string 'title:'                     + q }
+                                should   { string 'english_title:'             + q }
+                                should   { string 'description:'               + q }
+
+                                should   { string 'attachment:'                + q }
+
+                                # AUTHOR
+                                should   { string 'ngram_author:'              + q }
+
+                                # SITE
+                                should   { string 'site.ngram_name:'           + q }
 
                                 # Species scientifi name
-                                should   { string 'scientific_name:' + q }
+                                should   { string 'scientific_name:'           + q }
+
+                                # Countries & Languages
+                                should   { string 'countries.ngram_name:'      + q }
+                                should   { string 'languages.ngram_name:'      + q }
+
+                                # Tags
+                                should   { string 'tags.ngram_name:'           + q }
+
+                                # Biographical Region
+                                should   { string 'biographical_region_ngram:' + q }
 
                                 # must     { string 'author:' + author } unless author.nil?
                                 # should   { string 'content:' + params[:query].to_s }

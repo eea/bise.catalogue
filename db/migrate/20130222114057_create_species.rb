@@ -21,6 +21,7 @@ class CreateSpecies < ActiveRecord::Migration
 
             t.timestamps
         end
+        add_index :species, :uri, :unique => true
     end
 
 end
