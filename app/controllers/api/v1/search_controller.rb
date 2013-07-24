@@ -51,14 +51,17 @@ module Api
                     per  = if params[:per_page].present? then params[:per_page].to_i else 10 end
                     from = if page == 1 then 0 else (page - 1) * per end
 
-                    site   = params[:sites] if params[:sites].present?
-                    author = params[:authors] if params[:authors].present?
+                    site      = params[:sites] if params[:sites].present?
+                    author    = params[:authors] if params[:authors].present?
+                    countries = params[:countries].split(/\//) if params[:countries].present?
+                    languages = params[:languages].split(/\//) if params[:languages].present?
+                    biogeo    = params[:biographical_region] if params[:biographical_region].present?
 
                     search_filter = []
                     search_filter << { :term => { 'site.name' => params[:sites] }} if params[:sites].present?
                     search_filter << { :term => { :author => params[:authors] }} if params[:authors].present?
-                    # search_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
-                    # search_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
+                    search_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
+                    search_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
                     search_filter << { :term => { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
                     # search_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
 
@@ -102,6 +105,10 @@ module Api
 
                         filter :term, 'site.name' => site unless site.nil?
                         filter :term, :author => author unless author.nil?
+                        filter :term, 'countries.name' => countries unless countries.nil?
+                        filter :term, 'languages.name' => languages unless languages.nil?
+                        filter :term, :biographical_region => biogeo unless biogeo.nil?
+                        # filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
                         facet 'sites' do
                             terms 'site.name'
@@ -137,20 +144,17 @@ module Api
                 end
 
 
-                unless @rows.results.nil?
-                    response = Hash.new
+                response = Hash.new
+                if @rows.nil? or @rows.results.nil?
+                    response['total'] = 0
+                    response['results'] = []
+                    response['facets'] = []
+                else
                     response['total'] = @rows.results.total
                     response['results'] = @rows.results
                     response['facets'] = @rows.results.facets
                 end
-
-                if @rows and @rows.results
-                    # respond_with @rows.results
-                    respond_with response
-                else
-                    result = { :results => 0 }
-                    respond_with result
-                end
+                respond_with response
 
             end
         end
