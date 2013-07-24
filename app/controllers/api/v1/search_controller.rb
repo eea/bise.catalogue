@@ -22,23 +22,28 @@ module Api
                 q = params[:query]
                 q = nil if q == ''
 
-                indexes = [
-                    'articles',
-                    'documents',
-                    # 'news',
-                    # 'links',
-                    'protected_areas',
-                    # 'habitats',
-                    'species'
-                ].map do |i|
+                indexes = params[:indexes]
+                if indexes == "all"
+                    indexes = [
+                        'articles',
+                        'documents',
+                        # 'news',
+                        # 'links',
+                        'protected_areas',
+                        # 'habitats',
+                        'species'
+                    ]
+                else
+                    indexes = [ indexes ]
+                end
+
+                indexes = indexes.map do |i|
                     if Rails.env.production?
                         "catalogue_production_#{i}"
                     else
                         "catalogue_development_#{i}"
                     end
                 end
-
-                puts indexes
 
                 if !q.nil?
 
