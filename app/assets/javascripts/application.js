@@ -82,7 +82,6 @@
 
 //= require_tree ../../templates
 
-//= require home
 //= require articles
 //= require documents
 //= require links

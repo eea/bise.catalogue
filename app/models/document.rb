@@ -3,46 +3,39 @@ class Document < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::Callbacks
 
-  attr_accessible :site_id
-  belongs_to      :site
-  validates_presence_of :site, :message => "^Please, fill in the site."
+  belongs_to              :site
+  attr_accessible         :site_id
+  attr_accessible         :title
+  attr_accessible         :english_title
+  attr_accessible         :author
+  attr_accessible         :description
+  attr_accessible         :language_ids
+  has_and_belongs_to_many :languages, class_name: 'Language', join_table: 'documents_languages', foreign_key: 'document_id'
+  #attr_accessible        :geographical_coverage
+  attr_accessible         :biographical_region
+  attr_accessible         :source_url
+  attr_accessible         :published_on
+  attr_accessible         :published
+  attr_accessible         :downloads
+  attr_accessible         :thumbnail
+  attr_accessible         :file
+  mount_uploader          :file, FileUploader
+  attr_accessible         :country_ids
 
-  attr_accessible :title
-  validates_presence_of :title, :message => "^Please, fill in the title.", :length => { :maximum => 255 }
+  validates :site          , presence: { message: "^Please, fill in the site." }
+  validates :title         , presence: { message: "^Please, fill in the title." }        , :length => { :maximum => 255 }
+  validates :english_title , presence: { message: "^Please, fill in the english title." }, :length => { :maximum => 255 }
 
-  attr_accessible :english_title
-  validates_presence_of :english_title, :message => "^Please, fill in the english title.", :length => { :maximum => 255 }
-
-  attr_accessible :author
-  validates_presence_of :author, :message => "^Please, fill in the author."
-
-  attr_accessible :description
-
-  attr_accessible :language_ids
-  has_and_belongs_to_many :languages, :class_name => "Language", :join_table => "documents_languages", :foreign_key => "document_id"
-  validates_presence_of :language_ids, :message => "^Please, select one language at least."
-
-  #attr_accessible :geographical_coverage
-  attr_accessible :biographical_region
-
-  attr_accessible :source_url
-
-  attr_accessible :published_on
+  validates :author        , presence: { message: "^Please, fill in the author." }
+  validates :language_ids  , presence: { message: "^Please, select one language at least." }
   validate :published_on_is_valid_date
 
-  attr_accessible :published
-
-  attr_accessible :downloads
-
-  attr_accessible :thumbnail
-  attr_accessible :file
-  mount_uploader :file, FileUploader
-  validates_presence_of :file, :on => :create, :message => "^Please, choose a file to upload."
+  validates :file          , presence: { message: "^Please, choose a file to upload." , :on => :create }
   validate :uniqueness_of_md5hash, :on => :create
+
   before_validation :compute_hash
   before_save :update_file_info
 
-  attr_accessible :country_ids
   has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "documents_countries", :foreign_key => "document_id"
   has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "documents_concepts", :foreign_key => "document_id"
 

@@ -1,6 +1,9 @@
 - content_for :pageheader do
   Dashboard
 
+- content_for :js do
+  = javascript_include_tag "home"
+
 .container-fluid
   .row-fluid
     .span3
