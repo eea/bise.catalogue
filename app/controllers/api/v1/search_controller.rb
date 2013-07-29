@@ -1,3 +1,5 @@
+require 'sanitize'
+
 module Api
   module V1
     class SearchController < ApplicationController
@@ -20,6 +22,7 @@ module Api
 
       def index
         q = params[:query]
+        q = Sanitize.clean(q)
         q = nil if q == ''
 
         indexes = params[:indexes]
