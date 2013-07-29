@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 # ruby "1.9.3"
 
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'rails', '3.2.13'
 
 gem 'rack'      #, '1.4.1'
@@ -15,24 +13,18 @@ gem 'pg'
 
 
 
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
 
-    gem 'sass-rails'            ,   '~> 3.2.3'
-    # gem 'mustache'
-    # gem 'mustache_rails3'
-    #gem 'mustache-rails', :require => 'mustache/railtie'
+  gem 'sass-rails'            ,   '~> 3.2.3'
+  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 
-    gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+  gem 'therubyracer'          ,    '~> 0.11.4'
 
-    gem 'therubyracer'          ,    '~> 0.11.4'
-
-    gem 'jquery-rails'
-    gem 'jquery-ui-rails'
-    gem 'yui-compressor'
-    gem 'turbo-sprockets-rails3',    '~> 0.3.6'
-    #gem 'jquery-fileupload-rails'
+  gem 'jquery-rails'
+  gem 'jquery-ui-rails'
+  gem 'yui-compressor'
+  gem 'turbo-sprockets-rails3',    '~> 0.3.6'
+  #gem 'jquery-fileupload-rails'
 
 end
 
@@ -63,10 +55,6 @@ gem "twitter-bootstrap-rails"  # , :git => 'git://github.com/seyhunak/twitter-bo
 gem "font-awesome-rails"
 
 
-# RDF.rb
-# gem 'linkeddata'
-# gem 'equivalent-xml'
-
 gem 'rdf'                       , '~> 1.0'
 gem 'rdf-isomorphic'            , '~> 1.0'
 gem 'rdf-spec'
@@ -76,78 +64,59 @@ gem 'rdf-virtuoso'              , git: 'https://github.com/jonarrien/rdf-virtuos
 # gem 'spira'                     , '~> 0.5.0'
 gem 'spira'                     , git: 'https://github.com/ruby-rdf/spira.git'
 
-# gem 'rdf-gzip'
-# gem 'rdf-xml'
 gem 'ffi'
 gem 'sparql'
-# gem 'sparql-client'
 
 
 # DataObjects-backed repositories for RDF.rb
 gem 'rdf-do'
 gem 'do_postgres'
 
-# gem 'iconv'
 
 group :development do
-    gem 'better_errors'
+  gem 'better_errors'
 
-    # gem 'ruby-debug19'
-    gem 'pry', '>= 0.9.10'
-    gem 'pry-doc'
-    gem 'pry-nav'
-    gem 'pry-stack_explorer'
-    gem 'pry-rails'
-    gem 'pry-remote'
+  # gem 'ruby-debug19'
+  gem 'pry', '>= 0.9.10'
+  gem 'pry-doc'
+  gem 'pry-nav'
+  gem 'pry-stack_explorer'
+  gem 'pry-rails'
+  gem 'pry-remote'
 
-    gem 'rubocop'
+  gem 'rubocop'
 end
 
 group :development, :test do
 
-    # To use debugger
-    # gem 'debugger'
+  gem 'gem-ctags'
 
-    # gem 'ruby-prof'
-    # gem 'test-unit'
-    # gem 'rspec'
+  # TEST
+  gem "rspec-rails"
+  gem 'cucumber-rails', :require => false
 
-    gem 'gem-ctags'
-
-    # TEST
-    gem "rspec-rails"
-    gem 'cucumber-rails', :require => false
-
-    # Documentation
-    gem 'railroady'
-    # gem 'RedCloth'
+  # Documentation
+  gem 'railroady'
 
 end
 
 group :test do
-    gem 'factory_girl_rails'
-    gem 'capybara'
-    gem 'guard-rspec'
-    gem 'guard-cucumber'
-    # gem 'guard-zeus'
-    gem 'guard-zeus-client'
-    gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'guard-cucumber'
+  # gem 'guard-zeus'
+  gem 'guard-zeus-client'
+  gem 'database_cleaner'
 
-    gem 'shoulda'
-    gem 'shoulda-matchers', :require => false
-    # gem 'guard-livereload'
+  gem 'shoulda'
+  gem 'shoulda-matchers', :require => false
+  # gem 'guard-livereload'
 end
 
 group :production do
   gem "libv8"
-  # gem "therubyracer", :require => 'v8'
 end
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
 
 # Use unicorn as the app server
 gem 'unicorn'
@@ -169,5 +138,3 @@ gem 'simple_form'
 gem 'carrierwave'
 gem 'docsplit'
 
-# Versioning
-# gem 'vestal_versions', :git => 'git://github.com/laserlemon/vestal_versions'
