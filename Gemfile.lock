@@ -318,6 +318,8 @@ GEM
       parser (= 2.0.0.pre2)
       powerpack (= 0.0.1)
       rainbow (>= 1.1.4)
+    sanitize (2.0.6)
+      nokogiri (>= 1.4.4)
     sass (3.2.9)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -447,6 +449,7 @@ DEPENDENCIES
   remotipart
   rspec-rails
   rubocop
+  sanitize
   sass-rails (~> 3.2.3)
   shoulda
   shoulda-matchers

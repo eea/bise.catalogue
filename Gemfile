@@ -33,6 +33,7 @@ gem 'underscore-rails'
 # Outside assets for production coffee handlers
 gem 'coffee-rails'              , '~> 3.2.1'
 gem 'uglifier'                  , '>= 1.0.3'
+gem 'sanitize'
 
 # Remote file uploading
 gem "remotipart"
