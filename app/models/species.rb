@@ -125,18 +125,6 @@ class Species < ActiveRecord::Base
     clazz
   end
 
-  def order
-
-  end
-
-  def family
-
-  end
-
-  def genus
-
-  end
-
   def self.search(params)
     tire.search :load => true, :page => params[:page], :per_page => 20 do
 
