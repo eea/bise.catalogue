@@ -26,7 +26,7 @@ class Document < ActiveRecord::Base
   validates :title         , presence: { message: "^Please, fill in the title." }        , :length => { :maximum => 255 }
   validates :english_title , presence: { message: "^Please, fill in the english title." }, :length => { :maximum => 255 }
 
-  validates :author        , presence: { message: "^Please, fill in the author." }
+  validates :author        , presence: { message: "^Please, fill in the author." }, length: { maximum: 255}
   validates :language_ids  , presence: { message: "^Please, select one language at least." }
   validate :published_on_is_valid_date
 
@@ -124,16 +124,17 @@ class Document < ActiveRecord::Base
       indexes :biographical_region       , :type => 'string'                         , :index => :not_analyzed
       indexes :biographical_region_ngram , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
 
+      indexes :file_name    , type: 'string' , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
       indexes :content_type , :type => 'string'                         , :index => :not_analyzed
 
       indexes :attachment, :type => 'attachment', :fields => {
-        :date       => { :store => 'yes' },
-        :file       => { :index => 'no'},
+        :date       => { store: 'yes' },
+        :file       => { store: 'yes', :index => 'no'},
         # :title      => { :store => 'yes' },
         # :name       => { :store => 'yes' },  # exists?!?
-        :content    => { :store => 'yes', :term_vector => 'with_positions_offsets', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer' },
-        :attachment => { :store => 'yes', :term_vector => 'with_positions_offsets' },
-        :author     => { :analyzer => 'index_ngram_analyzer' }
+        :content    => { store: 'yes', :term_vector => 'with_positions_offsets', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer' },
+        :attachment => { store: 'yes', :term_vector => 'with_positions_offsets' },
+        :author     => { analyzer: 'index_ngram_analyzer' }
       }
     end
   end
@@ -169,6 +170,7 @@ class Document < ActiveRecord::Base
 
       :biographical_region       => biographical_region,
       :biographical_region_ngram => biographical_region,
+      :file_name                 => file_url,
       :content_type              => content_type,
       :attachment                => attachment
     }.to_json
