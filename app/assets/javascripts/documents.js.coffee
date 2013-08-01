@@ -98,7 +98,7 @@ $ ->
     window.doc = new Document()
 
     # ----- CALENDAR
-    $('#document_published_on').datepicker();
+    $('#document_published_on').datepicker({ dateFormat: 'dd/mm/yy' });
 
 
     # ----- PROGRESS DIALOG
