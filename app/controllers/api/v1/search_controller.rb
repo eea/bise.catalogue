@@ -113,7 +113,7 @@ module Api
             filter :term, :biographical_region => biogeo unless biogeo.nil?
             # filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
-            highlight :attachment
+            highlight attachment: { :number_of_fragments => 2 }
 
             facet 'sites' do
               terms 'site.name'
