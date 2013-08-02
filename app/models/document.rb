@@ -62,7 +62,8 @@ class Document < ActiveRecord::Base
 
   settings :analysis => {
 
-    # An analyzer of type snowball that uses the standard tokenizer, with standard filter, lowercase filter, stop filter, and snowball filter.
+    # An analyzer of type snowball that uses the standard tokenizer, with
+    # standard filter, lowercase filter, stop filter, and snowball filter.
     :analyzer => {
       :search_analyzer => {
         :type => "custom",
@@ -139,18 +140,6 @@ class Document < ActiveRecord::Base
     end
   end
 
-  # def to_csv
-  #   CSV.generate do |csv|
-  #     csv << Document.column_names
-  #     Document.find(:all).each do |product|
-  #       csv << self.attributes.values_at(*Document.column_names)
-  #     end
-  #     # all.each do |product|
-  #     #     csv << product.attributes.values_at(*column_names)
-  #     # end
-  #   end
-  # end
-
   def to_indexed_json
     {
       :site                      => { _type: 'site', _id: site.id, name: site.name, ngram_name: site.name },
@@ -180,9 +169,6 @@ class Document < ActiveRecord::Base
     file.store_path.gsub file.root, ''
   end
 
-
-  # ----- SEARCH  -----
-
   def self.search(params)
 
     params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)]/, '\\1')                          if params[:query].present?
@@ -201,7 +187,6 @@ class Document < ActiveRecord::Base
     doc_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }}      if params[:languages].present?
     doc_filter << { :term => { :biographical_region => params[:biographical_region] }}    if params[:biographical_region].present?
     doc_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
-
 
     tire.search :load => true, :page => params[:page], :per_page => params[:per_page] do
       query do
@@ -322,14 +307,7 @@ class Document < ActiveRecord::Base
     end
 
     def published_on_is_valid_date
-      # begin
-      #   DateTime.parse(published_on)
-      # rescue Exception => e
-      #   errors.add(:published_on, 'must be a valid date')
-      # end
-
       errors.add(:published_on, 'must be a valid date') unless published_on.class == Date
-      # errors.add(:published_on, 'must be a valid date') if (DateTime.parse(published_on) rescue Exception)
     end
 
 end

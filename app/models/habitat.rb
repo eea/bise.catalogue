@@ -83,6 +83,7 @@ class Habitat < ActiveRecord::Base
       query do
         boolean do
           should   { string 'name:' + params[:query].to_s }
+          should   { string 'description:' + params[:query].to_s }
         end
       end if params[:query].present?
 
