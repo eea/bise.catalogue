@@ -170,10 +170,14 @@ class Document < ActiveRecord::Base
 
       :biographical_region       => biographical_region,
       :biographical_region_ngram => biographical_region,
-      :file_name                 => file_url,
+      :file_name                 => document_path,
       :content_type              => content_type,
       :attachment                => attachment
     }.to_json
+  end
+
+  def document_path
+    file.store_path.gsub file.root, ''
   end
 
 
