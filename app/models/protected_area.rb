@@ -43,6 +43,7 @@ class ProtectedArea < ActiveRecord::Base
     }
   } do
     mapping {
+      indexes :code, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
       indexes :name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
 
       indexes :country, :type => 'string', :index => :not_analyzed
@@ -76,6 +77,8 @@ class ProtectedArea < ActiveRecord::Base
 
   def to_indexed_json
     {
+      :uri                    => uri,
+      :code                   => code,
       :name                   => name,
       :country                => country_name,
       :biogeoregions          => biogeo_regions.map { |b| { :_type  => 'biogeo_region', _id: b.id, bioregion_code: b.code, bioregion_name: b.area_name } },
