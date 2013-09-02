@@ -5,12 +5,6 @@
 
 $ ->
 
-    # $('ul.nav.nav-tabs li a').click () ->
-    #     $(this).parent().addClass('active').siblings().removeClass('active')
-    #     sectionName = $(this).data('article');
-    #     $(sectionName).siblings().hide();
-    #     $(sectionName).show()
-
     # ----------------- PUBLISHED
     # $('#article_published').toggleButtons(
     #     style:
@@ -24,7 +18,7 @@ $ ->
     $('#article_language_ids').chosen({
         width: '100%'
     })
-    $('#article_published_on').datepicker();
+    $('#article_published_on').datepicker({ dateFormat: 'dd/mm/yy' })
 
 
     # ----------------- SEARCH CONCEPTS

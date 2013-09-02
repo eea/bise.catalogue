@@ -187,7 +187,7 @@ ActiveRecord::Schema.define(:version => 20130712112220) do
     t.string   "title"
     t.string   "english_title"
     t.string   "author"
-    t.datetime "published_on"
+    t.date     "published_on"
     t.boolean  "published",           :default => false
     t.string   "language"
     t.string   "source"
@@ -196,7 +196,7 @@ ActiveRecord::Schema.define(:version => 20130712112220) do
     t.string   "url"
     t.string   "comment"
     t.string   "description"
-    t.datetime "approved_at"
+    t.date     "approved_at"
     t.integer  "site_id"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false

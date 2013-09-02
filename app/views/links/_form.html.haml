@@ -1,81 +1,33 @@
 = simple_form_for(@link) do |f|
 
-    .tab-content
-        #general.tab-pane.active
+  .container-fluid
 
-            .container-fluid
+    = render :partial => 'common/common_info', :locals => { :f => f }
 
-                = render :partial => 'common/common_info', :locals => { :f => f }
+    %legend Link
 
-                = render :partial => 'common/languages', :locals => { :parent => @link }
+    .row-fluid
+      .span6
+        = f.input :url, :placeholder => 'http://www.google.com' , :input_html => { :class => "input-block-level" }
+      .span6
+        = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
 
-                = render :partial => 'common/publication', :locals => { :f => f }
-
-                %legend Link
-
-                .row-fluid
-                    .span6
-                        = f.input :url, :placeholder => 'http://www.google.com' , :input_html => { :class => "input-block-level" }
-                    .span6
-                        = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
-
-        #geographic.tab-pane
-            .container-fluid
-                = render :partial => 'common/countries', :locals => { :parent => @link }
-
-        #related.tab-pane
-            .container-fluid
-                .row-fluid
-                    .alert.alert-error
-                        %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
-                        %strong
-                            Warning!
-                        This is a prototype, not working yet
-
-                .row-fluid
-                    .span12
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            Articles
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            Documents
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            Events
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            Links
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            Multimedia
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            News
-        #ecosystems.tab-pane
-            .container-fluid
-                .alert.alert-error
-                    %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
-                    %strong
-                        Warning!
-                    This is a prototype, not working yet
-
-                .row-fluid
-                    .span12
-                        %legend Biodiversity
-
-                .row-fluid
-                    .span6
-                        /= render :partial => 'common/targets', :locals => { :parent => @document }
-                    .span6
-                        = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
+    = render :partial => 'common/countries', :locals => { :parent => @link }
 
 
-    %div.form-actions
-        = f.submit 'Save', :class => "btn btn-success"
-        = link_to "Cancel", links_path, :class => "btn"
+    / .row-fluid
+    /     .span12
+    /         %legend Biodiversity
 
-/ - content_for :js do
-/     = javascript_include_tag 'links'
+    / .row-fluid
+    /     .span6
+    /         /= render :partial => 'common/targets', :locals => { :parent => @document }
+    /     .span6
+    /         = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
+
+
+  %div.form-actions
+    = f.submit 'Save', :class => "btn btn-success"
+    = link_to "Cancel", links_path, :class => "btn"
 
 

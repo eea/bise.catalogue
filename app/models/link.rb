@@ -3,40 +3,14 @@ class Link < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::Callbacks
 
-  attr_accessible :title
-  attr_accessible :english_title
-  attr_accessible :author
+  include Classifiable
 
-  attr_accessible :language_ids
-  has_and_belongs_to_many :languages, :class_name => "Language", :join_table => "links_languages", :foreign_key => "link_id"
-
-  attr_accessible :biographical_region
-
-  attr_accessible :source
-
-  attr_accessible :published_on
-  attr_accessible :published
-
-  attr_accessible :site_id
-  belongs_to      :site
-
-  attr_accessible :country_ids
-  has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "links_countries", :foreign_key => "link_id"
-
-  attr_accessible :approved
-  attr_accessible :approved_at
-  attr_accessible :language
   attr_accessible :url
   attr_accessible :description
-  attr_accessible :comment
+  # attr_accessible :comment
 
-  # validates_presence_of :site
-  validates_presence_of :title, :message => "cannot be blank"
-  validates_presence_of :url, :message => "cannot be blank"
-  validates_presence_of :author, :message => "cannot be blank"
-  validates_presence_of :site, :message => "cannot be blank"
+  validates :url, presence: true
   validates_format_of :url, :with => /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
-
 
   index_name "#{Tire::Model::Search.index_prefix}links"
 

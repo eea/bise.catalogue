@@ -6,7 +6,7 @@ class CreateLinks < ActiveRecord::Migration
             t.string :title
             t.string :english_title
             t.string :author
-            t.datetime :published_on
+            t.date :published_on
             t.boolean   :published    , default: false
             t.string :language
             t.string :source
@@ -15,7 +15,7 @@ class CreateLinks < ActiveRecord::Migration
             t.string :url
             t.string :comment
             t.string :description
-            t.datetime :approved_at
+            t.date :approved_at
             t.references :site
             t.timestamps
 
