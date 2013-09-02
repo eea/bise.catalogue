@@ -62,6 +62,7 @@ module Api
 
           search_filter = []
           search_filter << { :term => { 'site.name' => params[:sites] }} if params[:sites].present?
+          search_filter << { :term => { :source_db => params[:source_db] }} if params[:source_db].present?
           search_filter << { :term => { :author => params[:authors] }} if params[:authors].present?
           search_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
           search_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
@@ -120,6 +121,11 @@ module Api
               facet_filter :and, search_filter unless search_filter.empty?
             end
 
+            facet 'source_db' do
+              terms :source_db
+              facet_filter :and, search_filter unless search_filter.empty?
+            end
+
             facet 'authors' do
               terms :author
               facet_filter :and, search_filter unless search_filter.empty?
@@ -130,7 +136,7 @@ module Api
               facet_filter :and, search_filter unless search_filter.empty?
             end
 
-            facet 'biographical_region' do
+            facet 'biographical_regions' do
               terms :biographical_region
               facet_filter :and, search_filter unless search_filter.empty?
             end
@@ -138,6 +144,37 @@ module Api
             facet 'languages' do
               terms 'languages.name'
               facet_filter :and, search_filter unless search_filter.empty?
+            end
+
+            facet 'kingdom' do
+              terms :kingdom
+              facet_filter :and, search_filter  unless search_filter.empty?
+            end
+
+            facet 'phylum' do
+              terms :phylum
+              facet_filter :and, search_filter  unless search_filter.empty?
+            end
+
+            facet 'classis' do
+              terms :classis
+              facet_filter :and, search_filter  unless search_filter.empty?
+            end
+
+            facet 'species_group' do
+              terms :species_group, :size => 15
+              facet_filter :and, search_filter  unless search_filter.empty?
+            end
+
+            facet 'taxonomic_rank' do
+              terms :taxonomic_rank, :size => 15
+              facet_filter :and, search_filter  unless search_filter.empty?
+            end
+
+            facet 'genus' do
+              terms :genus, :order => 'term'
+              # :all_terms => true,
+              facet_filter :and, search_filter  unless search_filter.empty?
             end
 
             # facet('timeline') do
