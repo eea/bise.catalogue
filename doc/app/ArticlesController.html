@@ -107,6 +107,22 @@
 
   <ul class="link-list">
   
+    <li><a href="./Api.html">Api</a>
+  
+    <li><a href="./Api/V1.html">Api::V1</a>
+  
+    <li><a href="./Api/V1/EcosystemAssessmentsController.html">Api::V1::EcosystemAssessmentsController</a>
+  
+    <li><a href="./Api/V1/SearchController.html">Api::V1::SearchController</a>
+  
+    <li><a href="./RDF.html">RDF</a>
+  
+    <li><a href="./RDF/DataObjects.html">RDF::DataObjects</a>
+  
+    <li><a href="./RDF/DataObjects/ElasticRepository.html">RDF::DataObjects::ElasticRepository</a>
+  
+    <li><a href="./RDF/DataObjects/Repository.html">RDF::DataObjects::Repository</a>
+  
     <li><a href="./Action.html">Action</a>
   
     <li><a href="./ActionsController.html">ActionsController</a>
@@ -123,11 +139,11 @@
   
     <li><a href="./ArticlesHelper.html">ArticlesHelper</a>
   
-    <li><a href="./Concept.html">Concept</a>
+    <li><a href="./BiogeoRegion.html">BiogeoRegion</a>
   
-    <li><a href="./ConceptsController.html">ConceptsController</a>
+    <li><a href="./Classifiable.html">Classifiable</a>
   
-    <li><a href="./ConceptsHelper.html">ConceptsHelper</a>
+    <li><a href="./Country.html">Country</a>
   
     <li><a href="./Document.html">Document</a>
   
@@ -135,7 +151,43 @@
   
     <li><a href="./DocumentsHelper.html">DocumentsHelper</a>
   
+    <li><a href="./EcosystemAssessment.html">EcosystemAssessment</a>
+  
+    <li><a href="./EcosystemAssessmentsController.html">EcosystemAssessmentsController</a>
+  
+    <li><a href="./EcosystemAssessmentsHelper.html">EcosystemAssessmentsHelper</a>
+  
     <li><a href="./FileUploader.html">FileUploader</a>
+  
+    <li><a href="./Habitat.html">Habitat</a>
+  
+    <li><a href="./HabitatsController.html">HabitatsController</a>
+  
+    <li><a href="./HabitatsHelper.html">HabitatsHelper</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./HomeHelper.html">HomeHelper</a>
+  
+    <li><a href="./Language.html">Language</a>
+  
+    <li><a href="./Link.html">Link</a>
+  
+    <li><a href="./LinksController.html">LinksController</a>
+  
+    <li><a href="./LinksHelper.html">LinksHelper</a>
+  
+    <li><a href="./News.html">News</a>
+  
+    <li><a href="./NewsController.html">NewsController</a>
+  
+    <li><a href="./NewsHelper.html">NewsHelper</a>
+  
+    <li><a href="./ProtectedArea.html">ProtectedArea</a>
+  
+    <li><a href="./ProtectedAreasController.html">ProtectedAreasController</a>
+  
+    <li><a href="./ProtectedAreasHelper.html">ProtectedAreasHelper</a>
   
     <li><a href="./SearchController.html">SearchController</a>
   
@@ -153,17 +205,15 @@
   
     <li><a href="./SpeciesHelper.html">SpeciesHelper</a>
   
+    <li><a href="./SpeciesTranslations.html">SpeciesTranslations</a>
+  
     <li><a href="./Target.html">Target</a>
   
     <li><a href="./TargetsController.html">TargetsController</a>
   
     <li><a href="./TargetsHelper.html">TargetsHelper</a>
   
-    <li><a href="./Theme.html">Theme</a>
-  
-    <li><a href="./ThemesController.html">ThemesController</a>
-  
-    <li><a href="./ThemesHelper.html">ThemesHelper</a>
+    <li><a href="./Taxonomy.html">Taxonomy</a>
   
   </ul>
 </nav>
@@ -212,13 +262,13 @@
 
           
           <div class="method-source-code" id="concepts-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 27</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">concepts</span>
-    <span class="ruby-ivar">@themes</span> = <span class="ruby-constant">Theme</span>.<span class="ruby-identifier">all</span>
-    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-        <span class="ruby-comment"># format.html # new.html.erb</span>
-        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@themes</span> }
-    <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@themes</span> = <span class="ruby-constant">Theme</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-comment"># format.html # new.html.erb</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@themes</span> }
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- concepts-source -->
           
@@ -246,20 +296,20 @@
 
           
           <div class="method-source-code" id="create-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 63</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create</span>
-    <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:article</span>])
-    <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">concepts</span> = <span class="ruby-identifier">get_concepts</span>(<span class="ruby-identifier">params</span>[<span class="ruby-string">'ft'</span>]) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">'ft'</span>].<span class="ruby-identifier">nil?</span>
+  <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:article</span>])
+  <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">concepts</span> = <span class="ruby-identifier">get_concepts</span>(<span class="ruby-identifier">params</span>[<span class="ruby-string">'ft'</span>]) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">'ft'</span>].<span class="ruby-identifier">nil?</span>
 
-    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">save</span>
-            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@article</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Article was successfully created.'</span> }
-            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@article</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:created</span>, <span class="ruby-value">:location</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@article</span> }
-        <span class="ruby-keyword">else</span>
-            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;new&quot;</span> }
-            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
-        <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@article</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Article was successfully created.'</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@article</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:created</span>, <span class="ruby-value">:location</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@article</span> }
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;new&quot;</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
     <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- create-source -->
           
@@ -287,14 +337,14 @@
 
           
           <div class="method-source-code" id="destroy-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 96</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 88</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">destroy</span>
-    <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-    <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">destroy</span>
-    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">articles_url</span> }
-        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
-    <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">destroy</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">articles_url</span> }
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- destroy-source -->
           
@@ -322,9 +372,11 @@
 
           
           <div class="method-source-code" id="edit-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 57</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 47</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">edit</span>
-    <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@countries</span> = <span class="ruby-constant">Country</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-ivar">@languages</span> = <span class="ruby-constant">Language</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
 <span class="ruby-keyword">end</span></pre>
           </div><!-- edit-source -->
           
@@ -354,11 +406,11 @@
           <div class="method-source-code" id="index-source">
             <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">index</span>
-    <span class="ruby-ivar">@articles</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>)
-    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
-        <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@articles</span> }
-    <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@articles</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">search</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@articles</span> }
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- index-source -->
           
@@ -386,13 +438,15 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 48</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 36</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new</span>
-    <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">new</span>
-    <span class="ruby-comment"># respond_to do |format|</span>
-    <span class="ruby-comment">#     format.html # new.html.erb</span>
-    <span class="ruby-comment">#     format.json { render json: @article }</span>
-    <span class="ruby-comment"># end</span>
+  <span class="ruby-ivar">@countries</span> = <span class="ruby-constant">Country</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-ivar">@languages</span> = <span class="ruby-constant">Language</span>.<span class="ruby-identifier">all</span>
+  <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-comment"># respond_to do |format|</span>
+  <span class="ruby-comment">#     format.html # new.html.erb</span>
+  <span class="ruby-comment">#     format.json { render json: @article }</span>
+  <span class="ruby-comment"># end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- new-source -->
           
@@ -420,13 +474,13 @@
 
           
           <div class="method-source-code" id="show-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 38</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">show</span>
-    <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-    <span class="ruby-comment"># respond_to do |format|</span>
-    <span class="ruby-comment">#     format.html # show.html.erb</span>
-    <span class="ruby-comment">#     format.json { render json: @article }</span>
-    <span class="ruby-comment"># end</span>
+  <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> <span class="ruby-comment"># show.html.erb</span>
+    <span class="ruby-comment"># format.json { render json: @article }</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- show-source -->
           
@@ -454,19 +508,19 @@
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 80</span>
+            <pre><span class="ruby-comment"># File app/controllers/articles_controller.rb, line 72</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>
-    <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
-    <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">concepts</span> = <span class="ruby-identifier">get_concepts</span>(<span class="ruby-identifier">params</span>)
-    <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:article</span>])
-            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@article</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Article was successfully updated.'</span> }
-            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
-        <span class="ruby-keyword">else</span>
-            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;edit&quot;</span> }
-            <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
-        <span class="ruby-keyword">end</span>
+  <span class="ruby-ivar">@article</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">concepts</span> = <span class="ruby-identifier">get_concepts</span>(<span class="ruby-identifier">params</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-string">'ft'</span>].<span class="ruby-identifier">nil?</span>
+  <span class="ruby-identifier">respond_to</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">format</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:article</span>])
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@article</span>, <span class="ruby-value">:notice</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Article was successfully updated.'</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">head</span> <span class="ruby-value">:no_content</span> }
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">html</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;edit&quot;</span> }
+      <span class="ruby-identifier">format</span>.<span class="ruby-identifier">json</span> { <span class="ruby-identifier">render</span> <span class="ruby-value">:json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@article</span>.<span class="ruby-identifier">errors</span>, <span class="ruby-value">:status</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:unprocessable_entity</span> }
     <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- update-source -->
           

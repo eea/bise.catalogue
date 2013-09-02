@@ -1,62 +1,21 @@
 = simple_form_for(@news) do |f|
 
-    .tab-content
-        #general.tab-pane.active
-            .container-fluid
+  .container-fluid
+    = render :partial => 'common/common_info', :locals => { :f => f }
+    = render :partial => 'common/countries', :locals => { :parent => @news }
+    / .row-fluid
+    /     .span12
+    /         %legend Biodiversity
 
-                = render :partial => 'common/common_info', :locals => { :f => f }
+    / .row-fluid
+    /     .span6
+    /         /= render :partial => 'common/targets', :locals => { :parent => @document }
+    /     .span6
+    /         = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
 
+  %div.form-actions
+    = f.submit 'Save', :class => "btn btn-success"
+    = link_to "Cancel", news_index_path, :class => "btn"
 
-        #geographic.tab-pane
-            .container-fluid
-                = render :partial => 'common/countries', :locals => { :parent => @news }
-        #related.tab-pane
-            .container-fluid
-                .row-fluid
-                    .alert.alert-error
-                        %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
-                        %strong
-                            Warning!
-                        This is a prototype, not working yet
-
-                .row-fluid
-                    .span12
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            Articles
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            Documents
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            Events
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            Links
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            Multimedia
-                        %legend
-                            %a.btn.btn-small.pull-right +
-                            News
-
-        #ecosystems.tab-pane
-            .container-fluid
-                .row-fluid
-                    .span12
-                        %legend Biodiversity
-
-                .row-fluid
-                    .span6
-                        /= render :partial => 'common/targets', :locals => { :parent => @document }
-                    .span6
-                        = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
-
-    %div.form-actions
-        = f.submit 'Save', :class => "btn btn-success"
-        = link_to "Cancel", news_index_path, :class => "btn"
-
-/ - content_for :js do
-/     = javascript_include_tag 'news'
 
 

@@ -68,3 +68,17 @@ en:
               not_valid: Please, choose a valid date.
             url:
               blank: Please, link is mandatory.
+        news:
+          attributes:
+            site:
+              blank: Please, fill in the site.
+            title:
+              blank: Please, fill in the title.
+            english_title:
+              blank: Please, fill in the english title.
+            author:
+              blank: Please, fill in the author.
+            language_ids:
+              blank: Please, select at least one language.
+            published_on:
+              not_valid: Please, choose a valid date.

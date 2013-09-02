@@ -87,6 +87,22 @@
 
   <ul class="link-list">
   
+    <li><a href="./Api.html">Api</a>
+  
+    <li><a href="./Api/V1.html">Api::V1</a>
+  
+    <li><a href="./Api/V1/EcosystemAssessmentsController.html">Api::V1::EcosystemAssessmentsController</a>
+  
+    <li><a href="./Api/V1/SearchController.html">Api::V1::SearchController</a>
+  
+    <li><a href="./RDF.html">RDF</a>
+  
+    <li><a href="./RDF/DataObjects.html">RDF::DataObjects</a>
+  
+    <li><a href="./RDF/DataObjects/ElasticRepository.html">RDF::DataObjects::ElasticRepository</a>
+  
+    <li><a href="./RDF/DataObjects/Repository.html">RDF::DataObjects::Repository</a>
+  
     <li><a href="./Action.html">Action</a>
   
     <li><a href="./ActionsController.html">ActionsController</a>
@@ -103,11 +119,11 @@
   
     <li><a href="./ArticlesHelper.html">ArticlesHelper</a>
   
-    <li><a href="./Concept.html">Concept</a>
+    <li><a href="./BiogeoRegion.html">BiogeoRegion</a>
   
-    <li><a href="./ConceptsController.html">ConceptsController</a>
+    <li><a href="./Classifiable.html">Classifiable</a>
   
-    <li><a href="./ConceptsHelper.html">ConceptsHelper</a>
+    <li><a href="./Country.html">Country</a>
   
     <li><a href="./Document.html">Document</a>
   
@@ -115,7 +131,43 @@
   
     <li><a href="./DocumentsHelper.html">DocumentsHelper</a>
   
+    <li><a href="./EcosystemAssessment.html">EcosystemAssessment</a>
+  
+    <li><a href="./EcosystemAssessmentsController.html">EcosystemAssessmentsController</a>
+  
+    <li><a href="./EcosystemAssessmentsHelper.html">EcosystemAssessmentsHelper</a>
+  
     <li><a href="./FileUploader.html">FileUploader</a>
+  
+    <li><a href="./Habitat.html">Habitat</a>
+  
+    <li><a href="./HabitatsController.html">HabitatsController</a>
+  
+    <li><a href="./HabitatsHelper.html">HabitatsHelper</a>
+  
+    <li><a href="./HomeController.html">HomeController</a>
+  
+    <li><a href="./HomeHelper.html">HomeHelper</a>
+  
+    <li><a href="./Language.html">Language</a>
+  
+    <li><a href="./Link.html">Link</a>
+  
+    <li><a href="./LinksController.html">LinksController</a>
+  
+    <li><a href="./LinksHelper.html">LinksHelper</a>
+  
+    <li><a href="./News.html">News</a>
+  
+    <li><a href="./NewsController.html">NewsController</a>
+  
+    <li><a href="./NewsHelper.html">NewsHelper</a>
+  
+    <li><a href="./ProtectedArea.html">ProtectedArea</a>
+  
+    <li><a href="./ProtectedAreasController.html">ProtectedAreasController</a>
+  
+    <li><a href="./ProtectedAreasHelper.html">ProtectedAreasHelper</a>
   
     <li><a href="./SearchController.html">SearchController</a>
   
@@ -133,17 +185,15 @@
   
     <li><a href="./SpeciesHelper.html">SpeciesHelper</a>
   
+    <li><a href="./SpeciesTranslations.html">SpeciesTranslations</a>
+  
     <li><a href="./Target.html">Target</a>
   
     <li><a href="./TargetsController.html">TargetsController</a>
   
     <li><a href="./TargetsHelper.html">TargetsHelper</a>
   
-    <li><a href="./Theme.html">Theme</a>
-  
-    <li><a href="./ThemesController.html">ThemesController</a>
-  
-    <li><a href="./ThemesHelper.html">ThemesHelper</a>
+    <li><a href="./Taxonomy.html">Taxonomy</a>
   
   </ul>
 </nav>
@@ -195,28 +245,28 @@
             <pre><span class="ruby-comment"># File app/helpers/articles_helper.rb, line 3</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">articles_by_year</span>
 
-    <span class="ruby-comment"># results = Article.group('created_at').count</span>
+  <span class="ruby-comment"># results = Article.group('created_at').count</span>
 
-    <span class="ruby-comment"># results = Article.count(:all, :group =&gt; &quot;strftime('%Y', created_at)&quot;)</span>
-    <span class="ruby-identifier">data</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-comment"># results = Article.count(:all, :group =&gt; &quot;strftime('%Y', created_at)&quot;)</span>
+  <span class="ruby-identifier">data</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
 
-    <span class="ruby-comment"># results = Article.group { |t| t.due_at.beginning_of_year }</span>
-    (<span class="ruby-value">7</span>.<span class="ruby-identifier">years</span>.<span class="ruby-identifier">ago</span>.<span class="ruby-identifier">year</span><span class="ruby-operator">..</span><span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>.<span class="ruby-identifier">year</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">date</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> { <span class="ruby-string">&quot;:: year =&gt; &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">date</span>.<span class="ruby-identifier">to_s</span> }
+  <span class="ruby-comment"># results = Article.group { |t| t.due_at.beginning_of_year }</span>
+  (<span class="ruby-value">7</span>.<span class="ruby-identifier">years</span>.<span class="ruby-identifier">ago</span>.<span class="ruby-identifier">year</span><span class="ruby-operator">..</span><span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>.<span class="ruby-identifier">year</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">date</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> { <span class="ruby-string">&quot;:: year =&gt; &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">date</span>.<span class="ruby-identifier">to_s</span> }
 
-        <span class="ruby-comment"># r = Article.where(&quot;Date('%Y', created_at) = ?&quot;, date.to_s).count</span>
-        <span class="ruby-identifier">r</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">where</span>( <span class="ruby-value">:created_at</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">date</span>).<span class="ruby-identifier">count</span>
-        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> { <span class="ruby-identifier">r</span> }
+    <span class="ruby-comment"># r = Article.where(&quot;Date('%Y', created_at) = ?&quot;, date.to_s).count</span>
+    <span class="ruby-identifier">r</span> = <span class="ruby-constant">Article</span>.<span class="ruby-identifier">where</span>( <span class="ruby-value">:created_at</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">date</span>).<span class="ruby-identifier">count</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> { <span class="ruby-identifier">r</span> }
 
-        <span class="ruby-comment"># {</span>
-        <span class="ruby-comment">#     purchased_at: date,</span>
-        <span class="ruby-comment">#     price: Order.where(&quot;date(purchased_at) = ?&quot;, date).sum(:price)</span>
-        <span class="ruby-comment"># }</span>
-    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># {</span>
+    <span class="ruby-comment">#     purchased_at: date,</span>
+    <span class="ruby-comment">#     price: Order.where(&quot;date(purchased_at) = ?&quot;, date).sum(:price)</span>
+    <span class="ruby-comment"># }</span>
+  <span class="ruby-keyword">end</span>
 
-    {
-        <span class="ruby-value">:hola</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'hola'</span>
-    }
+  {
+    <span class="ruby-value">:hola</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'hola'</span>
+  }
 
 <span class="ruby-keyword">end</span></pre>
           </div><!-- articles_by_year-source -->
