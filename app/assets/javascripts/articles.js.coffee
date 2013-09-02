@@ -21,6 +21,9 @@ $ ->
     #         disabled: "NO"
 
     # )
+    $('#article_language_ids').chosen({
+        width: '100%'
+    })
     $('#article_published_on').datepicker();
 
 

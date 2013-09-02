@@ -14,10 +14,12 @@ module Classifiable
     has_and_belongs_to_many :languages, class_name: 'Language', join_table: "#{name.pluralize.downcase}_languages", foreign_key: "#{name.downcase}_id"
 
     attr_accessible         :biographical_region
-    attr_accessible         :country_ids
 
     attr_accessible         :published_on
     attr_accessible         :published
+
+    attr_accessible         :country_ids
+    has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "#{name.pluralize.downcase}_countries", :foreign_key => "#{name.downcase}_id"
 
     validates :site          , presence: true
     validates :title         , presence: true , :length => { :maximum => 255 }
@@ -33,7 +35,6 @@ module Classifiable
 
     def published_on_is_valid_date
       errors.add(:published_on, :not_valid) unless published_on.class == Date
-      #'must be a valid date'
     end
 
   end

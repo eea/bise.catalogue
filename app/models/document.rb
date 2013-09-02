@@ -17,9 +17,6 @@ class Document < ActiveRecord::Base
   before_validation :compute_hash
   before_save :update_file_info
 
-  has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "documents_countries", :foreign_key => "document_id"
-  has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "documents_concepts", :foreign_key => "document_id"
-
   before_destroy do |document|
     document.remove_file!
   end
