@@ -46,12 +46,19 @@ class ProtectedArea < ActiveRecord::Base
       indexes :code, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
       indexes :name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
 
-      indexes :country, :type => 'string', :index => :not_analyzed
+      # indexes :country, :type => 'string', :index => :not_analyzed
 
-      indexes :biogeoregions do
+      indexes :countries do
+        indexes :id         , :type => 'integer'
+        indexes :name       , :type => 'string'                         , :index => :not_analyzed
+        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+      end
+
+      indexes :species do
         indexes :id, type: 'integer'
-        indexes :bioregion_code, type: 'string', :index => :not_analyzed
-        indexes :bioregion_name, :type => 'string', :index => :not_analyzed
+        indexes :scientific_name, type: 'string',
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'search_analyzer'
       end
 
       indexes :source_db, :type => 'string', :index => :not_analyzed
@@ -67,23 +74,21 @@ class ProtectedArea < ActiveRecord::Base
     end
   end
 
-  # def bioregions
-  #     if biogeo_regions.nil?
-  #         {}
-  #     else
-  #         biogeo_regions.map { |b| { :_type  => 'biogeoregion', _id: b.id, code: b.code, name: b.area_name } }
-  #     end
-  # end
+  def site
+    Site.find_by_name('EUNIS')
+  end
 
   def to_indexed_json
     {
-      :uri                    => uri,
-      :code                   => code,
-      :name                   => name,
-      :country                => country_name,
-      :biogeoregions          => biogeo_regions.map { |b| { :_type  => 'biogeo_region', _id: b.id, bioregion_code: b.code, bioregion_name: b.area_name } },
-      :source_db              => source_db,
-      :designation_year       => designation_year
+      :site                      => { _type: 'site', _id: site.id, name: site.name, ngram_name: site.name },
+      :uri                       => uri,
+      :code                      => code,
+      :name                      => name,
+      # :country                 => country_name,
+      :countries                 => countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
+      :species                   => species.map { |s| { :_type                                                               => 'species', _id: s.id, scientific_name: s.scientific_name } },
+      :source_db                 => source_db,
+      :designation_year          => designation_year
     }.to_json
   end
 
@@ -91,6 +96,7 @@ class ProtectedArea < ActiveRecord::Base
 
     # Facet Filter
     protected_area_filter = []
+    protected_area_filter << { term: { 'site.name' => params[:site] }} if params[:site].present?
     protected_area_filter << { term: { :source_db => params[:source_db] }} if params[:source_db].present?
     protected_area_filter << { term: { :country => params[:country].split(/\//) }} if params[:country].present?
     # protected_area_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
@@ -99,29 +105,38 @@ class ProtectedArea < ActiveRecord::Base
     tire.search :load => true, :page => params[:page], :per_page => 20 do
       query do
         boolean do
+          should   { string 'site.ngram_name:' + params[:query].to_s }
           should   { string 'name:' + params[:query].to_s }
+          should   { string 'countries.ngram_name:'      + params[:query].to_s }
         end
       end if params[:query].present?
 
+      filter :term, 'site.name' => params[:site] if params[:site].present?
       filter :term, :source_db => params[:source_db] if params[:source_db].present?
-      filter :term, :country => params[:country] if params[:country].present?
+      filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
+      filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
 
       highlight :name
+
+      facet 'sites' do
+        terms 'site.name'
+        facet_filter :and, protected_area_filter unless protected_area_filter.empty?
+      end
 
       facet 'source_db' do
         terms :source_db
         facet_filter :and, protected_area_filter unless protected_area_filter.empty?
       end
 
-      facet 'country' do
-        terms :country, size: 60
+      facet 'countries' do
+        terms 'countries.name', size: 60
         facet_filter :and, protected_area_filter unless protected_area_filter.empty?
       end
 
-      facet 'biogeoregions', size: 20 do
-        terms 'biogeoregions.area_name'
-        facet_filter :and, protected_area_filter unless protected_area_filter.empty?
-      end
+      # facet 'biographical_regions' do
+      #   terms :biographical_region
+      #   facet_filter :and, protected_area_filter unless protected_area_filter.empty?
+      # end
 
       facet('designation_year') do
         terms :designation_year, size: 15

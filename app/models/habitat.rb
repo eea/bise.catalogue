@@ -67,12 +67,13 @@ class Habitat < ActiveRecord::Base
 
   def to_indexed_json
     {
-      :uri          => uri,
-      :name         => name,
-      :habitat_code => habitat_code,
-      :level        => level,
-      :description  => description,
-      :countries    => countries.map do |c|
+      :uri             => uri,
+      :name            => name,
+      :habitat_code    => habitat_code,
+      :natura2000_code => natura2000_code,
+      :level           => level,
+      :description     => description,
+      :countries       => countries.map do |c|
         { :_type  => 'country', :_id => c.id, :name => c.name }
       end
     }.to_json

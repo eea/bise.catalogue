@@ -72,6 +72,7 @@ class Species < ActiveRecord::Base
   # self.to_json :methods => [:content_without_tags]
   def to_indexed_json
     {
+      :uri                    => uri,
       :binomial_name          => binomial_name,
       :scientific_name        => scientific_name,
       :authorship             => scientific_name_authorship,

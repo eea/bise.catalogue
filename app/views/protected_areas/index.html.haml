@@ -45,7 +45,7 @@
                         .accordion-inner
                             %ul.unstyled
                                 - if @protected_areas.respond_to?('facets')
-                                    - @protected_areas.facets['country']['terms'].each do |facet|
+                                    - @protected_areas.facets['countries']['terms'].each do |facet|
                                         - if !current_page?(params.merge(:country => facet['term'], :page => 1))
                                             %li
                                                 = link_to params.merge(:country => facet['term'], :page => 1) do
