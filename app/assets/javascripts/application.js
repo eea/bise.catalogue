@@ -56,6 +56,9 @@
 
 //= require jquery_ujs
 
+// ----- CHOSEN
+//= require chosen/chosen.jquery
+
 // ----- REMOTIPART
 //= require jquery.remotipart
 
@@ -82,6 +85,7 @@
 
 //= require_tree ../../templates
 
+//= require shared
 //= require articles
 //= require documents
 //= require links

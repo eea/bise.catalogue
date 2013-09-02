@@ -1,75 +1,49 @@
-#targets
+%legend
+  Tags
 
-    %legend
-        Tags
+- quarter = tags.size / 4
 
-    - third = tags.size / 3
+.row-fluid
+  .span3
+    %ul.unstyled
+      - tags.each_with_index do |c, i|
+        - if i < quarter
+          %li
+            %label.checkbox
+              = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
+              .label.label-success= c
+  .span3
+    %ul.unstyled
+      - tags.each_with_index do |c, i|
+        - if i >= quarter and i < quarter * 2
+          %li
+            %label.checkbox
+              = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
+              .label.label-success= c
+  .span3
+    %ul.unstyled
+      - tags.each_with_index do |c, i|
+        - if i >= quarter *2 and i < quarter * 3
+          %li
+            %label.checkbox
+              = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
+              .label.label-success= c
+  .span3
+    %ul.unstyled
+      - tags.each_with_index do |c, i|
+        - if i >= quarter *3 and i < quarter * 4
+          %li
+            %label.checkbox
+              = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
+              .label.label-success= c
 
-    .row-fluid
-        .span4
-            %ul.unstyled
-                - tags.each_with_index do |c, i|
-                    - if i < third
-                        %li
-                            %label.checkbox
-                                = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
-                                .label.label-success= c
 
-        .span4
-            %ul.unstyled
-                - tags.each_with_index do |c, i|
-                    - if i >= third and i < third * 2
-                        %li
-                            %label.checkbox
-                                = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
-                                .label.label-success= c
+%legend
+  Biodiversity
 
-        .span4
-            %ul.unstyled
-                - tags.each_with_index do |c, i|
-                    - if i >= third *2 and i < third * 3
-                        %li
-                            %label.checkbox
-                                = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
-                                .label.label-success= c
+.row-fluid
+  .span6
+    = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level bise-select"}
 
-    / - tags.each_with_index do |tag, i|
-    /     %label.checkbox{ style: 'display:inline-block; margin-right: 7px' }
-    /         = check_box_tag 'tags[]', i, false
-    /         = tag
-    / %input.tm-input{ type:'text', name: 'tags', placeholder:'Tags', data: { tags: tags } }
-
-    %legend
-        Biodiversity
-
-    .row-fluid
-        .span6
-            = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
-
-    / .tabbable.tabs-left
-
-    /     %ul.nav.nav-tabs
-    /         - @targets.each_with_index do |t, i|
-    /             - if i == 0
-    /                 %li.active
-    /                     %a{ :href => '#panel'+i.to_s, :data => { :toggle => 'tab' } }
-    /                         = t.short_desc
-    /             - else
-    /                 %li
-    /                     %a{ :href => '#panel'+i.to_s, :data => { :toggle => 'tab' } }
-    /                         = t.short_desc
-
-    /     .tab-content
-    /         - @targets.each_with_index do |t, i|
-    /             - if i == 0
-    /                 .tab-pane.active{ :id => '#panel' + i.to_s }
-    /                     %p
-    /                         I'm a section
-    /                         = i.to_s
-    /             - else
-    /                 .tab-pane{ :id => '#panel' + i.to_s }
-    /                     %p
-    /                         I'm a section
-    /                         = i.to_s
 
 

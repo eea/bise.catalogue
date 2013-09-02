@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705105229) do
+ActiveRecord::Schema.define(:version => 20130712112220) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(:version => 20130705105229) do
     t.string   "title"
     t.string   "english_title"
     t.string   "author"
-    t.string   "description"
+    t.text     "description"
     t.string   "language"
     t.text     "biographical_region"
     t.string   "source_url"
@@ -291,6 +291,8 @@ ActiveRecord::Schema.define(:version => 20130705105229) do
     t.datetime "updated_at",                 :null => false
   end
 
+  add_index "species", ["uri"], :name => "index_species_on_uri", :unique => true
+
   create_table "species_habitats", :id => false, :force => true do |t|
     t.integer "species_id"
     t.integer "habitat_id"
@@ -300,6 +302,16 @@ ActiveRecord::Schema.define(:version => 20130705105229) do
     t.integer "species_id"
     t.integer "protected_area_id"
   end
+
+  create_table "species_translations", :force => true do |t|
+    t.string   "locale"
+    t.string   "name"
+    t.integer  "species_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "species_translations", ["species_id", "locale"], :name => "index_species_translations_on_species_id_and_locale", :unique => true
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"

@@ -1,21 +1,14 @@
-%legend Info
 
 .row-fluid
-    .span9
-        = f.input :title, :placeholder => 'Example' , :input_html => { :class => "input-block-level", required: true }
-        / = f.input :language, :as => :select, :collection => languages, include_blank: true, :input_html => { :class => "input-block-level" }
-    .span3
-        = f.association :site , :input_html => { :class => "input-block-level" }, default: '1'
-.row-fluid
-    .span9
-        = f.input :english_title, :placeholder => 'Example', :input_html => { :class => "input-block-level", required: true }
-    / .span3
-    /     .control-group.required.article_published
-    /         = f.input :published, as: :radio_buttons
-
-    / %label.required.control-label{ :for => "article_published" }
-    /     Published
-    / .controls
-    /     .btn-group
-    /         %a.btn NO
-    /         %a.btn.btn-success.active YES
+  .span8
+    %legend Info
+    = f.input :title, :placeholder => 'Write a title...' , :input_html => { :class => "input-block-level", required: true }
+    = f.input :english_title, :placeholder => 'Write an english title', :input_html => { :class => "input-block-level", required: true }
+    - langs = Language.all
+    = f.input :language_ids, as: :select, collection: langs, input_html: { multiple: true, 'data-placeholder'=> 'Search language...' }
+  .span4
+    %legend Publication
+    = f.association :site , input_html: { class: "input-block-level bise-select" }, include_blank: true
+    = f.input :published_on, :as => :string, input_html: { class: 'input-block-level' }, :required => true, autocomplete: 'off'
+    /, value: published_on.nil? ? '' : l(published_on, :format => :default)
+    = f.input :author, :as => :string, :placeholder => 'John Doe' , :input_html => { :class => "input-block-level", required: true }

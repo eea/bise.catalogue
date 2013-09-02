@@ -35,6 +35,8 @@
  *= require font-awesome
  * require bootstrap-toggle-buttons
 
+ *= require chosen/chosen
+
  *= require home
  *= require articles
  *= require documents

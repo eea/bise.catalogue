@@ -1,0 +1,1 @@
+do $('.bise-select').chosen

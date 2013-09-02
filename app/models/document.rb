@@ -3,34 +3,15 @@ class Document < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::Callbacks
 
-  belongs_to              :site
-  attr_accessible         :site_id
-  attr_accessible         :title
-  attr_accessible         :english_title
-  attr_accessible         :author
+  include Classifiable
+
   attr_accessible         :description
-  attr_accessible         :language_ids
-  has_and_belongs_to_many :languages, class_name: 'Language', join_table: 'documents_languages', foreign_key: 'document_id'
-  #attr_accessible        :geographical_coverage
-  attr_accessible         :biographical_region
-  attr_accessible         :source_url
-  attr_accessible         :published_on
-  attr_accessible         :published
   attr_accessible         :downloads
   attr_accessible         :thumbnail
   attr_accessible         :file
   mount_uploader          :file, FileUploader
-  attr_accessible         :country_ids
 
-  validates :site          , presence: { message: "^Please, fill in the site." }
-  validates :title         , presence: { message: "^Please, fill in the title." }        , :length => { :maximum => 255 }
-  validates :english_title , presence: { message: "^Please, fill in the english title." }, :length => { :maximum => 255 }
-
-  validates :author        , presence: { message: "^Please, fill in the author." }, length: { maximum: 255}
-  validates :language_ids  , presence: { message: "^Please, select one language at least." }
-  validate :published_on_is_valid_date
-
-  validates :file          , presence: { message: "^Please, choose a file to upload." , :on => :create }
+  validates :file          , presence: { :on => :create }
   validate :uniqueness_of_md5hash, :on => :create
 
   before_validation :compute_hash
@@ -39,22 +20,15 @@ class Document < ActiveRecord::Base
   has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "documents_countries", :foreign_key => "document_id"
   has_and_belongs_to_many :concepts, :class_name => "Concept", :join_table => "documents_concepts", :foreign_key => "document_id"
 
-  # TAGS
-  attr_accessible :tag_list
-  acts_as_taggable
-
-
   before_destroy do |document|
     document.remove_file!
   end
-
 
   # INDEXES
   index_name "#{Tire::Model::Search.index_prefix}documents"
   refresh = lambda { Tire::Index.new(index_name).refresh }
   after_save(&refresh)
   after_destroy(&refresh)
-
 
 
   # ----- TIRE SETTINGS -----
@@ -208,6 +182,7 @@ class Document < ActiveRecord::Base
       highlight :attachment, :description
 
       filter :term, 'site.name' => params[:site] if params[:site].present?
+      filter :term, :source_db => params[:source_db] if params[:source_db].present?
       filter :term, :author => params[:author] if params[:author].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
@@ -304,10 +279,6 @@ class Document < ActiveRecord::Base
     def compute_hash
       # puts ":: compute_hash => #{self.file.nil?} - #{self.file.size}"
       self.md5hash = Digest::MD5.hexdigest(self.file.read) if self.file?
-    end
-
-    def published_on_is_valid_date
-      errors.add(:published_on, 'must be a valid date') unless published_on.class == Date
     end
 
 end
