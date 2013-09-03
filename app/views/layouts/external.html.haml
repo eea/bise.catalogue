@@ -34,54 +34,50 @@
 
     %body
 
-        %div.navbar.navbar-fixed-top
-            %div.navbar-inner
-                %div.container{ 'data-target' => '.nav-collapse', 'data-toggle' => 'collapse' }
-                    %a.btn.btn-navbar
-                        %span.icon-bar
-                        %span.icon-bar
-                        %span.icon-bar
-                    = link_to root_path, :class => "brand" do
-                        = image_tag  "bise_logo_mini.png"
-                    %div.container.nav-collapse
-                        %ul.nav
-                            / %li
-                            /     = link_to "Articles", articles_path
-                            %li
-                                = link_to "Documents", documents_path
-                            / %li
-                            /     = link_to "Links", links_path
-                            / %li
-                            /     = link_to "News", news_index_path
-                            / %li
-                            /     = link_to "Sites", protected_areas_path
-                            / %li
-                            /     = link_to "Habitats", habitats_path
-                            / %li
-                            /     = link_to "Species", species_index_path
-                        %ul.nav.pull-right
-                            %li
-                                = link_to destroy_user_session_path, :method => :delete do
-                                    %i.icon-user
-                                    = current_user.login
-        .container
-            .pageheader
-                %h1
-                    = yield :pageheader
+        / %div.navbar.navbar-fixed-top
+        /     %div.navbar-inner
+        /         %div.container{ 'data-target' => '.nav-collapse', 'data-toggle' => 'collapse' }
+        /             %a.btn.btn-navbar
+        /                 %span.icon-bar
+        /                 %span.icon-bar
+        /                 %span.icon-bar
+        /             = link_to root_path, :class => "brand" do
+        /                 = image_tag  "bise_logo_mini.png"
+        /             %div.container.nav-collapse
+        /                 %ul.nav
+        /                     %li
+        /                         = link_to "Articles", articles_path
+        /                     %li
+        /                         = link_to "Documents", documents_path
+        /                     %li
+        /                         = link_to "Links", links_path
+        /                     / %li
+        /                     /     = link_to "News", news_index_path
+        /                     / %li
+        /                     /     = link_to "Sites", protected_areas_path
+        /                     / %li
+        /                     /     = link_to "Habitats", habitats_path
+        /                     / %li
 
-            .outter-container
-                = render :partial => 'layouts/toolbar'
+        .container{ style: 'margin-top: 10%'}
+            / .pageheader
+            /     %h1.text-center EEA BISE Catalogue
+
+            .outter-container{ style: 'min-height: 100px; vertical-align: middle'}
 
                 .inner-container
 
+                    / .well{ style: 'margin: 0 10px 10px 10px'}
+                    /     %h2.text-center BISE Catalogue
+
                     - if notice
-                        %p.alert.alert-notice= notice
+                        %p.notice= notice
                     - if alert
-                        %p.alert.alert-danger= alert
+                        %p.alert= alert
 
                     = yield
 
-            = render :partial => 'layouts/footer'
+            /# = render :partial => 'layouts/footer'
 
         / Placed at the end of the document so the pages load faster
         = javascript_include_tag "application"

@@ -1,8 +1,10 @@
 Catalogue::Application.routes.draw do
 
+  devise_for :users
+
   get "home/index"
 
-  root :to => 'documents#index'
+  root :to => 'home#index'
 
   # SITES
   resources :sites
@@ -25,10 +27,6 @@ Catalogue::Application.routes.draw do
   resources :protected_areas
   resources :habitats
   resources :species
-
-  # GEMET, THESAURUS
-  resources :themes
-  resources :concepts
 
   # STRATEGIC PLANS
   resources :targets

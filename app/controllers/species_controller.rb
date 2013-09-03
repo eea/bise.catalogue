@@ -1,4 +1,7 @@
 class SpeciesController < ApplicationController
+
+  before_filter :authenticate_user!
+
   # GET /species
   # GET /species.json
   def index

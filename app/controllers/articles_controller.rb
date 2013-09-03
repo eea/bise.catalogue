@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
 
+  before_filter :authenticate_user!
+
   # GET /articles
   # GET /articles.json
   def index
@@ -12,13 +14,13 @@ class ArticlesController < ApplicationController
 
   # FIXME Not going to be used
   # GET /articles/concepts.json
-  def concepts
-    @themes = Theme.all
-    respond_to do |format|
-      # format.html # new.html.erb
-      format.json { render :json => @themes }
-    end
-  end
+  # def concepts
+  #   @themes = Theme.all
+  #   respond_to do |format|
+  #     # format.html # new.html.erb
+  #     format.json { render :json => @themes }
+  #   end
+  # end
 
 
   # GET /articles/1
@@ -54,7 +56,6 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(params[:article])
-    @article.concepts = get_concepts(params['ft']) unless params['ft'].nil?
 
     respond_to do |format|
       if @article.save
@@ -71,7 +72,7 @@ class ArticlesController < ApplicationController
   # PUT /articles/1.json
   def update
     @article = Article.find(params[:id])
-    @article.concepts = get_concepts(params) unless params['ft'].nil?
+
     respond_to do |format|
       if @article.update_attributes(params[:article])
         format.html { redirect_to @article, :notice => 'Article was successfully updated.' }
@@ -98,12 +99,12 @@ class ArticlesController < ApplicationController
   private
 
     # Returns an array of Concepts
-    def get_concepts(params)
-      a = Array.new
-      params['ft'].each do |f|
-        a.push Concept.find(f.to_i)
-      end
-      return a
-    end
+    # def get_concepts(params)
+    #   a = Array.new
+    #   params['ft'].each do |f|
+    #     a.push Concept.find(f.to_i)
+    #   end
+    #   return a
+    # end
 
 end

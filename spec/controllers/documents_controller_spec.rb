@@ -20,14 +20,28 @@ require 'spec_helper'
 
 describe DocumentsController do
 
+  include CarrierWave::Test::Matchers
+
+  before :each do
+    @document = FactoryGirl.create :document
+  end
+
+  # after :each do
+  #   @document.destroy
+  # end
+
   # This should return the minimal set of attributes required to create a valid
   # Document. As you add validations to Document, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
     {
-      :name => 'Example Document',
-      :author => 'jon',
-      :file => File.open('/Users/jon/Practical_Vim.pdf')
+      site_id: 1,
+      title: 'Titulo de Ejemplo',
+      english_title: 'Example Title',
+      author: 'Jon Arrien',
+      file: Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec/fixtures/files/NL_Biodiversity.pdf')),
+      language_ids: [5],
+      published_on: '01/01/2013'
     }
   end
 
@@ -40,17 +54,15 @@ describe DocumentsController do
 
   describe "GET index" do
     it "assigns all documents as @documents" do
-      document = Document.create! valid_attributes
       get :index, {}, valid_session
-      assigns(:documents).should eq([document])
+      assigns(:documents).should eq([@document])
     end
   end
 
   describe "GET show" do
     it "assigns the requested document as @document" do
-      document = Document.create! valid_attributes
-      get :show, {:id => document.to_param}, valid_session
-      assigns(:document).should eq(document)
+      get :show, {:id => @document.to_param}, valid_session
+      assigns(:document).should eq(@document)
     end
   end
 
@@ -63,9 +75,9 @@ describe DocumentsController do
 
   describe "GET edit" do
     it "assigns the requested document as @document" do
-      document = Document.create! valid_attributes
-      get :edit, {:id => document.to_param}, valid_session
-      assigns(:document).should eq(document)
+      # document = Document.create! valid_attributes
+      get :edit, {:id => @document.to_param}, valid_session
+      assigns(:document).should eq(@document)
     end
   end
 
@@ -109,42 +121,39 @@ describe DocumentsController do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested document" do
-        document = Document.create! valid_attributes
         # Assuming there are no other documents in the database, this
         # specifies that the Document created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         Document.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => document.to_param, :document => {'these' => 'params'}}, valid_session
+        put :update, {:id => @document.to_param, :document => {'these' => 'params'}}, valid_session
       end
 
       it "assigns the requested document as @document" do
-        document = Document.create! valid_attributes
+        # document = Document.create! valid_attributes
         put :update, {:id => document.to_param, :document => valid_attributes}, valid_session
-        assigns(:document).should eq(document)
+        assigns(:document).should eq(@document)
       end
 
       it "redirects to the document" do
-        document = Document.create! valid_attributes
-        put :update, {:id => document.to_param, :document => valid_attributes}, valid_session
-        response.should redirect_to(document)
+        # document = Document.create! valid_attributes
+        put :update, {:id => @document.to_param, :document => valid_attributes}, valid_session
+        response.should redirect_to(@document)
       end
     end
 
     describe "with invalid params" do
       it "assigns the document as @document" do
-        document = Document.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Document.any_instance.stub(:save).and_return(false)
-        put :update, {:id => document.to_param, :document => {}}, valid_session
-        assigns(:document).should eq(document)
+        put :update, {:id => @document.to_param, :document => {}}, valid_session
+        assigns(:document).should eq(@document)
       end
 
       it "re-renders the 'edit' template" do
-        document = Document.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         Document.any_instance.stub(:save).and_return(false)
-        put :update, {:id => document.to_param, :document => {}}, valid_session
+        put :update, {:id => @document.to_param, :document => {}}, valid_session
         response.should render_template("edit")
       end
     end

@@ -1,4 +1,7 @@
 class HabitatsController < ApplicationController
+
+  before_filter :authenticate_user!
+
   # GET /habitats
   # GET /habitats.json
   def index

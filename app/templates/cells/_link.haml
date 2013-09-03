@@ -19,10 +19,6 @@
     /                     %p.hit= raw '...' + h + '...'
     /     / = raw hit['highlight']['attachment'].first
 
-    / - if not article.concepts.nil?
-    /     - article.concepts.map do |c|
-    /         %span.label.label-success
-    /             = c.title
 
     - if link.approved?
         %span.label.label-success.pull-right
