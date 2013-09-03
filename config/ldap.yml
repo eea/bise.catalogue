@@ -33,8 +33,8 @@ development:
 test:
   host: ldap.eionet.europa.eu
   port: 3389
-  attribute: cn
-  base: ou=people,dc=test,dc=com
+  attribute: uid
+  base: ou=Users,o=EIONET,l=Europe
   admin_user: cn=admin,dc=test,dc=com
   admin_password: admin_password
   ssl: simple_tls
@@ -42,10 +42,18 @@ test:
 
 production:
   host: ldap.eionet.europa.eu
-  port: 636
-  attribute: cn
-  base: ou=people,dc=test,dc=com
+  port: 389
+  attribute: uid
+  base: ou=Users,o=EIONET,l=Europe
   admin_user: cn=admin,dc=test,dc=com
   admin_password: admin_password
-  ssl: start_tls
+  ssl: false
+
+  # host: ldap.eionet.europa.eu
+  # port: 636
+  # attribute: cn
+  # base: ou=people,dc=test,dc=com
+  # admin_user: cn=admin,dc=test,dc=com
+  # admin_password: admin_password
+  # ssl: start_tls
   # <<: *AUTHORIZATIONS
