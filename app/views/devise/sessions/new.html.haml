@@ -4,15 +4,26 @@
   .row-fluid
     .span8
       %legend Welcome to BISE Catalogue!
+      %br
+      .row-fluid
+        .span3
+          = image_tag 'BISE-logo.png'
+        .span9
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     .span4
       .well
         = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), html: { style: 'margin:0px' }) do |f|
           .form-inputs
-            = f.input :login, :autofocus => true
-            = f.input :password, :required => false
+            = f.input :login, :autofocus => true, input_html: { class: 'input-block-level' }
+            = f.input :password, :required => false, input_html: { class: 'input-block-level' }
             / = f.input :remember_me, :as => :boolean if devise_mapping.rememberable?
 
-          .form-actions
+          .form-actions{ style: 'padding: 20px 0' }
             = f.button :submit, "Sign in"
 
 = render "devise/shared/links"

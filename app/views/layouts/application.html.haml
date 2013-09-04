@@ -37,12 +37,15 @@
         %div.navbar.navbar-fixed-top
             %div.navbar-inner
                 %div.container{ 'data-target' => '.nav-collapse', 'data-toggle' => 'collapse' }
-                    %a.btn.btn-navbar
-                        %span.icon-bar
-                        %span.icon-bar
-                        %span.icon-bar
+                    / %a.btn.btn-navbar
+                    /     %span.icon-bar
+                    /     %span.icon-bar
+                    /     %span.icon-bar
+
                     = link_to root_path, :class => "brand" do
-                        = image_tag  "bise_logo_mini.png"
+                        %i.icon-th-large
+                        / = image_tag  "bise_logo_mini.png"
+                        Catalogue
                     %div.container.nav-collapse
                         %ul.nav
                             / %li
