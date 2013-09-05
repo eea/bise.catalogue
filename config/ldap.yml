@@ -32,12 +32,12 @@ development:
 
 test:
   host: ldap.eionet.europa.eu
-  port: 3389
+  port: 389
   attribute: uid
   base: ou=Users,o=EIONET,l=Europe
   admin_user: cn=admin,dc=test,dc=com
   admin_password: admin_password
-  ssl: simple_tls
+  ssl: false
   # <<: *AUTHORIZATIONS
 
 production:

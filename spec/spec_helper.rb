@@ -1,6 +1,6 @@
 require 'rubygems'
 
-ENV["RAILS_ENV"] ||= 'test'
+ENV["RAILS_ENV"] = 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'shoulda-matchers'
@@ -36,6 +36,12 @@ RSpec.configure do |config|
     # the seed, which is printed after each run.
     #     --seed 1234
     config.order = "random"
+
+
+    config.include FactoryGirl::Syntax::Methods
+    config.include Devise::TestHelpers, type: :controller
+    config.include Capybara::DSL
+
 end
 
 
