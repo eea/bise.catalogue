@@ -1,97 +1,42 @@
 !!! 5
 %html
-    %head
-        %meta{ 'charset' => 'utf-8' }
-        %meta{ 'http-equiv' => 'X-UA-Compatible', :content => 'IE=Edge,chrome=1'}
-        %meta{ 'name' => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
-        %meta{ 'name' => 'apple-mobile-web-app-capable', :content => "yes"}
+  %head
+    %meta{ 'charset' => 'utf-8' }
+    %meta{ 'http-equiv' => 'X-UA-Compatible', :content => 'IE=Edge,chrome=1'}
+    %meta{ 'name' => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
+    %meta{ 'name' => 'apple-mobile-web-app-capable', :content => "yes"}
 
-        %title
-            = content_for?(:title) ? yield(:title) : "Catalogue"
+    %title
+      = content_for?(:title) ? yield(:title) : "Catalogue"
 
-        = csrf_meta_tags
+    = csrf_meta_tags
 
-        /[if lt IE 9]
-            %script{ 'src' => '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js', 'type' => 'text/javascript' }
+    /[if lt IE 9]
+      %script{ 'src' => '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js', 'type' => 'text/javascript' }
 
-        = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "application", :media => "all"
 
-        / For iPad Retina display: 144 x 144 pixels
-        / = favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144'
-        / For iPhone Retina display: 114 x 114 pixels
-        / = favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114'
-        / For iPad: 72 x 72 pixels
-        / = favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72'
-        / For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: 57 x 57 pixels
-        / = favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-        / For all other devices: 32 x 32 pixels
-        / = favicon_link_tag 'images/favicon.ico', :rel => 'shortcut icon'
+    %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Roboto+Condensed:300", "type" => "text/css"}
+    %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Homenaje", "type" => "text/css"}
 
-        %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Roboto+Condensed:300", "type" => "text/css"}
-        %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Homenaje", "type" => "text/css"}
+    = yield :css
 
-        = yield :css
+  %body
+    = render 'layouts/topnavbar'
+    .container
+      .pageheader
+        %h1
+          = yield :pageheader
+      .outter-container
+        = render :partial => 'layouts/toolbar'
+        .inner-container
+          - if notice
+            %p.alert.alert-notice= notice
+          - if alert
+            %p.alert.alert-danger= alert
+          = yield
+      = render :partial => 'layouts/footer'
 
-    %body
-
-        %div.navbar.navbar-fixed-top
-            %div.navbar-inner
-                %div.container{ 'data-target' => '.nav-collapse', 'data-toggle' => 'collapse' }
-                    / %a.btn.btn-navbar
-                    /     %span.icon-bar
-                    /     %span.icon-bar
-                    /     %span.icon-bar
-
-                    = link_to root_path, :class => "brand" do
-                        %i.icon-th-large
-                        / = image_tag  "bise_logo_mini.png"
-                        Catalogue
-                    %div.container.nav-collapse
-                        %ul.nav
-                            %li{ class: "#{ current_page?(articles_path) ? 'active' : '' }"}
-                                = link_to "Articles", articles_path
-                            %li{ class: "#{ current_page?(documents_path) ? 'active' : '' }"}
-                                = link_to "Documents", documents_path
-                            %li{ class: "#{ current_page?(links_path) ? 'active' : '' }"}
-                                = link_to "Links", links_path
-                            / %li{ class: "#{ current_page?(news_index_path) ? 'active' : '' }"}
-                            /     = link_to "News", news_index_path
-                            %li{ class: "#{ current_page?(protected_areas_path) ? 'active' : '' }"}
-                                = link_to "Sites", protected_areas_path
-                            %li{ class: "#{ current_page?(habitats_path) ? 'active' : '' }"}
-                                = link_to "Habitats", habitats_path
-                            %li{ class: "#{ current_page?(species_index_path) ? 'active' : '' }"}
-                                = link_to "Species", species_index_path
-                        %ul.nav.pull-right
-                            %li.dropdown
-                                %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
-                                    %i.icon-user
-                                    = current_user.login
-                                    %b.caret
-                                %ul.dropdown-menu
-                                    %li
-                                        = link_to destroy_user_session_path, :method => :delete do
-                                            %i.icon-off
-                                            Close session
-        .container
-            .pageheader
-                %h1
-                    = yield :pageheader
-
-            .outter-container
-                = render :partial => 'layouts/toolbar'
-
-                .inner-container
-
-                    - if notice
-                        %p.alert.alert-notice= notice
-                    - if alert
-                        %p.alert.alert-danger= alert
-
-                    = yield
-
-            = render :partial => 'layouts/footer'
-
-        / Placed at the end of the document so the pages load faster
-        = javascript_include_tag "application"
-        = yield :js
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
+    = yield :js

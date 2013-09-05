@@ -26,7 +26,7 @@
     /         = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
 
 
-  %div.form-actions
+  %div.form-actions.margin-none.text-right
     = f.submit 'Save', :class => "btn btn-success"
     = link_to "Cancel", links_path, :class => "btn"
 

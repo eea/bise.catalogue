@@ -10,7 +10,7 @@
       .span12
         .input-append
           = f.input :file , as: :file, input_html: { style: 'display:none' }
-          %input#file_title.string.required.input-xlarge{ :type => 'text', :disabled => :disabled }
+          %input#file_title.string.required.input-xxlarge{ :type => 'text', :disabled => :disabled }
           %button#file_select.btn{ :type => 'button' }
             Select
         .file-info.pull-right
@@ -19,7 +19,7 @@
     = render :partial => 'common/targets', :locals => { :parent => @document, f: f }
     = render :partial => 'common/countries', :locals => { :parent => @document }
 
-  %div.form-actions.margin-none
+  %div.form-actions.margin-none.text-right
     = f.submit 'Save', :class => "btn btn-success"
     = link_to "Cancel", documents_path, :class => "btn"
 

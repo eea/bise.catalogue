@@ -10,7 +10,7 @@
           = f.input :content, :as => :text, :input_html => { :class => "input-block-level tinymce" }
       = render :partial => 'common/countries', :locals => { :parent => @article }
 
-  %div.form-actions
+  %div.form-actions.margin-none.text-right
     = f.submit 'Save', :class => "btn btn-success"
     = link_to "Cancel", articles_path, :class => "btn"
 
