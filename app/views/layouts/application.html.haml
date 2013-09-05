@@ -48,20 +48,20 @@
                         Catalogue
                     %div.container.nav-collapse
                         %ul.nav
-                            / %li
-                            /     = link_to "Articles", articles_path
-                            %li
+                            %li{ class: "#{ current_page?(articles_path) ? 'active' : '' }"}
+                                = link_to "Articles", articles_path
+                            %li{ class: "#{ current_page?(documents_path) ? 'active' : '' }"}
                                 = link_to "Documents", documents_path
-                            / %li
-                            /     = link_to "Links", links_path
-                            / %li
+                            %li{ class: "#{ current_page?(links_path) ? 'active' : '' }"}
+                                = link_to "Links", links_path
+                            / %li{ class: "#{ current_page?(news_index_path) ? 'active' : '' }"}
                             /     = link_to "News", news_index_path
-                            / %li
-                            /     = link_to "Sites", protected_areas_path
-                            / %li
-                            /     = link_to "Habitats", habitats_path
-                            / %li
-                            /     = link_to "Species", species_index_path
+                            %li{ class: "#{ current_page?(protected_areas_path) ? 'active' : '' }"}
+                                = link_to "Sites", protected_areas_path
+                            %li{ class: "#{ current_page?(habitats_path) ? 'active' : '' }"}
+                                = link_to "Habitats", habitats_path
+                            %li{ class: "#{ current_page?(species_index_path) ? 'active' : '' }"}
+                                = link_to "Species", species_index_path
                         %ul.nav.pull-right
                             %li.dropdown
                                 %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
