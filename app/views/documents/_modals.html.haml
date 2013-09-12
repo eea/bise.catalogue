@@ -1,28 +1,25 @@
 #prog-modal.modal.hide
-    /.fade
-    .modal-header
-        %button.close{ :type => 'button', 'aria-hidden' => 'true' , :data => { :dismiss => 'modal' } } x
-        %b File Upload
-    .modal-body
-        .loading.pull-right
-        Document is being uploaded and indexed, please wait.
-    .modal-footer
-        / %a.btn.btn-danger{ :href => '#' } Cancel
+  .modal-header
+    %button.close{ :type => 'button', 'aria-hidden' => 'true' , :data => { :dismiss => 'modal' } } x
+    %b File Upload
+  .modal-body
+    .loading.pull-right
+    Document is being uploaded and indexed, please wait.
+  .modal-footer
 
 #success-modal.modal.hide
-    .modal-header
-        %button.close{ :type => 'button', 'aria-hidden' => 'true' , :data => { :dismiss => 'modal' } } x
-        %b Success!
-    .modal-body
-        Document has been successfully saved and indexed.
-    .modal-footer
-        %a.btn.btn-primary{ :href => '#', :data => { :dismiss => 'modal' } } Ok
+  .modal-header
+    %button.close{ :type => 'button', 'aria-hidden' => 'true' , :data => { :dismiss => 'modal' } } x
+    %b Success!
+  .modal-body
+    Document has been successfully saved and indexed.
+  .modal-footer
+    %a.btn.btn-primary{ :href => '#', :data => { :dismiss => 'modal' } } Ok
 
 #error-modal.modal.hide
-    /.fade
-    .modal-header
-        %button.close{ :type => 'button', 'aria-hidden' => 'true' , :data => { :dismiss => 'modal' } } x
-        %b Warning!
-    .modal-body
-    .modal-footer
-        %a.btn.btn-primary{ :href => '#', :data => { :dismiss => 'modal' } } Ok
+  .modal-header
+    %button.close{ :type => 'button', 'aria-hidden' => 'true' , :data => { :dismiss => 'modal' } } x
+    %b Warning!
+  .modal-body
+  .modal-footer
+    %a.btn.btn-primary{ :href => '#', :data => { :dismiss => 'modal' } } Ok

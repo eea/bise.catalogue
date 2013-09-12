@@ -1,20 +1,20 @@
 .accordion#languages
-    .accordion-group
-        .accordion-head
-            %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#language-list', :data => { :toggle => 'collapse', :parent => '#languages' } }
-                Language
-                %span.caret
-        .accordion-body.in#language-list
-            .accordion-inner
-                %ul.unstyled
-                    - if objs.respond_to?('facets')
-                        - objs.facets['languages']['terms'].each do |facet|
-                            - if !current_page?(params.merge(:languages => facet['term'], :page => 1))
-                                %li
-                                    = link_to params.merge(:languages => facet['term'], :page => 1) do
-                                        = facet['term']
-                                        %span.badge.badge-info.pull-right= facet['count']
-                            - else
-                                %li.selected
-                                    = facet['term']
-                                    %span.pull-right= link_to "Remove", params.except(:languages)
+  .accordion-group
+    .accordion-head
+      %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#language-list', :data => { :toggle => 'collapse', :parent => '#languages' } }
+        Language
+        %span.caret
+    .accordion-body.in#language-list
+      .accordion-inner
+        %ul.unstyled
+          - if objs.respond_to?('facets')
+            - objs.facets['languages']['terms'].each do |facet|
+              - if !current_page?(params.merge(:languages => facet['term'], :page => 1))
+                %li
+                  = link_to params.merge(:languages => facet['term'], :page => 1) do
+                    = facet['term']
+                    %span.badge.badge-info.pull-right= facet['count']
+              - else
+                %li.selected
+                  = facet['term']
+                  %span.pull-right= link_to "Remove", params.except(:languages)

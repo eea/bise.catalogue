@@ -1,38 +1,23 @@
 .link_cell
 
-    .cell-title
-        = link_to news.title, news
-        / - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
-        /     = link_to raw(hit['highlight']['title'].first), doc
-        / - else
-        /     = link_to doc.title, doc
+  .cell-title
+    = link_to news.title, news
 
-    %small by #{news.author} at #{news.created_at.strftime("%m/%d/%Y")}
-    / %br
-    / - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
-    /     - att_hits = hit['highlight']['attachment']
+  %small by #{news.author} at #{news.created_at.strftime("%m/%d/%Y")}
 
-    /     .hits
-    /         %ol{ :type => "I" }
-    /             - att_hits.each do |h|
-    /                 %li
-    /                     %p.hit= raw '...' + h + '...'
-    /     / = raw hit['highlight']['attachment'].first
+  - if news.approved?
+      %span.label.label-success.pull-right
+        Approved
+  - else
+    %span.label.label-important.pull-right
+      Not approved
 
+  %br
+  - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content'
+    - att_hits = hit['highlight']['content']
 
-    - if news.approved?
-        %span.label.label-success.pull-right
-            Approved
-    - else
-        %span.label.label-important.pull-right
-            Not approved
-
-    %br
-    - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content'
-        - att_hits = hit['highlight']['content']
-
-        .hits
-            %ol{ :type => "I" }
-                - att_hits.each do |h|
-                    %li
-                        %p.hit= raw '...' + h + '...'
+    .hits
+      %ol{ :type => "I" }
+        - att_hits.each do |h|
+          %li
+            %p.hit= raw '...' + h + '...'

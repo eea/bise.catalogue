@@ -1,27 +1,22 @@
 - content_for :css do
-    = stylesheet_link_tag "documents", :media => "all"
+  = stylesheet_link_tag "documents", :media => "all"
 
 - content_for :pageheader do
-    Editing document
+  Editing document
 
 - content_for :actions do
-    = link_to documents_path, :class => "btn" do
-        %i.icon-reply
-        Back
-    = link_to @document, :class => "btn" do
-        %i.icon-search
-        Show
-    / .btn-group.pull-right
-    /     %a.btn.active{ :href => '#general', :data => { :toggle => 'tab' } } General
-    /     %a.btn{ :href => '#geographic', :data => { :toggle => 'tab' } } Geographic
-    /     / %a.btn{ :href => '#related', :data => { :toggle => 'tab' } } Related Resources
-    /     /%a.btn{ :href => '#ecosystems', :data => { :toggle => 'tab' } } Thematic Area
+  = link_to documents_path, :class => "btn" do
+    %i.icon-reply
+    Back
+  = link_to @document, :class => "btn" do
+    %i.icon-search
+    Show
 
 = render :partial => 'documents/modals'
 
 = render 'form'
 
 
-/ - content_for :js do
-/     = javascript_include_tag 'documents'
-/     = tinymce
+- content_for :js do
+  / = javascript_include_tag 'documents'
+  / = tinymce

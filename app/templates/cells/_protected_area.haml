@@ -1,29 +1,11 @@
 .article_cell
 
-    - unless site.source_db.nil?
-        %span.label.label-info.pull-right
-            = site.source_db
-    .cell-title
-        .span2
-            = site.country_name
-        = link_to site.name, site
+  - unless site.source_db.nil?
+    %span.label.label-info.pull-right
+      = site.source_db
+  .cell-title
+    .span2
+      = site.country_name
+    = link_to site.name, site
 
-    / %small by #{article.author} at #{article.created_at.strftime("%m/%d/%Y")}
-
-    / - if article.published?
-    /     %span.label.label-success.pull-right
-    /         Published
-    / - else
-    /     %span.label.label-important.pull-right
-    /         Unpublished
-
-    / %br
-    / - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content_without_tags'
-    /     - att_hits = hit['highlight']['content_without_tags']
-
-    /     .hits
-    /         %ol{ :type => "I" }
-    /             - att_hits.each do |h|
-    /                 %li
-    /                     %p.hit= raw '...' + h + '...'
 

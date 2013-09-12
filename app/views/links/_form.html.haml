@@ -14,18 +14,6 @@
 
     = render :partial => 'common/countries', :locals => { :parent => @link }
 
-
-    / .row-fluid
-    /     .span12
-    /         %legend Biodiversity
-
-    / .row-fluid
-    /     .span6
-    /         /= render :partial => 'common/targets', :locals => { :parent => @document }
-    /     .span6
-    /         = f.input :biographical_region, :as => :select, :collection => biographical_regions, include_blank: true , :input_html => { :class => "input-block-level"}
-
-
   %div.form-actions.margin-none.text-right
     = f.submit 'Save', :class => "btn btn-success"
     = link_to "Cancel", links_path, :class => "btn"
