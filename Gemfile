@@ -59,10 +59,8 @@ gem "font-awesome-rails"
 gem 'rdf'                       , '~> 1.0'
 gem 'rdf-isomorphic'            , '~> 1.0'
 gem 'rdf-spec'
-gem 'rdf-raptor'                , '~> 1.0.1'    # , '~> 0.4.2'
+gem 'rdf-raptor'                , '~> 1.0.1'
 gem 'rdf-virtuoso'              , git: 'https://github.com/jonarrien/rdf-virtuoso.git'
-
-# gem 'spira'                     , '~> 0.5.0'
 gem 'spira'                     , git: 'https://github.com/ruby-rdf/spira.git'
 
 gem 'ffi'
@@ -136,6 +134,6 @@ gem 'acts-as-taggable-on'
 gem 'simple_form'
 
 # File Uploading
-gem 'carrierwave'
+gem 'carrierwave'     , '~> 0.9.0'
 gem 'docsplit'
 
