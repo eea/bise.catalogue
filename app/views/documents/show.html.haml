@@ -1,96 +1,55 @@
 - content_for :pageheader do
-    = @document.title
+  = @document.title
 
 - content_for :actions do
-    - if !request.env["HTTP_REFERER"].nil? and request.env["HTTP_REFERER"].include?('documents/new')
-        = link_to documents_path, :class => "btn" do
-            %i.icon-reply
-            Back to List
-    - else
-        = link_to :back, :class => "btn" do
-            %i.icon-reply
-            Back
-    = link_to  edit_document_path(@document), :class => "btn" do
-        %i.icon-pencil
-        Edit
-    = link_to @document.file_url, :class => "btn" do
-        %i.icon-download-alt
-        Download
-        %small
-            (
-            = (@document.file_size/1024).round(2)
-            KB)
-    = link_to  document_path(@document), :method => :delete, :class => "btn btn-danger pull-right", :confirm=>'Please confirm you want to delete the resource.' do
-        %i.icon-trash
-        Delete
+  - if !request.env["HTTP_REFERER"].nil? and request.env["HTTP_REFERER"].include?('documents/new')
+    = link_to documents_path, :class => "btn" do
+      %i.icon-reply
+      Back to List
+  - else
+    = link_to :back, :class => "btn" do
+      %i.icon-reply
+      Back
+  = link_to  edit_document_path(@document), :class => "btn" do
+    %i.icon-pencil
+    Edit
+  = link_to @document.file_url, :class => "btn" do
+    %i.icon-download-alt
+    Download
+    %small
+      (
+      = (@document.file_size/1024).round(2)
+      KB)
+  = link_to  document_path(@document), :method => :delete, :class => "btn btn-danger pull-right", :confirm=>'Please confirm you want to delete the resource.' do
+    %i.icon-trash
+    Delete
 
-/ #document-preview{ :style => "margin: 30px; float: left;" }
 
 .container-fluid
 
-    - if notice
-        %div.alert.alert-success
-            %button.close{ :type => "button", 'data-dismiss' => 'alert' }
-                &times;
-            %h4 Success!
-            = notice
+  = render 'common/showinfo', obj: @document
+
+  %legend Countries
+  .row-fluid
+    .span12
+      %dl.dl-horizontal
+        - @document.countries.each do |l|
+          .label= l.name
+
+  %legend Biographical Region:
+  .row-fluid
+    .span12
+      = @document.biographical_region
+
+  %legend Tags
+  .row-fluid
+    .span12
+      - @document.tag_list.each do |t|
+        .label.label-success= t
+
+  %legend Description
+  .row-fluid
+    .span12
+      = raw @document.description
 
 
-    .row-fluid
-        .span6
-            / %img{ src: "#{@document.thumbnail}", style: 'width: 170px; border: 1px solid black;margin:0 auto;' }
-            %dl.dl-horizontal
-                %dt Site:
-                %dd= @document.site.name
-
-            %dl.dl-horizontal
-                %dt Title:
-                %dd= @document.title
-
-            %dl.dl-horizontal
-                %dt English title:
-                %dd= @document.english_title
-
-            %dl.dl-horizontal
-                %dt Author:
-                %dd= @document.author
-
-            %dl.dl-horizontal
-                %dt Published on:
-                %dd= @document.published_on
-
-            %dl.dl-horizontal
-                %dt Languages:
-                %dd
-                    - @document.languages.each do |l|
-                        .label= l.name
-
-            %dl.dl-horizontal
-                %dt Countries:
-                %dd
-                    - @document.countries.each do |l|
-                        .label= l.name
-
-            %dl.dl-horizontal
-                %dt Biographical Region:
-                %dd= @document.biographical_region
-
-            %dl.dl-horizontal
-                %dt Tags:
-                %dd
-                    - @document.tag_list.each do |t|
-                        .label.label-success= t
-
-
-        / .row-fluid
-        /     .span12
-
-        .span6
-            %dl.dl-horizontal
-                %dt Description:
-                %dd
-                    = raw @document.description
-
-
-/ - content_for :js do
-/     = javascript_include_tag 'documents'

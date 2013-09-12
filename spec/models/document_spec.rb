@@ -8,10 +8,6 @@ describe Document do
         @document = FactoryGirl.create(:document)
     end
 
-    after do
-        @document.destroy
-    end
-
     # ---------- VALIDATIONS ----------
 
     it "is invalid without site" do

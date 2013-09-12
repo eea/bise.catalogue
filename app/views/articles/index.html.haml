@@ -1,28 +1,24 @@
 - content_for :pageheader do
-    Articles
+  Articles
 
 - content_for :actions do
-    = link_to  new_article_path, :class => "btn" do
-        %i.icon-plus
-        New Article
-    = form_tag articles_path, :method => 'get', :class => 'search-query pull-right' do       #
-        = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'    #
-
-/ - content_for :js do
-/     = javascript_include_tag 'articles'
+  = link_to  new_article_path, :class => "btn" do
+    %i.icon-plus
+    New Article
+  = form_tag articles_path, :method => 'get', :class => 'search-query pull-right' do       #
+    = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'    #
 
 .container-fluid
-    .row-fluid
+  .row-fluid
+    .span3
+      = render "facets/facet_authors"     , :objs => @articles
+      / = render "facets/facet_languages"   , :objs => @articles
+      / = render "facets/facet_countries"   , :objs => @articles
+      = render "facets/facet_timeline"    , :objs => @articles
+    .span9
+      - @articles.each_with_hit do |article, hit|
+        = render "cells/article", :article => article, :hit => hit
 
-        .span3
-            = render "facets/facet_authors"     , :objs => @articles
-            / = render "facets/facet_languages"   , :objs => @articles
-            / = render "facets/facet_countries"   , :objs => @articles
-            = render "facets/facet_timeline"    , :objs => @articles
-
-        .span9
-            - @articles.each_with_hit do |article, hit|
-                = render "cells/article", :article => article, :hit => hit
-
-            = page_entries_info @articles
-            = will_paginate @articles, :renderer => BootstrapPagination::Rails
+      = page_entries_info @articles
+      = will_paginate @articles, :renderer => BootstrapPagination::Rails
+  %br

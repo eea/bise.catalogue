@@ -237,6 +237,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
+  config.secret_key = '1cd1e7709ae87d46cfb42554d63c0c50309e7319138e521eac1c13b0cb6fc2da3760813476ca1d720f747b8cffc2115a1c480162e0cd248536b25547b2eb6cd4'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

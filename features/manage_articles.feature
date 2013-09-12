@@ -1,12 +1,32 @@
 Feature: Manage Articles
 
-    In order to make a blog
-    As an author
-    I want to create and manage articles
+  In order to catalogue articles
+  As an authenticated eionet user
+  I want to create and manage articles
 
-    Scenario: Articles List
-        Given I have articles titled Pizza, Breadsticks
-        When I go to the list of articles
-        Then I should see "Pizza"
-        And I should see "Breadsticks"
+  Scenario: Articles List
+    Given I am authenticated with ldap
+    And I have articles titled Biodiversity, Invasive Species
+    When I go to the list of articles
+    Then I should see "Biodiversity"
+    And I should see "Invasive Species"
+
+  Scenario: Create article
+    Given I am authenticated with ldap
+    When I go to the list of articles
+    Then I should see new article button titled "New Article"
+    And I can register a new article
+
+  Scenario: Search indexed articles
+    Given I am authenticated with ldap
+    And I have articles titled Biodiversity, Invasive Species
+    When I go to the list of articles
+    And I search article "Biodiversity"
+    Then I should see "Biodiversity"
+
+
+
+
+
+
 

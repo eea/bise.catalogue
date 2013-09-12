@@ -31,9 +31,15 @@
         = render :partial => 'layouts/toolbar'
         .inner-container
           - if notice
-            %p.alert.alert-notice= notice
+            %p.alert.alert-success
+              %a.close{ href: '#', 'data-dismiss'=> 'alert'}
+                &times;
+              = notice
           - if alert
-            %p.alert.alert-danger= alert
+            %p.alert.alert-danger
+              %a.close{ href: '#', 'data-dismiss'=> 'alert'}
+                &times;
+              = alert
           = yield
       = render :partial => 'layouts/footer'
 

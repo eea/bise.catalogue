@@ -11,6 +11,14 @@ en:
       article: Article
       document: Document
     attributes:
+      article:
+        site: Source site
+        title: Title
+        english_title: English title
+        author: Author
+        language_ids: Languages
+        biographical_region: Biographical region
+        published_on: Published on
       document:
         site: Source site
         title: Title
@@ -50,6 +58,7 @@ en:
               blank: Please, select at least one language.
             file:
               blank: Please, choose a file to upload.
+              unique: This file is already registered
             published_on:
               not_valid: Please, choose a valid date.
         link:

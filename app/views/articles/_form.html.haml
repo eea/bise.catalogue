@@ -8,6 +8,7 @@
       .row-fluid
         .span12
           = f.input :content, :as => :text, :input_html => { :class => "input-block-level tinymce" }
+      = render :partial => 'common/targets', :locals => { :parent => @article, f: f }
       = render :partial => 'common/countries', :locals => { :parent => @article }
 
   %div.form-actions.margin-none.text-right

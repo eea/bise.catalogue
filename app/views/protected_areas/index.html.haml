@@ -1,126 +1,96 @@
 - content_for :pageheader do
-    Sites
+  Sites
 
 - content_for :actions do
-    / = link_to  new_protected_area_path, :class => "btn" do
-    /     %i.icon-plus
-    /     New Site
-    = form_tag protected_areas_path, :method => 'get', :class => 'search-query pull-right' do       #
-        = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search site...'    #
+  = form_tag protected_areas_path, :method => 'get', :class => 'search-query pull-right' do
+    = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search site...'
 
 .container-fluid
-    .row-fluid
-
-        .span3
-
-            .accordion#source_dbs
-                .accordion-group
-                    .accordion-head
-                        %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#source-dbs-list', :data => { :toggle => 'collapse', :parent => '#authors' } }
-                            Sources
-                            %span.caret
-                    .accordion-body.in#source-dbs-list
-                        .accordion-inner
-                            %ul.unstyled
-                                - if @protected_areas.respond_to?('facets')
-                                    - @protected_areas.facets['source_db']['terms'].each do |facet|
-                                        - if !current_page?(params.merge(:source_db => facet['term'], :page => 1))
-                                            %li
-                                                = link_to params.merge(:source_db => facet['term'], :page => 1) do
-                                                    = facet['term']
-                                                    %span.badge.badge-info.pull-right= facet['count']
-                                        - else
-                                            %li.selected
-                                                = facet['term']
-                                                %span.pull-right= link_to "Remove", params.except(:source_db)
-
-
-            .accordion#countries
-                .accordion-group
-                    .accordion-head
-                        %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#countries-list', :data => { :toggle => 'collapse', :parent => '#countries' } }
-                            Countries
-                            %span.caret
-                    .accordion-body.in#countries-list
-                        .accordion-inner
-                            %ul.unstyled
-                                - if @protected_areas.respond_to?('facets')
-                                    - @protected_areas.facets['countries']['terms'].each do |facet|
-                                        - if !current_page?(params.merge(:country => facet['term'], :page => 1))
-                                            %li
-                                                = link_to params.merge(:country => facet['term'], :page => 1) do
-                                                    = facet['term']
-                                                    %span.badge.badge-info.pull-right= facet['count']
-                                        - else
-                                            %li.selected
-                                                = facet['term']
-                                                %span.pull-right= link_to "Remove", params.except(:country)
-
-            / .accordion#biogeoregions
-            /     .accordion-group
-            /         .accordion-head
-            /             %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#biogeoregions-list', :data => { :toggle => 'collapse', :parent => '#biogeoregions' } }
-            /                 Biogeoregions
-            /                 %span.caret
-            /         .accordion-body.in#biogeoregions-list
-            /             .accordion-inner
-            /                 %ul.unstyled
-            /                     - if @protected_areas.respond_to?('facets')
-            /                         - @protected_areas.facets['biogeoregions']['terms'].each do |facet|
-            /                             - if !current_page?(params.merge(:biogeoregions => facet['term'], :page => 1))
-            /                                 %li
-            /                                     = link_to params.merge(:biogeoregions => facet['term'], :page => 1) do
-            /                                         = facet['term']
-            /                                         %span.badge.badge-info.pull-right= facet['count']
-            /                             - else
-            /                                 %li.selected
-            /                                     = facet['term']
-            /                                     %span.pull-right= link_to "Remove", params.except(:biogeoregions)
-
-            / %h3 Area Range
-
-            .accordion#designation_years
-                .accordion-group
-                    .accordion-head
-                        %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#designations-list', :data => { :toggle => 'collapse', :parent => '#authors' } }
-                            Designation Year
-                            %span.caret
-                    .accordion-body.in#designations-list
-                        .accordion-inner
-                            %ul.unstyled
-                                - if @protected_areas.respond_to?('facets')
-                                    - @protected_areas.facets['designation_year']['terms'].each do |facet|
-                                        - if !current_page?(params.merge(:designation_year => facet['term'], :page => 1))
-                                            %li
-                                                = link_to params.merge(:designation_year => facet['term'], :page => 1) do
-                                                    = facet['term']
-                                                    %span.badge.badge-info.pull-right= facet['count']
-                                        - else
-                                            %li.selected
-                                                = facet['term']
-                                                %span.pull-right= link_to "Remove", params.except(:designation_year)
+  .row-fluid
+    .span3
+      .accordion#source_dbs
+        .accordion-group
+          .accordion-head
+            %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#source-dbs-list', :data => { :toggle => 'collapse', :parent => '#authors' } }
+              Sources
+              %span.caret
+          .accordion-body.in#source-dbs-list
+            .accordion-inner
+              %ul.unstyled
+                - if @protected_areas.respond_to?('facets')
+                  - @protected_areas.facets['source_db']['terms'].each do |facet|
+                    - if !current_page?(params.merge(:source_db => facet['term'], :page => 1))
+                      %li
+                        = link_to params.merge(:source_db => facet['term'], :page => 1) do
+                          = facet['term']
+                          %span.badge.badge-info.pull-right= facet['count']
+                    - else
+                      %li.selected
+                        = facet['term']
+                        %span.pull-right= link_to "Remove", params.except(:source_db)
+      .accordion#countries
+        .accordion-group
+          .accordion-head
+            %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#countries-list', :data => { :toggle => 'collapse', :parent => '#countries' } }
+              Countries
+              %span.caret
+          .accordion-body.in#countries-list
+            .accordion-inner
+              %ul.unstyled
+                - if @protected_areas.respond_to?('facets')
+                  - @protected_areas.facets['countries']['terms'].each do |facet|
+                    - if !current_page?(params.merge(:country => facet['term'], :page => 1))
+                      %li
+                        = link_to params.merge(:country => facet['term'], :page => 1) do
+                          = facet['term']
+                          %span.badge.badge-info.pull-right= facet['count']
+                    - else
+                      %li.selected
+                        = facet['term']
+                        %span.pull-right= link_to "Remove", params.except(:country)
+      .accordion#designation_years
+        .accordion-group
+          .accordion-head
+            %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#designations-list', :data => { :toggle => 'collapse', :parent => '#authors' } }
+              Designation Year
+              %span.caret
+          .accordion-body.in#designations-list
+            .accordion-inner
+              %ul.unstyled
+                - if @protected_areas.respond_to?('facets')
+                  - @protected_areas.facets['designation_year']['terms'].each do |facet|
+                    - if !current_page?(params.merge(:designation_year => facet['term'], :page => 1))
+                      %li
+                        = link_to params.merge(:designation_year => facet['term'], :page => 1) do
+                          = facet['term']
+                          %span.badge.badge-info.pull-right= facet['count']
+                    - else
+                      %li.selected
+                        = facet['term']
+                        %span.pull-right= link_to "Remove", params.except(:designation_year)
 
 
-                                        / - if !current_page?(params.merge(:author => facet['term'], :page => 1))
-                                        /     %li
-                                        /         = link_to params.merge(:author => facet['term'], :page => 1) do
-                                        /             = facet['term']
-                                        /             %span.badge.badge-info.pull-right= facet['count']
-                                        / - else
-                                        /     %li.selected
-                                        /         = facet['term']
-                                        /         %span.pull-right= link_to "Remove", params.except(:author)
+                    / - if !current_page?(params.merge(:author => facet['term'], :page => 1))
+                    /     %li
+                    /         = link_to params.merge(:author => facet['term'], :page => 1) do
+                    /             = facet['term']
+                    /             %span.badge.badge-info.pull-right= facet['count']
+                    / - else
+                    /     %li.selected
+                    /         = facet['term']
+                    /         %span.pull-right= link_to "Remove", params.except(:author)
 
-            /= render "facets/facet_sites"       , :objs => @protected_areas
-            /= render "facets/facet_authors"     , :objs => @protected_areas
-            / = render "facets/facet_languages"   , :objs => @protected_areas
-            /= render "facets/facet_countries"   , :objs => @protected_areas
-            /= render "facets/facet_timeline"    , :objs => @protected_areas
+        /= render "facets/facet_sites"       , :objs => @protected_areas
+        /= render "facets/facet_authors"     , :objs => @protected_areas
+        / = render "facets/facet_languages"   , :objs => @protected_areas
+        /= render "facets/facet_countries"   , :objs => @protected_areas
+        /= render "facets/facet_timeline"    , :objs => @protected_areas
 
-        .span9
-            - @protected_areas.each_with_hit do |site, hit|
-                = render "cells/protected_area", :site => site, :hit => hit
+    .span9
+      - @protected_areas.each_with_hit do |site, hit|
+        = render "cells/protected_area", :site => site, :hit => hit
 
-            = page_entries_info @protected_areas
-            = will_paginate @protected_areas, :renderer => BootstrapPagination::Rails
+      = page_entries_info @protected_areas
+      = will_paginate @protected_areas, :renderer => BootstrapPagination::Rails
 
+  %br

@@ -1,104 +1,41 @@
 - content_for :pageheader do
-    = @article.title
+  = @article.title
 
 - content_for :actions do
-    = link_to articles_path, :class => "btn" do
-        %i.icon-reply
-        Back
-    = link_to  edit_article_path(@article), :class => "btn" do
-        %i.icon-pencil
-        Edit
-    = link_to  article_path(@article), :method => :delete, :class => "btn btn-danger" do
-        %i.icon-trash
-        Delete
+  = link_to articles_path, :class => "btn" do
+    %i.icon-reply
+    Back
+  = link_to  edit_article_path(@article), :class => "btn" do
+    %i.icon-pencil
+    Edit
+  = link_to  article_path(@article), :method => :delete, :class => "btn btn-danger" do
+    %i.icon-trash
+    Delete
 
-.tab-content
 
-    - if notice
-        .container-fluid
-            .row-fluid
-                %div.alert.alert-success
-                    %button.close{ :type => "button", 'data-dismiss' => 'alert' }
-                        &times;
-                    %h4 Success!
-                    = notice
+.container-fluid
 
-    #general.tab-pane.active
+  = render 'common/showinfo', obj: @article
 
-        .container-fluid
-            .row-fluid
-                .span12
-                    %legend Info
-            .row-fluid
-                .span2.control-label.text-right
-                    Title:
-                .span4
-                    = @article.title
-                .span2.control-label.text-right
-                    Site:
-                .span4
-                    = @article.site.name
-            .row-fluid
-                .span2.control-label.text-right
-                    English title:
-                .span4
-                    = @article.english_title
-                .span2.control-label.text-right
-                    Published:
-                .span4
-                    = @article.published
-            .row-fluid
-                .span2.control-label.text-right
-                    English Author:
-                .span4
-                    = @article.author
-                .span2.control-label.text-right
-                    Published on:
-                .span4
-                    = @article.published_on
+  %legend Article
+  .row-fluid
+    .span12
+      = raw @article.content
 
-            .row-fluid
-                .span12
-                    %legend Languages
-            .row-fluid
-                .span12.text-right
-                    - for a in @article.languages
-                        %span.label.label-success= a.name
+  %legend Countries
+  .row-fluid
+    .span12.text-right
+      - for c in @article.countries
+        %span.label.label-success= c.name
 
-            .row-fluid
-                .span12
-                    %legend Article
-            .row-fluid
-                .span12
-                    = raw @article.content
-            %br
+  / %legend Biographical Region:
+  / .row-fluid
+  /   .span12
+  /     = @document.biographical_region
 
-    #geographic.tab-pane
-
-        .container-fluid
-            .row-fluid
-                .span12
-                    %legend Countries
-            .row-fluid
-                .span12.text-right
-                    - for c in @article.countries
-                        %span.label.label-success= c.name
-
-    #related.tab-pane
-
-        .container-fluid
-            .alert.alert-error
-                %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
-                %strong
-                    Warning!
-                This section is under contruction...
-
-    #ecosystems.tab-pane
-
-        .container-fluid
-            .alert.alert-error
-                %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
-                %strong
-                    Warning!
-                This section is under contruction...
+  %legend Tags
+  .row-fluid
+    .span12
+      - @article.tag_list.each do |t|
+        .label.label-success= t
 

@@ -1,0 +1,30 @@
+%legend Info
+
+.row-fluid
+  .span2.control-label.text-right
+    Title:
+  .span4
+    = obj.title
+  .span2.control-label.text-right
+    Site:
+  .span4
+    = obj.site.name
+.row-fluid
+  .span2.control-label.text-right
+    English title:
+  .span4
+    = obj.english_title
+  .span2.control-label.text-right
+    Published on:
+  .span4
+    = obj.published_on
+.row-fluid
+  .span2.control-label.text-right
+    Languages:
+  .span4
+    - for a in obj.languages
+      %span.label.label-success= a.name
+  .span2.control-label.text-right
+    Author:
+  .span4
+    = obj.author

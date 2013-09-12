@@ -227,7 +227,6 @@ class Document < ActiveRecord::Base
   end
 
   def attachment
-    puts ":: Indexing document #{self.id}   => #{file_url.to_s}"
     if file.present?
       path_to_file = Rails.root.to_s + '/public' + file_url.to_s
       Base64.encode64(open(path_to_file) { |f| f.read })
@@ -247,7 +246,7 @@ class Document < ActiveRecord::Base
 
   def uniqueness_of_md5hash
     if Document.exists?(:md5hash => self.md5hash)
-      errors.add :file, "is already registered. Documents must be unique."
+      errors.add :file, :unique  #"is already registered. Documents must be unique."
     end
   end
 

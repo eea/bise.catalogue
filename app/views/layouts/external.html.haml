@@ -1,84 +1,45 @@
 !!! 5
 %html
-    %head
-        %meta{ 'charset' => 'utf-8' }
-        %meta{ 'http-equiv' => 'X-UA-Compatible', :content => 'IE=Edge,chrome=1'}
-        %meta{ 'name' => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
-        %meta{ 'name' => 'apple-mobile-web-app-capable', :content => "yes"}
+  %head
+    %meta{ 'charset' => 'utf-8' }
+    %meta{ 'http-equiv' => 'X-UA-Compatible', :content => 'IE=Edge,chrome=1'}
+    %meta{ 'name' => 'viewport', :content => 'width=device-width, initial-scale=1.0'}
+    %meta{ 'name' => 'apple-mobile-web-app-capable', :content => "yes"}
 
-        %title
-            = content_for?(:title) ? yield(:title) : "Catalogue"
+    %title
+      = content_for?(:title) ? yield(:title) : "Catalogue"
 
-        = csrf_meta_tags
+    = csrf_meta_tags
 
-        /[if lt IE 9]
-            %script{ 'src' => '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js', 'type' => 'text/javascript' }
+    /[if lt IE 9]
+      %script{ 'src' => '//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js', 'type' => 'text/javascript' }
 
-        = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "application", :media => "all"
 
-        / For iPad Retina display: 144 x 144 pixels
-        / = favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144'
-        / For iPhone Retina display: 114 x 114 pixels
-        / = favicon_link_tag 'images/apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114'
-        / For iPad: 72 x 72 pixels
-        / = favicon_link_tag 'images/apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72'
-        / For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: 57 x 57 pixels
-        / = favicon_link_tag 'images/apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png'
-        / For all other devices: 32 x 32 pixels
-        / = favicon_link_tag 'images/favicon.ico', :rel => 'shortcut icon'
+    %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Roboto+Condensed:300", "type" => "text/css"}
+    %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Homenaje", "type" => "text/css"}
 
-        %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Roboto+Condensed:300", "type" => "text/css"}
-        %link{"rel" => "stylesheet", "href" => "http://fonts.googleapis.com/css?family=Homenaje", "type" => "text/css"}
+    = yield :css
 
-        = yield :css
+  %body
 
-    %body
+    .container{ style: 'margin-top: 10%'}
+      .outter-container{ style: 'min-height: 100px; vertical-align: middle'}
+        .inner-container
 
-        / %div.navbar.navbar-fixed-top
-        /     %div.navbar-inner
-        /         %div.container{ 'data-target' => '.nav-collapse', 'data-toggle' => 'collapse' }
-        /             %a.btn.btn-navbar
-        /                 %span.icon-bar
-        /                 %span.icon-bar
-        /                 %span.icon-bar
-        /             = link_to root_path, :class => "brand" do
-        /                 = image_tag  "bise_logo_mini.png"
-        /             %div.container.nav-collapse
-        /                 %ul.nav
-        /                     %li
-        /                         = link_to "Articles", articles_path
-        /                     %li
-        /                         = link_to "Documents", documents_path
-        /                     %li
-        /                         = link_to "Links", links_path
-        /                     / %li
-        /                     /     = link_to "News", news_index_path
-        /                     / %li
-        /                     /     = link_to "Sites", protected_areas_path
-        /                     / %li
-        /                     /     = link_to "Habitats", habitats_path
-        /                     / %li
+          - if notice
+            %p.alert.alert-success
+              %a.close{ href: '#', 'data-dismiss'=> 'alert'}
+                &times;
+              = notice
+          - if alert
+            %p.alert.alert-danger
+              %a.close{ href: '#', 'data-dismiss'=> 'alert'}
+                &times;
+              = alert
 
-        .container{ style: 'margin-top: 10%'}
-            / .pageheader
-            /     %h1.text-center EEA BISE Catalogue
+          = yield
 
-            .outter-container{ style: 'min-height: 100px; vertical-align: middle'}
-
-                .inner-container
-
-                    / .well{ style: 'margin: 0 10px 10px 10px'}
-                    /     %h2.text-center BISE Catalogue
-
-                    - if notice
-                        %p.notice= notice
-                    - if alert
-                        %p.alert= alert
-
-                    = yield
-
-            /# = render :partial => 'layouts/footer'
-
-        / Placed at the end of the document so the pages load faster
-        = javascript_include_tag "application"
-        = yield :js
+    / Placed at the end of the document so the pages load faster
+    = javascript_include_tag "application"
+    = yield :js
