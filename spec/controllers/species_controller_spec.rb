@@ -20,6 +20,15 @@ require 'spec_helper'
 
 describe SpeciesController do
 
+  let(:user) do
+    FactoryGirl.create(:user)
+  end
+
+  before :each do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in user
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Specie. As you add validations to Specie, be sure to
   # update the return value of this method accordingly.
@@ -27,137 +36,19 @@ describe SpeciesController do
     {}
   end
 
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # SpeciesController. Be sure to keep this updated too.
-  def valid_session
-    {}
-  end
-
   describe "GET index" do
     it "assigns all species as @species" do
-      specie = Specie.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:species).should eq([specie])
+      specie = FactoryGirl.create :species
+      get :index, {}
+      assigns(:species).should be_a(Tire::Results::Collection)
     end
   end
 
   describe "GET show" do
     it "assigns the requested specie as @specie" do
-      specie = Specie.create! valid_attributes
-      get :show, {:id => specie.to_param}, valid_session
-      assigns(:specie).should eq(specie)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new specie as @specie" do
-      get :new, {}, valid_session
-      assigns(:specie).should be_a_new(Specie)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested specie as @specie" do
-      specie = Specie.create! valid_attributes
-      get :edit, {:id => specie.to_param}, valid_session
-      assigns(:specie).should eq(specie)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Specie" do
-        expect {
-          post :create, {:specie => valid_attributes}, valid_session
-        }.to change(Specie, :count).by(1)
-      end
-
-      it "assigns a newly created specie as @specie" do
-        post :create, {:specie => valid_attributes}, valid_session
-        assigns(:specie).should be_a(Specie)
-        assigns(:specie).should be_persisted
-      end
-
-      it "redirects to the created specie" do
-        post :create, {:specie => valid_attributes}, valid_session
-        response.should redirect_to(Specie.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved specie as @specie" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Specie.any_instance.stub(:save).and_return(false)
-        post :create, {:specie => {}}, valid_session
-        assigns(:specie).should be_a_new(Specie)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Specie.any_instance.stub(:save).and_return(false)
-        post :create, {:specie => {}}, valid_session
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested specie" do
-        specie = Specie.create! valid_attributes
-        # Assuming there are no other species in the database, this
-        # specifies that the Specie created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Specie.any_instance.should_receive(:update_attributes).with({'these' => 'params'})
-        put :update, {:id => specie.to_param, :specie => {'these' => 'params'}}, valid_session
-      end
-
-      it "assigns the requested specie as @specie" do
-        specie = Specie.create! valid_attributes
-        put :update, {:id => specie.to_param, :specie => valid_attributes}, valid_session
-        assigns(:specie).should eq(specie)
-      end
-
-      it "redirects to the specie" do
-        specie = Specie.create! valid_attributes
-        put :update, {:id => specie.to_param, :specie => valid_attributes}, valid_session
-        response.should redirect_to(specie)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the specie as @specie" do
-        specie = Specie.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Specie.any_instance.stub(:save).and_return(false)
-        put :update, {:id => specie.to_param, :specie => {}}, valid_session
-        assigns(:specie).should eq(specie)
-      end
-
-      it "re-renders the 'edit' template" do
-        specie = Specie.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Specie.any_instance.stub(:save).and_return(false)
-        put :update, {:id => specie.to_param, :specie => {}}, valid_session
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested specie" do
-      specie = Specie.create! valid_attributes
-      expect {
-        delete :destroy, {:id => specie.to_param}, valid_session
-      }.to change(Specie, :count).by(-1)
-    end
-
-    it "redirects to the species list" do
-      specie = Specie.create! valid_attributes
-      delete :destroy, {:id => specie.to_param}, valid_session
-      response.should redirect_to(species_url)
+      specie = FactoryGirl.create :species
+      get :show, {:id => specie.to_param}
+      assigns(:species).should eq(specie)
     end
   end
 

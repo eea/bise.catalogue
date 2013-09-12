@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :habitat do
-    uri "MyString"
+    uri "http://eunis.europa.eu/habitats/1"
     code 1
     name "MyString"
     natura2000_code 1

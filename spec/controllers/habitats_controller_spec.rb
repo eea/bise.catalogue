@@ -20,144 +20,37 @@ require 'spec_helper'
 
 describe HabitatsController do
 
+  let(:user) do
+    FactoryGirl.create(:user)
+  end
+
+  before :each do
+    @request.env["devise.mapping"] = Devise.mappings[:user]
+    sign_in user
+  end
+
   # This should return the minimal set of attributes required to create a valid
   # Habitat. As you add validations to Habitat, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { "uri" => "MyString" }
-  end
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # HabitatsController. Be sure to keep this updated too.
-  def valid_session
-    {}
+    {
+      uri: "MyString"
+    }
   end
 
   describe "GET index" do
     it "assigns all habitats as @habitats" do
-      habitat = Habitat.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:habitats).should eq([habitat])
+      habitat = FactoryGirl.create :habitat
+      get :index, {}
+      assigns(:habitats).should be_a(Tire::Results::Collection)
     end
   end
 
   describe "GET show" do
     it "assigns the requested habitat as @habitat" do
-      habitat = Habitat.create! valid_attributes
-      get :show, {:id => habitat.to_param}, valid_session
+      habitat = FactoryGirl.create :habitat
+      get :show, {:id => habitat.to_param}
       assigns(:habitat).should eq(habitat)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new habitat as @habitat" do
-      get :new, {}, valid_session
-      assigns(:habitat).should be_a_new(Habitat)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested habitat as @habitat" do
-      habitat = Habitat.create! valid_attributes
-      get :edit, {:id => habitat.to_param}, valid_session
-      assigns(:habitat).should eq(habitat)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new Habitat" do
-        expect {
-          post :create, {:habitat => valid_attributes}, valid_session
-        }.to change(Habitat, :count).by(1)
-      end
-
-      it "assigns a newly created habitat as @habitat" do
-        post :create, {:habitat => valid_attributes}, valid_session
-        assigns(:habitat).should be_a(Habitat)
-        assigns(:habitat).should be_persisted
-      end
-
-      it "redirects to the created habitat" do
-        post :create, {:habitat => valid_attributes}, valid_session
-        response.should redirect_to(Habitat.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved habitat as @habitat" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Habitat.any_instance.stub(:save).and_return(false)
-        post :create, {:habitat => { "uri" => "invalid value" }}, valid_session
-        assigns(:habitat).should be_a_new(Habitat)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        Habitat.any_instance.stub(:save).and_return(false)
-        post :create, {:habitat => { "uri" => "invalid value" }}, valid_session
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested habitat" do
-        habitat = Habitat.create! valid_attributes
-        # Assuming there are no other habitats in the database, this
-        # specifies that the Habitat created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        Habitat.any_instance.should_receive(:update_attributes).with({ "uri" => "MyString" })
-        put :update, {:id => habitat.to_param, :habitat => { "uri" => "MyString" }}, valid_session
-      end
-
-      it "assigns the requested habitat as @habitat" do
-        habitat = Habitat.create! valid_attributes
-        put :update, {:id => habitat.to_param, :habitat => valid_attributes}, valid_session
-        assigns(:habitat).should eq(habitat)
-      end
-
-      it "redirects to the habitat" do
-        habitat = Habitat.create! valid_attributes
-        put :update, {:id => habitat.to_param, :habitat => valid_attributes}, valid_session
-        response.should redirect_to(habitat)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the habitat as @habitat" do
-        habitat = Habitat.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Habitat.any_instance.stub(:save).and_return(false)
-        put :update, {:id => habitat.to_param, :habitat => { "uri" => "invalid value" }}, valid_session
-        assigns(:habitat).should eq(habitat)
-      end
-
-      it "re-renders the 'edit' template" do
-        habitat = Habitat.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        Habitat.any_instance.stub(:save).and_return(false)
-        put :update, {:id => habitat.to_param, :habitat => { "uri" => "invalid value" }}, valid_session
-        response.should render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE destroy" do
-    it "destroys the requested habitat" do
-      habitat = Habitat.create! valid_attributes
-      expect {
-        delete :destroy, {:id => habitat.to_param}, valid_session
-      }.to change(Habitat, :count).by(-1)
-    end
-
-    it "redirects to the habitats list" do
-      habitat = Habitat.create! valid_attributes
-      delete :destroy, {:id => habitat.to_param}, valid_session
-      response.should redirect_to(habitats_url)
     end
   end
 
