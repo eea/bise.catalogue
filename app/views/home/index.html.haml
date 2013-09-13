@@ -4,32 +4,20 @@
 - content_for :js do
   = javascript_include_tag "home"
 
-.container-fluid
-  .row-fluid
-    .span3
-      %legend
-        Articles
-      #articles-graph{ style: 'height: 230px' }
-    .span3
-      %legend
-        Documents
-      #documents-graph{ style: 'height: 230px' }
-    .span3
-      %legend
-        News
-      #news-graph{ style: 'height: 230px' }
-    .span3
-      %legend
-        Links
-      #links-graph{ style: 'height: 230px' }
 
-  / .row-fluid
-  /   .span12
-  /     #timeline-graph{ style: 'height: 330px' }
-  /     %br
-  /     %br
-  /     %br
-  /     %br
-  /     %br
-  /     %br
+.container-fluid
+
+
+  .row-fluid
+    .span6
+      %legend Published / Unpublished
+      #overview-graph{ style: 'height: 380px', data: { overview: overview_data } }
+    .span6
+      %legend Semantic Data
+      #eunis-graph{ data: { eunis: eunis_data } }
+
+  .row-fluid
+    .span12
+      /#flot{ style: 'width: 100px;height: 100px; background:orange'}
+      #timeline-graph{ data: { timeline: timeline } }
 

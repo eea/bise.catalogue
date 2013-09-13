@@ -70,37 +70,48 @@ class Article < ActiveRecord::Base
       # indexes :content_without_tags, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
       # indexes :content_without_tags, :type => 'string',  :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
       # indexes :geographical_coverage, :type => 'string'
-      indexes :biographical_region, :type => 'string', :index => :not_analyzed
-      indexes :author, :type => 'string', :index => :not_analyzed
-      indexes :published_on, :type => 'date'
+      indexes :biographical_region, type: 'string', :index => :not_analyzed
+      indexes :author             , type: 'string', :index => :not_analyzed
+      indexes :published_on       , type: 'date'
+
+      indexes :approved           , type: 'boolean'
+      indexes :approved_at        , type: 'date'
+      indexes :created_at         , type: 'date'
     }
   end
 
 
   def to_indexed_json
-    # self.to_json
     self.to_json :methods => [:content_without_tags]
   end
 
   def to_indexed_json
     {
-      :site                      => { _type: 'site', _id: site.id, name: site.name, ngram_name: site.name },
+      site:           {
+        _type: 'site',
+        _id: site.id,
+        name: site.name,
+        ngram_name: site.name
+      },
+      title:          title,
+      sort_title:     title,
+      english_title:  english_title,
+      content:        content_without_tags,
+      author:         author,
+      ngram_author:   author,
+      published_on:   published_on,
 
-      :title                     => title,
-      :sort_title                => title,
-      :english_title             => english_title,
-      :content                   => content_without_tags,
-      :author                    => author,
-      :ngram_author              => author,
-      :published_on              => published_on,
+      approved:       approved,
+      approved_at:    approved_at,
+      created_at:     created_at,
 
-      :languages                 => languages.map { |l| { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name } },
+      languages:      languages.map { |l| { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name } },
 
-      :countries                 => countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
-      :tags                      => tags.map { |c| { name: c.name, ngram_name: c.name } },
+      countries:      countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
+      tags:           tags.map { |c| { name: c.name, ngram_name: c.name } },
 
-      :biographical_region       => biographical_region,
-      :biographical_region_ngram => biographical_region
+      biographical_region:       biographical_region,
+      biographical_region_ngram: biographical_region
     }.to_json
   end
 

@@ -18,8 +18,8 @@ module Classifiable
     attr_accessible         :published_on
     attr_accessible         :published
 
-    # attr_accessible :approved
-    # attr_accessible :approved_at
+    attr_accessible         :approved
+    attr_accessible         :approved_at
 
     attr_accessible         :country_ids
     has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "#{name.pluralize.downcase}_countries", :foreign_key => "#{name.downcase}_id"

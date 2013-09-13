@@ -47,23 +47,31 @@ class Link < ActiveRecord::Base
       indexes :source, :type => 'string'
       indexes :published_on, :type => 'date'
       indexes :biographical_region, :type => 'string', :index => :not_analyzed
+
       indexes :countries do
         indexes :id, :type => 'integer'
         indexes :name, :type => 'string', :index => :not_analyzed
       end
+
+      indexes :approved           , type: 'boolean'
+      indexes :approved_at        , type: 'date'
+      indexes :created_at         , type: 'date'
     }
   end
 
   def to_indexed_json
     {
-      :title                  => title,
-      :description            => description,
-      :author                 => author,
-      :published_on           => published_on,
+      title:        title,
+      description:  description,
+      author:       author,
+      published_on: published_on,
 
-      :countries              => countries.map { |c| { :_type  => 'country', :_id    => c.id, :name   => c.name  } },
+      approved:     approved,
+      approved_at:  approved_at,
+      created_at:   created_at,
 
-      :biographical_region    => biographical_region
+      countries:           countries.map { |c| { :_type  => 'country', :_id    => c.id, :name   => c.name  } },
+      biographical_region: biographical_region
     }.to_json
   end
 

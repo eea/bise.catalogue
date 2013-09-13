@@ -57,7 +57,8 @@
 //= require jquery_ujs
 
 // ----- CHOSEN
-//= require chosen/chosen.jquery
+//= require jquery/chosen
+//= require jquery/qtip
 
 // ----- REMOTIPART
 //= require jquery.remotipart

@@ -108,31 +108,43 @@ class Document < ActiveRecord::Base
         :attachment => { store: 'yes', :term_vector => 'with_positions_offsets' },
         :author     => { analyzer: 'index_ngram_analyzer' }
       }
+
+      indexes :approved           , type: 'boolean'
+      indexes :approved_at        , type: 'date'
+      indexes :created_at         , type: 'date'
     end
   end
 
   def to_indexed_json
     {
-      :site                      => { _type: 'site', _id: site.id, name: site.name, ngram_name: site.name },
+      site:           {
+        _type: 'site',
+        _id: site.id,
+        name: site.name,
+        ngram_name: site.name
+      },
+      title:          title,
+      sort_title:     title,
+      english_title:  english_title,
+      description:    description,
+      author:         author,
+      ngram_author:   author,
+      published_on:   published_on,
 
-      :title                     => title,
-      :sort_title                => title,
-      :english_title             => english_title,
-      :description               => description,
-      :author                    => author,
-      :ngram_author              => author,
-      :published_on              => published_on,
+      approved:       approved,
+      approved_at:    approved_at,
+      created_at:     created_at,
 
-      :languages                 => languages.map { |l| { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name } },
+      languages:      languages.map { |l| { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name } },
 
-      :countries                 => countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
-      :tags                      => tags.map { |c| { name: c.name, ngram_name: c.name } },
+      countries:      countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
+      tags:           tags.map { |c| { name: c.name, ngram_name: c.name } },
 
-      :biographical_region       => biographical_region,
-      :biographical_region_ngram => biographical_region,
-      :file_name                 => document_path,
-      :content_type              => content_type,
-      :attachment                => attachment
+      biographical_region:       biographical_region,
+      biographical_region_ngram: biographical_region,
+      file_name:                 document_path,
+      content_type:              content_type,
+      attachment:                attachment
     }.to_json
   end
 

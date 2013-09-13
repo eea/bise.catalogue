@@ -10,7 +10,7 @@ class CreateLinks < ActiveRecord::Migration
             t.boolean   :published    , default: false
             t.string :language
             t.string :source
-            t.boolean :approved
+            t.boolean :approved, default: false
             t.text    :biographical_region
             t.string :url
             t.string :comment

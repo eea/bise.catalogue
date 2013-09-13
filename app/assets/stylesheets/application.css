@@ -35,7 +35,8 @@
  *= require font-awesome
  * require bootstrap-toggle-buttons
 
- *= require chosen/chosen
+ *= require jquery/chosen
+ *= require jquery/qtip
 
  *= require home
  *= require articles
