@@ -121,15 +121,23 @@ class Article < ActiveRecord::Base
 
   def self.search(params)
 
-    date_init = nil
-    date_end = nil
+    params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)]/, '\\1')                          if params[:query].present?
+    show_approved = (params[:approved] && params[:approved] == 'true') ? true : false
 
+    date_init, date_end = nil
     if params[:published_on].present?
-      year = params[:published_on].to_i
-      logger.debug ':: year => ' + year.to_s
-      date_init = DateTime.new(year, 1, 1)
-      date_end = DateTime.new(year, 12, 31)
+      date_init = DateTime.new(params[:published_on].to_i, 1, 1)
+      date_end = DateTime.new(params[:published_on].to_i, 12, 31)
     end
+
+    # Facet Filter
+    art_filter = []
+    art_filter << { :term => { 'site.name' => params[:site] }}                            if params[:site].present?
+    art_filter << { :term => { :author => params[:author] }}                              if params[:author].present?
+    art_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }}      if params[:countries].present?
+    art_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }}      if params[:languages].present?
+    art_filter << { :term => { :biographical_region => params[:biographical_region] }}    if params[:biographical_region].present?
+    art_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
 
     tire.search :load => true, :page => params[:page], :per_page => 10 do
 
@@ -147,7 +155,7 @@ class Article < ActiveRecord::Base
           should { string 'biographical_region_ngram:' + params[:query].to_s}
 
           should   { string 'content_without_tags:' + params[:query].to_s }
-          # must_not { string 'published:0' }
+          # must_not { string 'approved:true' }
           # must_not { string 'published:0' }
         end
       end if params[:query].present?
@@ -159,18 +167,31 @@ class Article < ActiveRecord::Base
       filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
       filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
 
+      filter :bool, must: { term: { approved: show_approved } }
+
       sort { by :published_on, "desc" } if params[:query].blank?
+
+      facet 'sites' do
+        terms 'site.name'
+        facet_filter :and, art_filter unless art_filter.empty?
+      end
 
       facet 'authors' do
         terms :author
       end
 
-      # facet 'geographical_coverages' do
-      #     terms :geographical_coverage
-      # end
+      facet 'countries' do
+        terms 'countries.name', size: 60
+        facet_filter :and, art_filter unless art_filter.empty?
+      end
 
       facet 'biographical_regions' do
         terms :biographical_region # , :script_field => true, :size => 50
+      end
+
+      facet 'languages' do
+        terms 'languages.name'
+        facet_filter :and, art_filter unless art_filter.empty?
       end
 
       facet('timeline') do

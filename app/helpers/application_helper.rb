@@ -1,37 +1,5 @@
 module ApplicationHelper
 
-  # def countries
-  #     [
-  #         'Austria',
-  #         'Belgium',
-  #         'Bulgaria',
-  #         'Cyprus',
-  #         'Czech Republic',
-  #         'Germany',
-  #         'Denmark',
-  #         'Estonia',
-  #         'Spain',
-  #         'Finland',
-  #         'France',
-  #         'Greece',
-  #         'Hungary',
-  #         'Ireland',
-  #         'Italy',
-  #         'Lithuania',
-  #         'Luxembourg',
-  #         'Latvia',
-  #         'Malta',
-  #         'Netherlands',
-  #         'Poland',
-  #         'Portugal',
-  #         'Romania',
-  #         'Sweden',
-  #         'Slovenia',
-  #         'Slovakia',
-  #         'United Kingdom'
-  #     ]
-  # end
-
   def biographical_regions
     [
       'Alpine',
@@ -107,6 +75,15 @@ module ApplicationHelper
       'Waste and material resources',
       'Water'
     ]
+  end
+
+  def show_approved?
+    return false unless params[:approved].present?
+    if params[:approved] == 'true'
+      true
+    else
+      false
+    end
   end
 
 end

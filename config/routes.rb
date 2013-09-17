@@ -11,7 +11,10 @@ Catalogue::Application.routes.draw do
 
   # ARTICLES
   resources :articles do
-    collection { get :search }
+    collection do
+      get :search
+      post :approve_multiple
+    end
   end
 
   # DOCUMENTS
