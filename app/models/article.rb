@@ -162,7 +162,11 @@ class Article < ActiveRecord::Base
 
       highlight :title, :content_without_tags
 
+      filter :term, 'site.name' => params[:site] if params[:site].present?
+      filter :term, :source_db => params[:source_db] if params[:source_db].present?
       filter :term, :author => params[:author] if params[:author].present?
+      filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
+      filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
       # filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
       filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
       filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?

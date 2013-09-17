@@ -18,7 +18,11 @@ Catalogue::Application.routes.draw do
   end
 
   # DOCUMENTS
-  resources :documents
+  resources :documents do
+    collection do
+      post :approve_multiple
+    end
+  end
 
   # LINKS
   resources :links

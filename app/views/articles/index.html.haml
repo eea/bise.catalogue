@@ -5,19 +5,14 @@
   = link_to  new_article_path, :class => "btn" do
     %i.icon-plus
     New Article
-  .btn-group
-    = link_to params.merge( approved: false, :page => 1), class: "btn #{(show_approved?) ? '' : 'active'}" do
-      %i.icon-thumbs-down-alt
-      Unapproved
-    = link_to params.merge( approved: true, :page => 1), class: "btn #{(show_approved?) ? 'active' : ''}" do
-      %i.icon-thumbs-up-alt
-      Approved
+  = render 'common/approved_toggle'
   = form_tag articles_path, :method => 'get', :class => 'search-query pull-right' do       #
     = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'    #
 
 .container-fluid
   .row-fluid
     .span3
+      = render "facets/facet_sites"       , :objs => @articles
       = render "facets/facet_authors"     , :objs => @articles
       = render "facets/facet_languages"   , :objs => @articles
       = render "facets/facet_countries"   , :objs => @articles

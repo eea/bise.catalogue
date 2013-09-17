@@ -108,4 +108,24 @@ class DocumentsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def approve_multiple
+    if (params[:document_ids].nil?)
+      respond_to do |format|
+        format.html { redirect_to documents_path, alert: "Please, select at least one document!" }
+      end
+      return
+    end
+
+    @documents = Document.find(params[:document_ids])
+    @documents.each do |document|
+      document.approved = !document.approved
+      document.save!
+    end
+    respond_to do |format|
+      format.html { redirect_to documents_url }
+      format.json { head :no_content }
+    end
+  end
+
 end

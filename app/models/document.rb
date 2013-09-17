@@ -155,6 +155,7 @@ class Document < ActiveRecord::Base
   def self.search(params)
 
     params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)]/, '\\1')                          if params[:query].present?
+    show_approved = (params[:approved] && params[:approved] == 'true') ? true : false
 
     date_init, date_end = nil
     if params[:published_on].present?
@@ -197,6 +198,8 @@ class Document < ActiveRecord::Base
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
       filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
       filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+
+      filter :bool, must: { term: { approved: show_approved } }
 
       if params[:sort].present?
         sort { by params[:sort].to_sym, params[:sort] == "published_on" ? "desc" : "asc" }
