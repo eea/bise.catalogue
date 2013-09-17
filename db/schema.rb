@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130903073304) do
+ActiveRecord::Schema.define(:version => 20130913080026) do
 
   create_table "actions", :force => true do |t|
     t.string    "title"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(:version => 20130903073304) do
     t.integer   "concepts_id"
     t.timestamp "created_at",          :limit => 6,                    :null => false
     t.timestamp "updated_at",          :limit => 6,                    :null => false
+    t.boolean   "approved",                         :default => false
+    t.datetime  "approved_at"
   end
 
   create_table "articles_concepts", :id => false, :force => true do |t|
@@ -149,6 +151,7 @@ ActiveRecord::Schema.define(:version => 20130903073304) do
     t.integer   "theme_id"
     t.timestamp "created_at",          :limit => 6, :null => false
     t.timestamp "updated_at",          :limit => 6, :null => false
+    t.datetime  "approved_at"
   end
 
   create_table "documents_concepts", :id => false, :force => true do |t|

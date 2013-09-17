@@ -15,3 +15,4 @@ log/test.log
 .idea/.generators
 .idea/.rakeTasks
 rspec_guard_result
+Dotenv.env
