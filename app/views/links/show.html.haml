@@ -14,120 +14,33 @@
 
 
 
-.tabbable
+.container-fluid
 
-  %ul.nav.nav-tabs
+  = render 'common/showinfo', obj: @link
 
-    %li.active
-      %a{ :href => '#general', :data => { :toggle => 'tab' } } General
-    %li
-      %a{ :href => '#geographic', :data => { :toggle => 'tab' } } Geographic
-    %li
-      %a{ :href => '#related', :data => { :toggle => 'tab' } } Related Resources
-    %li
-      %a{ :href => '#ecosystems', :data => { :toggle => 'tab' } } Thematic Area
+  %legend Link
+  .row-fluid
+    .span3.control-label.text-right
+      URL:
+    .span9{ :style => "text-align:left"}
+      %a{ :href => @link.url }
+        = @link.url
+  .row-fluid
+    .span3.control-label.text-right
+      Description:
+    .span9
+      = @link.description
 
-  .tab-content
-    #general.tab-pane.active
-      .container-fluid
-        %legend Info
-        .row-fluid{ :class => "control-group"}
-          .span3{ :style => "text-align:right", :class => "control-label"}
-            Title:
-          .span3{ :style => "text-align:left"}
-            = @link.title
-          .span3{ :style => "text-align:right;margin-left:-10%", :class => "control-label"}
-            Language:
-          .span3
-            = @link.language
-        .row-fluid{ :class => "control-group"}
-          .span3{ :style => "text-align:right", :class => "control-label"}
-            English title:
-          .span3{ :style => "text-align:left"}
-            = @link.english_title
-          .span3{ :style => "text-align:right;margin-left:-10%", :class => "control-label"}
-            URL:
-          .span3{ :style => "text-align:left"}
-            %a{ :href => @link.url }
-              = @link.url
-        .row-fluid
-          .span3{ :style => "text-align:right", :class => "control-label"}
-            Description:
-          .span9
-            = @link.description
-        %legend Publication
-        .row-fluid{ :class => "control-group"}
-          .span3{ :style => "text-align:right", :class => "control-label"}
-            Author:
-          .span3{ :style => "text-align:left"}
-            = @link.author
-          .span3{ :style => "text-align:right;margin-left:-10%", :class => "control-label"}
-            Published on:
-          .span3
-            = #{link.published_on.strftime("%m/%d/%Y")}
-        .row-fluid{ :class => "control-group"}
-          .span3{ :style => "text-align:right", :class => "control-label"}
-            Approved:
-          .span3{ :style => "text-align:left"}
-            = @link.approved
-          .span3{ :style => "text-align:right;margin-left:-10%", :class => "control-label"}
-            Approved at:
-          .span3
-            = #{link.approved_at.strftime("%m/%d/%Y")}
-        .row-fluid{ :class => "control-group"}
-          .span3{ :style => "text-align:right", :class => "control-label"}
-            Comments:
-          .span3{ :style => "text-align:left"}
-            = @link.comment
-    #geographic.tab-pane
-      .container-fluid
-        .row-fluid
-          .span3{ :style => "text-align:right;margin-left:-10%", :class => "control-label"}
-            Countries:
-          .span3{ :style => "text-align:left"}
-            %ul
-            - @link.countries.each do |c|
-              %li= c.name
-    #related.tab-pane
-      .container-fluid
-        .row-fluid
-          .alert.alert-error
-            %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
-            %strong
-              Warning!
-            This is a prototype, not working yet
 
-        .row-fluid
-          .span12
-            %legend
-              %a.btn.btn-small.pull-right +
-              Articles
-            %legend
-              %a.btn.btn-small.pull-right +
-              Documents
-            %legend
-              %a.btn.btn-small.pull-right +
-              Events
-            %legend
-              %a.btn.btn-small.pull-right +
-              Links
-            %legend
-              %a.btn.btn-small.pull-right +
-              Multimedia
-            %legend
-              %a.btn.btn-small.pull-right +
-              News
-    #ecosystems.tab-pane
-      .container-fluid
-        .row-fluid
-          .span12
-            %legend Biodiversity
 
-        .row-fluid
-          .span3
-            /= render :partial => 'common/targets', :locals => { :parent => @document }
-          .span3
-          .span3{ :style => "text-align:right", :class => "control-label"}
-            Biographical region:
-          .span3{ :style => "text-align:left"}
-            = @link.biographical_region
+  %legend Countries
+  .row-fluid
+    .span12.text-right
+      - @link.countries.each do |c|
+        %span.label.label-success= c.name
+
+  %legend Tags
+  .row-fluid
+    .span12
+      - @link.tag_list.each do |t|
+        .label.label-success= t
