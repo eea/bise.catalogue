@@ -136,6 +136,9 @@ GEM
     do_postgres (0.10.13)
       data_objects (= 0.10.13)
     docsplit (0.7.2)
+    dotenv (0.9.0)
+    dotenv-rails (0.9.0)
+      dotenv (= 0.9.0)
     ebnf (0.3.1)
       rdf
       sxp
@@ -435,6 +438,7 @@ DEPENDENCIES
   devise_ldap_authenticatable
   do_postgres
   docsplit
+  dotenv-rails
   factory_girl_rails
   ffi
   font-awesome-rails

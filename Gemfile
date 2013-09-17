@@ -88,6 +88,7 @@ end
 
 group :development, :test do
 
+  gem 'dotenv-rails'
   gem 'gem-ctags'
 
   # TEST
