@@ -12,7 +12,7 @@ $ ->
     xkey: 'y',
     ykeys: ['a', 'b'],
     stacked: true,
-    hideHover: true,
+    hideHover: 'auto',
     hoverCallback: (index, options, content) ->
       row = options.data[index]
       return "<em>Approved:</em> " + row.a + ", <em>Unapproved:</em> " + row.b
@@ -34,11 +34,12 @@ $ ->
     element: 'timeline-graph',
     data: $('#timeline-graph').data('timeline').map (month) ->
       JSON.parse month
+    hideHover: true,
     hoverCallback: (index, options, content) ->
       row = options.data[index]
       return "<em>Articles: </em>" + row.a + " <em>Documents:</em> " + row.b + " <em>Links:</em> " + row.c
     parseTime: false,
-    continuousLine: false,
+    continuousLine: true,
     xkey: 'y',
     ykeys: ['a', 'b', 'c'],
     labels: ['Articles', 'Documents', 'Links'],
