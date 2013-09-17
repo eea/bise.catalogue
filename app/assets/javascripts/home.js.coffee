@@ -15,7 +15,7 @@ $ ->
     hideHover: true,
     hoverCallback: (index, options, content) ->
       row = options.data[index]
-      return "Approved:" + row.a + ", Unapproved: " + row.b
+      return "<em>Approved:</em> " + row.a + ", <em>Unapproved:</em> " + row.b
 
     barColors: [ '#95c43a', '#3c5017' ],
     labels: ['Published', 'Unpublished']
@@ -36,7 +36,7 @@ $ ->
       JSON.parse month
     hoverCallback: (index, options, content) ->
       row = options.data[index]
-      return "<em>" + row.y + "</em>: " + row.a + " Articles, " + row.b + " Documents, " + row.c + " Links."
+      return "<em>Articles: </em>" + row.a + " <em>Documents:</em> " + row.b + " <em>Links:</em> " + row.c
     parseTime: false,
     continuousLine: false,
     xkey: 'y',
