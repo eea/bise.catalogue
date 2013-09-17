@@ -182,6 +182,7 @@ class Article < ActiveRecord::Base
 
       facet 'authors' do
         terms :author
+        facet_filter :and, art_filter unless art_filter.empty?
       end
 
       facet 'countries' do

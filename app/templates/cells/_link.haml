@@ -1,23 +1,26 @@
-.link_cell
+%tr
+  %td{ style: 'width: 10px;vertical-align:middle' }
+    = check_box_tag "link_ids[]", link.id
+  %td.link_cell
 
-  .cell-title
-    = link_to link.title, link
+    .cell-title
+      = link_to link.title, link
 
-  %small by #{link.author} at #{link.created_at.strftime("%m/%d/%Y")}
+    %small by #{link.author} at #{link.created_at.strftime("%m/%d/%Y")}
 
-  - if link.approved?
-    %span.label.label-success.pull-right
-      Approved
-  - else
-    %span.label.label-important.pull-right
-      Not approved
+    - if link.approved?
+      %span.label.label-success.pull-right
+        Approved
+    - else
+      %span.label.label-important.pull-right
+        Not approved
 
-  %br
-  - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content'
-    - att_hits = hit['highlight']['content']
+    %br
+    - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content'
+      - att_hits = hit['highlight']['content']
 
-    .hits
-      %ol{ :type => "I" }
-        - att_hits.each do |h|
-          %li
-            %p.hit= raw '...' + h + '...'
+      .hits
+        %ol{ :type => "I" }
+          - att_hits.each do |h|
+            %li
+              %p.hit= raw '...' + h + '...'

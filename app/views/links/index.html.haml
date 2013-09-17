@@ -5,6 +5,7 @@
   = link_to  new_link_path, :class => "btn" do
     %i.icon-plus
     New Link
+  = render 'common/approved_toggle'
   = form_tag links_path, :method => 'get', :class => 'search-query pull-right' do       #
     = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search link..'    #
 
@@ -12,15 +13,19 @@
   .row-fluid
 
     .span3
-      /= render "facets/facet_sites"       , :objs => @links
+      = render "facets/facet_sites"       , :objs => @links
       = render "facets/facet_authors"     , :objs => @links
-      / = render "facets/facet_languages"   , :objs => @links
+      = render "facets/facet_languages"   , :objs => @links
       = render "facets/facet_countries"   , :objs => @links
       = render "facets/facet_timeline"    , :objs => @links
 
     .span9
-      - @links.each_with_hit do |link, hit|
-        = render "cells/link", :link => link, :hit => hit
+      = form_tag approve_multiple_links_path do
+        %table.table.table-striped
+          %tbody
+            - @links.each_with_hit do |link, hit|
+              = render "cells/link", :link => link, :hit => hit
+        = submit_tag (show_approved?) ? "Disapprove selected" : "Approve selected", class: "btn btn-small pull-right"
       = page_entries_info @links
       = will_paginate @links, :renderer => BootstrapPagination::Rails
   %br

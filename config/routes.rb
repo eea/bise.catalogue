@@ -25,7 +25,11 @@ Catalogue::Application.routes.draw do
   end
 
   # LINKS
-  resources :links
+  resources :links do
+    collection do
+      post :approve_multiple
+    end
+  end
 
   # NEWS
   resources :news
