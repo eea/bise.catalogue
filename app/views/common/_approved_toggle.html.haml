@@ -1,0 +1,7 @@
+.btn-group
+  = link_to params.merge( approved: false, :page => 1), class: "btn #{(show_approved?) ? '' : 'active'}" do
+    %i.icon-thumbs-down-alt
+    Unapproved
+  = link_to params.merge( approved: true, :page => 1), class: "btn #{(show_approved?) ? 'active' : ''}" do
+    %i.icon-thumbs-up-alt
+    Approved
