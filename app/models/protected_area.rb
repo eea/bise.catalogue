@@ -63,6 +63,8 @@ class ProtectedArea < ActiveRecord::Base
 
       indexes :source_db, :type => 'string', :index => :not_analyzed
       indexes :designation_year, :type => 'integer', :index => :not_analyzed
+
+      indexes :approved           , type: 'boolean'
     }
   end
 
@@ -80,15 +82,20 @@ class ProtectedArea < ActiveRecord::Base
 
   def to_indexed_json
     {
-      :site                      => { _type: 'site', _id: site.id, name: site.name, ngram_name: site.name },
-      :uri                       => uri,
-      :code                      => code,
-      :name                      => name,
-      # :country                 => country_name,
-      :countries                 => countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
-      :species                   => species.map { |s| { :_type                                                               => 'species', _id: s.id, scientific_name: s.scientific_name } },
-      :source_db                 => source_db,
-      :designation_year          => designation_year
+      site:             {
+        _type: 'site',
+        _id: site.id,
+        name: site.name,
+        ngram_name: site.name
+      },
+      uri:              uri,
+      code:             code,
+      name:             name,
+      countries:        countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
+      species:          species.map { |s| { :_type                                                               => 'species', _id: s.id, scientific_name: s.scientific_name } },
+      source_db:        source_db,
+      designation_year: designation_year,
+      approved:         approved
     }.to_json
   end
 

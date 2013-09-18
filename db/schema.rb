@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130913080026) do
+ActiveRecord::Schema.define(:version => 20130918091410) do
 
   create_table "actions", :force => true do |t|
     t.string    "title"
@@ -141,7 +141,7 @@ ActiveRecord::Schema.define(:version => 20130913080026) do
     t.string    "source_url"
     t.date      "published_on"
     t.boolean   "published"
-    t.boolean   "approved"
+    t.boolean   "approved",                         :default => false
     t.integer   "downloads"
     t.string    "file"
     t.string    "content_type"
@@ -149,8 +149,8 @@ ActiveRecord::Schema.define(:version => 20130913080026) do
     t.string    "md5hash"
     t.integer   "site_id"
     t.integer   "theme_id"
-    t.timestamp "created_at",          :limit => 6, :null => false
-    t.timestamp "updated_at",          :limit => 6, :null => false
+    t.timestamp "created_at",          :limit => 6,                    :null => false
+    t.timestamp "updated_at",          :limit => 6,                    :null => false
     t.datetime  "approved_at"
   end
 
@@ -194,9 +194,10 @@ ActiveRecord::Schema.define(:version => 20130913080026) do
     t.text      "description"
     t.text      "comment"
     t.string    "national_name"
-    t.timestamp "created_at",                :limit => 6, :null => false
-    t.timestamp "updated_at",                :limit => 6, :null => false
+    t.timestamp "created_at",                :limit => 6,                   :null => false
+    t.timestamp "updated_at",                :limit => 6,                   :null => false
     t.string    "parent"
+    t.boolean   "approved",                               :default => true
   end
 
   create_table "languages", :force => true do |t|
@@ -213,7 +214,7 @@ ActiveRecord::Schema.define(:version => 20130913080026) do
     t.boolean   "published",                        :default => false
     t.string    "language"
     t.string    "source"
-    t.boolean   "approved"
+    t.boolean   "approved",                         :default => false
     t.text      "biographical_region"
     t.string    "url"
     t.string    "comment"
@@ -275,8 +276,9 @@ ActiveRecord::Schema.define(:version => 20130913080026) do
     t.float     "long"
     t.float     "lat"
     t.string    "source_db"
-    t.timestamp "created_at",       :limit => 6, :null => false
-    t.timestamp "updated_at",       :limit => 6, :null => false
+    t.timestamp "created_at",       :limit => 6,                   :null => false
+    t.timestamp "updated_at",       :limit => 6,                   :null => false
+    t.boolean   "approved",                      :default => true
   end
 
   create_table "protected_areas_habitats", :id => false, :force => true do |t|
@@ -309,8 +311,9 @@ ActiveRecord::Schema.define(:version => 20130913080026) do
     t.string    "name_according_to_ID"
     t.boolean   "ignore_on_match"
     t.integer   "taxonomy_id"
-    t.timestamp "created_at",                 :limit => 6, :null => false
-    t.timestamp "updated_at",                 :limit => 6, :null => false
+    t.timestamp "created_at",                 :limit => 6,                   :null => false
+    t.timestamp "updated_at",                 :limit => 6,                   :null => false
+    t.boolean   "approved",                                :default => true
   end
 
   add_index "species", ["uri"], :name => "index_species_on_uri", :unique => true

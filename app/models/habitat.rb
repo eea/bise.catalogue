@@ -50,6 +50,8 @@ class Habitat < ActiveRecord::Base
         indexes :id, :type => 'integer'
         indexes :name, :type => 'string', :index => :not_analyzed
       end
+
+      indexes :approved           , type: 'boolean'
     }
   end
 
@@ -67,15 +69,14 @@ class Habitat < ActiveRecord::Base
 
   def to_indexed_json
     {
-      :uri             => uri,
-      :name            => name,
-      :habitat_code    => habitat_code,
-      :natura2000_code => natura2000_code,
-      :level           => level,
-      :description     => description,
-      :countries       => countries.map do |c|
-        { :_type  => 'country', :_id => c.id, :name => c.name }
-      end
+      uri:             uri,
+      name:            name,
+      habitat_code:    habitat_code,
+      natura2000_code: natura2000_code,
+      level:           level,
+      description:     description,
+      countries:       countries.map { |c| { :_type  => 'country', :_id => c.id, :name => c.name } },
+      approved:        approved
     }.to_json
   end
 

@@ -31,9 +31,9 @@ module Api
             'articles',
             'documents',
             # 'news',
-            # 'links',
+            'links',
             'protected_areas',
-            # 'habitats',
+            'habitats',
             'species'
           ]
         else
@@ -54,20 +54,36 @@ module Api
           per  = if params[:per_page].present? then params[:per_page].to_i else 10 end
           from = if page == 1 then 0 else (page - 1) * per end
 
-          site      = params[:sites] if params[:sites].present?
-          author    = params[:authors] if params[:authors].present?
+          site      = params[:site] if params[:sites].present?
+          source_db = params[:source_db] if params[:source_db].present?
+          author    = params[:author] if params[:author].present?
           countries = params[:countries].split(/\//) if params[:countries].present?
           languages = params[:languages].split(/\//) if params[:languages].present?
           biogeo    = params[:biographical_region] if params[:biographical_region].present?
 
+          kingdom        = params[:kingdom] if params[:kingdom].present?
+          phylum         = params[:phylum] if params[:phylum].present?
+          classis        = params[:classis] if params[:classis].present?
+          species_group  = params[:species_group] if params[:species_group].present?
+          taxonomic_rank = params[:taxonomic_rank] if params[:taxonomic_rank].present?
+          genus          = params[:genus] if params[:genus].present?
+
           search_filter = []
-          search_filter << { :term => { 'site.name' => params[:sites] }} if params[:sites].present?
-          search_filter << { :term => { :source_db => params[:source_db] }} if params[:source_db].present?
-          search_filter << { :term => { :author => params[:authors] }} if params[:authors].present?
-          search_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
-          search_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
-          search_filter << { :term => { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
+          search_filter << { term: { approved: true }}
+          search_filter << { term: { 'site.name' => params[:site] }} if params[:site].present?
+          search_filter << { term: { :source_db => params[:source_db] }} if params[:source_db].present?
+          search_filter << { term: { :author => params[:author] }} if params[:author].present?
+          search_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
+          search_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
+          search_filter << { term: { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
           # search_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
+
+          search_filter << { term: { kingdom: kingdom }} if params[:kingdom].present?
+          search_filter << { term: { phylum: phylum }} if params[:phylum].present?
+          search_filter << { term: { classis: classis }} if params[:classis].present?
+          search_filter << { term: { species_group: species_group }} if params[:species_group].present?
+          search_filter << { term: { taxonomic_rank: taxonomic_rank }} if params[:taxonomic_rank].present?
+          search_filter << { term: { genus: genus }} if params[:genus].present?
 
           @rows = Tire.search indexes, :load => false, :from => from, :size => per do
             query do
@@ -107,16 +123,26 @@ module Api
               end
             end
 
+            filter :bool, must: { term: { approved: true } }
             filter :term, 'site.name' => site unless site.nil?
-            filter :term, :author => author unless author.nil?
+            filter :term, source_db: source_db unless source_db.nil?
+            filter :term, author: author unless author.nil?
             filter :term, 'countries.name' => countries unless countries.nil?
             filter :term, 'languages.name' => languages unless languages.nil?
-            filter :term, :biographical_region => biogeo unless biogeo.nil?
+            filter :term, biographical_region: biogeo unless biogeo.nil?
             # filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+
+            filter :term, kingdom: kingdom unless kingdom.nil?
+            filter :term, phylum: phylum unless phylum.nil?
+            filter :term, classis: classis unless classis.nil?
+            filter :term, species_group: species_group unless species_group.nil?
+            filter :term, taxonomic_rank: taxonomic_rank unless taxonomic_rank.nil?
+            filter :term, genus: genus unless genus.nil?
+
 
             highlight attachment: { :number_of_fragments => 2 }
 
-            facet 'sites' do
+            facet 'site' do
               terms 'site.name'
               facet_filter :and, search_filter unless search_filter.empty?
             end
@@ -126,7 +152,7 @@ module Api
               facet_filter :and, search_filter unless search_filter.empty?
             end
 
-            facet 'authors' do
+            facet 'author' do
               terms :author
               facet_filter :and, search_filter unless search_filter.empty?
             end
@@ -136,7 +162,7 @@ module Api
               facet_filter :and, search_filter unless search_filter.empty?
             end
 
-            facet 'biographical_regions' do
+            facet 'biographical_region' do
               terms :biographical_region
               facet_filter :and, search_filter unless search_filter.empty?
             end
@@ -185,7 +211,6 @@ module Api
           @rows = nil
         end
 
-
         response = Hash.new
         if @rows.nil? or @rows.results.nil?
           response['total'] = 0
@@ -197,8 +222,8 @@ module Api
           response['facets'] = @rows.results.facets
         end
         respond_with response
-
       end
+
     end
   end
 end

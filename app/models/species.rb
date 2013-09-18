@@ -50,15 +50,15 @@ class Species < ActiveRecord::Base
     }
   } do
     mapping {
-      indexes :binomial_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      indexes :scientific_name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+      indexes :binomial_name  , type: 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+      indexes :scientific_name, type: 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
 
-      indexes :author, :type => 'string', :index => :not_analyzed
-      indexes :created_at, :type => 'date'
+      indexes :author         , type: 'string', :index => :not_analyzed
+      indexes :created_at     , type: 'date'
 
-      indexes :species_group, :type => 'string', :index => :not_analyzed
-      indexes :taxonomic_rank, :type => 'string', :index => :not_analyzed
-      indexes :genus, :type => 'string', :index => :not_analyzed
+      indexes :species_group  , type: 'string', :index => :not_analyzed
+      indexes :taxonomic_rank , type: 'string', :index => :not_analyzed
+      indexes :genus          , type: 'string', :index => :not_analyzed
 
       indexes :valid_name, :type => 'boolean', :index => :not_analyzed
 
@@ -66,26 +66,29 @@ class Species < ActiveRecord::Base
       indexes :phylum, :index => :not_analyzed
       indexes :classis, :index => :not_analyzed
 
+      indexes :approved       , type: 'boolean'
+
     }
   end
 
   # self.to_json :methods => [:content_without_tags]
   def to_indexed_json
     {
-      :uri                    => uri,
-      :binomial_name          => binomial_name,
-      :scientific_name        => scientific_name,
-      :authorship             => scientific_name_authorship,
-      :created_at             => created_at,
-      :species_group          => species_group,
-      :taxonomic_rank         => taxonomic_rank,
-      :genus                  => genus,
+      uri:             uri,
+      binomial_name:   binomial_name,
+      scientific_name: scientific_name,
+      authorship:      scientific_name_authorship,
+      created_at:      created_at,
+      species_group:   species_group,
+      taxonomic_rank:  taxonomic_rank,
+      genus:           genus,
 
-      :valid_name             => valid_name,
+      valid_name:      valid_name,
 
-      :kingdom                => kingdom,
-      :phylum                 => phylum_division,
-      :classis                => classis
+      kingdom:         kingdom,
+      phylum:          phylum_division,
+      classis:         classis,
+      approved:        approved
     }.to_json
   end
 
