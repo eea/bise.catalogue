@@ -50,6 +50,13 @@ class Species < ActiveRecord::Base
     }
   } do
     mapping {
+
+      indexes :site do
+        indexes :id, :type => 'integer'
+        indexes :name, :type => 'string', :index => :not_analyzed
+        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+      end
+
       indexes :binomial_name  , type: 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
       indexes :scientific_name, type: 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
 
@@ -71,9 +78,19 @@ class Species < ActiveRecord::Base
     }
   end
 
+  def site
+    Site.find_by_name('EUNIS')
+  end
+
   # self.to_json :methods => [:content_without_tags]
   def to_indexed_json
     {
+      site:           {
+        _type: 'site',
+        _id: site.id,
+        name: site.name,
+        ngram_name: site.name
+      },
       uri:             uri,
       binomial_name:   binomial_name,
       scientific_name: scientific_name,

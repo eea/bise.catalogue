@@ -43,6 +43,13 @@ class ProtectedArea < ActiveRecord::Base
     }
   } do
     mapping {
+
+      indexes :site do
+        indexes :id, :type => 'integer'
+        indexes :name, :type => 'string', :index => :not_analyzed
+        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+      end
+
       indexes :code, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
       indexes :name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
 
