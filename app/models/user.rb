@@ -13,4 +13,28 @@ class User < ActiveRecord::Base
 
   validates :login, presence: true
   validates :password, presence: true
+
+  # Returns complete name
+  def get_ldap_displayname
+    Rails::logger.info("### Getting the users display name")
+    tempname = Devise::LDAP::Adapter.get_ldap_param(self.login,"cn")
+    tempname[0]
+  end
+
+  def get_ldap_email
+    Rails::logger.info("### Getting the users email address")
+    tempmail = Devise::LDAP::Adapter.get_ldap_param(self.login,"mail")
+    tempmail[0]
+  end
+
+  # TODO : Pending
+  def admin?
+    Rails::logger.info("### Getting the users email address")
+    groups = Devise::LDAP::Adapter.get_groups(self.login)
+    # group = Devise::LDAP::Adapter.in_ldap_group?(self.login, "EIONET", group_attribute = nil)
+    # tempmail = Devise::LdapAdapter.get_ldap_param(self.username,"mail")
+    # group
+    # "hola"
+  end
+
 end
