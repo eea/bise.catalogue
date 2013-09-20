@@ -3,7 +3,7 @@
   .span8
     %legend Info
     = f.input :title, :placeholder => 'Write a title...' , :input_html => { :class => "input-block-level", required: true }
-    = f.input :english_title, :placeholder => 'Write an english title', :input_html => { :class => "input-block-level", required: true }
+    = f.input :english_title, :placeholder => 'Write an English title', :input_html => { :class => "input-block-level", required: true }
     - langs = Language.all
     = f.input :language_ids, as: :select, collection: langs, input_html: { multiple: true, 'data-placeholder'=> 'Search language...' }
   .span4
