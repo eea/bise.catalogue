@@ -57,6 +57,10 @@ class ArticlesController < ApplicationController
   # POST /articles.json
   def create
     @article = Article.new(params[:article])
+    unless params[:tags].blank?
+      tags = params[:tags]
+      @article.tag_list = tags
+    end
 
     respond_to do |format|
       if @article.save
@@ -73,6 +77,10 @@ class ArticlesController < ApplicationController
   # PUT /articles/1.json
   def update
     @article = Article.find(params[:id])
+    unless params[:tags].blank?
+      tags = params[:tags]
+      @article.tag_list = tags
+    end
 
     respond_to do |format|
       if @article.update_attributes(params[:article])

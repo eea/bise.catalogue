@@ -12,6 +12,7 @@
       .span6
         = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
 
+    = render :partial => 'common/targets', :locals => { :parent => @link, f: f }
     = render :partial => 'common/countries', :locals => { :parent => @link }
 
   %div.form-actions.margin-none.text-right

@@ -7,6 +7,10 @@ class Article < ActiveRecord::Base
 
   attr_accessible :content
 
+  # TAGS
+  attr_accessible :tag_list
+  acts_as_taggable
+
   index_name "#{Tire::Model::Search.index_prefix}articles"
 
   refresh = lambda {
@@ -139,7 +143,7 @@ class Article < ActiveRecord::Base
     art_filter << { :term => { :biographical_region => params[:biographical_region] }}    if params[:biographical_region].present?
     art_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
 
-    tire.search :load => true, :page => params[:page], :per_page => 10 do
+    tire.search load: true, page: params[:page], per_page: params[:per_page] do
 
       query do
         boolean do
@@ -173,7 +177,12 @@ class Article < ActiveRecord::Base
 
       filter :bool, must: { term: { approved: show_approved } }
 
-      sort { by :published_on, "desc" } if params[:query].blank?
+      if params[:sort].present?
+        sort { by params[:sort].to_sym, params[:sort] == "published_on" ? "desc" : "asc" }
+      else
+        # if no query, sort by published_on
+        sort { by :published_on, "desc" } unless params[:query].present?
+      end
 
       facet 'sites' do
         terms 'site.name'

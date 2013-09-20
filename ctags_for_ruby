@@ -9,11 +9,9 @@ if File.exist?('./Gemfile')
     require 'bundler'
 
     project_path = Dir.pwd.to_s
-    gem_paths = Bundler.load.specs.map(&:full_gem_path).join(' ')
-    puts "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-    puts "::                        Generating Ruby CTags                                       "
-    puts project_path
-    project_and_gems = project_path.concat('/app ').concat(gem_paths)
-    puts "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-    system("/usr/local/bin/ctags -V -R --languages=ruby --exclude=.git --exclude=log --exclude=eunis --exclude='*.coffee' -R -f .tags #{project_and_gems}")
+    gempath = Bundler.load.specs.map(&:full_gem_path).join(' ')
+    project_and_gems = project_path.concat('/app ').concat(gempath)
+    system("/usr/local/bin/ctags -V -R --languages=ruby --exclude=.git \
+           --exclude=log --exclude=eunis --exclude='*.coffee' -R -f \
+           .tags #{project_and_gems}")
 end

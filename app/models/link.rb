@@ -9,6 +9,10 @@ class Link < ActiveRecord::Base
   attr_accessible :description
   # attr_accessible :comment
 
+  # TAGS
+  attr_accessible :tag_list
+  acts_as_taggable
+
   validates :url, presence: true
   validates_format_of :url, :with => /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
 
@@ -141,9 +145,16 @@ class Link < ActiveRecord::Base
 
       query do
         boolean do
-          should   { string 'title:' + params[:query].to_s }
-          should   { string 'url:' + params[:query].to_s }
-          # must_not { string 'published:0' }
+          should { string 'site.ngram_name:'           + params[:query].to_s }
+          should { string 'title:'                     + params[:query].to_s }
+          should { string 'english_title:'             + params[:query].to_s }
+          should { string 'description:'               + params[:query].to_s }
+          should { string 'url:'                       + params[:query].to_s }
+          should { string 'ngram_author:'              + params[:query].to_s }
+          should { string 'countries.ngram_name:'      + params[:query].to_s }
+          should { string 'languages.ngram_name:'      + params[:query].to_s }
+          should { string 'tags.ngram_name:'           + params[:query].to_s }
+          should { string 'biographical_region_ngram:' + params[:query].to_s }
         end
       end if params[:query].present?
 

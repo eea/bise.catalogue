@@ -74,6 +74,10 @@ class Habitat < ActiveRecord::Base
     ret.to_a
   end
 
+  def site
+    Site.find_by_name('EUNIS')
+  end
+
   def to_indexed_json
     {
       site:           {

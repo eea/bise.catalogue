@@ -28,8 +28,6 @@ class LinksController < ApplicationController
   # GET /links/new
   # GET /links/new.json
   def new
-    @countries = Country.all
-    @languages = Language.all
     @link = Link.new
     respond_to do |format|
       format.html # new.html.erb
@@ -39,7 +37,6 @@ class LinksController < ApplicationController
 
   # GET /links/1/edit
   def edit
-    @countries = Country.all
     @link = Link.find(params[:id])
   end
 
@@ -47,7 +44,10 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(params[:link])
-    @countries = Country.all
+    unless params[:tags].blank?
+      tags = params[:tags]
+      @link.tag_list = tags
+    end
     respond_to do |format|
       if @link.save
         format.html { redirect_to @link, notice: 'Link was successfully created.' }
@@ -63,7 +63,10 @@ class LinksController < ApplicationController
   # PUT /links/1.json
   def update
     @link = Link.find(params[:id])
-    @countries = Country.all
+    unless params[:tags].blank?
+      tags = params[:tags]
+      @link.tag_list = tags
+    end
     respond_to do |format|
       if @link.update_attributes(params[:link])
         format.html { redirect_to @link, notice: 'Link was successfully updated.' }

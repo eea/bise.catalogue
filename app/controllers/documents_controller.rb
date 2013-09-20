@@ -51,7 +51,6 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @document = Document.new(params[:document])
-
     unless params[:tags].blank?
       tags = params[:tags]
       @document.tag_list = tags
@@ -73,9 +72,7 @@ class DocumentsController < ApplicationController
   # PUT /documents/1
   # PUT /documents/1.json
   def update
-
     @document = Document.find(params[:id])
-
     unless params[:tags].blank?
       tags = params[:tags]
       @document.tag_list = tags

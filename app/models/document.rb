@@ -14,6 +14,10 @@ class Document < ActiveRecord::Base
   validates :file          , presence: { :on => :create }
   validate :uniqueness_of_md5hash, :on => :create
 
+  # TAGS
+  attr_accessible :tag_list
+  acts_as_taggable
+
   before_validation :compute_hash
   before_save :update_file_info
 
@@ -184,7 +188,7 @@ class Document < ActiveRecord::Base
           should { string 'countries.ngram_name:'      + params[:query].to_s }
           should { string 'languages.ngram_name:'      + params[:query].to_s }
           should { string 'tags.ngram_name:'           + params[:query].to_s }
-          should { string 'biographical_region_ngram:' + params[:query].to_s}
+          should { string 'biographical_region_ngram:' + params[:query].to_s }
           # must_not { string 'published:0' }
         end
       end if params[:query].present?
