@@ -157,10 +157,7 @@ class Article < ActiveRecord::Base
           should { string 'languages.ngram_name:'      + params[:query].to_s }
           should { string 'tags.ngram_name:'           + params[:query].to_s }
           should { string 'biographical_region_ngram:' + params[:query].to_s}
-
           should   { string 'content_without_tags:' + params[:query].to_s }
-          # must_not { string 'approved:true' }
-          # must_not { string 'published:0' }
         end
       end if params[:query].present?
 
@@ -201,6 +198,7 @@ class Article < ActiveRecord::Base
 
       facet 'biographical_regions' do
         terms :biographical_region # , :script_field => true, :size => 50
+        facet_filter :and, art_filter unless art_filter.empty?
       end
 
       facet 'languages' do
@@ -210,6 +208,7 @@ class Article < ActiveRecord::Base
 
       facet('timeline') do
         date :published_on, :interval => 'year'
+        facet_filter :and, art_filter unless art_filter.empty?
       end
     end
   end

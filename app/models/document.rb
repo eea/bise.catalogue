@@ -189,7 +189,6 @@ class Document < ActiveRecord::Base
           should { string 'languages.ngram_name:'      + params[:query].to_s }
           should { string 'tags.ngram_name:'           + params[:query].to_s }
           should { string 'biographical_region_ngram:' + params[:query].to_s }
-          # must_not { string 'published:0' }
         end
       end if params[:query].present?
 
