@@ -16,3 +16,4 @@ log/test.log
 .idea/.rakeTasks
 rspec_guard_result
 Dotenv.env
+ldap.yml

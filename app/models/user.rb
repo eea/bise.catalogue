@@ -16,25 +16,16 @@ class User < ActiveRecord::Base
 
   # Returns complete name
   def get_ldap_displayname
-    Rails::logger.info("### Getting the users display name")
-    tempname = Devise::LDAP::Adapter.get_ldap_param(self.login,"cn")
-    tempname[0]
+    Devise::LDAP::Adapter.get_ldap_param(self.login,"cn").first
   end
 
   def get_ldap_email
-    Rails::logger.info("### Getting the users email address")
-    tempmail = Devise::LDAP::Adapter.get_ldap_param(self.login,"mail")
-    tempmail[0]
+    Devise::LDAP::Adapter.get_ldap_param(self.login,"mail").first
   end
 
-  # TODO : Pending
-  def admin?
-    Rails::logger.info("### Getting the users email address")
-    groups = Devise::LDAP::Adapter.get_groups(self.login)
-    # group = Devise::LDAP::Adapter.in_ldap_group?(self.login, "EIONET", group_attribute = nil)
-    # tempmail = Devise::LdapAdapter.get_ldap_param(self.username,"mail")
-    # group
-    # "hola"
+  def approver?
+    admin_role = "cn=extranet-bise-cat-approve,cn=extranet-bise-cat,cn=extranet-bise,cn=extranet,ou=Roles,o=EIONET,l=Europe"
+    Devise::LDAP::Adapter.get_groups(self.login).include? admin_role
   end
 
 end

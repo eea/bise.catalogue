@@ -25,6 +25,7 @@
             %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
               %i.icon-user
               = current_user.get_ldap_displayname
+              = "(admin)" if current_user.approver?
               %b.caret
             %ul.dropdown-menu
               %li
