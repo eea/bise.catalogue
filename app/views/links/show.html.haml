@@ -5,12 +5,13 @@
   = link_to links_path, :class => "btn" do
     %i.icon-reply
     Back
-  = link_to  edit_link_path(@link), :class => "btn" do
-    %i.icon-pencil
-    Edit
-  = link_to  link_path(@link), :method => :delete, :class => "btn btn-danger pull-right" do
-    %i.icon-trash
-    Delete
+  - if current_user.approver?
+    = link_to  edit_link_path(@link), :class => "btn" do
+      %i.icon-pencil
+      Edit
+    = link_to  link_path(@link), :method => :delete, :class => "btn btn-danger pull-right" do
+      %i.icon-trash
+      Delete
 
 
 

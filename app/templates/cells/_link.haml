@@ -1,6 +1,6 @@
 %tr
   %td{ style: 'width: 10px;vertical-align:middle' }
-    = check_box_tag "link_ids[]", link.id
+    = check_box_tag "link_ids[]", link.id if current_user.approver?
   %td.link_cell
     .cell-title
       = link_to link.title, link

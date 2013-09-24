@@ -1,6 +1,6 @@
 %tr
   %td{ style: 'width: 10px;vertical-align:middle' }
-    = check_box_tag "document_ids[]", doc.id
+    = check_box_tag "document_ids[]", doc.id if current_user.approver?
   %td.document_cell
 
     %div{ style: 'float:left; width: 45px;'}

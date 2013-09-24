@@ -2,9 +2,10 @@
   Documents
 
 - content_for :actions do
-  = link_to new_document_path, :class => "btn" do
-    %i.icon-plus
-    New Document
+  - if current_user.approver?
+    = link_to new_document_path, :class => "btn" do
+      %i.icon-plus
+      New Document
   = link_to params.merge(:format => 'xls'), :class => "btn" do
     %i.icon-download-alt
     Export XLS
@@ -36,7 +37,8 @@
           %tbody
             - @documents.each_with_hit do |doc, hit|
               = render "cells/document", :doc => doc, :hit => hit
-        = submit_tag (show_approved?) ? "Disapprove selected" : "Approve selected", class: "btn btn-small pull-right"
+        - if current_user.approver?
+          = submit_tag (show_approved?) ? "Disapprove selected" : "Approve selected", class: "btn btn-small pull-right"
 
       = page_entries_info @documents
       %br

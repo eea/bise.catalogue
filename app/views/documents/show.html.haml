@@ -10,9 +10,6 @@
     = link_to :back, :class => "btn" do
       %i.icon-reply
       Back
-  = link_to  edit_document_path(@document), :class => "btn" do
-    %i.icon-pencil
-    Edit
   = link_to @document.file_url, :class => "btn" do
     %i.icon-download-alt
     Download
@@ -20,9 +17,13 @@
       (
       = (@document.file_size/1024).round(2)
       KB)
-  = link_to  document_path(@document), :method => :delete, :class => "btn btn-danger pull-right", :confirm=>'Please confirm you want to delete the resource.' do
-    %i.icon-trash
-    Delete
+  - if current_user.approver?
+    = link_to  edit_document_path(@document), :class => "btn" do
+      %i.icon-pencil
+      Edit
+    = link_to  document_path(@document), :method => :delete, :class => "btn btn-danger pull-right", :confirm=>'Please confirm you want to delete the resource.' do
+      %i.icon-trash
+      Delete
 
 
 .container-fluid
