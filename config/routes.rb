@@ -48,7 +48,9 @@ Catalogue::Application.routes.draw do
     namespace :v1 do
       resources :ecosystem_assessments
       match '/search' => 'search#index'
-      post '/sync' => 'sync#index'
+      post '/sync' => 'sync#create'
+      put '/sync' => 'sync#update'
+      delete '/sync' => 'sync#delete'
     end
   end
 
@@ -57,7 +59,9 @@ Catalogue::Application.routes.draw do
 
   scope '/api' do
     match '/search' => 'search#index'
-    post '/sync' => 'sync#index'
+    post '/sync' => 'sync#create'
+    put '/sync' => 'sync#update'
+    delete '/sync' => 'sync#delete'
   end
 
   # scope '/search' do

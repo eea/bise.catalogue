@@ -46,7 +46,8 @@ module Api
       #   link[url]:           string
       #   link[description]:   text/html
       #
-      def index
+      def create
+        p ":: CREATE"
         case params[:resource_type]
         when 'article'
           @article = Article.new(params[:article])
@@ -72,6 +73,16 @@ module Api
         else
           return_error('resource_type not especified.')
         end
+      end
+
+      def update
+        p ":: UPDATE"
+        return_error('Update resource_type not especified.')
+      end
+
+      def delete
+        p ":: DELETE"
+        return_error('Delete resource_type not especified.')
       end
 
       def return_error(msg)
