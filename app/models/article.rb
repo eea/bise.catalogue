@@ -1,3 +1,5 @@
+# encoding: UTF-8
+# Object
 class Article < ActiveRecord::Base
 
   include Tire::Model::Search
@@ -13,82 +15,102 @@ class Article < ActiveRecord::Base
 
   index_name "#{Tire::Model::Search.index_prefix}articles"
 
-  refresh = lambda {
-    # self.update_index
-    Tire::Index.new(index_name).refresh
-  }
+  refresh = -> { Tire::Index.new(index_name).refresh }
   after_save(&refresh)
   after_destroy(&refresh)
 
-  settings :analysis => {
-    :analyzer => {
-      :search_analyzer => {
-        :type => "custom",
-        :tokenizer => "standard",
-        :filter => ["lowercase", "snowball"]
+  settings analysis: {
+    analyzer: {
+      search_analyzer: {
+        type: 'custom',
+        tokenizer: 'standard',
+        filter: %w(lowercase snowball)
       },
-      :index_ngram_analyzer => {
-        :type => "custom",
-        :tokenizer => "standard",
-        :filter => [ "lowercase", "snowball", "substring" ]
+      index_ngram_analyzer: {
+        type: 'custom',
+        tokenizer: 'standard',
+        filter: %w(lowercase snowball substring)
       }
     },
-    :filter => {
-      :substring => {
-        :type => "nGram",
-        :min_gram => 1,
-        :max_gram => 40,
-        :token_chars => [ "letter", "digit" ]
+    filter: {
+      substring: {
+        type: 'nGram',
+        min_gram: 1,
+        max_gram: 40,
+        token_chars: %(letter digit)
       }
     }
   } do
-    mapping {
+    mapping do
 
       indexes :site do
-        indexes :id, :type => 'integer'
-        indexes :name, :type => 'string', :index => :not_analyzed
-        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id,
+                type: 'integer'
+        indexes :name,
+                type: 'string',
+                index: :not_analyzed
+        indexes :ngram_name,
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'snowball'
       end
 
-      indexes :title, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      indexes :content, :store => 'yes', :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+      indexes :title,
+              type: 'string',
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'search_analyzer'
 
-      # indexes :language, :type => 'string'
+      indexes :content,
+              store: 'yes',
+              type: 'string',
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'search_analyzer'
+
       indexes :languages do
-        indexes :id         , :type => 'integer'
-        indexes :name       , :type => 'string'                         , :index => :not_analyzed
-        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id ,
+                type: 'integer'
+        indexes :name ,
+                type: 'string' ,
+                index: :not_analyzed
+        indexes :ngram_name ,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
       end
 
       indexes :countries do
-        indexes :id         , :type => 'integer'
-        indexes :name       , :type => 'string'                         , :index => :not_analyzed
-        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id,
+                type: 'integer'
+        indexes :name,
+                type: 'string' ,
+                index: :not_analyzed
+        indexes :ngram_name ,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
       end
 
       indexes :tags do
-        indexes :name       , :type => 'string'                         , :index => :not_analyzed
-        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :name,
+                type: 'string' ,
+                index: :not_analyzed
+        indexes :ngram_name ,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
       end
 
-      # indexes :content_without_tags, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      # indexes :content_without_tags, :type => 'string',  :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      # indexes :geographical_coverage, :type => 'string'
-      indexes :biographical_region, type: 'string', :index => :not_analyzed
-      indexes :author             , type: 'string', :index => :not_analyzed
-      indexes :published_on       , type: 'date'
+      indexes :biographical_region,
+              type: 'string',
+              index: :not_analyzed
+      indexes :author,
+              type: 'string', index: :not_analyzed
+      indexes :published_on,
+              type: 'date'
 
       indexes :approved           , type: 'boolean'
       indexes :approved_at        , type: 'date'
       indexes :created_at         , type: 'date'
-    }
+    end
   end
 
-
-  def to_indexed_json
-    self.to_json :methods => [:content_without_tags]
-  end
-
+  # TODO: Fix the indentation
   def to_indexed_json
     {
       site:           {
@@ -104,16 +126,14 @@ class Article < ActiveRecord::Base
       author:         author,
       ngram_author:   author,
       published_on:   published_on,
-
       approved:       approved,
       approved_at:    approved_at,
       created_at:     created_at,
-
-      languages:      languages.map { |l| { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name } },
-
+      languages:      languages.map do |l|
+        { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name }
+      end,
       countries:      countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
       tags:           tags.map { |c| { name: c.name, ngram_name: c.name } },
-
       biographical_region:       biographical_region,
       biographical_region_ngram: biographical_region
     }.to_json
@@ -125,7 +145,7 @@ class Article < ActiveRecord::Base
 
   def self.search(params)
 
-    params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)]/, '\\1')                          if params[:query].present?
+    params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)]/, '\\1') if params[:query].present?
     show_approved = (params[:approved] && params[:approved] == 'true') ? true : false
 
     date_init, date_end = nil

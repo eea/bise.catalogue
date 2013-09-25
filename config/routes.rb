@@ -48,6 +48,7 @@ Catalogue::Application.routes.draw do
     namespace :v1 do
       resources :ecosystem_assessments
       match '/search' => 'search#index'
+      post '/sync' => 'sync#index'
     end
   end
 
@@ -56,6 +57,7 @@ Catalogue::Application.routes.draw do
 
   scope '/api' do
     match '/search' => 'search#index'
+    post '/sync' => 'sync#index'
   end
 
   # scope '/search' do
