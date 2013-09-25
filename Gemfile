@@ -73,6 +73,7 @@ gem 'do_postgres'
 
 
 group :development do
+  gem 'coffee-rails-source-maps'
   gem 'better_errors'
 
   # gem 'ruby-debug19'
