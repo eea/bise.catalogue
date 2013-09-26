@@ -32,10 +32,6 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(params[:article])
-    unless params[:tags].blank?
-      tags = params[:tags]
-      @article.tag_list = tags
-    end
 
     respond_to do |format|
       if @article.save
@@ -50,11 +46,6 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
-    unless params[:tags].blank?
-      tags = params[:tags]
-      @article.tag_list = tags
-    end
-    @article.save
 
     respond_to do |format|
       if @article.update_attributes(params[:article])

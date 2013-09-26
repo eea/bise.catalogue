@@ -10,7 +10,7 @@
         - if i < quarter
           %li
             %label.checkbox
-              = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
+              = check_box_tag "#{parent.class.name.downcase}[tag_list][]", c, parent.tag_list.include?(c) #, { :id => c. }
               .label.label-success= c
   .span3
     %ul.unstyled
@@ -18,7 +18,7 @@
         - if i >= quarter and i < quarter * 2
           %li
             %label.checkbox
-              = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
+              = check_box_tag "#{parent.class.name.downcase}[tag_list][]", c, parent.tag_list.include?(c) #, { :id => c. }
               .label.label-success= c
   .span3
     %ul.unstyled
@@ -26,7 +26,7 @@
         - if i >= quarter *2 and i < quarter * 3
           %li
             %label.checkbox
-              = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
+              = check_box_tag "#{parent.class.name.downcase}[tag_list][]", c, parent.tag_list.include?(c) #, { :id => c. }
               .label.label-success= c
   .span3
     %ul.unstyled
@@ -34,7 +34,7 @@
         - if i >= quarter *3 and i < quarter * 4
           %li
             %label.checkbox
-              = check_box_tag 'tags[]', c, parent.tag_list.include?(c) #, { :id => c. }
+              = check_box_tag "#{parent.class.name.downcase}[tag_list][]", c, parent.tag_list.include?(c) #, { :id => c. }
               .label.label-success= c
 
 

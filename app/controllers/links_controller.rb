@@ -44,10 +44,7 @@ class LinksController < ApplicationController
   # POST /links.json
   def create
     @link = Link.new(params[:link])
-    unless params[:tags].blank?
-      tags = params[:tags]
-      @link.tag_list = tags
-    end
+
     respond_to do |format|
       if @link.save
         format.html { redirect_to @link, notice: 'Link was successfully created.' }
@@ -63,10 +60,7 @@ class LinksController < ApplicationController
   # PUT /links/1.json
   def update
     @link = Link.find(params[:id])
-    unless params[:tags].blank?
-      tags = params[:tags]
-      @link.tag_list = tags
-    end
+
     respond_to do |format|
       if @link.update_attributes(params[:link])
         format.html { redirect_to @link, notice: 'Link was successfully updated.' }
