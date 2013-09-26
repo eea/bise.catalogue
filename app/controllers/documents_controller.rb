@@ -66,6 +66,7 @@ class DocumentsController < ApplicationController
       tags = params[:tags]
       @document.tag_list = tags
     end
+    @document.save
 
     respond_to do |format|
       if @document.update_attributes(params[:document])

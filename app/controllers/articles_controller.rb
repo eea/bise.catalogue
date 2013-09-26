@@ -54,10 +54,10 @@ class ArticlesController < ApplicationController
       tags = params[:tags]
       @article.tag_list = tags
     end
-    @article.update_attributes(params[:article])
+    @article.save
 
     respond_to do |format|
-      if @article.save
+      if @article.update_attributes(params[:article])
         format.html { redirect_to @article, :notice => 'Article was successfully updated.' }
         format.json { head :no_content }
       else
