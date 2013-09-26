@@ -1,3 +1,5 @@
+# encoding: UTF-8
+# Object
 class Document < ActiveRecord::Base
 
   include Tire::Model::Search
@@ -11,8 +13,8 @@ class Document < ActiveRecord::Base
   attr_accessible         :file
   mount_uploader          :file, FileUploader
 
-  validates :file          , presence: { :on => :create }
-  validate :uniqueness_of_md5hash, :on => :create
+  validates :file          , presence: { on: :create }
+  validate :uniqueness_of_md5hash, on: :create
 
   # TAGS
   attr_accessible :tag_list
@@ -21,96 +23,132 @@ class Document < ActiveRecord::Base
   before_validation :compute_hash
   before_save :update_file_info
 
-  before_destroy do |document|
-    document.remove_file!
-  end
+  before_destroy { |document| document.remove_file! }
 
   # INDEXES
   index_name "#{Tire::Model::Search.index_prefix}documents"
-  refresh = lambda { Tire::Index.new(index_name).refresh }
+  refresh = -> { Tire::Index.new(index_name).refresh }
   after_save(&refresh)
   after_destroy(&refresh)
 
-
-  # ----- TIRE SETTINGS -----
-
-
-  settings :analysis => {
+  settings analysis: {
 
     # An analyzer of type snowball that uses the standard tokenizer, with
     # standard filter, lowercase filter, stop filter, and snowball filter.
-    :analyzer => {
-      :search_analyzer => {
-        :type => "custom",
-        :tokenizer => "standard",
-        :filter => ["lowercase", "snowball"]
+    analyzer: {
+      search_analyzer: {
+        type: 'custom',
+        tokenizer: 'standard',
+        filter: %w(lowercase snowball)
       },
-      :index_ngram_analyzer => {
-        :type => "custom",
-        :tokenizer => "standard",
-        :filter => [ "lowercase", "snowball", "substring" ]
+      index_ngram_analyzer: {
+        type: 'custom',
+        tokenizer: 'standard',
+        filter: %w(lowercase snowball substring)
       }
     },
-    :filter => {
-      :substring => {
-        :type => "nGram",
-        :min_gram => 1,
-        :max_gram => 40,
-        :token_chars => [ "letter", "digit" ]
+    filter: {
+      substring: {
+        type: 'nGram',
+        min_gram: 1,
+        max_gram: 40,
+        token_chars: %w(letter digit)
       }
     }
   } do
-    # :_source => { :excludes => ['attachment'] }
-    mapping :_source => { :excludes => ['attachment'] } do
+    mapping _source: { excludes: %w(attachment) } do
 
       indexes :site do
-        indexes :id, :type => 'integer'
-        indexes :name, :type => 'string', :index => :not_analyzed
-        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id, type: 'integer'
+        indexes :name, type: 'string', index: :not_analyzed
+        indexes :ngram_name,
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'snowball'
       end
 
-      indexes :id            , :index    => :not_analyzed
-      indexes :title         , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball' , :boost => 100
-      indexes :sort_title    , :index    => :not_analyzed
-      indexes :english_title , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball' , :boost => 100
-      indexes :description   , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+      indexes :id, index: :not_analyzed
+      indexes :title,
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'snowball',
+              boost: 100
+      indexes :sort_title,
+              index: :not_analyzed
+      indexes :english_title ,
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'snowball' ,
+              boost: 100
+      indexes :description,
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'snowball'
 
       # indexes :language, :index => :not_analyzed
       indexes :languages do
-        indexes :id         , :type => 'integer'
-        indexes :name       , :type => 'string'                         , :index => :not_analyzed
-        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id,
+                type: 'integer'
+        indexes :name,
+                type: 'string',
+                index: :not_analyzed
+        indexes :ngram_name ,
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'snowball'
       end
 
-      indexes :published_on , :type => 'date'                           , :index => :not_analyzed
-      indexes :author       , :type => 'string'                         , :index => :not_analyzed
-      indexes :ngram_author , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+      indexes :published_on ,
+              type: 'date',
+              index: :not_analyzed
+      indexes :author,
+              type: 'string',
+              index: :not_analyzed
+      indexes :ngram_author ,
+              index_analyzer: 'index_ngram_analyzer' ,
+              search_analyzer: 'snowball'
 
       indexes :countries do
-        indexes :id         , :type => 'integer'
-        indexes :name       , :type => 'string'                         , :index => :not_analyzed
-        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id,
+                type: 'integer'
+        indexes :name,
+                type: 'string',
+                index: :not_analyzed
+        indexes :ngram_name ,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
       end
 
       indexes :tags do
-        indexes :name       , :type => 'string'                         , :index => :not_analyzed
-        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :name,
+                type: 'string',
+                index: :not_analyzed
+        indexes :ngram_name ,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
       end
 
-      indexes :biographical_region       , :type => 'string'                         , :index => :not_analyzed
-      indexes :biographical_region_ngram , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+      indexes :biographical_region,
+              type: 'string',
+              index: :not_analyzed
+      indexes :biographical_region_ngram,
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'snowball'
 
-      indexes :file_name    , type: 'string' , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
-      indexes :content_type , :type => 'string'                         , :index => :not_analyzed
+      indexes :file_name,
+              type: 'string' ,
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'snowball'
+      indexes :content_type ,
+              type: 'string',
+              index: :not_analyzed
 
-      indexes :attachment, :type => 'attachment', :fields => {
-        :date       => { store: 'yes' },
-        :file       => { store: 'yes', :index => 'no'},
-        # :title      => { :store => 'yes' },
-        # :name       => { :store => 'yes' },  # exists?!?
-        :content    => { store: 'yes', :term_vector => 'with_positions_offsets', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer' },
-        :attachment => { store: 'yes', :term_vector => 'with_positions_offsets' },
-        :author     => { analyzer: 'index_ngram_analyzer' }
+      indexes :attachment, type: 'attachment', fields: {
+        date: { store: 'yes' },
+        file: { store: 'yes', index: 'no' },
+        content: {
+          store: 'yes',
+          term_vector: 'with_positions_offsets',
+          index_analyzer: 'index_ngram_analyzer',
+          search_analyzer: 'search_analyzer'
+        },
+        attachment: { store: 'yes', term_vector: 'with_positions_offsets' },
+        author: { analyzer: 'index_ngram_analyzer' }
       }
 
       indexes :approved           , type: 'boolean'
@@ -169,14 +207,14 @@ class Document < ActiveRecord::Base
 
     # Facet Filter
     doc_filter = []
-    doc_filter << { :term => { 'site.name' => params[:site] }}                            if params[:site].present?
-    doc_filter << { :term => { :author => params[:author] }}                              if params[:author].present?
-    doc_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }}      if params[:countries].present?
-    doc_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }}      if params[:languages].present?
-    doc_filter << { :term => { :biographical_region => params[:biographical_region] }}    if params[:biographical_region].present?
-    doc_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
+    doc_filter << { term: { 'site.name' => params[:site] }} if params[:site].present?
+    doc_filter << { term: { author: params[:author] }} if params[:author].present?
+    doc_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
+    doc_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
+    doc_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
+    doc_filter << { range: { published_on: { gte: date_init , lt: date_end }}} if params[:published_on].present?
 
-    tire.search :load => true, :page => params[:page], :per_page => params[:per_page] do
+    tire.search load: true, page: params[:page], per_page: params[:per_page] do
       query do
         boolean do
           should { string 'site.ngram_name:'           + params[:query].to_s }
@@ -195,20 +233,20 @@ class Document < ActiveRecord::Base
       highlight :attachment, :description
 
       filter :term, 'site.name' => params[:site] if params[:site].present?
-      filter :term, :source_db => params[:source_db] if params[:source_db].present?
-      filter :term, :author => params[:author] if params[:author].present?
+      filter :term, source_db: params[:source_db] if params[:source_db].present?
+      filter :term, author: params[:author] if params[:author].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
-      filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
-      filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+      filter :term, biographical_region: params[:biographical_region] if params[:biographical_region].present?
+      filter :range, published_on: { gte: date_init, lt: date_end } if params[:published_on].present?
 
       filter :bool, must: { term: { approved: show_approved } }
 
       if params[:sort].present?
-        sort { by params[:sort].to_sym, params[:sort] == "published_on" ? "desc" : "asc" }
+        sort { by params[:sort].to_sym, params[:sort] == 'published_on' ? 'desc' : 'asc' }
       else
         # if no query, sort by published_on
-        sort { by :published_on, "desc" } unless params[:query].present?
+        sort { by :published_on, 'desc' } unless params[:query].present?
       end
 
 
@@ -238,7 +276,7 @@ class Document < ActiveRecord::Base
       end
 
       facet('timeline') do
-        date :published_on, :interval => 'year'
+        date :published_on, interval: 'year'
         facet_filter :and, doc_filter unless doc_filter.empty?
       end
     end
@@ -249,7 +287,7 @@ class Document < ActiveRecord::Base
       path_to_file = Rails.root.to_s + '/public' + file_url.to_s
       Base64.encode64(open(path_to_file) { |f| f.read })
     else
-      Base64.encode64("missing")
+      Base64.encode64('missing')
     end
   end
 
@@ -263,8 +301,8 @@ class Document < ActiveRecord::Base
   end
 
   def uniqueness_of_md5hash
-    if Document.exists?(:md5hash => self.md5hash)
-      errors.add :file, :unique  #"is already registered. Documents must be unique."
+    if Document.exists?(md5hash: md5hash)
+      errors.add :file, :unique
     end
   end
 
@@ -277,7 +315,7 @@ class Document < ActiveRecord::Base
       output = file[0..last_index]
       Docsplit.extract_images file, size: '180x', format: [:jpg], pages: 1, output: output
     rescue Exception => e
-      logger.debug { ":: Document thumbnail can't be generated" }
+      logger.error { "Document thumbnail can't be generated" }
     end
   end
 
@@ -292,7 +330,7 @@ class Document < ActiveRecord::Base
 
     def compute_hash
       # puts ":: compute_hash => #{self.file.nil?} - #{self.file.size}"
-      self.md5hash = Digest::MD5.hexdigest(self.file.read) if self.file?
+      self.md5hash = Digest::MD5.hexdigest(file.read) if file?
     end
 
 end

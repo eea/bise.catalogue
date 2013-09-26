@@ -132,8 +132,12 @@ class Article < ActiveRecord::Base
       languages:      languages.map do |l|
         { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name }
       end,
-      countries:      countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
-      tags:           tags.map { |c| { name: c.name, ngram_name: c.name } },
+      countries:      countries.map do |c|
+        { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name }
+      end,
+      tags:           tags.map do |c|
+        { name: c.name, ngram_name: c.name }
+      end,
       biographical_region:       biographical_region,
       biographical_region_ngram: biographical_region
     }.to_json
