@@ -134,8 +134,8 @@ class Article < ActiveRecord::Base
       countries:      countries.map do |c|
         { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name }
       end,
-      tags: tags.map do |c|
-        { name: c.name, ngram_name: c.name }
+      tags: tag_list.map do |c|
+        { name: c, ngram_name: c }
       end,
       biographical_region:       biographical_region,
       biographical_region_ngram: biographical_region
