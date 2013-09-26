@@ -193,7 +193,9 @@ class Document < ActiveRecord::Base
   end
 
   def document_path
-    file.store_path.gsub file.root, ''
+    # binding.remote_pry
+    file.file.file.gsub file.root, ''
+    # file.store_path.gsub file.root, ''
   end
 
   def self.search(params)
