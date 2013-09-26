@@ -14,7 +14,6 @@ class Article < ActiveRecord::Base
   acts_as_taggable
 
   index_name "#{Tire::Model::Search.index_prefix}articles"
-
   refresh = -> { Tire::Index.new(index_name).refresh }
   after_save(&refresh)
   after_destroy(&refresh)
@@ -135,7 +134,7 @@ class Article < ActiveRecord::Base
       countries:      countries.map do |c|
         { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name }
       end,
-      tags:           tags.map do |c|
+      tags: tags.map do |c|
         { name: c.name, ngram_name: c.name }
       end,
       biographical_region:       biographical_region,
