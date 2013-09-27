@@ -25,6 +25,13 @@ module Api
         q = Sanitize.clean(q)
         q = nil if q == ''
 
+        date_init = nil
+        date_end = nil
+        if params[:published_on].present?
+          date_init = DateTime.new(params[:published_on].to_i, 1, 1)
+          date_end = DateTime.new(params[:published_on].to_i, 12, 31)
+        end
+
         indexes = params[:indexes]
         if indexes == "all"
           indexes = [
@@ -75,8 +82,8 @@ module Api
           search_filter << { term: { :author => params[:author] }} if params[:author].present?
           search_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
           search_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
-          search_filter << { term: { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
-          # search_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
+          search_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
+          search_filter << { range: { published_on: { gte: date_init , lt: date_end }}} if params[:published_on].present?
 
           search_filter << { term: { kingdom: kingdom }} if params[:kingdom].present?
           search_filter << { term: { phylum: phylum }} if params[:phylum].present?
@@ -130,7 +137,7 @@ module Api
             filter :term, 'countries.name' => countries unless countries.nil?
             filter :term, 'languages.name' => languages unless languages.nil?
             filter :term, biographical_region: biogeo unless biogeo.nil?
-            # filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+            # filter :range, published_on: { gte: date_init, lt: date_end } if params[:published_on].present?
 
             filter :term, kingdom: kingdom unless kingdom.nil?
             filter :term, phylum: phylum unless phylum.nil?
@@ -203,9 +210,10 @@ module Api
               facet_filter :and, search_filter  unless search_filter.empty?
             end
 
-            # facet('timeline') do
-            #     date :published_on, :interval => 'year'
-            # end
+            facet 'published_on' do
+              date :published_on, interval: 'year'
+              facet_filter :and, search_filter unless search_filter.empty?
+            end
           end
         else
           @rows = nil
