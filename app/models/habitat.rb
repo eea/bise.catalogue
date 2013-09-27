@@ -58,6 +58,8 @@ class Habitat < ActiveRecord::Base
         indexes :name, :type => 'string', :index => :not_analyzed
       end
 
+      indexes :published_on,
+              type: 'date'
       indexes :approved           , type: 'boolean'
     }
   end
@@ -93,6 +95,7 @@ class Habitat < ActiveRecord::Base
       level:           level,
       description:     description,
       countries:       countries.map { |c| { :_type  => 'country', :_id => c.id, :name => c.name } },
+      published_on:    created_at,
       approved:        approved
     }.to_json
   end

@@ -73,6 +73,8 @@ class Species < ActiveRecord::Base
       indexes :phylum, :index => :not_analyzed
       indexes :classis, :index => :not_analyzed
 
+      indexes :published_on,
+              type: 'date'
       indexes :approved       , type: 'boolean'
 
     }
@@ -105,6 +107,7 @@ class Species < ActiveRecord::Base
       kingdom:         kingdom,
       phylum:          phylum_division,
       classis:         classis,
+      published_on:    created_at,
       approved:        approved
     }.to_json
   end

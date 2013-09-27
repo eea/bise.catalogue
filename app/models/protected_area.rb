@@ -71,6 +71,8 @@ class ProtectedArea < ActiveRecord::Base
       indexes :source_db, :type => 'string', :index => :not_analyzed
       indexes :designation_year, :type => 'integer', :index => :not_analyzed
 
+      indexes :published_on,
+              type: 'date'
       indexes :approved           , type: 'boolean'
     }
   end
@@ -102,6 +104,7 @@ class ProtectedArea < ActiveRecord::Base
       species:          species.map { |s| { :_type                                                               => 'species', _id: s.id, scientific_name: s.scientific_name } },
       source_db:        source_db,
       designation_year: designation_year,
+      published_on:     created_at,
       approved:         approved
     }.to_json
   end
