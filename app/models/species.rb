@@ -66,15 +66,20 @@ class Species < ActiveRecord::Base
                 search_analyzer: 'snowball'
       end
 
-      indexes :binomial_name  , type: 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      indexes :scientific_name, type: 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+      indexes :binomial_name  , type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
+      indexes :scientific_name, type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
 
       indexes :vernacular_names do
         indexes :locale       , type: 'string', index: :not_analyzed
-        indexes :name         , type: 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+        indexes :name         , type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
       end
 
-      indexes :author         , type: 'string', index: :not_analyzed
+      indexes :protected_areas do
+        indexes :code         , type: 'string', index: :not_analyzed
+        indexes :name         , type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
+      end
+
+      indexes :authorship     , type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
       indexes :created_at     , type: 'date'
 
       indexes :species_group  , type: 'string', index: :not_analyzed

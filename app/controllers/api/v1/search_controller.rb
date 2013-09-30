@@ -121,6 +121,18 @@ module Api
                 # Species scientifi name
                 should   { string 'scientific_name:'           + q }
                 should   { string 'vernacular_names.name:'     + q }
+                should   { string 'authorship:'                + q }
+                should   { string 'species_group:'             + q }
+                should   { string 'taxonomic_rank:'            + q }
+                should   { string 'genus:'                     + q }
+                should   { string 'kingdom:'                   + q }
+                should   { string 'phylum:'                    + q }
+                should   { string 'classis:'                   + q }
+                # TODO: Add synonyms
+                should   { string 'protected_areas.code:'      + q }
+                should   { string 'protected_areas.name:'      + q }
+                # TODO: Add habitats
+
 
                 # Protected Area name
                 should   { string 'name:'                      + q }
