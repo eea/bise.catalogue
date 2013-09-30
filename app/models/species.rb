@@ -71,7 +71,7 @@ class Species < ActiveRecord::Base
 
       indexes :vernacular_names do
         indexes :locale       , type: 'string', index: :not_analyzed
-        indexes :name         , type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
+        indexes :name         , type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer', boost: 100
       end
 
       indexes :protected_areas do

@@ -53,16 +53,21 @@ class Article < ActiveRecord::Base
                 search_analyzer: 'snowball'
       end
 
+      indexes :id, index: :not_analyzed
       indexes :title,
               type: 'string',
               index_analyzer: 'index_ngram_analyzer',
-              search_analyzer: 'search_analyzer'
+              search_analyzer: 'snowball'
+      indexes :english_title,
+              type: 'string',
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'snowball'
 
       indexes :content,
               store: 'yes',
               type: 'string',
               index_analyzer: 'index_ngram_analyzer',
-              search_analyzer: 'search_analyzer'
+              search_analyzer: 'snowball'
 
       indexes :languages do
         indexes :id ,

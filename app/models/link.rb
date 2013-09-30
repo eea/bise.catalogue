@@ -22,67 +22,92 @@ class Link < ActiveRecord::Base
   after_save(&refresh)
   after_destroy(&refresh)
 
-  settings :analysis => {
-    :analyzer => {
-      :search_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase"]
+  settings analysis: {
+    analyzer: {
+      search_analyzer: {
+        tokenizer: 'keyword',
+        filter: %w(lowercase snowball)
       },
-      :index_ngram_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase", "substring"],
-        :type => "custom"
+      index_ngram_analyzer: {
+        type: 'custom',
+        tokenizer: 'standard',
+        filter: %w(lowercase snowball substring)
       }
     },
-    :filter => {
-      :substring => {
-        :type => "nGram",
-        :min_gram => 1,
-        :max_gram => 20
+    filter: {
+      substring: {
+        type: 'nGram',
+        min_gram: 1,
+        max_gram: 20,
+        token_chars: %(letter digit)
       }
     }
   } do
     mapping {
 
       indexes :site do
-        indexes :id, :type => 'integer'
-        indexes :name, :type => 'string', :index => :not_analyzed
-        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id,
+                type: 'integer'
+        indexes :name,
+                type: 'string',
+                index: :not_analyzed
+        indexes :ngram_name,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
       end
 
-      indexes :id            , :index    => :not_analyzed
-      indexes :title, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      indexes :sort_title    , :index    => :not_analyzed
-      indexes :english_title , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball' , :boost => 100
+      indexes :id, index: :not_analyzed
+      indexes :title,
+              type: 'string',
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'snowball'
+      indexes :sort_title,
+              index: :not_analyzed
+      indexes :english_title,
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'snowball',
+              boost: 100
 
       indexes :languages do
-        indexes :id         , :type => 'integer'
-        indexes :name       , :type => 'string'                         , :index => :not_analyzed
-        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id,
+                type: 'integer'
+        indexes :name,
+                type: 'string',
+                index: :not_analyzed
+        indexes :ngram_name ,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
       end
 
-      indexes :published_on, :type => 'date'
-      indexes :author, :type => 'string', :index => :not_analyzed
-
       indexes :countries do
-        indexes :id         , :type => 'integer'
-        indexes :name       , :type => 'string'                         , :index => :not_analyzed
-        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id,
+                type: 'integer'
+        indexes :name,
+                type: 'string',
+                index: :not_analyzed
+        indexes :ngram_name,
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'snowball'
       end
 
       indexes :tags do
-        indexes :name       , :type => 'string'                         , :index => :not_analyzed
-        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :name,
+                type: 'string' ,
+                index: :not_analyzed
+        indexes :ngram_name ,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
       end
 
+      indexes :biographical_region,
+              type: 'string',
+              index: :not_analyzed
+      indexes :author,
+              type: 'string',
+              index: :not_analyzed
+      indexes :published_on,
+              type: 'date'
       indexes :url, :type => 'string'
-
-      indexes :biographical_region, :type => 'string', :index => :not_analyzed
-
-      indexes :countries do
-        indexes :id, :type => 'integer'
-        indexes :name, :type => 'string', :index => :not_analyzed
-      end
 
       indexes :approved           , type: 'boolean'
       indexes :approved_at        , type: 'date'
@@ -110,16 +135,17 @@ class Link < ActiveRecord::Base
       approved_at:  approved_at,
       created_at:   created_at,
 
-      languages:      languages.map { |l| { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name } },
-
-      countries:      countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
+      languages: languages.map do |l|
+        { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name }
+      end,
+      countries:      countries.map do |c|
+        { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name }
+      end,
       tags: tag_list.map do |c|
         { name: c, ngram_name: c }
       end,
-
       biographical_region: biographical_region,
       biographical_region_ngram: biographical_region
-
     }.to_json
   end
 
