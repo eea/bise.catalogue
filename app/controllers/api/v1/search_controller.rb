@@ -120,6 +120,7 @@ module Api
 
                 # Species scientifi name
                 should   { string 'scientific_name:'           + q }
+                should   { string 'vernacular_names.name:'     + q }
 
                 # Protected Area name
                 should   { string 'name:'                      + q }
@@ -137,7 +138,7 @@ module Api
             filter :term, 'countries.name' => countries unless countries.nil?
             filter :term, 'languages.name' => languages unless languages.nil?
             filter :term, biographical_region: biogeo unless biogeo.nil?
-            filter :range, published_on: { gte: date_init, lt: date_end } if params[:published_on].present?
+            filter :range, published_on: { gte: date_init, lt: date_end } unless date_init.nil?
 
             filter :term, kingdom: kingdom unless kingdom.nil?
             filter :term, phylum: phylum unless phylum.nil?

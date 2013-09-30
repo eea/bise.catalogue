@@ -1,4 +1,4 @@
-class SpeciesTranslations < ActiveRecord::Base
+class SpeciesTranslation < ActiveRecord::Base
 
   belongs_to :species
 

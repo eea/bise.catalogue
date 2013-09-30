@@ -20,8 +20,15 @@ class Species < ActiveRecord::Base
   attr_accessible :taxonomic_rank
   attr_accessible :valid_name
 
-  has_and_belongs_to_many :habitats       , association_foreign_key: "habitat_id"       , join_table: "species_habitats", class_name: "Habitat"
-  has_and_belongs_to_many :protected_areas, association_foreign_key: "protected_area_id", join_table: "species_protected_areas", class_name: "ProtectedArea"
+  has_and_belongs_to_many :habitats,
+                          association_foreign_key: 'habitat_id',
+                          join_table: 'species_habitats',
+                          class_name: 'Habitat'
+  has_and_belongs_to_many :protected_areas ,
+                          association_foreign_key: 'protected_area_id',
+                          join_table: 'species_protected_areas',
+                          class_name: 'ProtectedArea'
+  has_many :vernacular_names, class_name: "SpeciesTranslation"
 
   index_name "#{Tire::Model::Search.index_prefix}species"
 
@@ -52,26 +59,33 @@ class Species < ActiveRecord::Base
     mapping {
 
       indexes :site do
-        indexes :id, :type => 'integer'
-        indexes :name, :type => 'string', :index => :not_analyzed
-        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id, type: 'integer'
+        indexes :name, type: 'string', index: :not_analyzed
+        indexes :ngram_name,
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'snowball'
       end
 
       indexes :binomial_name  , type: 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
       indexes :scientific_name, type: 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
 
-      indexes :author         , type: 'string', :index => :not_analyzed
+      indexes :vernacular_names do
+        indexes :locale       , type: 'string', index: :not_analyzed
+        indexes :name         , type: 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+      end
+
+      indexes :author         , type: 'string', index: :not_analyzed
       indexes :created_at     , type: 'date'
 
-      indexes :species_group  , type: 'string', :index => :not_analyzed
-      indexes :taxonomic_rank , type: 'string', :index => :not_analyzed
-      indexes :genus          , type: 'string', :index => :not_analyzed
+      indexes :species_group  , type: 'string', index: :not_analyzed
+      indexes :taxonomic_rank , type: 'string', index: :not_analyzed
+      indexes :genus          , type: 'string', index: :not_analyzed
 
-      indexes :valid_name, :type => 'boolean', :index => :not_analyzed
+      indexes :valid_name     , type: 'boolean', index: :not_analyzed
 
-      indexes :kingdom, :index => :not_analyzed
-      indexes :phylum, :index => :not_analyzed
-      indexes :classis, :index => :not_analyzed
+      indexes :kingdom        , index: :not_analyzed
+      indexes :phylum         , index: :not_analyzed
+      indexes :classis        , index: :not_analyzed
 
       indexes :published_on,
               type: 'date'
@@ -96,6 +110,9 @@ class Species < ActiveRecord::Base
       uri:             uri,
       binomial_name:   binomial_name,
       scientific_name: scientific_name,
+      vernacular_names: vernacular_names.map do |vn|
+        { locale: vn.locale, name: vn.name }
+      end,
       authorship:      scientific_name_authorship,
       created_at:      created_at,
       species_group:   species_group,
