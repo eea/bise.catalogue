@@ -57,16 +57,22 @@ class Link < ActiveRecord::Base
       end
 
       indexes :id, index: :not_analyzed
-      indexes :title,
-              type: 'string',
-              index_analyzer: 'index_ngram_analyzer',
-              search_analyzer: 'snowball'
-      indexes :sort_title,
-              index: :not_analyzed
-      indexes :english_title,
-              index_analyzer: 'index_ngram_analyzer',
-              search_analyzer: 'snowball',
-              boost: 100
+      indexes :title, type: 'multi_field', fields: {
+        title: {
+          type: 'string',
+          index_analyzer: 'index_ngram_analyzer',
+          search_analyzer: 'snowball'
+        },
+        exact: { type: 'string', index: :not_analyzed }
+      }
+      indexes :english_title, type: 'multi_field', fields: {
+        english_title: {
+          type: 'string',
+          index_analyzer: 'index_ngram_analyzer',
+          search_analyzer: 'snowball'
+        },
+        exact: { type: 'string', index: :not_analyzed }
+      }
 
       indexes :languages do
         indexes :id,
@@ -124,7 +130,6 @@ class Link < ActiveRecord::Base
         ngram_name: site.name
       },
       title:        title,
-      sort_title:     title,
       english_title:  english_title,
       # description:  description,
       author:       author,
@@ -175,7 +180,9 @@ class Link < ActiveRecord::Base
         boolean do
           should { string 'site.ngram_name:'           + params[:query].to_s }
           should { string 'title:'                     + params[:query].to_s }
+          should { string 'title.exact:'               + params[:query].to_s }
           should { string 'english_title:'             + params[:query].to_s }
+          should { string 'english_title.exact:'       + params[:query].to_s }
           should { string 'description:'               + params[:query].to_s }
           should { string 'url:'                       + params[:query].to_s }
           should { string 'ngram_author:'              + params[:query].to_s }
