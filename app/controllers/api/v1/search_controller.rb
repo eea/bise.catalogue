@@ -133,13 +133,12 @@ module Api
                 should   { string 'protected_areas.name:'      + q }
                 # TODO: Add habitats
 
-
                 # Protected Area name
                 should   { string 'name:'                      + q }
-
-                # must     { string 'author:' + author } unless author.nil?
-                # should   { string 'content:' + params[:query].to_s }
-                # must_not { string 'published:0' }
+                should   { string 'habitats.name:'             + q }
+                should   { string 'habitats.code:'             + q }
+                should   { string 'biogeo_regions.name:'       + q }
+                should   { string 'biogeo_regions.code:'       + q }
               end
             end
 

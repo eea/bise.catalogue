@@ -68,6 +68,26 @@ class ProtectedArea < ActiveRecord::Base
                 search_analyzer: 'search_analyzer'
       end
 
+      indexes :habitats do
+        indexes :id, type: 'integer'
+        indexes :name, type: 'string',
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'search_analyzer'
+        indexes :code, type: 'string',
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'search_analyzer'
+      end
+
+      indexes :biogeo_regions do
+        indexes :id, type: 'integer'
+        indexes :name, type: 'string',
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'search_analyzer'
+        indexes :code, type: 'string',
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'search_analyzer'
+      end
+
       indexes :source_db, :type => 'string', :index => :not_analyzed
       indexes :designation_year, :type => 'integer', :index => :not_analyzed
 
@@ -97,15 +117,25 @@ class ProtectedArea < ActiveRecord::Base
         name: site.name,
         ngram_name: site.name
       },
-      uri:              uri,
-      code:             code,
-      name:             name,
-      countries:        countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
-      species:          species.map { |s| { :_type                                                               => 'species', _id: s.id, scientific_name: s.scientific_name } },
-      source_db:        source_db,
+      uri: uri,
+      code: code,
+      name: name,
+      countries: countries.map do |c|
+        { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name }
+      end,
+      species: species.map do |s|
+        { _type: 'species', _id: s.id, scientific_name: s.scientific_name }
+      end,
+      habitats: habitats.map do |h|
+        { _type: 'habitat', _id: h.id, name: h.name, code: h.habitat_code }
+      end,
+      biogeo_regions: biogeo_regions.map do |br|
+        { _type: 'biogeo_regions', _id: br.id, name: br.area_name, code: br.code }
+      end,
+      source_db: source_db,
       designation_year: designation_year,
-      published_on:     created_at,
-      approved:         approved
+      published_on: created_at,
+      approved: approved
     }.to_json
   end
 
@@ -124,7 +154,8 @@ class ProtectedArea < ActiveRecord::Base
         boolean do
           should   { string 'site.ngram_name:' + params[:query].to_s }
           should   { string 'name:' + params[:query].to_s }
-          should   { string 'countries.ngram_name:'      + params[:query].to_s }
+          should   { string 'countries.ngram_name:' + params[:query].to_s }
+          should   { string 'habitats.name:' + params[:query].to_s }
         end
       end if params[:query].present?
 
