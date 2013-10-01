@@ -99,6 +99,7 @@ module Api
                 should   { string 'title:'                     + q }
                 should   { string 'english_title:'             + q }
                 should   { string 'description:'               + q }
+                should   { string 'content:'                   + q }
 
                 should   { string 'attachment:'                + q }
 

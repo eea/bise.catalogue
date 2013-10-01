@@ -54,38 +54,28 @@ class Article < ActiveRecord::Base
       end
 
       indexes :id, index: :not_analyzed
-      indexes :title,
-              type: 'string',
+      indexes :title, type: 'string',
               index_analyzer: 'index_ngram_analyzer',
               search_analyzer: 'snowball'
-      indexes :english_title,
-              type: 'string',
+      indexes :english_title, type: 'string',
               index_analyzer: 'index_ngram_analyzer',
               search_analyzer: 'snowball'
 
-      indexes :content,
-              store: 'yes',
-              type: 'string',
+      indexes :content, store: 'yes', type: 'string',
               index_analyzer: 'index_ngram_analyzer',
               search_analyzer: 'snowball'
 
       indexes :languages do
-        indexes :id ,
-                type: 'integer'
-        indexes :name ,
-                type: 'string' ,
-                index: :not_analyzed
+        indexes :id , type: 'integer'
+        indexes :name , type: 'string' , index: :not_analyzed
         indexes :ngram_name ,
                 index_analyzer: 'index_ngram_analyzer' ,
                 search_analyzer: 'snowball'
       end
 
       indexes :countries do
-        indexes :id,
-                type: 'integer'
-        indexes :name,
-                type: 'string' ,
-                index: :not_analyzed
+        indexes :id, type: 'integer'
+        indexes :name, type: 'string' , index: :not_analyzed
         indexes :ngram_name ,
                 index_analyzer: 'index_ngram_analyzer' ,
                 search_analyzer: 'snowball'
@@ -106,7 +96,8 @@ class Article < ActiveRecord::Base
       indexes :author,
               type: 'string', index: :not_analyzed
       indexes :published_on,
-              type: 'date'
+              type: 'date',
+              index: :not_analyzed
 
       indexes :approved           , type: 'boolean'
       indexes :approved_at        , type: 'date'
@@ -185,11 +176,11 @@ class Article < ActiveRecord::Base
           should { string 'languages.ngram_name:'      + params[:query].to_s }
           should { string 'tags.ngram_name:'           + params[:query].to_s }
           should { string 'biographical_region_ngram:' + params[:query].to_s}
-          should   { string 'content_without_tags:' + params[:query].to_s }
+          should { string 'content:' + params[:query].to_s }
         end
       end if params[:query].present?
 
-      highlight :title, :content_without_tags
+      highlight :title, :content
 
       filter :term, 'site.name' => params[:site] if params[:site].present?
       filter :term, :source_db => params[:source_db] if params[:source_db].present?
