@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.13'
 
-gem 'rack'      #, '1.4.1'
+gem 'rack'                    , '~> 1.4.5'
 
 gem 'devise'
 gem 'devise_ldap_authenticatable'

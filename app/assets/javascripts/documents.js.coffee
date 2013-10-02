@@ -1,125 +1,96 @@
-$ ->
+Document =
+  hasChanged: ->
+    file = $('#document_file')[0].files[0]
+    Document.checkFile(file)
 
-  _data = null
-  _form = if $('.new_document').size() > 0 then '.new_document' else '.edit_document'
-
-  class Document
-    _node: '.file-info'
-
-    constructor: () ->
-      do $('#document_file').parent().hide
-      $('#document_language_ids').chosen({
-        width: '100%'
-      })
-
-    checkFile: =>
-      types = /(\.|\/)(pdf|rtf|doc|docx|csv|xls|xlsx|ppt|pptx|txt)$/i
-      types.test(@file.type) || types.test(@file.name)
-
-    clear: ->
-      $('.buttons').show()
-      $(@_node).hide().html('')
-      $('#file_title').val('')
-      @file = null
-
-    draw: ->
-      $(@_node).html('')
-      content = SMT['documents/preview'](@)
-      $(@_node).show().append(content)
-
-    hasChanged: ->
-      console.log 'file has changed'
-      window.doc.file = $('#document_file')[0].files[0]
-      $('#file_title').val window.doc.file.name
-      if window.doc.checkFile()
-        window.doc.draw()
-      else
-        alert('File type not allowed.')
-        window.doc.clear()
-
-    hasFile: ->
-      if @file? then true else false
-
-    image: ->
+  checkFile: (file) ->
+    node = '.file-info'
+    types = /(\.|\/)(pdf|rtf|doc|docx|csv|xls|xlsx|ppt|pptx|txt)$/i
+    res = types.test(file.type) || types.test(file.name)
+    if (res)
+      $('#file_title').val file.name
       img = 'default'
-      switch @file.type
+      type = ''
+      switch file.type
         when 'application/pdf'
           img = 'pdf'
+          type = 'PDF'
         when 'application/rtf'
           img = 'rtf'
+          type = 'RTF'
         when 'application/msword'
           img = 'word'
+          type = 'DOC'
         when 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
           img = 'word2010'
+          type = 'DOCX'
         when 'text/csv'
           img = 'csv'
+          type = 'CSV'
         when 'application/vnd.ms-excel'
           img = 'excel'
+          type = 'XLS'
         when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
           img = 'excel2010'
+          type = 'XLSX'
         when 'application/vnd.ms-powerpoint'
           img = 'powerpoint'
+          type = 'PPT'
         when 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
           img = 'powerpoint2010'
+          type = 'PPTX'
         when 'text/plain'
           img = 'plaintext'
-    type: ->
-      switch @file.type
-        when 'application/pdf'
-          'PDF'
-        when 'application/rtf'
-          'RTF'
-        when 'application/msword'
-          'DOC'
-        when 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-          'DOCX'
-        when 'text/csv'
-          'CSV'
-        when 'application/vnd.ms-excel'
-          'XLS'
-        when 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-          'XLSX'
-        when 'application/vnd.ms-powerpoint'
-          'PPT'
-        when 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
-          'PPTX'
-        when 'text/plain'
-          'TXT'
+          type = 'TXT'
+      content = SMT['documents/preview']({
+        image: img,
+        type: type,
+        size: Document.size(file)
+      })
+      $(node).html('').append(content).show(0)
+    else
+      $(node).hide()
+      $('#file_title').val('')
 
-    title: ->
-      @file.name
+  validate: ->
+    fileAdded = $('#document_file')[0].files.length == 1
+    if fileAdded
+      form = if $('#new_document').size() > 0 then '#new_document' else '#edit_document'
+      progressModal.modal('show')
+      # progressModal.find('.modal-footer').html window.doc.title()
+      $(form)[0].submit()
+    else
+      $('input[type=submit]').attr('disabled', false)
+      alert('Please, add a file');
 
-    size: ->
-      kb = 1024
-      mb = kb*kb
-      if (@file.size > mb)
-        (Math.round(@file.size * 100 / mb) / 100).toString() + ' MB'
-      else
-        (Math.round(@file.size * 100 / kb) / 100).toString() + ' KB'
+  send: ->
+    $('#new_user')[0].submit()
+
+  size: (file) ->
+    kb = 1024
+    mb = kb*kb
+    if (file.size > mb)
+      (Math.round(file.size * 100 / mb) / 100).toString() + ' MB'
+    else
+      (Math.round(file.size * 100 / kb) / 100).toString() + ' KB'
 
 
-  # Create singleton Document
-  window.doc = new Document()
+$ ->
 
-  # ----- CALENDAR
+  $('#document_language_ids').chosen({ width: '100%' })
   $('#document_published_on').datepicker({ dateFormat: 'dd/mm/yy' });
+  $('#file_select').click ()-> $('#document_file').click()
+  $('#document_file').change(Document.hasChanged)
 
-  # ----- PROGRESS DIALOG
   progressModal = $("#prog-modal").modal({
-    "backdrop"  : "static",
-    "keyboard"  : true,
-    "show"      : false
+    backdrop: "static",
+    keyboard: true,
+    show: false
   })
 
-  # FILE
-  $('#file_select').click ()-> $('#document_file').click()
-  $('#document_file').change window.doc.hasChanged
-
-  $(':submit').click (e)->
-    # e.preventDefault()
-    if _form == '.new_document' and window.doc? and window.doc.hasFile()
-      progressModal.modal('show')
-      progressModal.find('.modal-footer').html window.doc.title()
-    else if _form == '.edit_document'
-      progressModal.modal('show')
+  form = if $('.new_document').size() > 0 then '#new_document' else '#edit_document'
+  $(form).submit ->
+    $('input[type=submit]').attr('disabled', true)
+    Document.validate(form)
+    false
 
