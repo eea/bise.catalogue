@@ -129,7 +129,8 @@ module Api
                 should   { string 'kingdom:'                   + q }
                 should   { string 'phylum:'                    + q }
                 should   { string 'classis:'                   + q }
-                # TODO: Add synonyms
+                should   { string 'synonyms.binomial_name:'    + q }
+                should   { string 'synonyms.scientific_name:'  + q }
                 should   { string 'protected_areas.code:'      + q }
                 should   { string 'protected_areas.name:'      + q }
                 # TODO: Add habitats

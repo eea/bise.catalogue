@@ -28,7 +28,9 @@ class Species < ActiveRecord::Base
                           association_foreign_key: 'protected_area_id',
                           join_table: 'species_protected_areas',
                           class_name: 'ProtectedArea'
-  has_many :vernacular_names, class_name: "SpeciesTranslation"
+  has_many :vernacular_names, class_name: 'SpeciesTranslation'
+
+  has_many :synonyms, class_name: 'Species', primary_key: 'uri', foreign_key: 'synonym_for'
 
   index_name "#{Tire::Model::Search.index_prefix}species"
 
@@ -79,6 +81,17 @@ class Species < ActiveRecord::Base
         indexes :name         , type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
       end
 
+      indexes :synonyms do
+        indexes :binomial_name,
+                type: 'string',
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'search_analyzer'
+        indexes :scientific_name,
+                type: 'string',
+                index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'search_analyzer'
+      end
+
       indexes :authorship     , type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
       indexes :created_at     , type: 'date'
 
@@ -117,6 +130,9 @@ class Species < ActiveRecord::Base
       scientific_name: scientific_name,
       vernacular_names: vernacular_names.map do |vn|
         { locale: vn.locale, name: vn.name }
+      end,
+      synonyms: synonyms.map do |s|
+        { binomial_name: s.binomial_name , scientific_name: s.scientific_name }
       end,
       authorship:      scientific_name_authorship,
       created_at:      created_at,
@@ -185,8 +201,9 @@ class Species < ActiveRecord::Base
         boolean do
           should   { string 'binomial_name:' + params[:query].to_s }
           should   { string 'scientific_name:' + params[:query].to_s }
-          # should     { string 'taxonomic_rank:Species'}
-          # must_not { string 'published:0' }
+
+          should   { string 'synonyms.binomial_name:' + params[:query].to_s }
+          should   { string 'synonyms.scientific_name:' + params[:query].to_s }
         end
       end if params[:query].present?
 
