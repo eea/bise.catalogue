@@ -58,7 +58,6 @@ end
 namespace :deploy do
 
     before "deploy:cold", "deploy:install_bundler"
-
     task :install_bundler, :roles => :app do
         run "type -P bundle &>/dev/null || { gem install bundler --no-rdoc --no-ri; }"
         run "mkdir -p ~/apps/#{application}/releases"
@@ -71,21 +70,22 @@ namespace :deploy do
         end
     end
 
+    after "deploy:setup", "deploy:setup_config"
     task :setup_config, :roles => :app do
         sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
         sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
         run "mkdir -p #{shared_path}/config"
-        run "ln -nfs #{shared_path}/config/database.example.yml #{release_path}/config/database.yml"
-        # run "cp #{current_path}/config/database.example.yml #{shared_path}/config/database.yml"
+        # run "ln -nfs #{shared_path}/config/database.example.yml #{release_path}/config/database.yml"
+        puts File.read("#{current_path}/config/database.example.yml")
+        run "cp #{current_path}/config/database.example.yml #{shared_path}/config/database.yml"
         # put File.read("#{current_path}/config/database.example.yml"), "#{shared_path}/config/database.yml"
         puts "Now edit the config files in #{shared_path}."
     end
-    after "deploy:setup", "deploy:setup_config"
 
+    after "deploy:finalize_update", "deploy:symlink_config"
     task :symlink_config, :roles => :app do
         run "ln -nfs #{shared_path}/config/database.example.yml #{release_path}/config/database.yml"
     end
-    after "deploy:finalize_update", "deploy:symlink_config"
 
     desc "Make sure local git is in sync with remote."
     task :check_revision, :roles => :web do
