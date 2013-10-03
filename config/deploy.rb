@@ -75,7 +75,7 @@ namespace :deploy do
         sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
         sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
         run "mkdir -p #{shared_path}/config"
-        # run "ln -nfs #{deploy_to}/shared/config/database.yml #{release_path}/config/database.yml"
+        run "ln -nfs #{shared_path}/config/database.example.yml #{release_path}/config/database.yml"
         # run "cp #{current_path}/config/database.example.yml #{shared_path}/config/database.yml"
         # put File.read("#{current_path}/config/database.example.yml"), "#{shared_path}/config/database.yml"
         puts "Now edit the config files in #{shared_path}."
