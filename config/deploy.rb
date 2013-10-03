@@ -75,7 +75,7 @@ namespace :deploy do
         sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
         sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
         run "mkdir -p #{shared_path}/config"
-        top.upload("config/database.yml", "#{release_path}/config/database.yml", via: :scp)
+        top.upload("config/database.example.yml", "#{release_path}/config/database.yml", via: :scp)
         # run "cp #{current_path}/config/database.example.yml #{current_path}/config/database.yml"
         # put File.read("#{current_path}/config/database.example.yml"), "#{shared_path}/config/database.yml"
         puts "Now edit the config files in #{shared_path}."
