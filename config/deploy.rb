@@ -3,14 +3,13 @@ require "bundler/capistrano"
 
 set :application, "catalogue"
 
-set :rbenv_ruby_version, "1.9.3-p392"
+set :rbenv_ruby_version, "1.9.3-p448"
 
-# set :repository,  "git@i3apps.sytes.net:bilbomatica/catalogue.git"
 set :repository,  "https://github.com/eea/bise.catalogue.git"
 set :branch, "master"
 
 set :user, "deployer"
-set :password, "saretex1"
+set :password, "anboto83"
 set :deploy_to, "/home/#{user}/apps/#{application}"
 set :deploy_via, :copy
 set :use_sudo, false
@@ -24,10 +23,10 @@ set :default_environment, {
 set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
-role :web, "89.0.1.129"                          # Your HTTP server, Apache/etc
-role :app, "89.0.1.129"                          # This may be the same as your `Web` server
-role :db,  "89.0.1.129", :primary => true        # This is where Rails migrations will run
-role :db,  "89.0.1.129"
+role :web, "10.211.55.8"                          # Your HTTP server, Apache/etc
+role :app, "10.211.55.8"                          # This may be the same as your `Web` server
+role :db,  "10.211.55.8", :primary => true        # This is where Rails migrations will run
+role :db,  "10.211.55.8"
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
