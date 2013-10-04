@@ -6,10 +6,10 @@ class CreateLinks < ActiveRecord::Migration
       t.string     :english_title
       t.string     :author
       t.date       :published_on
-      t.boolean    :published    , default : false
+      t.boolean    :published, default: false
       t.string     :language
       t.string     :source
-      t.boolean    :approved, default      : false
+      t.boolean    :approved , default: false
       t.text       :biographical_region
       t.string     :url
       t.string     :comment
