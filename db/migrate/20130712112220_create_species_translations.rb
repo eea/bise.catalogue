@@ -1,4 +1,4 @@
-class CreateSpeciesTranslation < ActiveRecord::Migration
+class CreateSpeciesTranslations < ActiveRecord::Migration
   def change
     create_table :species_translations do |t|
       t.string :locale
