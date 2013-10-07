@@ -5,8 +5,11 @@ set :application, "catalogue"
 
 set :rbenv_ruby_version, "1.9.3-p448"
 
-set :repository,  "https://github.com/eea/bise.catalogue.git"
-set :branch, "master"
+# SCM: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+set :scm, :none
+
+set :repository,  "."
+# set :branch, "master"
 
 set :user, "deployer"
 set :password, "anboto83"
@@ -20,8 +23,6 @@ set :default_environment, {
   'PATH' => "$HOME/.rbenv/shims:$HOME/.rbenv/bin:$PATH"
 }
 
-set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
 
 role :web, "10.211.55.8"                          # Your HTTP server, Apache/etc
 role :app, "10.211.55.8"                          # This may be the same as your `Web` server
@@ -29,7 +30,7 @@ role :db,  "10.211.55.8", :primary => true        # This is where Rails migratio
 role :db,  "10.211.55.8"
 
 default_run_options[:pty] = true
-ssh_options[:forward_agent] = true
+# ssh_options[:forward_agent] = true
 
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
@@ -71,14 +72,12 @@ namespace :deploy do
     end
 
     after "deploy:setup", "deploy:setup_config"
-    task :setup_config, :roles => :app do
+    task :setup_config, roles: :app do
         sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
         sudo "ln -nfs #{current_path}/config/unicorn_init.sh /etc/init.d/unicorn_#{application}"
         run "mkdir -p #{shared_path}/config"
-        # unless File.exists? "#{shared_path}/config/database.yml"
-        #     put File.read("#{current_path}/config/database.example.yml"), "#{shared_path}/config/database.yml"
-        #     puts "Now edit the config files in #{shared_path}."
-        # end
+
+        put File.read("config/database.yml"), "#{shared_path}/config/database.yml"
         puts "Now edit the config files in #{shared_path}/config/database.yml."
     end
 
