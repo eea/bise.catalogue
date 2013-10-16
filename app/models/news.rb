@@ -32,52 +32,52 @@ class News < ActiveRecord::Base
   after_save(&refresh)
   after_destroy(&refresh)
 
-  settings :analysis => {
-    :analyzer => {
-      :search_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase"]
+  settings analysis: {
+    analyzer: {
+      search_analyzer: {
+        tokenizer: "keyword",
+        filter: ["lowercase"]
       },
-      :index_ngram_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase", "substring"],
-        :type => "custom"
+      index_ngram_analyzer: {
+        tokenizer: "keyword",
+        filter: ["lowercase", "substring"],
+        type: "custom"
       }
     },
-    :filter => {
-      :substring => {
-        :type => "nGram",
-        :min_gram => 1,
-        :max_gram => 20
+    filter: {
+      substring: {
+        type: "nGram",
+        min_gram: 1,
+        max_gram: 20
       }
     }
   } do
     mapping {
-      indexes :id, :index    => :not_analyzed
-      indexes :title, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      indexes :language, :type => 'string'
-      indexes :author, :type => 'string', :index => :not_analyzed
-      indexes :url, :type => 'string'
-      indexes :source, :type => 'string'
-      indexes :published_on, :type => 'date'
-      indexes :biographical_region, :type => 'string', :index => :not_analyzed
+      indexes :id, index: :not_analyzed
+      indexes :title, type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
+      indexes :language, type: 'string'
+      indexes :author, type: 'string', index: :not_analyzed
+      indexes :url, type: 'string'
+      indexes :source, type: 'string'
+      indexes :published_on, type: 'date'
+      indexes :biographical_region, type: 'string', index: :not_analyzed
       indexes :countries do
-        indexes :id, :type => 'integer'
-        indexes :name, :type => 'string', :index => :not_analyzed
+        indexes :id, type: 'integer'
+        indexes :name, type: 'string', index: :not_analyzed
       end
     }
   end
 
   def to_indexed_json
     {
-      :title                  => title,
-      :abstract               => abstract,
-      :author                 => author,
-      :published_on           => published_on,
-
-      :countries              => countries.map { |c| { :_type  => 'country', :_id    => c.id, :name   => c.name  } },
-
-      :biographical_region    => biographical_region
+      title: title,
+      abstract: abstract,
+      author: author,
+      published_on: published_on,
+      countries: countries.map do |c|
+        { _type: 'country', _id: c.id, name: c.name  }
+      end,
+      biographical_region: biographical_region
     }.to_json
   end
 
@@ -88,19 +88,18 @@ class News < ActiveRecord::Base
 
     if params[:published_on].present?
       year = params[:published_on].to_i
-      logger.debug ':: year => ' + year.to_s
       date_init = DateTime.new(year, 1, 1)
       date_end = DateTime.new(year, 12, 31)
     end
 
     # Facet Filter
     news_filter = []
-    news_filter << { :term => { :author => params[:author] }} if params[:author].present?
-    news_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
-    news_filter << { :term => { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
-    news_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
+    news_filter << { term: { author: params[:author] }} if params[:author].present?
+    news_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
+    news_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
+    news_filter << { range: { published_on: { gte: date_init , lt: date_end }}} if params[:published_on].present?
 
-    tire.search :load => true, :page => params[:page], :per_page => 10 do
+    tire.search load: true, page: params[:page], per_page: 10 do
 
       query do
         boolean do
@@ -112,10 +111,10 @@ class News < ActiveRecord::Base
 
       highlight :title, :url
 
-      filter :term, :author => params[:author] if params[:author].present?
-      filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
-      filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
-      filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+      filter :term, author: params[:author] if params[:author].present?
+      filter :term, geographical_coverage: params[:geographical_coverage] if params[:geographical_coverage].present?
+      filter :term, biographical_region: params[:biographical_region] if params[:biographical_region].present?
+      filter :range, published_on: { gte: date_init , lt: date_end } if params[:published_on].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
 
       sort { by :published_on, "desc" } if params[:query].blank?
@@ -135,7 +134,7 @@ class News < ActiveRecord::Base
       end
 
       facet('timeline') do
-        date :published_on, :interval => 'year'
+        date :published_on, interval: 'year'
         facet_filter :and, news_filter unless news_filter.empty?
       end
 

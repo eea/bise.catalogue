@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
   rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
-    render :text => exception, :status => 500
+    render text: exception, status: 500
   end
 
   protect_from_forgery

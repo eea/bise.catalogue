@@ -172,15 +172,14 @@ class Article < ActiveRecord::Base
 
     # Facet Filter
     art_filter = []
-    art_filter << { :term => { 'site.name' => params[:site] }}                            if params[:site].present?
-    art_filter << { :term => { :author => params[:author] }}                              if params[:author].present?
-    art_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }}      if params[:countries].present?
-    art_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }}      if params[:languages].present?
-    art_filter << { :term => { :biographical_region => params[:biographical_region] }}    if params[:biographical_region].present?
-    art_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
+    art_filter << { term: { 'site.name' => params[:site] }}                            if params[:site].present?
+    art_filter << { term: { author: params[:author] }}                                 if params[:author].present?
+    art_filter << { term: { 'countries.name' => params[:countries].split(/\//) }}      if params[:countries].present?
+    art_filter << { term: { 'languages.name' => params[:languages].split(/\//) }}      if params[:languages].present?
+    art_filter << { term: { biographical_region: params[:biographical_region] }}       if params[:biographical_region].present?
+    art_filter << { range: { published_on: { gte: date_init , lt: date_end }}}         if params[:published_on].present?
 
     tire.search load: true, page: params[:page], per_page: params[:per_page] do
-
       query do
         boolean do
           should { string 'site.ngram_name:'           + params[:query].to_s }
@@ -202,13 +201,13 @@ class Article < ActiveRecord::Base
       highlight :title, :content
 
       filter :term, 'site.name' => params[:site] if params[:site].present?
-      filter :term, :source_db => params[:source_db] if params[:source_db].present?
-      filter :term, :author => params[:author] if params[:author].present?
+      filter :term, source_db: params[:source_db] if params[:source_db].present?
+      filter :term, author: params[:author] if params[:author].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
       # filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
-      filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
-      filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+      filter :term, biographical_region: params[:biographical_region] if params[:biographical_region].present?
+      filter :range, published_on: { gte: date_init , lt: date_end } if params[:published_on].present?
 
       filter :bool, must: { term: { approved: show_approved } }
 
@@ -245,7 +244,7 @@ class Article < ActiveRecord::Base
       end
 
       facet('timeline') do
-        date :published_on, :interval => 'year'
+        date :published_on, interval: 'year'
         facet_filter :and, art_filter unless art_filter.empty?
       end
     end

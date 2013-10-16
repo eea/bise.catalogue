@@ -41,8 +41,8 @@ class Country < ActiveRecord::Base
   after_destroy(&refresh)
 
   mapping do
-    indexes :id,    :index    => :not_analyzed
-    indexes :name,  :analyzer => 'snowball'
+    indexes :id, index: :not_analyzed
+    indexes :name, analyzer: 'snowball'
   end
 
 end

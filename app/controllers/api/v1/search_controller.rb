@@ -78,8 +78,8 @@ module Api
           search_filter = []
           search_filter << { term: { approved: true }}
           search_filter << { term: { 'site.name' => params[:site] }} if params[:site].present?
-          search_filter << { term: { :source_db => params[:source_db] }} if params[:source_db].present?
-          search_filter << { term: { :author => params[:author] }} if params[:author].present?
+          search_filter << { term: { source_db: params[:source_db] }} if params[:source_db].present?
+          search_filter << { term: { author: params[:author] }} if params[:author].present?
           search_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
           search_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
           search_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
@@ -92,7 +92,7 @@ module Api
           search_filter << { term: { taxonomic_rank: taxonomic_rank }} if params[:taxonomic_rank].present?
           search_filter << { term: { genus: genus }} if params[:genus].present?
 
-          @rows = Tire.search indexes, :load => false, :from => from, :size => per do
+          @rows = Tire.search indexes, load: false, from: from, size: per do
             query do
               boolean do
                 # Article & Documents titles
@@ -161,7 +161,7 @@ module Api
             filter :term, genus: genus unless genus.nil?
 
 
-            highlight attachment: { :number_of_fragments => 2 }
+            highlight attachment: { number_of_fragments: 2 }
 
             facet 'site' do
               terms 'site.name'
@@ -209,18 +209,17 @@ module Api
             end
 
             facet 'species_group' do
-              terms :species_group, :size => 15
+              terms :species_group, size: 15
               facet_filter :and, search_filter  unless search_filter.empty?
             end
 
             facet 'taxonomic_rank' do
-              terms :taxonomic_rank, :size => 15
+              terms :taxonomic_rank, size: 15
               facet_filter :and, search_filter  unless search_filter.empty?
             end
 
             facet 'genus' do
-              terms :genus, :order => 'term'
-              # :all_terms => true,
+              terms :genus, order: 'term'
               facet_filter :and, search_filter  unless search_filter.empty?
             end
 

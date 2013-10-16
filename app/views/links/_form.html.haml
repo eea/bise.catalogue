@@ -2,21 +2,21 @@
 
   .container-fluid
 
-    = render :partial => 'common/common_info', :locals => { :f => f }
+    = render partial: 'common/common_info', locals: { f: f }
 
     %legend Link
 
     .row-fluid
       .span6
-        = f.input :url, :placeholder => 'http://www.google.com' , :input_html => { :class => "input-block-level" }
+        = f.input :url, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
       .span6
-        = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
+        = f.input :description, as: :text, input_html: { class: 'input-block-level ', rows: 5 }
 
-    = render :partial => 'common/targets', :locals => { :parent => @link, f: f }
-    = render :partial => 'common/countries', :locals => { :parent => @link }
+    = render partial: 'common/targets', locals: { parent: @link, f: f }
+    = render partial: 'common/countries', locals: { parent: @link }
 
   %div.form-actions.margin-none.text-right
-    = f.submit 'Save', :class => "btn btn-success"
-    = link_to "Cancel", links_path, :class => "btn"
+    = f.submit 'Save', class: "btn btn-success"
+    = link_to "Cancel", links_path, class: "btn"
 
 

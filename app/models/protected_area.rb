@@ -22,43 +22,50 @@ class ProtectedArea < ActiveRecord::Base
 
   index_name "#{Tire::Model::Search.index_prefix}protected_areas"
 
-  settings :analysis => {
-    :analyzer => {
-      :search_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase"]
+  settings analysis: {
+    analyzer: {
+      search_analyzer: {
+        tokenizer: "keyword",
+        filter: ["lowercase"]
       },
-      :index_ngram_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase", "substring"],
-        :type => "custom"
+      index_ngram_analyzer: {
+        tokenizer: "keyword",
+        filter: ["lowercase", "substring"],
+        type: "custom"
       }
     },
-    :filter => {
-      :substring => {
-        :type => "nGram",
-        :min_gram => 1,
-        :max_gram => 20
+    filter: {
+      substring: {
+        type: "nGram",
+        min_gram: 1,
+        max_gram: 20
       }
     }
   } do
     mapping {
 
       indexes :site do
-        indexes :id, :type => 'integer'
-        indexes :name, :type => 'string', :index => :not_analyzed
-        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id, type: 'integer'
+        indexes :name, type: 'string', index: :not_analyzed
+        indexes :ngram_name,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
       end
 
-      indexes :code, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      indexes :name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+      indexes :code, type: 'string',
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'search_analyzer'
 
-      # indexes :country, :type => 'string', :index => :not_analyzed
+      indexes :name, type: 'string',
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'search_analyzer'
+
+      # indexes :country, type: 'string', index: :not_analyzed
 
       indexes :countries do
-        indexes :id         , :type => 'integer'
-        indexes :name       , :type => 'string'                         , :index => :not_analyzed
-        indexes :ngram_name , :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id         , type: 'integer'
+        indexes :name       , type: 'string', index: :not_analyzed
+        indexes :ngram_name , index_analyzer: 'index_ngram_analyzer', search_analyzer: 'snowball'
       end
 
       indexes :species do
@@ -88,8 +95,8 @@ class ProtectedArea < ActiveRecord::Base
                 search_analyzer: 'search_analyzer'
       end
 
-      indexes :source_db, :type => 'string', :index => :not_analyzed
-      indexes :designation_year, :type => 'integer', :index => :not_analyzed
+      indexes :source_db, type: 'string', index: :not_analyzed
+      indexes :designation_year, type: 'integer', index: :not_analyzed
 
       indexes :published_on,
               type: 'date'
@@ -146,8 +153,6 @@ class ProtectedArea < ActiveRecord::Base
     protected_area_filter << { term: { 'site.name' => params[:site] }} if params[:site].present?
     protected_area_filter << { term: { :source_db => params[:source_db] }} if params[:source_db].present?
     protected_area_filter << { term: { :country => params[:country].split(/\//) }} if params[:country].present?
-    # protected_area_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
-    # protected_area_filter << { term: { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
 
     tire.search :load => true, :page => params[:page], :per_page => 20 do
       query do

@@ -11,7 +11,7 @@
     Export XLS
   = render 'common/approved_toggle'
   = form_tag documents_path, :method => 'get', :class => 'form-search pull-right' do
-    = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search document..', autocomplete:'off'
+    = text_field_tag :query, params[:query], class: "search-query", placeholder: 'Search document..', autocomplete:'off'
 
 .container-fluid
   .row-fluid
@@ -36,12 +36,12 @@
         %table.table.table-striped
           %tbody
             - @documents.each_with_hit do |doc, hit|
-              = render "cells/document", :doc => doc, :hit => hit
+              = render "cells/document", doc: doc, hit: hit
         - if current_user.approver?
           = submit_tag (show_approved?) ? "Disapprove selected" : "Approve selected", class: "btn btn-small pull-right"
 
       = page_entries_info @documents
       %br
-      = will_paginate @documents, :renderer => BootstrapPagination::Rails
+      = will_paginate @documents, renderer: BootstrapPagination::Rails
   %br
 

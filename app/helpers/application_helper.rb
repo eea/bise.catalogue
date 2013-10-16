@@ -86,4 +86,16 @@ module ApplicationHelper
     end
   end
 
+  def print_process(i)
+    if i%4 == 0
+      print "\\ Processed => #{i+1}\r"
+    elsif i%4 == 1
+      print "| Processed => #{i+1}\r"
+    elsif i%4 == 2
+      print "/ Processed => #{i+1}\r"
+    elsif i%4 == 3
+      print "- Processed => #{i+1}\r"
+    end
+  end
+
 end

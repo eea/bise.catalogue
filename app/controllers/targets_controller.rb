@@ -4,18 +4,18 @@ class TargetsController < ApplicationController
   def index
       @targets = Target.all.collect do |t|
           {
-              :key => 'f' + t.id.to_s,
-              :title => t.title,
-              :folder => true,
-              :children => t.actions.order('lower(title)').collect do |c|
-                  { :key => c.id, :title => c.title }
+              key: 'f' + t.id.to_s,
+              title: t.title,
+              folder: true,
+              children: t.actions.order('lower(title)').collect do |c|
+                  { key: c.id, title: c.title }
               end
           }
       end.to_json
 
       respond_to do |format|
           # format.html # index.html.erb
-          format.json { render :json => @targets }
+          format.json { render json: @targets }
       end
   end
 

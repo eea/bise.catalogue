@@ -14,7 +14,6 @@ gem 'sqlite3'
 gem 'pg'
 
 group :assets do
-
   gem 'sass-rails'            ,   '~> 3.2.3'
   gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 
@@ -25,7 +24,6 @@ group :assets do
   gem 'yui-compressor'
   gem 'turbo-sprockets-rails3',    '~> 0.3.6'
   #gem 'jquery-fileupload-rails'
-
 end
 
 gem 'underscore-rails'

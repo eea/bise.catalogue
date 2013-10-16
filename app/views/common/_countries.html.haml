@@ -9,7 +9,7 @@
   - class_name = parent.class.name.downcase
 
   .btn-toolbar
-    .btn-group{ :style => 'margin-bottom: 15px' }
+    .btn-group{ style: 'margin-bottom: 15px' }
       %a.btn.btn-small.eu15
         EU15
       %a.btn.btn-small.eu25
@@ -30,7 +30,7 @@
           - if i < quarter
             %li
               %label.checkbox
-                = check_box_tag class_name + '[country_ids][]', c.id, parent.country_ids.include?(c.id), { :id => c.name.parameterize }
+                = check_box_tag class_name + '[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
                 = c.name
     .span3
       %ul.unstyled
@@ -38,7 +38,7 @@
           - if i >= quarter and i < quarter * 2
             %li
               %label.checkbox
-                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { :id => c.name.parameterize }
+                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
                 = c.name
     .span3
       %ul.unstyled
@@ -46,7 +46,7 @@
           - if i >= quarter *2 and i < quarter * 3
             %li
               %label.checkbox
-                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { :id => c.name.parameterize }
+                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
                 = c.name
     .span3
       %ul.unstyled
@@ -54,5 +54,5 @@
           - if i >= quarter *3 and i < quarter * 4
             %li
               %label.checkbox
-                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { :id => c.name.parameterize }
+                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
                 = c.name

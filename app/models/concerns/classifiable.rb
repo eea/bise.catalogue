@@ -22,11 +22,11 @@ module Classifiable
     attr_accessible         :approved_at
 
     attr_accessible         :country_ids
-    has_and_belongs_to_many :countries, :class_name => "Country", :join_table => "#{name.pluralize.downcase}_countries", :foreign_key => "#{name.downcase}_id"
+    has_and_belongs_to_many :countries, class_name: "Country", join_table: "#{name.pluralize.downcase}_countries", foreign_key: "#{name.downcase}_id"
 
     validates :site          , presence: true
-    validates :title         , presence: true , :length => { :maximum => 255 }
-    validates :english_title , presence: true , :length => { :maximum => 255 }
+    validates :title         , presence: true , length: { maximum: 255 }
+    validates :english_title , presence: true , length: { maximum: 255 }
 
     validates :author        , presence: true , length: { maximum: 255}
     validates :language_ids  , presence: true

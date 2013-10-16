@@ -3,30 +3,30 @@
 
 - content_for :actions do
   - if current_user.approver?
-    = link_to  new_article_path, :class => "btn" do
+    = link_to  new_article_path, class: "btn" do
       %i.icon-plus
       New Article
   = render 'common/approved_toggle'
-  = form_tag articles_path, :method => 'get', :class => 'search-query pull-right' do       #
-    = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search article..'    #
+  = form_tag articles_path, method: 'get', class: 'search-query pull-right' do       #
+    = text_field_tag :query, params[:query], class: "search-query", placeholder: 'Search article..'    #
 
 .container-fluid
   .row-fluid
     .span3
-      = render "facets/facet_sites"       , :objs => @articles
-      = render "facets/facet_authors"     , :objs => @articles
-      = render "facets/facet_languages"   , :objs => @articles
-      = render "facets/facet_countries"   , :objs => @articles
-      = render "facets/facet_timeline"    , :objs => @articles
+      = render "facets/facet_sites"       , objs: @articles
+      = render "facets/facet_authors"     , objs: @articles
+      = render "facets/facet_languages"   , objs: @articles
+      = render "facets/facet_countries"   , objs: @articles
+      = render "facets/facet_timeline"    , objs: @articles
     .span9
       = form_tag approve_multiple_articles_path do
         %table.table.table-striped
           %tbody
             - @articles.each_with_hit do |article, hit|
-              = render "cells/article", :article => article, :hit => hit
+              = render "cells/article", article: article, hit: hit
         - if current_user.approver?
           = submit_tag (show_approved?) ? "Disapprove selected" : "Approve selected", class: "btn btn-small pull-right"
 
       = page_entries_info @articles
-      = will_paginate @articles, :renderer => BootstrapPagination::Rails
+      = will_paginate @articles, renderer: BootstrapPagination::Rails
   %br

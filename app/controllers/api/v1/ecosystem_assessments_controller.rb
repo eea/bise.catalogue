@@ -12,10 +12,10 @@ module Api
       respond_to :json
 
       def index
-        rows = EcosystemAssessment.find(:all, :order => "id desc", :limit => 3)
+        rows = EcosystemAssessment.find(:all, order: "id desc", limit: 3)
         res = {
-          :count => EcosystemAssessment.all.size,
-          :last_3_assessment => rows
+          count: EcosystemAssessment.all.size,
+          last_3_assessment: rows
         }
         respond_with res
         # respond_with EcosystemAssessment.all.size
@@ -27,11 +27,6 @@ module Api
 
       def create
         errors = Array.new
-        puts "::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
-        params.each do |p|
-          puts ":: param => #{p.to_s}"
-        end
-        puts "::::::::::::::::::::::::::::::::::::::::::::::::::::::::"
         # if params.size > 0
         #     respond_with EcosystemAssessment.new
         # else

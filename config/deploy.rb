@@ -26,7 +26,7 @@ set :default_environment, {
 
 role :web, "10.211.55.8"                          # Your HTTP server, Apache/etc
 role :app, "10.211.55.8"                          # This may be the same as your `Web` server
-role :db,  "10.211.55.8", :primary => true        # This is where Rails migrations will run
+role :db,  "10.211.55.8", primary: true        # This is where Rails migrations will run
 role :db,  "10.211.55.8"
 
 default_run_options[:pty] = true
@@ -42,7 +42,7 @@ after "deploy:restart", "deploy:cleanup"
 # namespace :deploy do
 #   task :start do ; end
 #   task :stop do ; end
-#   task :restart, :roles => :app, :except => { :no_release => true } do
+#   task :restart, roles: :app, except: { no_release: true } do
 #     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
 #   end
 # end
@@ -51,7 +51,7 @@ before "deploy:create_symlink", "assets:precompile"
 
 namespace :assets do
     desc "Compile assets"
-    task :precompile, :roles => :app do
+    task :precompile, roles: :app do
         run "cd #{release_path} && rake RAILS_ENV=#{rails_env} assets:precompile"
     end
 end
@@ -59,14 +59,14 @@ end
 namespace :deploy do
 
     before "deploy:cold", "deploy:install_bundler"
-    task :install_bundler, :roles => :app do
+    task :install_bundler, roles: :app do
         run "type -P bundle &>/dev/null || { gem install bundler --no-rdoc --no-ri; }"
         run "mkdir -p ~/apps/#{application}/releases"
     end
 
     %w[start stop restart].each do |command|
         desc "#{command} unicorn server"
-        task command, :roles => :app, :except => {:no_release => true} do
+        task command, roles: :app, except: {no_release: true} do
             run "/etc/init.d/unicorn_#{application} #{command}"
         end
     end
@@ -78,16 +78,17 @@ namespace :deploy do
         run "mkdir -p #{shared_path}/config"
 
         put File.read("config/database.yml"), "#{shared_path}/config/database.yml"
+        put File.read("config/ldap.default.yml"), "#{shared_path}/config/ldap.yml"
         puts "Now edit the config files in #{shared_path}/config/database.yml."
     end
 
     after "deploy:finalize_update", "deploy:symlink_config"
-    task :symlink_config, :roles => :app do
+    task :symlink_config, roles: :app do
         run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
     end
 
     desc "Make sure local git is in sync with remote."
-    task :check_revision, :roles => :web do
+    task :check_revision, roles: :web do
         unless `git rev-parse HEAD` == `git rev-parse origin/master`
             puts "WARNING: HEAD is not the same as origin/master"
             puts "Run `git push` to sync changes."

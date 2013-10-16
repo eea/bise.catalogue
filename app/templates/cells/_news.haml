@@ -17,7 +17,7 @@
     - att_hits = hit['highlight']['content']
 
     .hits
-      %ol{ :type => "I" }
+      %ol{ type: "I" }
         - att_hits.each do |h|
           %li
             %p.hit= raw '...' + h + '...'

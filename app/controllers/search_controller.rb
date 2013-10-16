@@ -15,7 +15,7 @@ class SearchController < ApplicationController
     end
 
     if !q.nil?
-      @rows = Tire.search indexes, :laod => true, :page => params[:page], :per_page => 30 do
+      @rows = Tire.search indexes, laod: true, page: params[:page], per_page: 30 do
         query do
           boolean do
             # Article & Documents titles
@@ -38,7 +38,7 @@ class SearchController < ApplicationController
     # @articles = Article.first
     respond_to do |format|
       format.html
-      format.json { render :json => @rows }
+      format.json { render json: @rows }
     end
   end
 

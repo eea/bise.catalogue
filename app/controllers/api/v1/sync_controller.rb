@@ -8,7 +8,7 @@ module Api
       # We overwrite as_json method to create custom mappings
       # class EcosystemAssessment < ::EcosystemAssessment
       #     def as_json(options={})
-      #         super.merge(:released_on => released_at.to_date)
+      #         super.merge(released_on: released_at.to_date)
       #     end
       # end
 
@@ -52,23 +52,23 @@ module Api
         when 'article'
           @article = Article.new(params[:article])
           if @article.save
-            render :json => @article, status: :created, location: @article
+            render json: @article, status: :created, location: @article
           else
-            render :json => @article.errors, status: :unprocessable_entity
+            render json: @article.errors, status: :unprocessable_entity
           end
         when 'document'
           @document = Document.new(params[:document])
           if @document.save
-            render :json => @document, status: :created, location: @document
+            render json: @document, status: :created, location: @document
           else
-            render :json => @document.errors, status: :unprocessable_entity
+            render json: @document.errors, status: :unprocessable_entity
           end
         when 'link'
           @link = Link.new(params[:link])
           if @link.save
-            render :json => @link, status: :created, location: @link
+            render json: @link, status: :created, location: @link
           else
-            render :json => @link.errors, status: :unprocessable_entity
+            render json: @link.errors, status: :unprocessable_entity
           end
         else
           return_error('resource_type not especified.')

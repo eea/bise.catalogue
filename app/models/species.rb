@@ -38,23 +38,23 @@ class Species < ActiveRecord::Base
   after_save(&refresh)
   after_destroy(&refresh)
 
-  settings :analysis => {
-    :analyzer => {
-      :search_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase"]
+  settings analysis: {
+    analyzer: {
+      search_analyzer: {
+        tokenizer: "keyword",
+        filter: ["lowercase"]
       },
-      :index_ngram_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase", "substring"],
-        :type => "custom"
+      index_ngram_analyzer: {
+        tokenizer: "keyword",
+        filter: ["lowercase", "substring"],
+        type: "custom"
       }
     },
-    :filter => {
-      :substring => {
-        :type => "nGram",
-        :min_gram => 1,
-        :max_gram => 20
+    filter: {
+      substring: {
+        type: "nGram",
+        min_gram: 1,
+        max_gram: 20
       }
     }
   } do
@@ -116,7 +116,7 @@ class Species < ActiveRecord::Base
     Site.find_by_name('EUNIS')
   end
 
-  # self.to_json :methods => [:content_without_tags]
+  # self.to_json methods: [:content_without_tags]
   def to_indexed_json
     {
       site:           {
@@ -153,10 +153,11 @@ class Species < ActiveRecord::Base
   # Returns the kingdom of a species
   def kingdom
     kingdom = nil
-    unless self.taxonomy.nil?
-      taxonomy = self.taxonomy
-      taxonomy = taxonomy.parent while taxonomy.level != 'Kingdom'
-      kingdom = taxonomy.name
+
+    taxonomy = self.taxonomy
+    while taxonomy.level != 'Kingdom'
+      taxonomy = taxonomy.parent
+      (taxonomy.nil?) ? break : kingdom = taxonomy.name
     end
     kingdom
   end
@@ -188,14 +189,14 @@ class Species < ActiveRecord::Base
   end
 
   def self.search(params)
-    tire.search :load => true, :page => params[:page], :per_page => 20 do
+    tire.search load: true, page: params[:page], per_page: 20 do
 
       species_filter = []
-      species_filter << { :term => { :species_group => params[:species_group] } } if params[:species_group].present?
-      species_filter << { :term => { :taxonomic_rank => params[:taxonomic_rank] } } if params[:taxonomic_rank].present?
-      species_filter << { :term => { :kingdom => params[:kingdom] } } if params[:kingdom].present?
-      species_filter << { :term => { :phylum => params[:phylum] } } if params[:phylum].present?
-      species_filter << { :term => { :classis => params[:classis] } } if params[:classis].present?
+      species_filter << { term: { species_group: params[:species_group] } } if params[:species_group].present?
+      species_filter << { term: { taxonomic_rank: params[:taxonomic_rank] } } if params[:taxonomic_rank].present?
+      species_filter << { term: { kingdom: params[:kingdom] } } if params[:kingdom].present?
+      species_filter << { term: { phylum: params[:phylum] } } if params[:phylum].present?
+      species_filter << { term: { classis: params[:classis] } } if params[:classis].present?
 
       query do
         boolean do
@@ -207,18 +208,14 @@ class Species < ActiveRecord::Base
         end
       end if params[:query].present?
 
-      # query { string params[:query], :default_operator => "AND"} if params[:query].present?
-
       highlight :binomial_name
-      # highlight :name, :options => { :tag => '<strong class="highlight">' }
 
-      # filter :term, :author => params[:author] if params[:author].present?
-      filter :term, :species_group => params[:species_group] if params[:species_group].present?
-      filter :term, :taxonomic_rank => params[:taxonomic_rank] if params[:taxonomic_rank].present?
+      filter :term, species_group: params[:species_group] if params[:species_group].present?
+      filter :term, taxonomic_rank: params[:taxonomic_rank] if params[:taxonomic_rank].present?
 
-      filter :term, :kingdom => params[:kingdom] if params[:kingdom].present?
-      filter :term, :phylum => params[:phylum] if params[:phylum].present?
-      filter :term, :classis => params[:classis] if params[:classis].present?
+      filter :term, kingdom: params[:kingdom] if params[:kingdom].present?
+      filter :term, phylum: params[:phylum] if params[:phylum].present?
+      filter :term, classis: params[:classis] if params[:classis].present?
 
       # sort { by :binomial_name, "asc" } # if params[:query].blank?
 
@@ -239,29 +236,29 @@ class Species < ActiveRecord::Base
       end
 
       facet 'species_group' do
-        terms :species_group, :size => 15
+        terms :species_group, size: 15
         facet_filter :and, species_filter  unless species_filter.empty?
       end
 
       facet 'taxonomic_rank' do
-        terms :taxonomic_rank, :size => 15
+        terms :taxonomic_rank, size: 15
         facet_filter :and, species_filter  unless species_filter.empty?
       end
 
       facet 'genus' do
-        terms :genus, :order => 'term'
-        # :all_terms => true,
+        terms :genus, order: 'term'
+        # all_terms: true,
         facet_filter :and, species_filter  unless species_filter.empty?
       end
 
       facet 'valid_name' do
-        terms :valid_name, :size => 2
+        terms :valid_name, size: 2
         # facet_filter :and, species_filter
         facet_filter :and, species_filter  unless species_filter.empty?
       end
 
       facet 'timeline' do
-        date :created_at, :interval => 'year'
+        date :created_at, interval: 'year'
         # facet_filter :and, species_filter
         facet_filter :and, species_filter  unless species_filter.empty?
       end

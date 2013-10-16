@@ -14,7 +14,7 @@ class Link < ActiveRecord::Base
   acts_as_taggable
 
   validates :url, presence: true
-  validates_format_of :url, :with => /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
+  validates_format_of :url, with: /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
 
   index_name "#{Tire::Model::Search.index_prefix}links"
 
@@ -113,7 +113,7 @@ class Link < ActiveRecord::Base
               index: :not_analyzed
       indexes :published_on,
               type: 'date'
-      indexes :url, :type => 'string'
+      indexes :url, type: 'string'
 
       indexes :approved           , type: 'boolean'
       indexes :approved_at        , type: 'date'
@@ -167,14 +167,14 @@ class Link < ActiveRecord::Base
 
     # Facet Filter
     link_filter = []
-    link_filter << { :term => { 'site.name' => params[:site] }}                            if params[:site].present?
-    link_filter << { :term => { :author => params[:author] }} if params[:author].present?
-    link_filter << { :term => { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
-    link_filter << { :term => { 'languages.name' => params[:languages].split(/\//) }}      if params[:languages].present?
-    link_filter << { :term => { :biographical_region => params[:biographical_region] }} if params[:biographical_region].present?
-    link_filter << { :range=> { :published_on => { :gte => date_init , :lt => date_end }}} if params[:published_on].present?
+    link_filter << { term: { 'site.name' => params[:site] }}                            if params[:site].present?
+    link_filter << { term: { author: params[:author] }} if params[:author].present?
+    link_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
+    link_filter << { term: { 'languages.name' => params[:languages].split(/\//) }}      if params[:languages].present?
+    link_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
+    link_filter << { range: { published_on: { gte: date_init , lt: date_end }}} if params[:published_on].present?
 
-    tire.search :load => true, :page => params[:page], :per_page => 10 do
+    tire.search load: true, page: params[:page], per_page: 10 do
 
       query do
         boolean do
@@ -196,13 +196,13 @@ class Link < ActiveRecord::Base
       highlight :title, :url
 
       filter :term, 'site.name' => params[:site] if params[:site].present?
-      filter :term, :source_db => params[:source_db] if params[:source_db].present?
-      filter :term, :author => params[:author] if params[:author].present?
+      filter :term, source_db: params[:source_db] if params[:source_db].present?
+      filter :term, author: params[:author] if params[:author].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
-      # filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
-      filter :term, :biographical_region => params[:biographical_region] if params[:biographical_region].present?
-      filter :range, :published_on => { :gte => date_init , :lt => date_end } if params[:published_on].present?
+      # filter :term, geographical_coverage: params[:geographical_coverage] if params[:geographical_coverage].present?
+      filter :term, biographical_region: params[:biographical_region] if params[:biographical_region].present?
+      filter :range, published_on: { gte: date_init , lt: date_end } if params[:published_on].present?
 
       filter :bool, must: { term: { approved: show_approved } }
 
@@ -238,7 +238,7 @@ class Link < ActiveRecord::Base
       end
 
       facet('timeline') do
-        date :published_on, :interval => 'year'
+        date :published_on, interval: 'year'
         facet_filter :and, link_filter unless link_filter.empty?
       end
 

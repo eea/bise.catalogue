@@ -19,43 +19,43 @@ class Habitat < ActiveRecord::Base
 
   index_name "#{Tire::Model::Search.index_prefix}habitats"
 
-  settings :analysis => {
-    :analyzer => {
-      :search_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase"]
+  settings analysis: {
+    analyzer: {
+      search_analyzer: {
+        tokenizer: "keyword",
+        filter: ["lowercase"]
       },
-      :index_ngram_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase", "substring"],
-        :type => "custom"
+      index_ngram_analyzer: {
+        tokenizer: "keyword",
+        filter: ["lowercase", "substring"],
+        type: "custom"
       }
     },
-    :filter => {
-      :substring => {
-        :type => "nGram",
-        :min_gram => 1,
-        :max_gram => 20
+    filter: {
+      substring: {
+        type: "nGram",
+        min_gram: 1,
+        max_gram: 20
       }
     }
   } do
     mapping {
 
       indexes :site do
-        indexes :id, :type => 'integer'
-        indexes :name, :type => 'string', :index => :not_analyzed
-        indexes :ngram_name, :index_analyzer => 'index_ngram_analyzer' , :search_analyzer => 'snowball'
+        indexes :id, type: 'integer'
+        indexes :name, type: 'string', index: :not_analyzed
+        indexes :ngram_name, index_analyzer: 'index_ngram_analyzer' , search_analyzer: 'snowball'
       end
 
-      indexes :uri, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      indexes :name, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      indexes :habitat_code, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
-      indexes :level, :type => 'integer', index: :not_analyzed
-      indexes :description, :type => 'string', :index_analyzer => 'index_ngram_analyzer', :search_analyzer => 'search_analyzer'
+      indexes :uri, type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
+      indexes :name, type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
+      indexes :habitat_code, type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
+      indexes :level, type: 'integer', index: :not_analyzed
+      indexes :description, type: 'string', index_analyzer: 'index_ngram_analyzer', search_analyzer: 'search_analyzer'
 
       indexes :countries do
-        indexes :id, :type => 'integer'
-        indexes :name, :type => 'string', :index => :not_analyzed
+        indexes :id, type: 'integer'
+        indexes :name, type: 'string', index: :not_analyzed
       end
 
       indexes :published_on,
@@ -72,7 +72,6 @@ class Habitat < ActiveRecord::Base
         ret.add(pa.countries.first) unless ret.include?(country) or country.nil?
       end
     end
-    print "." + ret.to_a.size.to_s
     ret.to_a
   end
 
@@ -94,14 +93,14 @@ class Habitat < ActiveRecord::Base
       natura2000_code: natura2000_code,
       level:           level,
       description:     description,
-      countries:       countries.map { |c| { :_type  => 'country', :_id => c.id, :name => c.name } },
+      countries:       countries.map { |c| { _type: 'country', _id: c.id, name: c.name } },
       published_on:    created_at,
       approved:        approved
     }.to_json
   end
 
   def self.search(params)
-    tire.search :load => true, :page => params[:page], :per_page => 10 do
+    tire.search load: true, page: params[:page], per_page: 10 do
       query do
         boolean do
           should   { string 'name:' + params[:query].to_s }

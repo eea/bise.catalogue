@@ -17,30 +17,30 @@ class BiogeoRegion < ActiveRecord::Base
   after_destroy(&refresh)
 
 
-  settings :analysis => {
-    :analyzer => {
-      :search_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase"]
+  settings analysis: {
+    analyzer: {
+      search_analyzer: {
+        tokenizer: "keyword",
+        filter: ["lowercase"]
       },
-      :index_ngram_analyzer => {
-        :tokenizer => "keyword",
-        :filter => ["lowercase", "substring"],
-        :type => "custom"
+      index_ngram_analyzer: {
+        tokenizer: "keyword",
+        filter: ["lowercase", "substring"],
+        type: "custom"
       }
     },
-    :filter => {
-      :substring => {
-        :type => "nGram",
-        :min_gram => 1,
-        :max_gram => 20
+    filter: {
+      substring: {
+        type: "nGram",
+        min_gram: 1,
+        max_gram: 20
       }
     }
   } do
     mapping do
-      # indexes :id, :index    => :not_analyzed
-      indexes :code, :type => 'string', :index => :not_analyzed
-      indexes :area_name, :type => 'string', :index => :not_analyzed
+      # indexes :id, index   : :not_analyzed
+      indexes :code, type: 'string', index: :not_analyzed
+      indexes :area_name, type: 'string', index: :not_analyzed
     end
   end
 

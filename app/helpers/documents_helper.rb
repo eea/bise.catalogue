@@ -27,7 +27,7 @@ module DocumentsHelper
     end
 
     # hash.inject({}) {|r,a| r.merge(a.first=>a.last.first)}
-    url = params.merge(:countries => countries.to_param, :page => 1)
+    url = params.merge(countries: countries.to_param, page: 1)
   end
 
   def remove_country(params, facet_term)
@@ -38,7 +38,7 @@ module DocumentsHelper
     for c in _countries_array
       countries << c unless c == facet_term
     end
-    url = params.merge(:countries => countries.to_param, :page => 1)
+    url = params.merge(countries: countries.to_param, page: 1)
   end
 
   # LANGUAGES
@@ -62,7 +62,7 @@ module DocumentsHelper
       langs << facet_term
     end
 
-    params.merge(:languages => langs.to_param, :page => 1)
+    params.merge(languages: langs.to_param, page: 1)
   end
 
   def remove_language(params, facet_term)
@@ -73,7 +73,7 @@ module DocumentsHelper
     for c in _langs_array
       langs << c unless c == facet_term
     end
-    url = params.merge(:languages => langs.to_param, :page => 1)
+    url = params.merge(languages: langs.to_param, page: 1)
   end
 
 end

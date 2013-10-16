@@ -8,7 +8,7 @@ class LinksController < ApplicationController
     @links = Link.search(params)
     respond_to do |format|
         format.html # show.html.erb
-        format.json { render :json => @links }
+        format.json { render json: @links }
     end
 
     @links = Link.all

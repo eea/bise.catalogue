@@ -91,7 +91,6 @@ class Document < ActiveRecord::Base
               index_analyzer: 'index_ngram_analyzer',
               search_analyzer: 'snowball'
 
-      # indexes :language, :index => :not_analyzed
       indexes :languages do
         indexes :id,
                 type: 'integer'
