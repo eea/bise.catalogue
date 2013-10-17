@@ -158,33 +158,27 @@ class Species < ActiveRecord::Base
     while taxonomy.level != 'Kingdom'
       taxonomy = taxonomy.parent
       (taxonomy.nil?) ? break : kingdom = taxonomy.name
-    end
+    end unless taxonomy.nil?
     kingdom
   end
 
   def phylum_division
     pd = nil
-    unless self.taxonomy.nil?
-      taxonomy = self.taxonomy
-      while taxonomy.level != 'Phylum' and taxonomy.level != 'Division' do
-        taxonomy = taxonomy.parent
-        return '' if taxonomy.level == 'Kingdom'
-      end
-      pd = taxonomy.name
-    end
+    taxonomy = self.taxonomy
+    while taxonomy.level != 'Phylum' and taxonomy.level != 'Division'
+      taxonomy = taxonomy.parent
+      (taxonomy.nil?) ? break : pd = taxonomy.name
+    end unless taxonomy.nil?
     pd
   end
 
   def classis
     clazz = nil
-    unless self.taxonomy.nil?
-      taxonomy = self.taxonomy
-      while taxonomy.level != 'Class' do
-        taxonomy = taxonomy.parent
-        return '' if taxonomy.level == 'Kingdom'
-      end
-      clazz = taxonomy.name
-    end
+    taxonomy = self.taxonomy
+    while taxonomy.level != 'Class'
+      taxonomy = taxonomy.parent
+      (taxonomy.nil?) ? break : clazz = taxonomy.name
+    end unless taxonomy.nil?
     clazz
   end
 
