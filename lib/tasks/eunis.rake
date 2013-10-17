@@ -138,8 +138,6 @@ namespace :eunis do
         species.save
 
         for key in s.vernacularName_with_locales.keys
-          # TODO: Check if vernacular name already exists
-
           st = SpeciesTranslation.where(species_id: species.id, locale: key.to_s).first_or_create
           st.locale = key.to_s
           st.name = s.vernacularName_with_locales[key]
@@ -166,7 +164,7 @@ namespace :eunis do
 
         ApplicationHelper::print_process(i)
 
-        habitat = Habitat.exists?(uri: h.subject.to_s) ? Habitat.find_by_uri(h.subject.to_s) : Habitat.new
+        habitat = Habitat.where(uri: h.subject.to_s).first_or_create
         habitat.uri                       = h.subject.to_s
         habitat.code                      = h.code
         habitat.natura2000_code           = h.natura2000Code
@@ -181,8 +179,9 @@ namespace :eunis do
 
         # TODO: Load species for each habitat
         for s in habitat.species
-          species = Species.find_by_species_code(s.speciesCode)
-          unless species.nil? && species.habitats.includes?(habitat)
+          species = Species.where(uri: s.subject.to_s).first_or_create
+          # species = Species.find_by_species_code(s.speciesCode)
+          unless species.nil? or species.habitats.to_a.include?(habitat)
             species.habitats << habitat
           end
         end
@@ -197,7 +196,7 @@ namespace :eunis do
     task sites: :environment do
       puts ':: Loading protected areas...'
 
-      site_query  = QUERY.select(:site).where([:site, RDFS99.type, SITE.Site])
+      site_query  = @query.select(:site).where([:site, RDFS99.type, SITE.Site])
       results = @repo.select(site_query)
 
       results.each_with_index do |result,i|
@@ -205,56 +204,54 @@ namespace :eunis do
         ApplicationHelper::print_process(i)
         s = result[:site].as(EunisSite)
 
-        unless s.nil? # or s.name.nil? or ProtectedArea.exists?({code: s.id})
-          print "."
+        pa = ProtectedArea.where(uri: s.subject.to_s).first_or_create
+        isnew = pa.new_record?
+        pa.uri                  = s.subject.to_s
+        pa.code                 = s.id
+        pa.name                 = s.name unless s.name.nil?
+        pa.iucnat               = s.iucnat
+        pa.designation_year     = s.designationDate
+        pa.nuts_code            = s.nutsCode
+        pa.area                 = s.area
+        pa.length               = s.length
+        pa.long                 = s.long
+        pa.lat                  = s.lat
+        pa.source_db            = s.sourceDb
+        pa.save
 
-          pa = ProtectedArea.new
-          pa.uri                  = s.subject.to_s
-          pa.code                 = s.id
-          pa.name                 = s.name unless s.name.nil?
-          pa.iucnat               = s.iucnat
-          pa.designation_year     = s.designationDate
-          pa.nuts_code            = s.nutsCode
-          pa.area                 = s.area
-          pa.length               = s.length
-          pa.long                 = s.long
-          pa.lat                  = s.lat
-          pa.source_db            = s.sourceDb
-          pa.save
+        # pa.species << Species.where(uri: s.species.map(&:subject).to_s)
 
-          for x in s.species
-            print 's'
-            species = Species.find_by_species_code(x.speciesCode)
-            species.protected_areas << pa unless species.nil?
+        for x in s.species
+          species = Species.where(uri: x.subject.to_s).first
+          unless species.nil? or species.protected_areas.to_a.include?(pa)
+            species.protected_areas << pa
           end
+        end
 
-          begin
-            for c in s.countries
-              print 'c'
-              country = Country.find_by_code(c.eunisAreaCode)
-              country.protected_areas << pa unless country.nil? or country.name.nil?
-            end
-          rescue Exception => e
-            puts ":: COUNTRY => #{e.message}"
+        for c in s.countries
+          country = Country.find_by_code(c.eunisAreaCode)
+          unless country.nil? or country.protected_areas.to_a.include?(pa)
+            country.protected_areas << pa
           end
+        end
 
-          for b in s.biogeoregions
-            print 'b'
-            biogeo = BiogeoRegion.find_by_code(b.codeEEA)
-            biogeo.protected_areas << pa unless biogeo.nil? or biogeo.area_name.nil?
+        for b in s.biogeoregions
+          biogeo = BiogeoRegion.find_by_code(b.codeEEA)
+          unless biogeo.nil? or biogeo.protected_areas.to_a.include?(pa)
+            biogeo.protected_areas << pa
           end
+        end
 
-          for h in s.habitats
-            print 'h'
-            habitat = Habitat.find_by_code(h.code)
-            habitat.protected_areas << pa unless habitat.nil? or habitat.code.nil?
+        for h in s.habitats
+          habitat = Habitat.find_by_code(h.code)
+          unless habitat.nil? or habitat.protected_areas.to_a.include?(pa)
+            habitat.protected_areas << pa
           end
-        else
-          print 'F'
         end
 
       end
     end
+    task sites: :load_repo_before
 
     # --------------------------------------------------------------------------
 
