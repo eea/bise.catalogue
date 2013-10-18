@@ -13,7 +13,7 @@ class CreateLinks < ActiveRecord::Migration
       t.text       :biographical_region
       t.string     :url
       t.string     :comment
-      t.string     :description
+      t.text       :description
       t.date       :approved_at
       t.references :site
       t.timestamps

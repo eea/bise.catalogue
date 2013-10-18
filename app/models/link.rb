@@ -7,7 +7,6 @@ class Link < ActiveRecord::Base
 
   attr_accessible :url
   attr_accessible :description
-  # attr_accessible :comment
 
   # TAGS
   attr_accessible :tag_list
