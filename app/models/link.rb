@@ -73,6 +73,16 @@ class Link < ActiveRecord::Base
         exact: { type: 'string', index: :not_analyzed }
       }
 
+      indexes :url,
+              type: 'string',
+              index_analyzer: 'index_ngram_analyzer' ,
+              search_analyzer: 'search_analyzer'
+
+      indexes :description,
+              type: 'string',
+              index_analyzer: 'index_ngram_analyzer' ,
+              search_analyzer: 'snowball'
+
       indexes :languages do
         indexes :id,
                 type: 'integer'
@@ -112,7 +122,6 @@ class Link < ActiveRecord::Base
               index: :not_analyzed
       indexes :published_on,
               type: 'date'
-      indexes :url, type: 'string'
 
       indexes :approved           , type: 'boolean'
       indexes :approved_at        , type: 'date'
@@ -129,10 +138,13 @@ class Link < ActiveRecord::Base
         ngram_name: site.name
       },
       title:        title,
-      english_title:  english_title,
-      # description:  description,
+      english_title:english_title,
+
+      url:          url,
+      description:  description,
+
       author:       author,
-      ngram_author:   author,
+      ngram_author: author,
       published_on: published_on,
 
       approved:     approved,

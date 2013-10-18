@@ -30,7 +30,7 @@
     .span3.control-label.text-right
       Description:
     .span9
-      = @link.description
+      = h raw @link.description.gsub(/\n/, '<br/>')
 
 
 
