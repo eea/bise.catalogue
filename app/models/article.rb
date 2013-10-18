@@ -8,6 +8,7 @@ class Article < ActiveRecord::Base
   include Classifiable
 
   attr_accessible :content
+  attr_accessible :source_url
 
   # TAGS
   attr_accessible :tag_list
@@ -135,6 +136,7 @@ class Article < ActiveRecord::Base
       title:          title,
       english_title:  english_title,
       content:        content_without_tags,
+      source_url:     source_url,
       author:         author,
       ngram_author:   author,
       published_on:   published_on,
