@@ -7,10 +7,10 @@
     %legend Link
 
     .row-fluid
-      .span6
+      .span12
         = f.input :url, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
-      .span6
-        = f.input :description, as: :text, input_html: { class: 'input-block-level ', rows: 5 }
+        / .span6
+        = f.input :description, as: :text, input_html: { class: 'input-block-level tinymce', rows: 5 }
 
     = render partial: 'common/targets', locals: { parent: @link, f: f }
     = render partial: 'common/countries', locals: { parent: @link }
