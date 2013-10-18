@@ -5,7 +5,7 @@
     .cell-title
       = link_to link.title, link
 
-    %small by #{link.author} at #{link.created_at.strftime("%m/%d/%Y")}
+    %small by #{link.author} at #{link.created_at.strftime("%d/%m/%Y")}
 
     - if link.approved?
       %span.label.label-success.pull-right
