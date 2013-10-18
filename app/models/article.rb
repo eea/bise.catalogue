@@ -83,6 +83,10 @@ class Article < ActiveRecord::Base
         },
         exact: { type: 'string', index: :not_analyzed }
       }
+      indexes :source_url,
+              type: 'string',
+              index_analyzer: 'index_ngram_analyzer' ,
+              search_analyzer: 'search_analyzer'
 
       indexes :languages do
         indexes :id , type: 'integer'
