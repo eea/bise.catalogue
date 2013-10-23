@@ -8,8 +8,6 @@ describe Document do
         @document = FactoryGirl.create(:document)
     end
 
-    # ---------- VALIDATIONS ----------
-
     it "is invalid without site" do
         should validate_presence_of(:site)
         @document.site_id = nil
@@ -37,10 +35,7 @@ describe Document do
         should validate_presence_of(:language_ids)
     end
 
-
-    #### # it { should have_and_belongs_to_many(:countries) }
-    #### # it { should have_and_belongs_to_many(:concepts) }
-
+    # TODO: validate countries
 
     it "is a valid document" do
         @document.should be_valid

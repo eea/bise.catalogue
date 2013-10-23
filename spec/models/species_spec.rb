@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe Species do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  before do
+    @species = FactoryGirl.create :species
+  end
+
+  it "should be valid" do
+    @species.should be_valid
+  end
+
 end

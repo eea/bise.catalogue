@@ -1,4 +1,7 @@
 class EcosystemAssessmentsController < ApplicationController
+
+  before_filter :authenticate_user!
+
   # GET /ecosystem_assessments
   # GET /ecosystem_assessments.json
   def index

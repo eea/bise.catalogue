@@ -6,21 +6,18 @@ class DocumentsController < ApplicationController
     if params[:format] == 'xls'
       params[:per_page] = 1000
       response.headers["ContentType"]="text/xml"
-      # response.headers["ContentType"]="application/vnd.ms-excel"
       response.headers["Content-Disposition"]="attachment"
     end
     @documents = Document.search(params)
 
     respond_to do |format|
       format.html
-      # format.json { render json: @documents }
       format.xls
     end
   end
 
   def show
     @document = Document.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @document }
@@ -29,7 +26,6 @@ class DocumentsController < ApplicationController
 
   def new
     @document = Document.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @document }
@@ -42,7 +38,6 @@ class DocumentsController < ApplicationController
 
   def create
     @document = Document.new(params[:document])
-
     respond_to do |format|
       if @document.save
         format.html { redirect_to @document, notice: 'Document was successfully created.' }

@@ -93,24 +93,20 @@ group :development, :test do
   # TEST
   gem "rspec-rails"
   gem 'cucumber-rails', :require => false
-
-  # Documentation
-  gem 'railroady'
-
-end
-
-group :test do
+  gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'guard-rspec'
   gem 'guard-cucumber'
-  # gem 'guard-zeus'
   gem 'guard-zeus-client'
-  gem 'database_cleaner'
 
   gem 'shoulda'
   gem 'shoulda-matchers', :require => false
   # gem 'guard-livereload'
+
+  # Documentation
+  gem 'railroady'
+
 end
 
 group :production do

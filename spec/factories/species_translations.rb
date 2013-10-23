@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :species_translation, :class => 'SpeciesTranslation' do
-    locale "MyString"
-    name "MyString"
-    species nil
+    locale "es"
+    name "Lobo"
+    # species nil
   end
 end

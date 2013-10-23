@@ -1,137 +1,73 @@
 - content_for :pageheader do
-    = @species.binomial_name
+  = @species.binomial_name
 
 - content_for :actions do
-    = link_to  species_index_path, :class => "btn" do
-        %i.icon-reply
-        Back
-    = link_to  edit_species_path(@species), :class => "btn" do
-        %i.icon-pencil
-        Edit
-    = link_to species_path(@species), :method => :delete, :class => "btn btn-danger pull-right" do
-        %i.icon-trash
-        Delete
+  = link_to  species_index_path, :class => "btn" do
+    %i.icon-reply
+    Back
+  = link_to  edit_species_path(@species), :class => "btn" do
+    %i.icon-pencil
+    Edit
+  = link_to species_path(@species), method: :delete, class: "btn btn-danger pull-right" do
+    %i.icon-trash
+    Delete
 
 
 .container
 
-    .row-fluid
-        .span6
-            %legend Species Information
+  .row-fluid
+    .span6
+      %legend Species Information
 
-            %dl.dl-horizontal
-                %dt Code:
-                %dd= @species.species_code
+      %dl.dl-horizontal
+        %dt Code:
+        %dd= @species.species_code
 
-            %dl.dl-horizontal
-                %dt Binomial Name:
-                %dd= @species.binomial_name
+      %dl.dl-horizontal
+        %dt Binomial Name:
+        %dd= @species.binomial_name
 
-            %dl.dl-horizontal
-                %dt Scientific Name:
-                %dd= @species.scientific_name
+      %dl.dl-horizontal
+        %dt Scientific Name:
+        %dd= @species.scientific_name
 
-            %dl.dl-horizontal
-                %dt Genus:
-                %dd= @species.genus
+      %dl.dl-horizontal
+        %dt Genus:
+        %dd= @species.genus
 
-            %dl.dl-horizontal
-                %dt Species Group:
-                %dd= @species.species_group
+      %dl.dl-horizontal
+        %dt Species Group:
+        %dd= @species.species_group
 
-            / %dl.dl-horizontal
-            /     %dt Valid name:
-            /     %dd= @species.valid_name
+      %dl.dl-horizontal
+        %dt Taxonomies:
+        %dd
+          - unless @species.taxonomy.nil?
+            - taxonomy = @species.taxonomy
+            - while taxonomy.level != 'Kingdom'
+              .label.label-success= taxonomy.name
+              taxonomy = taxonomy.parent
 
-            / %dl.dl-horizontal
-            /     %dt Eunis Primary Name:
-            /     %dd= @species.eunis_primary_name
+      %dl.dl-horizontal
+        %dt Taxonomic Rank:
+        %dd= @species.taxonomic_rank
 
-            %dl.dl-horizontal
-                %dt Taxonomies:
-                %dd
-                    - unless @species.taxonomy.nil?
-                        - taxonomy = @species.taxonomy
-                        - while taxonomy.level != 'Kingdom'
-                            .label.label-success= taxonomy.name
-                            taxonomy = taxonomy.parent
-
-                        / - parent = @species.taxonomy.parent
-                        / - previous = @species.taxonomy
-                        / - while t.id != prev
-                        /     - previous = p.parent
-
-            %dl.dl-horizontal
-                %dt Taxonomic Rank:
-                %dd= @species.taxonomic_rank
-
-            %dl.dl-horizontal
-                %dt Authorship:
-                %dd= @species.scientific_name_authorship
+      %dl.dl-horizontal
+        %dt Authorship:
+        %dd= @species.scientific_name_authorship
 
 
-        .span6
-            %legend Sites
-            %ul
-            - @species.protected_areas.each do |pa|
-                %li= link_to pa.name, protected_areas_path(pa) unless @species.taxonomy.nil?
+    .span6
+      %legend Sites
+      %ul
+      - @species.protected_areas.each do |pa|
+        %li= link_to pa.name, protected_areas_path(pa) unless @species.taxonomy.nil?
 
 
-    %table.table
-        %tbody
-
-            / %tr
-            /     %td{ :style => 'width: 20%;text-align: right;' }
-            /         %b Eunis primary name:
-            /     %td
-            /         = link_to @species.eunis_primary_name, @species.eunis_primary_name
-            / %tr
-            /     %td{ :style => 'width: 20%;text-align: right;' }
-            /         %b Synonym for:
-            /     %td
-            /         = link_to @species.synonym_for, @species.synonym_for
-            / %tr
-            /     %td{ :style => 'width: 20%;text-align: right;' }
-            /         %b Taxonomic rank:
-            /     %td
-            /         = @species.taxonomic_rank
-            / %tr
-            /     %td{ :style => 'width: 20%;text-align: right;' }
-            /         %b Taxonomy:
-            /     %td
-            /         = @species.taxonomy.name unless @species.taxonomy.nil?
-            / %tr
-            /     %td{ :style => 'width: 20%;text-align: right;' }
-            /         %b Scientific name authorship:
-            /     %td
-            /         = @species.scientific_name_authorship
-            / %tr
-            /     %td{ :style => 'width: 20%;text-align: right;' }
-            /         %b Scientific name:
-            /     %td
-            /         = @species.scientific_name
-            / %tr
-            /     %td{ :style => 'width: 20%;text-align: right;' }
-            /         %b Label:
-            /     %td
-            /         = @species.label
-            / %tr
-            /     %td{ :style => 'width: 20%;text-align: right;' }
-            /         %b Genus:
-            /     %td
-            /         = @species.genus
-            %tr
-                %td{ :style => 'width: 20%;text-align: right;' }
-                    %b Species group:
-                %td
-                    = link_to @species.species_group, @species.species_group
-            / %tr
-            /     %td{ :style => 'width: 20%;text-align: right;' }
-            /         %b Name according to id:
-            /     %td
-            /         = link_to @species.name_according_to_ID, @species.name_according_to_ID
-            / %tr
-            /     %td{ :style => 'width: 20%;text-align: right;' }
-            /         %b Ignore on match:
-            /     %td
-            /         = @species.ignore_on_match
+  %table.table
+    %tbody
+      %tr
+        %td{ :style => 'width: 20%;text-align: right;' }
+          %b Species group:
+        %td
+          = link_to @species.species_group, @species.species_group

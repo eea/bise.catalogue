@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe Country do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  before do
+    @country = FactoryGirl.create(:country)
+  end
+
+  it "should be valid" do
+    should be_valid
+  end
+
 end

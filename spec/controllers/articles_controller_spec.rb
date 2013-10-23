@@ -47,12 +47,8 @@ describe ArticlesController do
 
   describe "GET index" do
     it "assigns all articles as @articles" do
-      params = Hash.new
-      params[:query] = ''
-
-      articles = Article.search(params)
       get :index, {}
-      assigns(:articles).should be_a(Tire::Results::Collection)
+      assigns(:articles).should eq Article.search({ query: '' })
     end
   end
 

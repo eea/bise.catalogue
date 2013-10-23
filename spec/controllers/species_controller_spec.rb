@@ -38,7 +38,7 @@ describe SpeciesController do
 
   describe "GET index" do
     it "assigns all species as @species" do
-      specie = FactoryGirl.create :species
+      species = FactoryGirl.create :species
       get :index, {}
       assigns(:species).should be_a(Tire::Results::Collection)
     end

@@ -171,15 +171,13 @@ ActiveRecord::Schema.define(:version => 20130918091410) do
     t.string   "title"
     t.string   "english_title"
     t.string   "author"
-    t.date     "published_on"
-    t.boolean  "published",           :default => false
     t.string   "language"
-    t.string   "source"
-    t.boolean  "approved",            :default => false
     t.text     "biographical_region"
     t.string   "url"
-    t.string   "comment"
     t.text     "description"
+    t.date     "published_on"
+    t.boolean  "published",           :default => false
+    t.boolean  "approved",            :default => false
     t.date     "approved_at"
     t.integer  "site_id"
     t.datetime "created_at",                             :null => false

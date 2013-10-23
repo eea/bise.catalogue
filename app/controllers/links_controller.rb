@@ -7,11 +7,9 @@ class LinksController < ApplicationController
   def index
     @links = Link.search(params)
     respond_to do |format|
-        format.html # show.html.erb
-        format.json { render json: @links }
+      format.html # index.html.erb
+      format.json { render json: @links }
     end
-
-    @links = Link.all
   end
 
   # GET /links/1

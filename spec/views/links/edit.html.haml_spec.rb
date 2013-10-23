@@ -1,32 +1,14 @@
 require 'spec_helper'
 
 describe "links/edit" do
+
   before(:each) do
-    @link = assign(:link, stub_model(Link,
-      :title => "MyString",
-      :english_title => "MyString",
-      :author => "MyString",
-      :language => "MyString",
-      :source => "MyString",
-      :approved => false,
-      :countries => nil,
-      :url => "MyString"
-    ))
+    @link = assign(:link, FactoryGirl.create(:link))
   end
 
   it "renders the edit link form" do
     render
-
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
-    assert_select "form[action=?][method=?]", link_path(@link), "post" do
-      assert_select "input#link_title[name=?]", "link[title]"
-      assert_select "input#link_english_title[name=?]", "link[english_title]"
-      assert_select "input#link_author[name=?]", "link[author]"
-      assert_select "input#link_language[name=?]", "link[language]"
-      assert_select "input#link_source[name=?]", "link[source]"
-      assert_select "input#link_approved[name=?]", "link[approved]"
-      assert_select "input#link_countries[name=?]", "link[countries]"
-      assert_select "input#link_url[name=?]", "link[url]"
-    end
+    assert_select "form[action=?][method=?]", link_path(@link), "post"
   end
+
 end

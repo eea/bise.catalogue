@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe SpeciesTranslation do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  before do
+    @species_translation = FactoryGirl.create :species_translation
+  end
+
+  it { @species_translation.should be_valid }
+
 end

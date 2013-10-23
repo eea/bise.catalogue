@@ -14,26 +14,6 @@ describe DocumentsController do
     # @document = FactoryGirl.create(:document)
   end
 
-  # after :each do
-  #   @document.destroy
-  # end
-
-  # def valid_attributes
-  #   {
-  #     site_id: 1,
-  #     title: 'Titulo de Ejemplo',
-  #     english_title: 'Example Title',
-  #     author: 'Jon Arrien',
-  #     # file: File.read(File.join(Rails.root, '/spec/fixtures/files/IT_Biodiversity.pdf')),
-  #     # file: File.open(File.join(Rails.root, '/spec/fixtures/files/NL_Biodiversity.pdf'),'rb'),
-  #     # file: File.join(Rails.root, '/spec/fixtures/files/NL_Biodiversity.pdf'),
-  #     file: File.join(Rails.root, '/spec/fixtures/files/IT_Biodiversity.pdf'),
-  #     # remote_file_url: "http://www.eea.europa.eu/publications/biodiversity-monitoring-in-europe/at_download/file",
-  #     language_ids: [5],
-  #     published_on: '01/01/2013'
-  #   }
-  # end
-
   describe "GET index" do
     it "assigns all documents as @documents" do
       get :index, {}
@@ -81,7 +61,6 @@ describe DocumentsController do
 
       it "redirects to the created document" do
         # doc = FactoryGirl.create :document
-        p ":: needs to redirect..."
         # p FactoryGirl.build(:other_document).attributes
         post :create, { :document => FactoryGirl.build(:other_document).attributes }
         response.should redirect_to(Document.last)

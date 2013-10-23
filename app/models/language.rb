@@ -1,7 +1,7 @@
 class Language < ActiveRecord::Base
 
-  include Tire::Model::Search
-  include Tire::Model::Callbacks
+  # include Tire::Model::Search
+  # include Tire::Model::Callbacks
 
   attr_accessible :name
 
@@ -20,15 +20,15 @@ class Language < ActiveRecord::Base
                           join_table: "links_languages",
                           class_name: "Link"
 
-  index_name "#{Tire::Model::Search.index_prefix}languages"
+  # index_name "#{Tire::Model::Search.index_prefix}languages"
 
-  refresh = lambda { Tire::Index.new(index_name).refresh }
-  after_save(&refresh)
-  after_destroy(&refresh)
+  # refresh = lambda { Tire::Index.new(index_name).refresh }
+  # after_save(&refresh)
+  # after_destroy(&refresh)
 
-  mapping do
-    indexes :id, index: :not_analyzed
-    indexes :name, analyzer: 'snowball'
-  end
+  # mapping do
+  #   indexes :id, index: :not_analyzed
+  #   indexes :name, analyzer: 'snowball'
+  # end
 
 end

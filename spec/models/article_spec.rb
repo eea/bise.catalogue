@@ -31,5 +31,4 @@ describe Article do
     @article.should be_valid
   end
 
-
 end

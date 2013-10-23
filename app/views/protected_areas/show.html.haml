@@ -38,7 +38,7 @@
             %dl.dl-vertical
               %dt Country:
               %dd
-                .label.label-info.label-large= @protected_area.countries.first.name unless @protected_area.countries.nil?
+                .label.label-info.label-large= @protected_area.countries.first.try(:name) unless @protected_area.countries.empty?
             %dl.dl-vertical
               %dt Code:
               %dd= @protected_area.code

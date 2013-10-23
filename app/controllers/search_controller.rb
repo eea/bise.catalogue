@@ -3,7 +3,6 @@ class SearchController < ApplicationController
   layout "embedded"
 
   def index
-    puts ":: search#index"
     q = params[:query]
     q = nil if q == ''
 

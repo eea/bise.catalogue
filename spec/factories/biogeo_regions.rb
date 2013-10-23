@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :biogeo_region do
-    code "MyString"
-    area_name "MyString"
+    code "C001"
+    area_name "Bio geo region example area name"
   end
 end

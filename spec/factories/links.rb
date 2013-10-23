@@ -2,15 +2,15 @@
 
 FactoryGirl.define do
   factory :link do
-    title "MyString"
-    english_title "MyString"
-    author "MyString"
+    site_id 1
+    title "Link title"
+    english_title "English link title"
+    author "Jon Arrien"
     published_on "2013-04-30 11:25:37"
-    language "MyString"
-    source "MyString"
+    language_ids [22,5]
+    url "http://www.example.org"
+
     approved false
-    countries nil
-    url "MyString"
     approved_at "2013-04-30 11:25:37"
   end
 end

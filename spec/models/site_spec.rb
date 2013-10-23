@@ -1,5 +1,11 @@
 require 'spec_helper'
 
 describe Site do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  before do
+    @site = FactoryGirl.create :site
+  end
+
+  it { @site.should be_valid}
+
 end

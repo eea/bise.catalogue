@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe Language do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  before do
+    @language = FactoryGirl.create :language
+  end
+
+  it "should be valid" do
+    should be_valid
+  end
+
 end

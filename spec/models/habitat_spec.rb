@@ -1,5 +1,13 @@
 require 'spec_helper'
 
 describe Habitat do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  before do
+    @habitat = FactoryGirl.create :habitat
+  end
+
+  it "should be valid" do
+    @habitat.should be_valid
+  end
+
 end
