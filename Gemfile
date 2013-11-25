@@ -1,9 +1,7 @@
 source 'https://rubygems.org'
 # ruby "1.9.3"
 
-
-gem 'rails', '3.2.13'
-
+gem 'rails'                   , '3.2.13'
 gem 'rack'                    , '~> 1.4.5'
 
 gem 'devise'
@@ -15,9 +13,9 @@ gem 'pg'
 
 group :assets do
   gem 'sass-rails'            ,   '~> 3.2.3'
-  gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
+  gem "less-rails"
 
-  gem 'therubyracer'          ,    '~> 0.11.4'
+  gem 'therubyracer'          , '~> 0.12.0', require: 'v8'
 
   gem 'jquery-rails'
   gem 'jquery-ui-rails'
@@ -37,7 +35,7 @@ gem 'sanitize'
 gem "remotipart"
 
 # Shared Mustache Templates
-gem 'smt_rails'                 , :git => 'https://github.com/railsware/smt_rails.git'
+gem 'smt_rails'                 , github: 'railsware/smt_rails'
 
 # gem 'haml'
 gem "haml-rails"
@@ -50,7 +48,7 @@ gem 'tire', '>= 0.5.4'
 gem 'ransack'
 
 # TWITTER BOOTSTRAP
-gem "twitter-bootstrap-rails"  # , :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem "twitter-bootstrap-rails"  # , git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem "font-awesome-rails"
 
 
@@ -61,13 +59,16 @@ gem 'rdf-raptor'                , '~> 1.0.1'
 gem 'rdf-virtuoso'              , git: 'https://github.com/jonarrien/rdf-virtuoso.git'
 gem 'spira'                     , git: 'https://github.com/ruby-rdf/spira.git'
 
+# JSON linked data
+gem 'json-ld'
+
 gem 'ffi'
 gem 'sparql'
 
 
 # DataObjects-backed repositories for RDF.rb
 gem 'rdf-do'
-gem 'do_postgres'
+#gem 'do_postgres'
 
 
 group :development do
@@ -92,16 +93,18 @@ group :development, :test do
 
   # TEST
   gem "rspec-rails"
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber'      , '1.2.5'
+  gem 'cucumber-rails', require: false
   gem 'database_cleaner'
   gem 'factory_girl_rails'
-  gem 'capybara'
+  gem 'capybara-webkit'
+  gem 'capybara-screenshot'
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'guard-zeus-client'
 
   gem 'shoulda'
-  gem 'shoulda-matchers', :require => false
+  gem 'shoulda-matchers', require: false
   # gem 'guard-livereload'
 
   # Documentation
@@ -110,7 +113,7 @@ group :development, :test do
 end
 
 group :production do
-  gem "libv8"
+  # gem "libv8"
 end
 
 # Use unicorn as the app server
