@@ -44,10 +44,14 @@ module HomeHelper
       # 'habitats',
       # 'species'
     ]
-    (1..12).each do |i|
-      month_name = Date::MONTHNAMES[i]
-      date_init = DateTime.new(Date.today.year, i, 1)
-      date_end = Date.civil(Date.today.year, i, -1)
+
+    time_start = 13.months.ago
+    time = time_start
+    while time < 0.seconds.ago
+      month_name = Date::MONTHNAMES[time.month]
+      date_init = DateTime.new(time.year, time.month, 1)
+      time = time.advance(months: 1)
+      date_end = Date.civil(time.year, time.month, -1)
 
       index_counts = Array.new
       indexes.map do |index|
