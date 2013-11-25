@@ -5,9 +5,14 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'shoulda-matchers'
 require 'capybara/rspec'
+# require 'capybara-webkit'
 # require 'rspec/autorun'
 
-Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+# Capybara.javascript_driver = :webkit
+# Capybara.default_wait_time = 10
+# Capybara.default_selector = :css
+# Capybara.save_and_open_page_path = 'tmp/capybara'
+# Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
 
@@ -67,6 +72,7 @@ RSpec.configure do |config|
   end
 
 end
+
 
 def clean_es_indexes
   Article.index.delete

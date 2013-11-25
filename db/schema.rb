@@ -34,7 +34,6 @@ ActiveRecord::Schema.define(:version => 20130918091410) do
     t.date     "published_on"
     t.boolean  "published",           :default => false
     t.integer  "site_id"
-    t.integer  "concepts_id"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.boolean  "approved",            :default => false

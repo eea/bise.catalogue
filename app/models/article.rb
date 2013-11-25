@@ -1,5 +1,4 @@
 # encoding: UTF-8
-# Object
 class Article < ActiveRecord::Base
 
   include Tire::Model::Search

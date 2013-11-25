@@ -47,8 +47,9 @@ describe ArticlesController do
 
   describe "GET index" do
     it "assigns all articles as @articles" do
+      articles = Article.search({ query: '' })
       get :index, {}
-      assigns(:articles).should eq Article.search({ query: '' })
+      assigns(:articles).should be_a(Tire::Results::Collection)
     end
   end
 

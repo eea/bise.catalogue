@@ -18,7 +18,6 @@ class CreateArticles < ActiveRecord::Migration
       t.boolean   :published    , default: false
 
       t.references :site
-      t.references :concepts
 
       t.timestamps
 

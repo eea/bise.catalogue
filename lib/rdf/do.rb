@@ -37,10 +37,10 @@ module RDF
                     reader = result('select * from quads')
                     while reader.next!
                         block.call(RDF::Statement.new(
-                            :subject   => unserialize(reader.values[0]),
-                            :predicate => unserialize(reader.values[1]),
-                            :object    => unserialize(reader.values[2]),
-                            :context   => unserialize(reader.values[3])))
+                            subject:   unserialize(reader.values[0]),
+                            predicate: unserialize(reader.values[1]),
+                            object:    unserialize(reader.values[2]),
+                            context:   unserialize(reader.values[3])))
                     end
                 else
                     ::Enumerable::Enumerator.new(self,:each)
@@ -101,10 +101,10 @@ module RDF
                         reader = query_hash(pattern)
                         while reader.next!
                             statements << RDF::Statement.new(
-                                :subject   => unserialize(reader.values[0]),
-                                :predicate => unserialize(reader.values[1]),
-                                :object    => unserialize(reader.values[2]),
-                                :context   => unserialize(reader.values[3]))
+                                subject:   unserialize(reader.values[0]),
+                                predicate: unserialize(reader.values[1]),
+                                object:    unserialize(reader.values[2]),
+                                context:   unserialize(reader.values[3]))
                         end
                         case block_given?
                             when true

@@ -1,9 +1,9 @@
-
-Given /^I have articles titled (.+)$/ do |titles|
-  titles.split(', ').each do |title|
-    # Article.create!(:title => title)
-    FactoryGirl.create :article, title: title
-  end
+Given /^I have article titled (.+)$/ do |title|
+  FactoryGirl.create :article, title: title
+  # titles.split(', ').each do |title|
+  #   # Article.create!(:title => title)
+  #   FactoryGirl.create :article, title: title
+  # end
 end
 
 When /^I go to the list of articles$/ do
@@ -15,8 +15,14 @@ When /^I search article "(.*?)"$/ do |title|
   # find('#query').native.send_keys(:return)
 end
 
-Then /^I should see "(.*?)"$/ do |arg1|
-  page.should have_text arg1
+Then /^I should see "(.*?)"$/ do |text|
+  uri = Rails.root.join("tmp/capybara/#{Time.now.strftime('%Y-%m-%d-%H-%M-%S')}.png")
+  page.driver.render uri, full: true
+  # Capybara.save_page Rails.root.join("tmp/capybara/#{Time.now.strftime('%Y-%m-%d-%H-%M-%S')}.html")
+  # page.driver.render Rails.root.join("tmp/capybara/#{Time.now.strftime('%Y-%m-%d-%H-%M-%S')}.png")
+  # page.save_screenshot 'screenshot.png'
+  # Launchy.open 'screenshot.png' # or open manually
+  page.should have_text text
 end
 
 Then /^I should see new (.*?) button titled "(.*?)"$/ do |obj, title|

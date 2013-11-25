@@ -37,4 +37,6 @@ Catalogue::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
+  Capybara.save_and_open_page_path = 'tmp/capybara'
+
 end
