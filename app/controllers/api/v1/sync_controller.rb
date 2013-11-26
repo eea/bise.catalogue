@@ -24,9 +24,12 @@ module Api
       # TODO: Create webservices for CodeSyntax
       # -------- /api/v1/sync service ---------
       #
-      # resource_type: article / document / link
+      # resource_type:
+      #   - article
+      #   - document
+      #   - link
       #
-      # common fields for all resource_types:
+      # Common fields for resource_types:
       #   title:         string
       #   site:          1 (BISE)
       #   english_title: string
@@ -47,7 +50,6 @@ module Api
       #   link[description]:   text/html
       #
       def create
-        p ":: CREATE"
         case params[:resource_type]
         when 'article'
           @article = Article.new(params[:article])
@@ -76,19 +78,61 @@ module Api
       end
 
       def update
-        p ":: UPDATE"
-        return_error('Update resource_type not especified.')
+        case params[:resource_type]
+        when 'article'
+          @article = Article.find(params[:id])
+          if @article.update_attributes(params[:article])
+            render json: @article, status: :created, location: @article
+          else
+            render json: @article.errors, status: :unprocessable_entity
+          end
+        when 'document'
+          @document = Document.find(params[:id])
+          if @document.update_attributes(params[:document])
+            render json: @document, status: :created, location: @document
+          else
+            render json: @document.errors, status: :unprocessable_entity
+          end
+        when 'link'
+          @link = Link.find(params[:id])
+          if @link.update_attributes(params[:link])
+            render json: @link, status: :created, location: @link
+          else
+            render json: @link.errors, status: :unprocessable_entity
+          end
+        else
+          return_error('resource_type not especified on update.')
+        end
       end
 
       def delete
         p ":: DELETE"
-        return_error('Delete resource_type not especified.')
+        case params[:resource_type]
+        when 'article'
+          @article = Article.find(params[:id])
+          @article.destroy
+          respond_to do |format|
+            format.json { head :no_content }
+          end
+        when 'document'
+          @document = Document.find(params[:id])
+          @document.destroy
+          respond_to do |format|
+            format.json { head :no_content }
+          end
+        when 'link'
+          @link = Link.find(params[:id])
+          @link.destroy
+          respond_to do |format|
+            format.json { head :no_content }
+          end
+        else
+          return_error('resource_type not especified.')
+        end
       end
 
       def return_error(msg)
-        response = Hash.new
-        response['error'] = msg
-        respond_with response
+        render json: { error: msg }
       end
 
     end
