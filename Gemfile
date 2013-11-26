@@ -96,7 +96,7 @@ group :development, :test do
   gem 'cucumber'      , '1.2.5'
   gem 'cucumber-rails', require: false
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  # gem 'factory_girl_rails'
   gem 'capybara-webkit'
   gem 'capybara-screenshot'
   gem 'guard-rspec'
@@ -111,6 +111,8 @@ group :development, :test do
   gem 'railroady'
 
 end
+
+gem 'factory_girl_rails'
 
 group :production do
   # gem "libv8"
