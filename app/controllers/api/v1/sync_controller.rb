@@ -37,6 +37,8 @@ module Api
       #   language_ids:
       #   published_on:  string  (dd/mm/yyyy)
       #   source_url:    string
+      #   approved:      boolean
+      #   approved_at:   date
       #
       # article:
       #   article[content]:       text/html
@@ -47,7 +49,7 @@ module Api
       #
       # link:
       #   link[url]:           string
-      #   link[description]:   text/html
+      #   link[description]:   text
       #
       def create
         case params[:resource_type]
@@ -80,21 +82,21 @@ module Api
       def update
         case params[:resource_type]
         when 'article'
-          @article = Article.find(params[:id])
+          @article = Article.where(source_url: params[:source_url]).first
           if @article.update_attributes(params[:article])
             render json: @article, status: :created, location: @article
           else
             render json: @article.errors, status: :unprocessable_entity
           end
         when 'document'
-          @document = Document.find(params[:id])
+          @document = Document.where(source_url: params[:source_url]).first
           if @document.update_attributes(params[:document])
             render json: @document, status: :created, location: @document
           else
             render json: @document.errors, status: :unprocessable_entity
           end
         when 'link'
-          @link = Link.find(params[:id])
+          @link = Link.where(source_url: params[:source_url]).first
           if @link.update_attributes(params[:link])
             render json: @link, status: :created, location: @link
           else
@@ -109,19 +111,19 @@ module Api
         p ":: DELETE"
         case params[:resource_type]
         when 'article'
-          @article = Article.find(params[:id])
+          @article = Article.where(source_url: params[:source_url]).first
           @article.destroy
           respond_to do |format|
             format.json { head :no_content }
           end
         when 'document'
-          @document = Document.find(params[:id])
+          @document = Document.where(source_url: params[:source_url]).first
           @document.destroy
           respond_to do |format|
             format.json { head :no_content }
           end
         when 'link'
-          @link = Link.find(params[:id])
+          @link = Link.where(source_url: params[:source_url]).first
           @link.destroy
           respond_to do |format|
             format.json { head :no_content }
