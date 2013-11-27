@@ -83,6 +83,8 @@ module Api
         case params[:resource_type]
         when 'article'
           @article = Article.where(source_url: params[:source_url]).first
+          return_error('source_url not found.'); return if @article.nil?
+
           if @article.update_attributes(params[:article])
             render json: @article, status: :created, location: @article
           else
@@ -90,6 +92,8 @@ module Api
           end
         when 'document'
           @document = Document.where(source_url: params[:source_url]).first
+          return_error('source_url not found.'); return if @document.nil?
+
           if @document.update_attributes(params[:document])
             render json: @document, status: :created, location: @document
           else
@@ -97,6 +101,8 @@ module Api
           end
         when 'link'
           @link = Link.where(source_url: params[:source_url]).first
+          return_error('source_url not found.'); return if @link.nil?
+
           if @link.update_attributes(params[:link])
             render json: @link, status: :created, location: @link
           else
@@ -108,22 +114,24 @@ module Api
       end
 
       def delete
-        p ":: DELETE"
         case params[:resource_type]
         when 'article'
           @article = Article.where(source_url: params[:source_url]).first
+          return_error('source_url not found.'); return @article.nil?
           @article.destroy
           respond_to do |format|
             format.json { head :no_content }
           end
         when 'document'
           @document = Document.where(source_url: params[:source_url]).first
+          return_error('source_url not found.'); return if @document.nil?
           @document.destroy
           respond_to do |format|
             format.json { head :no_content }
           end
         when 'link'
           @link = Link.where(source_url: params[:source_url]).first
+          return_error('source_url not found.'); return if @link.nil?
           @link.destroy
           respond_to do |format|
             format.json { head :no_content }
