@@ -184,6 +184,9 @@ GEM
       activesupport (>= 3.1, < 4.1)
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
+    has_scope (0.6.0.rc)
+      actionpack (>= 3.2, < 5)
+      activesupport (>= 3.2, < 5)
     hashie (1.2.0)
     hashr (0.0.22)
     highline (1.6.20)
@@ -192,6 +195,9 @@ GEM
       multi_json (~> 1.0)
       multi_xml (>= 0.5.2)
     i18n (0.6.1)
+    inherited_resources (1.4.1)
+      has_scope (~> 0.6.0.rc)
+      responders (~> 1.0.0.rc)
     journey (1.0.4)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -318,6 +324,8 @@ GEM
       json (~> 1.4)
     ref (1.0.5)
     remotipart (1.2.1)
+    responders (1.0.0)
+      railties (>= 3.2, < 5)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec (2.14.1)
@@ -456,6 +464,8 @@ DEPENDENCIES
   guard-rspec
   guard-zeus-client
   haml-rails
+  has_scope
+  inherited_resources
   jquery-rails
   jquery-ui-rails
   json-ld
@@ -478,6 +488,7 @@ DEPENDENCIES
   rdf-spec
   rdf-virtuoso!
   remotipart
+  responders
   rspec-rails
   rubocop
   sanitize
