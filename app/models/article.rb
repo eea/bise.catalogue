@@ -210,7 +210,7 @@ class Article < ActiveRecord::Base
       filter :term, author: params[:author] if params[:author].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
-      # filter :term, :geographical_coverage => params[:geographical_coverage] if params[:geographical_coverage].present?
+      # filter :term, geographical_coverage: params[:geographical_coverage] if params[:geographical_coverage].present?
       filter :term, biographical_region: params[:biographical_region] if params[:biographical_region].present?
       filter :range, published_on: { gte: date_init , lt: date_end } if params[:published_on].present?
 
@@ -239,7 +239,7 @@ class Article < ActiveRecord::Base
       end
 
       facet 'biographical_regions' do
-        terms :biographical_region # , :script_field => true, :size => 50
+        terms :biographical_region # , script_field: true, size: 50
         facet_filter :and, art_filter unless art_filter.empty?
       end
 
