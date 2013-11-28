@@ -1,5 +1,5 @@
 #countries
-  - countries = Country.all
+  - countries = Country.order(:name).all
 
   %legend
     Countries:
