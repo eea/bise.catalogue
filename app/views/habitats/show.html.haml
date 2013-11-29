@@ -9,40 +9,41 @@
     %i.icon-pencil
     Edit
 
-%p#notice= notice
+/ %p#notice= notice
 
 .container-fluid
   .row-fluid
-    .span6
-      %p
-        %b Code:
-        = @habitat.code
-      %p
-        %b Name:
-        = @habitat.name
-      %p
-        %b Natura2000 code:
-        = @habitat.natura2000_code
-      %p
-        %b Habitat code:
-        = @habitat.habitat_code
-      %p
-        %b Level:
-        = @habitat.level
-      %p
-        %b Originally published code:
-        = @habitat.originally_published_code
-      %p
-        %b Comment:
-        = @habitat.comment
-      %p
-        %b National name:
-        = @habitat.national_name
-      %p
-        %b Description:
-        = @habitat.description
-    .span6
-      %h4 Typical Species
+    .span7
+      %legend Habitat Information
+      %dl.dl-horizontal
+        %dt Code:
+        %dd= @habitat.code
+      %dl.dl-horizontal
+        %dt Name:
+        %dd= @habitat.name
+      %dl.dl-horizontal
+        %dt Natura2000 code:
+        %dd= @habitat.natura2000_code
+      %dl.dl-horizontal
+        %dt Habitat Code:
+        %dd= @habitat.habitat_code
+      %dl.dl-horizontal
+        %dt Level:
+        %dd= @habitat.level
+      %dl.dl-horizontal
+        %dt Original published code:
+        %dd= @habitat.originally_published_code
+      %dl.dl-horizontal
+        %dt Comment:
+        %dd= @habitat.comment
+      %dl.dl-horizontal
+        %dt National name:
+        %dd= @habitat.national_name
+      %dl.dl-horizontal
+        %dt Description:
+        %dd= @habitat.description
+    .span5
+      %legend Typical Species
       %ul
       - @habitat.species.each do |s|
         %li
