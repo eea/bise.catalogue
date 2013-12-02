@@ -2,19 +2,19 @@
   = @news.title
 
 - content_for :actions do
-  = link_to news_index_path, :class => "btn" do
+  = link_to news_index_path, class: "btn" do
     %i.icon-reply
     Back
-  = link_to  edit_news_path(@news), :class => "btn" do
+  = link_to  edit_news_path(@news), class: "btn" do
     %i.icon-pencil
     Edit
-  = link_to  news_path(@news), :method => :delete, :class => "btn btn-danger pull-right" do
+  = link_to  news_path(@news), method: :delete, class: "btn btn-danger pull-right" do
     %i.icon-trash
     Delete
 
 - if notice
   %div.alert.alert-success
-    %button.close{ :type => "button", 'data-dismiss' => 'alert' }
+    %button.close{ type: "button", 'data-dismiss' => 'alert' }
       &times;
     %h4 Success!
     = notice
@@ -24,72 +24,72 @@
   %ul.nav.nav-tabs
 
     %li.active
-      %a{ :href => '#general', :data => { :toggle => 'tab' } } General
+      %a{ href: '#general', data: { toggle: 'tab' } } General
     %li
-      %a{ :href => '#geographic', :data => { :toggle => 'tab' } } Geographic
+      %a{ href: '#geographic', data: { toggle: 'tab' } } Geographic
     %li
-      %a{ :href => '#related', :data => { :toggle => 'tab' } } Related Resources
+      %a{ href: '#related', data: { toggle: 'tab' } } Related Resources
     %li
-      %a{ :href => '#ecosystems', :data => { :toggle => 'tab' } } Thematic Area
+      %a{ href: '#ecosystems', data: { toggle: 'tab' } } Thematic Area
 
   .tab-content
     #general.tab-pane.active
       .container-fluid
         %legend Info
-        .row-fluid{ :class => "control-group"}
-          .span3{ :style => "text-align:right", :class => "control-label"}
+        .row-fluid{ class: "control-group"}
+          .span3{ style: "text-align:right", class: "control-label"}
             Title:
-          .span3{ :style => "text-align:left"}
+          .span3{ style: "text-align:left"}
             = @news.title
-          .span3{ :style => "text-align:right;margin-left:-10%", :class => "control-label"}
+          .span3{ style: "text-align:right;margin-left:-10%", class: "control-label"}
             Language:
           .span3
             = @news.language
-        .row-fluid{ :class => "control-group"}
-          .span3{ :style => "text-align:right", :class => "control-label"}
+        .row-fluid{ class: "control-group"}
+          .span3{ style: "text-align:right", class: "control-label"}
             English title:
-          .span3{ :style => "text-align:left"}
+          .span3{ style: "text-align:left"}
             = @news.english_title
-          .span3{ :style => "text-align:right;margin-left:-10%", :class => "control-label"}
+          .span3{ style: "text-align:right;margin-left:-10%", class: "control-label"}
             URL:
-          .span3{ :style => "text-align:left"}
-            %a{ :href => @news.url }
+          .span3{ style: "text-align:left"}
+            %a{ href: @news.url }
               = @news.url
         .row-fluid
-          .span3{ :style => "text-align:right", :class => "control-label"}
+          .span3{ style: "text-align:right", class: "control-label"}
             Abstract:
           .span9
             = @news.abstract
         %legend Publication
-        .row-fluid{ :class => "control-group"}
-          .span3{ :style => "text-align:right", :class => "control-label"}
+        .row-fluid{ class: "control-group"}
+          .span3{ style: "text-align:right", class: "control-label"}
             Author:
-          .span3{ :style => "text-align:left"}
+          .span3{ style: "text-align:left"}
             = @news.author
-          .span3{ :style => "text-align:right;margin-left:-10%", :class => "control-label"}
+          .span3{ style: "text-align:right;margin-left:-10%", class: "control-label"}
             Published on:
           .span3
             = #{link.published_on.strftime("%m/%d/%Y")}
-        .row-fluid{ :class => "control-group"}
-          .span3{ :style => "text-align:right", :class => "control-label"}
+        .row-fluid{ class: "control-group"}
+          .span3{ style: "text-align:right", class: "control-label"}
             Approved:
-          .span3{ :style => "text-align:left"}
+          .span3{ style: "text-align:left"}
             = @news.approved
-          .span3{ :style => "text-align:right;margin-left:-10%", :class => "control-label"}
+          .span3{ style: "text-align:right;margin-left:-10%", class: "control-label"}
             Approved at:
           .span3
             = #{link.approved_at.strftime("%m/%d/%Y")}
-        .row-fluid{ :class => "control-group"}
-          .span3{ :style => "text-align:right", :class => "control-label"}
+        .row-fluid{ class: "control-group"}
+          .span3{ style: "text-align:right", class: "control-label"}
             Comments:
-          .span3{ :style => "text-align:left"}
+          .span3{ style: "text-align:left"}
             = @news.comment
     #geographic.tab-pane
       .container-fluid
         .row-fluid
-          .span3{ :style => "text-align:right;margin-left:-10%", :class => "control-label"}
+          .span3{ style: "text-align:right;margin-left:-10%", class: "control-label"}
             Countries:
-          .span3{ :style => "text-align:left"}
+          .span3{ style: "text-align:left"}
             %ul
             - @news.countries.each do |c|
               %li= c.name
@@ -97,7 +97,7 @@
       .container-fluid
         .row-fluid
           .alert.alert-error
-            %button.close{ :type => 'button', :data => { :dismiss => 'alert' } } &times;
+            %button.close{ type: 'button', data: { dismiss: 'alert' } } &times;
             %strong
               Warning!
             This is a prototype, not working yet
@@ -127,9 +127,9 @@
         %legend Biodiversity
         .row-fluid
           .span3
-            /= render :partial => 'common/targets', :locals => { :parent => @document }
+            /= render partial: 'common/targets', locals: { parent: @document }
           .span3
-          .span3{ :style => "text-align:right", :class => "control-label"}
+          .span3{ style: "text-align:right", class: "control-label"}
             Biographical region:
-          .span3{ :style => "text-align:left"}
+          .span3{ style: "text-align:left"}
             = @news.biographical_region

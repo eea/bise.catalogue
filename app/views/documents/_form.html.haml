@@ -1,27 +1,27 @@
-= simple_form_for @document, html: { :multipart => true } do |f|
+= simple_form_for @document, html: { multipart: true } do |f|
 
   .container-fluid
-    = render :partial => 'common/common_info', :locals => { :f => f }
-    /# = render :partial => 'common/languages', :locals => { f: f, parent: @document }
-    /= render :partial => 'common/publication', :locals => { f: f, published_on: @document.published_on }
+    = render partial: 'common/common_info', locals: { f: f }
+    /# = render partial: 'common/languages', locals: { f: f, parent: @document }
+    /= render partial: 'common/publication', locals: { f: f, published_on: @document.published_on }
 
     %legend Document / File
     .row-fluid
       .span12
         .input-append
           = f.input :file , as: :file, input_html: { style: 'display:none' }
-          %input#file_title.string.required.input-xxlarge{ :type => 'text', :disabled => :disabled }
-          %button#file_select.btn{ :type => 'button' }
+          %input#file_title.string.required.input-xxlarge{ type: 'text', disabled: :disabled }
+          %button#file_select.btn{ type: 'button' }
             Select
         .file-info.pull-right
-        = f.input :description, :as => :text, :input_html => { :class => 'input-block-level ', :rows => 5 }
+        = f.input :description, as: :text, input_html: { class: 'input-block-level ', rows: 5 }
 
-    = render :partial => 'common/targets', :locals => { :parent => @document, f: f }
-    = render :partial => 'common/countries', :locals => { :parent => @document }
+    = render partial: 'common/targets', locals: { parent: @document, f: f }
+    = render partial: 'common/countries', locals: { parent: @document }
 
   %div.form-actions.margin-none.text-right
-    = f.submit 'Save', :class => "btn btn-success"
-    = link_to "Cancel", documents_path, :class => "btn"
+    = f.submit 'Save', class: "btn btn-success"
+    = link_to "Cancel", documents_path, class: "btn"
 
 
 

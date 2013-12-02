@@ -2,27 +2,27 @@
   News
 
 - content_for :actions do
-  = link_to  new_news_path, :class => "btn" do
+  = link_to  new_news_path, class: "btn" do
     %i.icon-plus
     New piece of news
-  = form_tag news_index_path, :method => 'get', :class => 'search-query pull-right' do       #
-    = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search news..'    #
+  = form_tag news_index_path, method: 'get', class: 'search-query pull-right' do       #
+    = text_field_tag :query, params[:query], class: "search-query", placeholder: 'Search news..'    #
 
 .container-fluid
 
   .row-fluid
 
     .span3
-      /= render "facets/facet_sites"       , :objs => @news
-      = render "facets/facet_authors"     , :objs => @news
-      / = render "facets/facet_languages"   , :objs => @news
-      = render "facets/facet_countries"   , :objs => @news
-      = render "facets/facet_timeline"    , :objs => @news
+      /= render "facets/facet_sites"       , objs: @news
+      = render "facets/facet_authors"     , objs: @news
+      / = render "facets/facet_languages"   , objs: @news
+      = render "facets/facet_countries"   , objs: @news
+      = render "facets/facet_timeline"    , objs: @news
 
     .span9
       - @news.each_with_hit do |anew, hit|
-        = render "cells/news", :news => anew, :hit => hit
+        = render "cells/news", news: anew, hit: hit
 
       = page_entries_info @news
-      = will_paginate @news, :renderer => BootstrapPagination::Rails
+      = will_paginate @news, renderer: BootstrapPagination::Rails
   %br

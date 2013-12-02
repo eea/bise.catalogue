@@ -1,7 +1,7 @@
 .accordion#sites
   .accordion-group
     .accordion-head
-      %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#site-list', :data => { :toggle => 'collapse', :parent => '#sites' } }
+      %a.accordion-toggle.btn.btn-link.btn-small{ href: '#site-list', data: { toggle: 'collapse', parent: '#sites' } }
         Origin Sites
         %span.caret
     .accordion-body.in#site-list
@@ -9,9 +9,9 @@
         %ul.unstyled
           - if objs.respond_to?('facets')
             - objs.facets['sites']['terms'].each do |facet|
-              - if !current_page?(params.merge(:site => facet['term'], :page => 1))
+              - if !current_page?(params.merge(site: facet['term'], page: 1))
                 %li
-                  = link_to params.merge(:site => facet['term'], :page => 1) do
+                  = link_to params.merge(site: facet['term'], page: 1) do
                     = facet['term']
                     %span.badge.badge-info.pull-right= facet['count']
               - else

@@ -2,8 +2,8 @@
   Species
 
 - content_for :actions do
-  = form_tag species_index_path, :method => 'get', :class => 'search-query pull-right' do       #
-    = text_field_tag :query, params[:query], :class => "search-query", :placeholder => 'Search species...'    #
+  = form_tag species_index_path, method: 'get', class: 'search-query pull-right' do       #
+    = text_field_tag :query, params[:query], class: "search-query", placeholder: 'Search species...'    #
 
 .container-fluid
   .row-fluid
@@ -12,7 +12,7 @@
       .accordion#kingdoms
         .accordion-group
           .accordion-head
-            %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#kingdom-list', :data => { :toggle => 'collapse', :parent => '#kingdoms' } }
+            %a.accordion-toggle.btn.btn-link.btn-small{ href: '#kingdom-list', data: { toggle: 'collapse', parent: '#kingdoms' } }
               Kingdom
               %span.caret
           .accordion-body.in#kingdom-list
@@ -20,9 +20,9 @@
               %ul.unstyled
                 / - if @species.respond_to?('facets')
                 - @species.facets['kingdom']['terms'].each do |facet|
-                  - if !current_page?(params.merge(:kingdom => facet['term'], :page => 1))
+                  - if !current_page?(params.merge(kingdom: facet['term'], page: 1))
                     %li
-                      = link_to params.merge(:kingdom => facet['term'], :page => 1) do
+                      = link_to params.merge(kingdom: facet['term'], page: 1) do
                         = facet['term']
                         %span.badge.badge-info.pull-right= facet['count']
                   - else
@@ -33,16 +33,16 @@
       .accordion#phylums
         .accordion-group
           .accordion-head
-            %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#phylum-list', :data => { :toggle => 'collapse', :parent => '#phylums' } }
+            %a.accordion-toggle.btn.btn-link.btn-small{ href: '#phylum-list', data: { toggle: 'collapse', parent: '#phylums' } }
               Phylum
               %span.caret
           .accordion-body.in#phylum-list
             .accordion-inner
               %ul.unstyled
                 - @species.facets['phylum']['terms'].each do |facet|
-                  - if !current_page?(params.merge(:phylum => facet['term'], :page => 1))
+                  - if !current_page?(params.merge(phylum: facet['term'], page: 1))
                     %li
-                      = link_to params.merge(:phylum => facet['term'], :page => 1) do
+                      = link_to params.merge(phylum: facet['term'], page: 1) do
                         = facet['term']
                         %span.badge.badge-info.pull-right= facet['count']
                   - else
@@ -53,16 +53,16 @@
       .accordion#classis
         .accordion-group
           .accordion-head
-            %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#classis-list', :data => { :toggle => 'collapse', :parent => '#classis' } }
+            %a.accordion-toggle.btn.btn-link.btn-small{ href: '#classis-list', data: { toggle: 'collapse', parent: '#classis' } }
               Class
               %span.caret
           .accordion-body.in#classis-list
             .accordion-inner
               %ul.unstyled
                 - @species.facets['classis']['terms'].each do |facet|
-                  - if !current_page?(params.merge(:classis => facet['term'], :page => 1))
+                  - if !current_page?(params.merge(classis: facet['term'], page: 1))
                     %li
-                      = link_to params.merge(:classis => facet['term'], :page => 1) do
+                      = link_to params.merge(classis: facet['term'], page: 1) do
                         = facet['term']
                         %span.badge.badge-info.pull-right= facet['count']
                   - else
@@ -73,16 +73,16 @@
       .accordion#species_group
         .accordion-group
           .accordion-head
-            %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#species_group-list', :data => { :toggle => 'collapse', :parent => '#species_group' } }
+            %a.accordion-toggle.btn.btn-link.btn-small{ href: '#species_group-list', data: { toggle: 'collapse', parent: '#species_group' } }
               Species Groups
               %span.caret
           .accordion-body.in#species_group-list
             .accordion-inner
               %ul.unstyled
                 - @species.facets['species_group']['terms'].each do |facet|
-                  - if !current_page?(params.merge(:species_group => facet['term'], :page => 1))
+                  - if !current_page?(params.merge(species_group: facet['term'], page: 1))
                     %li
-                      = link_to params.merge(:species_group => facet['term'], :page => 1) do
+                      = link_to params.merge(species_group: facet['term'], page: 1) do
                         = if facet['term'].size > 22 then facet['term'][0..22] + '...' else facet['term'] end
                         %span.badge.badge-info.pull-right= facet['count']
                   - else
@@ -93,16 +93,16 @@
       .accordion#taxonomic_rank
         .accordion-group
           .accordion-head
-            %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#taxonomic_rank-list', :data => { :toggle => 'collapse', :parent => '#taxonomic_rank' } }
+            %a.accordion-toggle.btn.btn-link.btn-small{ href: '#taxonomic_rank-list', data: { toggle: 'collapse', parent: '#taxonomic_rank' } }
               Taxonomic Rank
               %span.caret
           .accordion-body.in#taxonomic_rank-list
             .accordion-inner
               %ul.unstyled
                 - @species.facets['taxonomic_rank']['terms'].each do |facet|
-                  - if !current_page?(params.merge(:taxonomic_rank => facet['term'], :page => 1))
+                  - if !current_page?(params.merge(taxonomic_rank: facet['term'], page: 1))
                     %li
-                      = link_to params.merge(:taxonomic_rank => facet['term'], :page => 1) do
+                      = link_to params.merge(taxonomic_rank: facet['term'], page: 1) do
                         = if facet['term'].size > 22 then facet['term'][0..22] + '...' else facet['term'] end
                         %span.badge.badge-info.pull-right= facet['count']
                   - else
@@ -114,9 +114,9 @@
 
     .span9
       - @species.each_with_hit do |s, hit|
-        = render "cells/species", :species => s, :hit => hit
+        = render "cells/species", species: s, hit: hit
 
-      = page_entries_info @species
-      = will_paginate @species, :renderer => BootstrapPagination::Rails
+      / = page_entries_info @species
+      = will_paginate @species, renderer: BootstrapPagination::Rails
 
   %br

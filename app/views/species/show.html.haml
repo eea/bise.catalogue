@@ -2,10 +2,10 @@
   = @species.binomial_name
 
 - content_for :actions do
-  = link_to  species_index_path, :class => "btn" do
+  = link_to  species_index_path, class: "btn" do
     %i.icon-reply
     Back
-  = link_to  edit_species_path(@species), :class => "btn" do
+  = link_to  edit_species_path(@species), class: "btn" do
     %i.icon-pencil
     Edit
   = link_to species_path(@species), method: :delete, class: "btn btn-danger pull-right" do
@@ -42,11 +42,11 @@
       %dl.dl-horizontal
         %dt Taxonomies:
         %dd
-          - unless @species.taxonomy.nil?
-            - taxonomy = @species.taxonomy
-            - while taxonomy.level != 'Kingdom'
-              .label.label-success= taxonomy.name
-              taxonomy = taxonomy.parent
+          / - unless @species.taxonomy.nil?
+          /   - taxonomy = @species.taxonomy
+          /   - while taxonomy.level != 'Kingdom'
+          /     .label.label-success= taxonomy.name
+          /     taxonomy = taxonomy.parent
 
       %dl.dl-horizontal
         %dt Taxonomic Rank:
@@ -60,14 +60,14 @@
     .span6
       %legend Sites
       %ul
-      - @species.protected_areas.each do |pa|
-        %li= link_to pa.name, protected_areas_path(pa) unless @species.taxonomy.nil?
+        - @species.protected_areas.each do |pa|
+          %li= link_to pa.name, protected_areas_path(pa) unless @species.taxonomy.nil?
 
 
-  %table.table
-    %tbody
-      %tr
-        %td{ :style => 'width: 20%;text-align: right;' }
-          %b Species group:
-        %td
-          = link_to @species.species_group, @species.species_group
+  / %table.table
+  /   %tbody
+  /     %tr
+  /       %td{ style: 'width: 20%;text-align: right;' }
+  /         %b Species group:
+  /       %td
+  /         = link_to @species.species_group, @species.species_group

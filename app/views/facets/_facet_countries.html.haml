@@ -1,7 +1,7 @@
 .accordion#countries
   .accordion-group
     .accordion-head
-      %a.accordion-toggle.btn.btn-link.btn-small{ :href => '#country-list', :data => { :toggle => 'collapse', :parent => '#countries' } }
+      %a.accordion-toggle.btn.btn-link.btn-small{ href: '#country-list', data: { toggle: 'collapse', parent: '#countries' } }
         Geographical Coverage
         %span.caret
     .accordion-body.in#country-list
@@ -9,9 +9,9 @@
         %ul.unstyled
           - if objs.respond_to?('facets')
             - objs.facets['countries']['terms'].each do |facet|
-              - if !current_page?(params.merge(:countries => facet['term'], :page => 1))
+              - if !current_page?(params.merge(countries: facet['term'], page: 1))
                 %li
-                  = link_to params.merge(:countries => facet['term'], :page => 1) do
+                  = link_to params.merge(countries: facet['term'], page: 1) do
                     = facet['term']
                     %span.badge.badge-info.pull-right= facet['count']
               - else

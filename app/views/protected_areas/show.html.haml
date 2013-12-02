@@ -2,10 +2,10 @@
   = @protected_area.name
 
 - content_for :actions do
-  = link_to  protected_areas_path, :class => "btn" do
+  = link_to  protected_areas_path, class: "btn" do
     %i.icon-reply
     Back
-  = link_to  @protected_area.uri, :class => "btn", :target => "_blank" do
+  = link_to  @protected_area.uri, class: "btn", target: "_blank" do
     %i.icon-eye-open
     Watch in EUNIS
 

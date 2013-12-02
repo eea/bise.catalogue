@@ -2,10 +2,10 @@
   = @habitat.name
 
 - content_for :actions do
-  = link_to habitats_path, :class => "btn" do
+  = link_to habitats_path, class: "btn" do
     %i.icon-reply
     Back
-  = link_to  edit_habitat_path(@habitat), :class => "btn" do
+  = link_to  edit_habitat_path(@habitat), class: "btn" do
     %i.icon-pencil
     Edit
 
