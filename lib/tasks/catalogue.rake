@@ -82,6 +82,7 @@ namespace :catalogue do
       Rake::Task['catalogue:import:species'].execute
       Rake::Task['catalogue:import:habitats'].execute
       Rake::Task['catalogue:import:sites'].execute
+      Rake::Task['catalogue:import:clean'].execute
     end
     task all: :load_repo_before
 
@@ -135,8 +136,9 @@ namespace :catalogue do
     task taxonomies: :load_repo_before
 
     # Loads species from EUNIS
-    desc 'Import Species from EUNIS'
+    desc 'EUNIS: Import Species'
     task species: :environment do
+      puts ':: Loading species...'
 
       q = @query.select(:species).where(
             [:species, RDFS99.type, SPECIES.SpeciesSynonym])
@@ -187,7 +189,7 @@ namespace :catalogue do
 
     desc 'EUNIS: Import habitats'
     task habitats: :environment do
-      puts ':: Syncing habitats from virtuoso...'
+      puts ':: Loading habitats...'
 
       q = @query.select(:habitat).where(
             [:habitat, RDFS99.type, HABITAT.HabitatType])
@@ -223,7 +225,7 @@ namespace :catalogue do
     task habitats: :load_repo_before
 
     # Loads sites from EUNIS
-    desc 'Import Sites from EUNIS'
+    desc 'EUNIS: Import Sites'
     task sites: :environment do
       puts ':: Loading protected areas...'
 
@@ -252,48 +254,63 @@ namespace :catalogue do
           species = Species.where(uri: x.subject.to_s).first
           pa.species.push(species) unless species.nil? || pa.species.exists?(species)
         end
-        # s.species.each do |x|
-        #   species = Species.where(uri: x.subject.to_s).first
-        #   unless species.nil? || species.protected_areas.to_a.include?(pa)
-        #     species.protected_areas << pa
-        #   end
-        # end
 
         s.countries.each do |c|
           country = Country.where(uri: c.subject.to_s).first
           pa.countries.push(country) unless country.nil? || pa.countries.exists?(country)
         end
-        # s.countries.each do |c|
-        #   country = Country.find_by_code(c.eunisAreaCode)
-        #   unless country.nil? || country.protected_areas.to_a.include?(pa)
-        #     country.protected_areas << pa
-        #   end
-        # end
 
         s.biogeoregions.each do |b|
           biogeo = BiogeoRegion.find_by_code(b.codeEEA)
           pa.biogeo_regions.push(biogeo) unless biogeo.nil? || pa.biogeo_regions.exists?(biogeo)
         end
-        # s.biogeoregions.each do |b|
-        #   biogeo = BiogeoRegion.find_by_code(b.codeEEA)
-        #   unless biogeo.nil? || biogeo.protected_areas.to_a.include?(pa)
-        #     biogeo.protected_areas << pa
-        #   end
-        # end
 
         s.habitats.each do |h|
           habitat = Habitat.find_by_code(h.code)
           pa.habitats.push(habitat) unless habitat.nil? || pa.habitats.exists?(habitat)
         end
-        # s.habitats.each do |h|
-        #   habitat = Habitat.find_by_code(h.code)
-        #   unless habitat.nil? || habitat.protected_areas.to_a.include?(pa)
-        #     habitat.protected_areas << pa
-        #   end
-        # end
+
       end
     end
     task sites: :load_repo_before
+
+    # Loads sites from EUNIS
+    desc 'Clean deprecated objects'
+    task clean: :environment do
+      puts ':: Searching deprecated species...'
+      Species.all.each_with_index do |s,i|
+        print_process(i)
+        q  = @query.select.where([RDF::Resource.new(s.uri), :p, :o])
+        results = @repo.select(q)
+        unless results.size > 0
+          puts ':: deleting species with uri: ' + s.uri
+          s.destroy
+        end
+      end
+
+      puts ':: Searching deprecated habitats...'
+      Habitat.all.each_with_index do |h,i|
+        print_process(i)
+        q  = @query.select.where([RDF::Resource.new(h.uri), :p, :o])
+        results = @repo.select(q)
+        unless results.size > 0
+          puts ':: deleting habitat with uri: ' + h.uri
+          h.destroy
+        end
+      end
+
+      puts ':: Searching deprecated protected areas...'
+      ProtectedArea.all.each_with_index do |pa,i|
+        print_process(i)
+        q  = @query.select.where([RDF::Resource.new(pa.uri), :p, :o])
+        results = @repo.select(q)
+        unless results.size > 0
+          puts ':: deleting protected area with uri: ' + pa.uri
+          pa.destroy
+        end
+      end
+    end
+    task clean: :load_repo_before
 
   end
 
