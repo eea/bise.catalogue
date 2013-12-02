@@ -1,5 +1,7 @@
 #!/bin/sh
 ### BEGIN INIT INFO
+# chkconfig:         345 99 01
+# description:       Catalogue start/stop script
 # Provides:          unicorn
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
@@ -30,6 +32,13 @@ oldsig () {
   test -s $OLD_PIN && kill -$1 `cat $OLD_PIN`
 }
 
+MAIN_ARG=""
+if [[ $# == 0 ]] ; then
+    MAIN_ARG="start"
+else
+    MAIN_ARG="$1"
+fi
+
 run () {
   if [ "$(id -un)" = "$AS_USER" ]; then
     eval $1
@@ -38,7 +47,7 @@ run () {
   fi
 }
 
-case "$1" in
+case "$MAIN_ARG" in
 start)
   sig 0 && echo >&2 "Already running" && exit 0
   run "$CMD"
