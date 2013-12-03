@@ -22,12 +22,10 @@ $ ->
   });
 
   # a = $('#timeline-graph').data('timeline').map (month) ->
-  #   console.log month
   #   JSON.parse month
 
   json = $('#timeline-graph').data('timeline').map (month) ->
     JSON.parse(month)
-  console.log json
 
 
   Morris.Area({
