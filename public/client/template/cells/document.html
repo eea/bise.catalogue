@@ -1,0 +1,102 @@
+<div class="catalogue-cell">
+
+  <div class="row-fluid">
+
+    <div class="span2">
+      <span style="padding: 7px; color: #5d5d5d">
+        Document
+      </span>
+    </div>
+
+    <div class="span10">
+      <div class="row-fluid">
+        <div class="span12 cell-title">
+          <small style="float: right">
+            <span class="label label-success"><%= site.name %></strong>
+          </small>
+          <div style="float:left; width: 45px">
+            <% if (content_type == 'application/pdf') {%>
+              <div class="pull-left mini-icon pdf"></div>
+            <% } %>
+            <% if (content_type == 'application/rtf') {%>
+              <div class="pull-left mini-icon rtf"></div>
+            <% } %>
+            <% if (content_type == 'application/msword') {%>
+              <div class="pull-left mini-icon word"></div>
+            <% } %>
+            <% if (content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {%>
+              <div class="pull-left mini-icon word2010"></div>
+            <% } %>
+            <% if (content_type == 'text/csv') {%>
+              <div class="pull-left mini-icon csv"></div>
+            <% } %>
+            <% if (content_type == 'application/vnd.ms-excel') {%>
+              <div class="pull-left mini-icon excel"></div>
+            <% } %>
+            <% if (content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {%>
+              <div class="pull-left mini-icon excel2010"></div>
+            <% } %>
+            <% if (content_type == 'application/vnd.ms-powerpoint') {%>
+              <div class="pull-left mini-icon powerpoint"></div>
+            <% } %>
+            <% if (content_type == 'application/vnd.openxmlformats-officedocument.presentationml.presentation') {%>
+              <div class="pull-left mini-icon powerpoint2010"></div>
+            <% } %>
+            <% if (content_type == 'text/plain') {%>
+              <div class="pull-left mini-icon plaintext"></div>
+            <% } %>
+          </div>
+
+          <div style="margin-left: 45px">
+
+            <a class="title"><%= title %></a>
+            <% if (title != english_title){ %>
+              <div class="row-fluid">
+                <div class="span12">
+                  <small><%= english_title %></small>
+                </div>
+              </div>
+            <% } %>
+
+            <div class="row-fluid">
+              <div class="span12">
+                <small>
+                  by
+                  <strong><%= author %></strong>
+                  on
+                  <strong><%= published_on %></strong>
+                </small>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row-fluid preview" style="display:none">
+        <div class="span12">
+
+          <ol style="list-style-type: upper-roman;margin-bottom: 15px">
+            <% if (highlight != undefined && highlight.attachment.length > 0){ %>
+              <% for (i in highlight.attachment){ %>
+                <li style="font-size: 12px">
+                  <% h = highlight.attachment[i] %>
+                  ... <%= h.replace(/(<canvas>)/ig,"") %> ...
+                </li>
+              <% } %>
+            <% } %>
+          </ol>
+
+          <div style="margin-top: 10px; text-align: right">
+            <a target="_blank" href="http://<%= window.Catalogue.host %><%= file_name %>" class="btn btn-mini">
+              Download <%= file_name.substring(file_name.lastIndexOf('/')+1, file_name.length) %>
+
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

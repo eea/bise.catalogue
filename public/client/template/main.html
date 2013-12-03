@@ -1,0 +1,75 @@
+
+<div class="catalogue-toolbar">
+    <div class="select-field">
+        <select id="catalogue-area"></select>
+    </div>
+    <form id="catalogue-search-form">
+        <input id="query" name="query" type="text" class="input-medium search-query" placeholder="Search...">
+        <button type="submit" class="btn" style="margin:none;vertical-align:top">Search</button>
+    </form>
+</div>
+
+
+<div class="catalogue-container">
+
+    <div class="catalogue-sidebar span4">
+        <div id="catalogue-queries" style="display: block; ">
+            <ul></ul>
+            <div id="results-count" style="text-align: right">About 0 results.</div>
+        </div>
+        <div id="catalogue-facets"></div>
+    </div>
+
+    <div class="catalogue-no-results span8">
+        <h1></h1>
+    </div>
+
+    <div class="catalogue-content span8" style="display:none">
+
+        <div class="row-fluid">
+            <div class="span5">
+                <div class="catalogue-options">
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                            Per Page
+                            <span class="caret"></span>
+                        </a>
+                        <ul id="catalogue-per-page" class="dropdown-menu">
+                            <li>
+                                <a href="#">10</a>
+                            </li>
+                            <li>
+                                <a href="#">20</a>
+                            </li>
+                            <li>
+                                <a href="#">30</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="span2 catalogue-status"></div>
+            <div class="span5">
+                <ul class="pager">
+                    <li><a class="p">Previous</a></li>
+                    <li><a class="n">Next</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <ul id="catalogue-results" style=""></ul>
+
+        <div class="row-fluid">
+            <div class="span8"></div>
+            <div class="span4" style="padding-top: 8px">
+                <ul class="pager">
+                    <li><a class="p">Previous</a></li>
+                    <li><a class="n">Next</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

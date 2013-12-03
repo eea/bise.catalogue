@@ -1,0 +1,42 @@
+<div class="catalogue-facet">
+
+  <legend><%= this.titleFor(title) %></legend>
+
+  <% if (typeof(terms) != 'undefined' ){ %>
+    <ul>
+        <% _.each(terms, function(t) { %>
+          <% if (t.term != ''){ %>
+            <li>
+              <a class="facet-link" data-facet="<%= title %>" data-value="<%= t.term %>"><%= t.term %></a>
+              <span style="margin-left: 5px; color: #666666">
+                (<%= t.count %>)
+              </span>
+              <% if (Catalogue.isFacetSelected(title, t.term )){ %>
+                <a class="facet-remove" data-facet="<%= title %>" data-value="<%= t.term %>" style="float:right; color: #bf0000;">
+                  Remove
+                </a>
+              <% } %>
+            </li>
+          <% } %>
+        <% }) %>
+    </ul>
+  <% } else { %>
+    <ul>
+      <% _.each(entries, function(e) { %>
+        <li>
+          <% d = new Date(e.time) %>
+          <a class="facet-link" data-facet="<%= title %>" data-value="<%= d.getFullYear() %>"><%= d.getFullYear() %></a>
+          <span style="margin-left: 5px; color: #666666">
+            (<%= e.count %>)
+          </span>
+          <% if (Catalogue.isFacetSelected(title, d.getFullYear() )){ %>
+            <a class="facet-remove" data-facet="<%= title %>" data-value="<%= d.getFullYear() %>" style="float:right; color: #bf0000;">
+              Remove
+            </a>
+          <% } %>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+</div>

@@ -1,0 +1,36 @@
+<div class="catalogue-cell">
+
+  <div class="row-fluid">
+
+    <div class="span2">
+      <span style="padding: 7px; color: #5d5d5d">
+        Article
+      </span>
+    </div>
+
+    <div class="span10">
+
+      <div class="row-fluid">
+        <div class="span10 cell-title">
+          <a target="_blank" href="<%= source_url %>"><%= title %></a>
+          <% if (title != english_title){ %>
+            <small>
+              <strong><%= english_title %></strong>
+            </small><br/>
+          <% } %>
+          <small>
+            by <strong><%= author %></strong>
+            on <strong><%= published_on %></strong>
+          </small>
+        </div>
+        <div class="span2" style="text-align: right">
+          <small>
+            <span class="label label-success"><%= site.name %></strong>
+          </small>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
