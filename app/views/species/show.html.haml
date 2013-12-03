@@ -61,7 +61,8 @@
       %legend Sites
       %ul
         - @species.protected_areas.each do |pa|
-          %li= link_to pa.name, protected_areas_path(pa) unless @species.taxonomy.nil?
+          %li
+            = link_to pa.name, pa unless @species.taxonomy.nil?
 
 
   / %table.table
