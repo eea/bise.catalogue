@@ -39,6 +39,7 @@ require.config({
 
 require(['views/app'], function(AppView){
     window.Catalogue = new AppView({
-        host: 'localhost:3000'
+        // host: 'bise.catalogue.dev'
+        host: '194.30.43.115:3000'
     })
 });
