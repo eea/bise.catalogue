@@ -32,7 +32,7 @@ module Classifiable
     validates :language_ids  , presence: true
     validate :published_on_is_valid_date
 
-    validates :source_url    , uniqueness: true
+    validates :source_url    , uniqueness: true, if: lambda{ |object| object.source_url.present? }
 
     def published_on_is_valid_date
       errors.add(:published_on, :not_valid) unless published_on.class == Date
