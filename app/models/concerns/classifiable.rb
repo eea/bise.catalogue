@@ -32,6 +32,8 @@ module Classifiable
     validates :language_ids  , presence: true
     validate :published_on_is_valid_date
 
+    validates :source_url    , uniqueness: true
+
     def published_on_is_valid_date
       errors.add(:published_on, :not_valid) unless published_on.class == Date
     end
