@@ -29,10 +29,10 @@
       - for c in @article.countries
         %span.label.label-success= c.name
 
-  / %legend Biographical Region:
-  / .row-fluid
-  /   .span12
-  /     = @document.biographical_region
+  %legend Biographical Region:
+  .row-fluid
+    .span12
+      = @article.biographical_region
 
   %legend Tags
   .row-fluid

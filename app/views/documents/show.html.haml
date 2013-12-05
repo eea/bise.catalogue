@@ -30,6 +30,11 @@
 
   = render 'common/showinfo', obj: @document
 
+  %legend Description
+  .row-fluid
+    .span12
+      = raw @document.description
+
   %legend Countries
   .row-fluid
     .span12
@@ -47,10 +52,5 @@
     .span12
       - @document.tag_list.each do |t|
         .label.label-success= t
-
-  %legend Description
-  .row-fluid
-    .span12
-      = raw @document.description
 
 
