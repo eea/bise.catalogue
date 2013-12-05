@@ -1,0 +1,21 @@
+- content_for :pageheader do
+  Manage sites (Contributors)
+
+- content_for :actions do
+  - if current_user.approver?
+    = link_to  new_admin_site_path, class: "btn" do
+      %i.icon-plus
+      New Site
+
+.container-fluid
+  %table.table.table-striped
+    %tr
+      %th Name
+      %th Description
+      %th{ style: 'width: 60px' }
+    - @sites.each do |site|
+      %tr
+        %td= site.name
+        %td= raw site.description
+        %td= link_to 'Edit', edit_admin_site_path(site), class: 'btn btn-primary btn-small'
+        / %td= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }

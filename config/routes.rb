@@ -1,13 +1,13 @@
 Catalogue::Application.routes.draw do
 
-  root :to => 'home#index'
+  root to: 'home#index'
 
   devise_for :users
 
   get "home/index"
 
   # SITES
-  resources :sites
+  # resources :sites
 
   # ARTICLES
   resources :articles do
@@ -40,7 +40,7 @@ Catalogue::Application.routes.draw do
   resources :species
 
   # API
-  namespace :api, :defaults => { :format => 'json' } do
+  namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       resources :ecosystem_assessments
       match '/search' => 'search#index'
@@ -50,14 +50,19 @@ Catalogue::Application.routes.draw do
     end
   end
 
-  # ECOSYSTEM ASSESMENT
-  resources :ecosystem_assessments
-
-  scope '/api' do
-    match '/search' => 'search#index'
-    post '/sync' => 'sync#create'
-    put '/sync' => 'sync#update'
-    delete '/sync' => 'sync#delete'
+  # Admin
+  namespace :admin do
+    resources :sites
   end
+
+  # ECOSYSTEM ASSESMENT
+  # resources :ecosystem_assessments
+
+  # scope '/api' do
+  #   match '/search' => 'search#index'
+  #   post '/sync' => 'sync#create'
+  #   put '/sync' => 'sync#update'
+  #   delete '/sync' => 'sync#delete'
+  # end
 
 end
