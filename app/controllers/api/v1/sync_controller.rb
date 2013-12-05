@@ -14,12 +14,45 @@ module Api
 
       respond_to :json
 
+      # before_filter :check_auth_token!
+      before_filter do |c|
+        @params = request.params
+        return_error('resource_type not especified.') if @params[:resource_type].nil?
+
+        # resource_type
+        @res = request.params[:resource_type]
+
+        # Converts token and language to internal items
+        c.check_auth_token!(request.params[:auth_token])
+        c.check_languages(request.params[:language])
+        params = @params
+      end
       after_filter :set_access_control_headers
+
+      def check_auth_token!(token)
+        site = Site.where(auth_token: token).first
+        if site.nil?
+          return_error("auth_token #{token} not valid for any site.")
+        else
+          @params[@res.to_sym] = @params[@res.to_sym].merge!({ site_id: site.id }).except!(:auth_token)
+        end
+      end
+
+      def check_languages(language)
+        lang = Language.where(name: language).first
+        lang = Language.where(code: language).first if lang.nil?
+        if lang.nil?
+          return_error("language #{language} not valid.")
+        else
+          @params[@res.to_sym] = @params[@res.to_sym].merge!({ language_ids: [lang.id] }).except!(:language)
+        end
+      end
 
       def set_access_control_headers
         headers['Access-Control-Allow-Origin'] = '*'
         headers['Access-Control-Request-Method'] = '*'
       end
+
 
       # TODO: Create webservices for CodeSyntax
       # -------- /api/v1/sync service ---------
@@ -52,7 +85,7 @@ module Api
       #   link[description]:   text
       #
       def create
-        case params[:resource_type]
+        case @res
         when 'article'
           @article = Article.new(params[:article])
           if @article.save
@@ -80,7 +113,7 @@ module Api
       end
 
       def update
-        case params[:resource_type]
+        case @res
         when 'article'
           @article = Article.where(source_url: params[:source_url]).first
           return_error('source_url not found.'); return if @article.nil?
@@ -114,7 +147,7 @@ module Api
       end
 
       def delete
-        case params[:resource_type]
+        case @res
         when 'article'
           @article = Article.where(source_url: params[:source_url]).first
           if @article.nil?
@@ -149,6 +182,5 @@ module Api
       end
 
     end
-
   end
 end

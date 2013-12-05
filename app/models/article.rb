@@ -18,6 +18,8 @@ class Article < ActiveRecord::Base
   after_save(&refresh)
   after_destroy(&refresh)
 
+  validates :content, presence: true
+
   settings analysis: {
     analyzer: {
       search_analyzer: {
