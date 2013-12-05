@@ -1,20 +1,39 @@
 / %h2 Sign in
 
+%link{href: "http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300", rel: "stylesheet", type: "text/css"}/
 .container-fluid
   .row-fluid
     .span8
-      %legend Welcome to BISE Catalogue!
+      %legend{ style: "font-family: 'Open Sans Condensed', sans-serif; font-weight: bold" }
+        Welcome to BISE Catalogue!
       %br
       .row-fluid
         .span3
-          = image_tag 'BISE-logo.png'
-        .span9
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-          consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-          cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          = link_to 'http://biodiversity.europa.eu' do
+            = image_tag 'BISE-logo.png'
+        .span9{ style: "font-size: 18px; font-family: 'Open Sans Condensed', sans-serif;" }
+          %p
+            This tool is the BISE Catalogue, a component of the Biodiversity
+            Information System for Europe. This information system has the aim
+            of sharing data and information that serves as the biodiversity
+            knowledge base for the policy plans and activities in the European
+            Union up to 2020.
+          %p
+            The Catalogue provides the following capabilities:
+          %ul{ style: 'margin-bottom: 15px;font-size: 15px;' }
+            %li
+              Registration of sources (e.g. EUNIS linked data at EEA Semantic Data Service)
+            %li
+              Validation and publication workflow for sources.
+            %li
+              Documents storage.
+            %li
+              Indexation of resources.
+            %li
+              Searching.
+            %li
+              Visualization and sharing of resources.
+
     .span4
       .well
         = simple_form_for(resource, :as => resource_name, :url => session_path(resource_name), html: { style: 'margin:0px' }) do |f|
