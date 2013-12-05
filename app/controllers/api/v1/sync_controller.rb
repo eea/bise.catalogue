@@ -117,24 +117,27 @@ module Api
         case params[:resource_type]
         when 'article'
           @article = Article.where(source_url: params[:source_url]).first
-          return_error('source_url not found.'); return @article.nil?
-          @article.destroy
-          respond_to do |format|
-            format.json { head :no_content }
+          if @article.nil?
+            return_error('source_url not found.')
+          else
+            @article.destroy
+            render json: { success: 'Article has been deleted.' }, status: 200
           end
         when 'document'
           @document = Document.where(source_url: params[:source_url]).first
-          return_error('source_url not found.'); return if @document.nil?
-          @document.destroy
-          respond_to do |format|
-            format.json { head :no_content }
+          if @document.nil?
+            return_error('source_url not found.')
+          else
+            @document.destroy
+            render json: { success: 'Document has been deleted.' }, status: 200
           end
         when 'link'
           @link = Link.where(source_url: params[:source_url]).first
-          return_error('source_url not found.'); return if @link.nil?
-          @link.destroy
-          respond_to do |format|
-            format.json { head :no_content }
+          if @link.nil?
+            return_error('source_url not found.')
+          else
+            @link.destroy
+            render json: { success: 'Link has been deleted.' }, status: 200
           end
         else
           return_error('resource_type not especified.')
