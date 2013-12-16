@@ -24,7 +24,7 @@ module Api
 
         # Converts token and language to internal items
         c.check_auth_token!(request.params[:auth_token])
-        c.check_languages(request.params[:language])
+        c.check_languages(request.params)
         params = @params
       end
       after_filter :set_access_control_headers
@@ -38,13 +38,16 @@ module Api
         end
       end
 
-      def check_languages(language)
-        lang = Language.where(name: language).first
-        lang = Language.where(code: language).first if lang.nil?
-        if lang.nil?
-          return_error("language #{language} not valid.")
-        else
-          @params[@res.to_sym] = @params[@res.to_sym].merge!({ language_ids: [lang.id] }).except!(:language)
+      def check_languages(params)
+        if params[:language].present?
+          language = params[:language]
+          lang = Language.where(name: language).first
+          lang = Language.where(code: language).first if lang.nil?
+          if lang.nil?
+            return_error("language #{language} not valid.")
+          else
+            @params[@res.to_sym] = @params[@res.to_sym].merge!({ language_ids: [lang.id] }).except!(:language)
+          end
         end
       end
 
@@ -115,31 +118,37 @@ module Api
       def update
         case @res
         when 'article'
-          @article = Article.where(source_url: params[:source_url]).first
-          return_error('source_url not found.'); return if @article.nil?
-
-          if @article.update_attributes(params[:article])
-            render json: @article, status: :created, location: @article
+          @article = Article.where(source_url: params[:article][:source_url]).first
+          if @article.nil?
+            return_error('source_url not found.')
           else
-            render json: @article.errors, status: :unprocessable_entity
+            if @article.update_attributes(params[:article])
+              render json: @article, status: :updated, location: @article
+            else
+              render json: @article.errors, status: :unprocessable_entity
+            end
           end
         when 'document'
-          @document = Document.where(source_url: params[:source_url]).first
-          return_error('source_url not found.'); return if @document.nil?
-
-          if @document.update_attributes(params[:document])
-            render json: @document, status: :created, location: @document
+          @document = Document.where(source_url: params[:document][:source_url]).first
+          if @document.nil?
+            return_error('source_url not found.')
           else
-            render json: @document.errors, status: :unprocessable_entity
+            if @document.update_attributes(params[:document])
+              render json: @document, status: :updated, location: @document
+            else
+              render json: @document.errors, status: :unprocessable_entity
+            end
           end
         when 'link'
-          @link = Link.where(source_url: params[:source_url]).first
-          return_error('source_url not found.'); return if @link.nil?
-
-          if @link.update_attributes(params[:link])
-            render json: @link, status: :created, location: @link
+          @link = Link.where(source_url: params[:link][:source_url]).first
+          if @link.nil?
+            return_error('source_url not found.')
           else
-            render json: @link.errors, status: :unprocessable_entity
+            if @link.update_attributes(params[:link])
+              render json: @link, status: :updated, location: @link
+            else
+              render json: @link.errors, status: :unprocessable_entity
+            end
           end
         else
           return_error('resource_type not especified on update.')
@@ -149,7 +158,7 @@ module Api
       def delete
         case @res
         when 'article'
-          @article = Article.where(source_url: params[:source_url]).first
+          @article = Article.where(source_url: params[:article][:source_url]).first
           if @article.nil?
             return_error('source_url not found.')
           else
@@ -157,7 +166,7 @@ module Api
             render json: { success: 'Article has been deleted.' }, status: 200
           end
         when 'document'
-          @document = Document.where(source_url: params[:source_url]).first
+          @document = Document.where(source_url: params[:document][:source_url]).first
           if @document.nil?
             return_error('source_url not found.')
           else
@@ -165,7 +174,7 @@ module Api
             render json: { success: 'Document has been deleted.' }, status: 200
           end
         when 'link'
-          @link = Link.where(source_url: params[:source_url]).first
+          @link = Link.where(source_url: params[:link][:source_url]).first
           if @link.nil?
             return_error('source_url not found.')
           else
@@ -179,6 +188,7 @@ module Api
 
       def return_error(msg)
         render json: { error: msg }
+        return
       end
 
     end

@@ -25,8 +25,3 @@ Feature: Manage Articles
     Then I should see "Biodiversity"
 
 
-
-
-
-
-

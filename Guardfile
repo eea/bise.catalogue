@@ -9,14 +9,6 @@
 #   watch("Gemfile.lock")
 # end
 
-
-# guard 'livereload' do
-#   watch(%r{app/.+\.(erb|haml)})
-#   watch(%r{app/helpers/.+\.rb})
-#   watch(%r{public/.+\.(css|js|html)})
-#   watch(%r{config/locales/.+\.yml})
-# end
-
 # , :command_prefix => 'zeus'
 guard 'rspec', :command_prefix => 'zeus' do
   watch(%r{^spec/.+_spec\.rb$})
