@@ -224,6 +224,7 @@ class Document < ActiveRecord::Base
     doc_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
     doc_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
     doc_filter << { range: { published_on: { gte: date_init , lt: date_end }}} if params[:published_on].present?
+    doc_filter << { bool: { must: { term: { approved: show_approved} }}}
 
     tire.search load: true, page: params[:page], per_page: params[:per_page] do
       query do

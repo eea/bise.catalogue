@@ -184,6 +184,7 @@ class Link < ActiveRecord::Base
     link_filter << { term: { 'languages.name' => params[:languages].split(/\//) }}      if params[:languages].present?
     link_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
     link_filter << { range: { published_on: { gte: date_init , lt: date_end }}} if params[:published_on].present?
+    link_filter << { bool: { must: { term: { approved: show_approved} }}}
 
     tire.search load: true, page: params[:page], per_page: 10 do
 

@@ -1,6 +1,7 @@
 class ArticlesController < InheritedResources::Base
 
   before_filter :authenticate_user!
+  has_scope :approved, type: :boolean
 
   def approve_multiple
     if (params[:article_ids].nil?)

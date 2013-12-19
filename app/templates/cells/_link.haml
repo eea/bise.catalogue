@@ -5,14 +5,16 @@
     .cell-title
       = link_to link.title, link
 
-    %small by #{link.author} at #{link.created_at.strftime("%d/%m/%Y")}
+    %small
+      = "by #{link.author} "
+      = "at #{link.published_on.strftime('%d/%m/%Y')}"
 
     - if link.approved?
       %span.label.label-success.pull-right
         Approved
     - else
       %span.label.label-important.pull-right
-        Not approved
+        Unapproved
 
     %br
     - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content'

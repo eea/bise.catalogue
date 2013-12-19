@@ -34,6 +34,11 @@ module Classifiable
 
     validates :source_url    , uniqueness: true, if: lambda{ |object| object.source_url.present? }
 
+
+    scope :approved, -> { where(approved: true) }
+    scope :unapproved, -> { where(approved: false) }
+
+
     def published_on_is_valid_date
       errors.add(:published_on, :not_valid) unless published_on.class == Date
     end

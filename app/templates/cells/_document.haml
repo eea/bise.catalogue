@@ -28,28 +28,25 @@
     %div{ style: 'margin-left: 50px'}
 
       .cell-title
-        - if hit.has_key?'highlight' and hit['highlight'].has_key? 'title'
-          = link_to raw(hit['highlight']['title'].first), doc
-        - else
-          = link_to doc.title, doc
-          - if doc.title != doc.english_title
-            %br
-            %small= doc.english_title
+        = link_to doc.title, doc
+        - if doc.title != doc.english_title
+          %br
+          %small= doc.english_title
 
       - if doc.author?
-        %small by #{doc.author} on #{doc.published_on}
-
+        %small
+          = "by #{doc.author} "
+          = "on #{doc.published_on}"
       - if doc.approved?
         %span.label.label-success.pull-right
-          Published
+          Approved
       - else
         %span.label.label-important.pull-right
-          Unpublished
+          Unapproved
 
       %br
       - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
         - att_hits = hit['highlight']['attachment']
-
         .hits
           %ol{ type: "I" }
             - att_hits.each do |h|
