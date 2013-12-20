@@ -3,10 +3,10 @@
 
 - content_for :actions do
   = link_to  protected_areas_path, class: "btn" do
-    %i.icon-reply
+    = fa_icon 'reply'
     Back
   = link_to  @protected_area.uri, class: "btn", target: "_blank" do
-    %i.icon-eye-open
+    = fa_icon 'eye'
     Watch in EUNIS
 
 

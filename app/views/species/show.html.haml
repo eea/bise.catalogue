@@ -3,14 +3,11 @@
 
 - content_for :actions do
   = link_to  species_index_path, class: "btn" do
-    %i.icon-reply
+    = fa_icon 'reply'
     Back
-  = link_to  edit_species_path(@species), class: "btn" do
-    %i.icon-pencil
-    Edit
-  = link_to species_path(@species), method: :delete, class: "btn btn-danger pull-right" do
-    %i.icon-trash
-    Delete
+  = link_to  @species.uri, class: "btn", target: "_blank" do
+    = fa_icon 'eye'
+    Watch in EUNIS
 
 
 .container

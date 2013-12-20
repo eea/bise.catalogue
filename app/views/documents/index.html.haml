@@ -4,10 +4,10 @@
 - content_for :actions do
   - if current_user.approver?
     = link_to new_document_path, class: "btn" do
-      %i.icon-plus
+      = fa_icon 'plus'
       New Document
   = link_to params.merge(format: 'xls'), class: "btn" do
-    %i.icon-download-alt
+    = fa_icon 'download'
     Export XLS
   = render 'common/approved_toggle'
   = form_tag documents_path, method: 'get', class: 'form-search pull-right' do

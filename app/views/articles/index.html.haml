@@ -4,7 +4,7 @@
 - content_for :actions do
   - if current_user.approver?
     = link_to  new_article_path, class: "btn" do
-      %i.icon-plus
+      = fa_icon 'plus'
       New Article
   = render 'common/approved_toggle'
   = form_tag articles_path, method: 'get', class: 'search-query pull-right' do

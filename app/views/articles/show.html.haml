@@ -3,14 +3,14 @@
 
 - content_for :actions do
   = link_to articles_path, class: "btn" do
-    %i.icon-reply
+    = fa_icon 'reply'
     Back
   - if current_user.approver?
     = link_to  edit_article_path(@article), class: "btn" do
-      %i.icon-pencil
+      = fa_icon 'pencil'
       Edit
     = link_to  article_path(@article), method: :delete, class: "btn btn-danger" do
-      %i.icon-trash
+      = fa_icon 'trash-o'
       Delete
 
 

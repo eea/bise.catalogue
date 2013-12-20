@@ -3,16 +3,15 @@
 
 - content_for :actions do
   = link_to links_path, class: "btn" do
-    %i.icon-reply
+    = fa_icon 'reply'
     Back
   - if current_user.approver?
     = link_to  edit_link_path(@link), class: "btn" do
-      %i.icon-pencil
+      = fa_icon 'pencil'
       Edit
     = link_to  link_path(@link), method: :delete, class: "btn btn-danger pull-right" do
-      %i.icon-trash
+      = fa_icon 'trash'
       Delete
-
 
 
 .container-fluid
