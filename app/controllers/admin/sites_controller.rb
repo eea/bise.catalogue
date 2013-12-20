@@ -55,7 +55,7 @@ class Admin::SitesController < ApplicationController
     @site.destroy
 
     respond_to do |format|
-      format.html { redirect_to sites_url }
+      format.html { redirect_to admin_sites_url }
       format.json { head :no_content }
     end
   end

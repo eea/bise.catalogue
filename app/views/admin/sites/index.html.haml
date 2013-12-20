@@ -12,10 +12,17 @@
     %tr
       %th Name
       %th Description
-      %th{ style: 'width: 60px' }
+      %th{ style: 'width: 48px' }
+      %th{ style: 'width: 75px' }
     - @sites.each do |site|
       %tr
         %td= site.name
         %td= raw site.description
-        %td= link_to 'Edit', edit_admin_site_path(site), class: 'btn btn-primary btn-small'
-        / %td= link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }
+        %td
+          = link_to edit_admin_site_path(site), class: 'btn btn-primary btn-mini' do
+            = fa_icon 'pencil'
+            Edit
+        %td
+          = link_to admin_site_path(site), method: :delete, class: 'btn btn-danger btn-mini', data: { confirm: 'Are you sure?' } do
+            = fa_icon 'trash-o'
+            Destroy
