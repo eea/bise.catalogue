@@ -45,13 +45,13 @@ module HomeHelper
       # 'species'
     ]
 
-    time_start = 13.months.ago
+    time_start = 12.months.ago
     time = time_start
     while time < 0.seconds.ago
       month_name = Date::MONTHNAMES[time.month]
       date_init = DateTime.new(time.year, time.month, 1)
-      time = time.advance(months: 1)
       date_end = Date.civil(time.year, time.month, -1)
+      time = time.advance(months: 1)
 
       index_counts = Array.new
       indexes.map do |index|
