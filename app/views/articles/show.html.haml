@@ -2,9 +2,14 @@
   = @article.title
 
 - content_for :actions do
-  = link_to articles_path, class: "btn" do
-    = fa_icon 'reply'
-    Back
+  - if search_params_available?
+    = link_to :back, class: "btn" do
+      = fa_icon 'reply'
+      Back
+  - else
+    = link_to articles_path, class: "btn" do
+      = fa_icon 'reply'
+      Back to List
   - if current_user.approver?
     = link_to  edit_article_path(@article), class: "btn" do
       = fa_icon 'pencil'

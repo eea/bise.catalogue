@@ -5,8 +5,8 @@ class DocumentsController < InheritedResources::Base
   def index
     if params[:format] == 'xls'
       params[:per_page] = 1000
-      response.headers["ContentType"]="text/xml"
-      response.headers["Content-Disposition"]="attachment"
+      response.headers["ContentType"] = "text/xml"
+      response.headers["Content-Disposition"] = "attachment"
     end
     @documents = Document.search(params)
 

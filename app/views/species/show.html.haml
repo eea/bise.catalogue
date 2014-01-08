@@ -2,9 +2,14 @@
   = @species.binomial_name
 
 - content_for :actions do
-  = link_to  species_index_path, class: "btn" do
-    = fa_icon 'reply'
-    Back
+  - if search_params_available?
+    = link_to :back, class: "btn" do
+      = fa_icon 'reply'
+      Back
+  - else
+    = link_to species_index_path, class: "btn" do
+      = fa_icon 'reply'
+      Back to List
   = link_to  @species.uri, class: "btn", target: "_blank" do
     = fa_icon 'eye'
     Watch in EUNIS

@@ -98,4 +98,31 @@ module ApplicationHelper
     end
   end
 
+  def search_params_available?
+
+    # params = %w(query site author countries languages published_on approved)
+    prev = request.referer
+
+    if prev.present? &&
+       (
+        prev.include?('query') ||
+        prev.include?('site') ||
+        prev.include?('author') ||
+        prev.include?('countries') ||
+        prev.include?('languages') ||
+        prev.include?('published_on') ||
+        prev.include?('source_db') ||
+        prev.include?('kingdom') ||
+        prev.include?('phylum') ||
+        prev.include?('classis') ||
+        prev.include?('species_group') ||
+        prev.include?('taxonomic_rank') ||
+        prev.include?('approved')
+       )
+      true
+    else
+      false
+    end
+  end
+
 end

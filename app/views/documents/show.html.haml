@@ -2,9 +2,14 @@
   = @document.title
 
 - content_for :actions do
-  = link_to documents_path, class: "btn" do
-    = fa_icon 'reply'
-    Back
+  - if search_params_available?
+    = link_to :back, class: "btn" do
+      = fa_icon 'reply'
+      Back
+  - else
+    = link_to documents_path, class: "btn" do
+      = fa_icon 'reply'
+      Back to List
   = link_to @document.file_url, class: "btn" do
     = fa_icon 'download'
     Download
