@@ -126,7 +126,7 @@ class Habitat < ActiveRecord::Base
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
 
       facet 'countries' do
-        terms 'countries.name', size: 30
+        terms 'countries.name', size: 60
         facet_filter :and, hab_filter unless hab_filter.empty?
       end
     end
