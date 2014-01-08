@@ -22,20 +22,22 @@ class Habitat < ActiveRecord::Base
   settings analysis: {
     analyzer: {
       search_analyzer: {
-        tokenizer: "keyword",
-        filter: ["lowercase"]
+        type: 'custom',
+        tokenizer: 'standard',
+        filter: %w(lowercase snowball)
       },
       index_ngram_analyzer: {
-        tokenizer: "keyword",
-        filter: ["lowercase", "substring"],
-        type: "custom"
+        type: 'custom',
+        tokenizer: 'standard',
+        filter: %w(lowercase snowball substring)
       }
     },
     filter: {
       substring: {
-        type: "nGram",
+        type: 'nGram',
         min_gram: 1,
-        max_gram: 20
+        max_gram: 40,
+        token_chars: %(letter digit)
       }
     }
   } do
@@ -55,7 +57,10 @@ class Habitat < ActiveRecord::Base
 
       indexes :countries do
         indexes :id, type: 'integer'
-        indexes :name, type: 'string', index: :not_analyzed
+        indexes :name, type: 'string' , index: :not_analyzed
+        indexes :ngram_name ,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
       end
 
       indexes :published_on,
@@ -93,13 +98,21 @@ class Habitat < ActiveRecord::Base
       natura2000_code: natura2000_code,
       level:           level,
       description:     description,
-      countries:       countries.map { |c| { _type: 'country', _id: c.id, name: c.name } },
+      countries:      countries.map do |c|
+        { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name }
+      end,
       published_on:    created_at,
       approved:        approved
     }.to_json
   end
 
   def self.search(params)
+
+    params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)]/, '\\1') if params[:query].present?
+
+    hab_filter = Array.new
+    hab_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
+
     tire.search load: true, page: params[:page], per_page: 10 do
       query do
         boolean do
@@ -110,8 +123,11 @@ class Habitat < ActiveRecord::Base
 
       highlight :name
 
+      # filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
+
       facet 'countries' do
         terms 'countries.name', size: 30
+        facet_filter :and, hab_filter unless hab_filter.empty?
       end
     end
   end
