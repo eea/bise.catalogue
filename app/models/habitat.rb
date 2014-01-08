@@ -123,7 +123,7 @@ class Habitat < ActiveRecord::Base
 
       highlight :name
 
-      # filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
+      filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
 
       facet 'countries' do
         terms 'countries.name', size: 30
