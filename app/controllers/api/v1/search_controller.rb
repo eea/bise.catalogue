@@ -179,7 +179,7 @@ module Api
             end
 
             facet 'countries' do
-              terms 'countries.name'
+              terms 'countries.name', size: 60
               facet_filter :and, search_filter unless search_filter.empty?
             end
 
