@@ -2,14 +2,9 @@
   = @document.title
 
 - content_for :actions do
-  - if !request.env["HTTP_REFERER"].nil? and request.env["HTTP_REFERER"].include?('documents/new')
-    = link_to documents_path, class: "btn" do
-      = fa_icon 'reply'
-      Back to List
-  - else
-    = link_to :back, class: "btn" do
-      = fa_icon 'reply'
-      Back
+  = link_to documents_path, class: "btn" do
+    = fa_icon 'reply'
+    Back
   = link_to @document.file_url, class: "btn" do
     = fa_icon 'download'
     Download
