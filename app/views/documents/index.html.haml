@@ -32,7 +32,7 @@
             Sort by
             %span.caret
           %ul.dropdown-menu.text-left
-            %li= link_to "Title", params.merge(sort: 'sort_title', page: 1)
+            %li= link_to "Title", params.merge(sort: 'title.exact', page: 1)
             %li= link_to "Published On", params.merge(sort: 'published_on', page: 1)
         = render 'per_page'
 
