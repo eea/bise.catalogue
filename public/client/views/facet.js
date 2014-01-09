@@ -23,8 +23,8 @@ define(['jquery', 'underscore', 'backbone', 'models/facet', 'text!template/facet
     },
 
     events: {
-      "click .facet-link"         : "filterByFacet",
-      "click .facet-remove"       : "filterByFacet"
+      "click .facet-link"         : "applyFilter",
+      "click .facet-remove"       : "unapplyFilter"
     },
 
     initialize: function() {
@@ -36,9 +36,13 @@ define(['jquery', 'underscore', 'backbone', 'models/facet', 'text!template/facet
       return this;
     },
 
-    filterByFacet: function(e) {
+    applyFilter: function(e) {
       el =$(e.currentTarget)
       Catalogue.mergeFacet( el.data('facet'), el.data('value'))
+    },
+
+    unapplyFilter: function(e) {
+      Catalogue.removeFacet(el.data('facet'))
     },
 
     titleFor: function(facet){

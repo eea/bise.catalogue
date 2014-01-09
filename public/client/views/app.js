@@ -14,7 +14,7 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
       // news: 'News',
       links: 'Links',
       species: 'Species',
-      habitats: 'Habitat',
+      habitats: 'Habitats',
       protected_areas: 'Sites'
     },
 
@@ -35,7 +35,7 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
     },
 
     initialize: function(options) {
-      _.bindAll(this, 'addOne', 'addAll', 'render', 'mergeFacet', 'isFacetSelected')
+      _.bindAll(this, 'addOne', 'addAll', 'render', 'mergeFacet', 'removeFacet', 'isFacetSelected')
 
       // Add main template
       $(this.$el.selector).append(this.mainTemplate)
@@ -179,16 +179,23 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
     },
 
     mergeFacet: function(key, value){
-      if (_.has(this.queryparams, key))
-        delete this.queryparams[key]
-      else
-        this.queryparams[key] = value
+      // if (!_.has(this.queryparams, key))
+      this.queryparams[key] = value
+      this.queryparams['page'] = 1
+      this.runQuery()
+    },
+
+    removeFacet: function(key) {
+      delete this.queryparams[key];
+      this.queryparams['page'] = 1
       this.runQuery()
     },
 
     isFacetSelected: function(key, value){
+      // console.log(':: key => ' + key + ' - value => ' + this.queryparams[key]);
       if (_.has(this.queryparams, key))
-        return true
+        if (this.queryparams[key] == value)
+          return true
       return false
     },
 
