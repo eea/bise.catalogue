@@ -56,7 +56,6 @@ module Api
           per  = if params[:per_page].present? then params[:per_page].to_i else 10 end
           from = if page == 1 then 0 else (page - 1) * per end
 
-          # site      = params[:site] if params[:site].present?
           source_db = params[:source_db] if params[:source_db].present?
           author    = params[:author] if params[:author].present?
           countries = params[:countries].split(/\//) if params[:countries].present?
@@ -113,7 +112,7 @@ module Api
             end
 
             filter :bool, must: { term: { approved: true } }
-            filter :term, 'site.name' => site unless site.nil?
+            filter :term, 'site.name' => 'BISE'
             filter :term, source_db: source_db unless source_db.nil?
             filter :term, author: author unless author.nil?
             filter :term, 'countries.name' => countries unless countries.nil?
