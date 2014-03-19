@@ -171,8 +171,16 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
               facet.entries.length > 0)){
             m = new Backbone.Model(facet)
             m.title = title
-            var view = new FacetView({model: m})
-            this.$("#catalogue-facets").append(view.render().el)
+
+            var n = $('<div>').addClass('catalogue-facet '+title)
+            this.$("#catalogue-facets").append(n)
+            new FacetView({
+              el: this.$('.catalogue-facet.'+title),
+              model: m
+            }).render()
+
+            // var view = new FacetView({model: m})
+            // this.$("#catalogue-facets").append(view.render().el)
           }
         }
       }
@@ -186,6 +194,7 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
     },
 
     removeFacet: function(key) {
+      console.log(':: removing ' + key + ' facet');
       delete this.queryparams[key];
       this.queryparams['page'] = 1
       this.runQuery()
