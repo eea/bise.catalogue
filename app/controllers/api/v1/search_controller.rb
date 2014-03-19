@@ -153,7 +153,7 @@ module Api
             end
           end
         else
-          @rows = nil
+          @rows = Tire.search indexes, load: false, from: from, size: per
         end
         respond_with render_response(@rows)
       end
