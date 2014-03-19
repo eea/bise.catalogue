@@ -384,12 +384,12 @@ module Api
       private
 
       def clean_param(param)
-        Sanitize.clean(param) || ''
+        (param.nil?) ? nil : Sanitize.clean(param)
       end
 
       def render_response(rows)
         response = Hash.new
-        if rows.nil? or rows.results.nil?
+        if rows.nil? || rows.results.nil?
           response['total']   = 0
           response['results'] = []
           response['facets']  = []
