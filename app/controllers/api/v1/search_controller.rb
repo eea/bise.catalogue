@@ -79,7 +79,7 @@ module Api
             query do
               boolean do
                 # SITE
-                must     { string 'site.name: BISE' }
+                should   { string 'site.name: BISE' }
 
                 # Article & Documents titles
                 should   { string 'title:'                     + q }
