@@ -384,7 +384,7 @@ module Api
       private
 
       def clean_param(param)
-        Sanitize.clean(param)
+        Sanitize.clean(param) || ''
       end
 
       def render_response(rows)
