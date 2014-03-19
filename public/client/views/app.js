@@ -12,10 +12,10 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
       articles: 'Articles',
       documents: 'Documents',
       // news: 'News',
-      links: 'Links',
-      species: 'Species',
-      habitats: 'Habitats',
-      protected_areas: 'Sites'
+      links: 'Links'
+      // species: 'Species',
+      // habitats: 'Habitats',
+      // protected_areas: 'Sites'
     },
 
     queryparams: {
