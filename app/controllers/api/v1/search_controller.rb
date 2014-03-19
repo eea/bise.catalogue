@@ -20,10 +20,147 @@ module Api
         headers['Access-Control-Request-Method'] = '*'
       end
 
+
+      def bise_search
+        q = clean_param(params[:query])
+
+        date_init = nil
+        date_end = nil
+        if params[:published_on].present?
+          date_init = DateTime.new(params[:published_on].to_i, 1, 1)
+          date_end = DateTime.new(params[:published_on].to_i, 12, 31)
+        end
+
+        indexes = params[:indexes]
+        if indexes == "all"
+          indexes = [
+            'articles',
+            'documents',
+            'links'
+          ]
+        else
+          indexes = [ indexes ]
+        end
+
+        indexes = indexes.map do |i|
+          if Rails.env.production?
+            "catalogue_production_#{i}"
+          else
+            "catalogue_development_#{i}"
+          end
+        end
+
+        if !q.nil?
+
+          page = if params[:page].present? then params[:page].to_i else 1 end
+          per  = if params[:per_page].present? then params[:per_page].to_i else 10 end
+          from = if page == 1 then 0 else (page - 1) * per end
+
+          # site      = params[:site] if params[:site].present?
+          source_db = params[:source_db] if params[:source_db].present?
+          author    = params[:author] if params[:author].present?
+          countries = params[:countries].split(/\//) if params[:countries].present?
+          languages = params[:languages].split(/\//) if params[:languages].present?
+          biogeo    = params[:biographical_region] if params[:biographical_region].present?
+
+          species_group  = params[:species_group] if params[:species_group].present?
+          genus          = params[:genus] if params[:genus].present?
+
+          search_filter = []
+          search_filter << { term: { approved: true }}
+          search_filter << { term: { 'site.name' => 'BISE' }}
+          search_filter << { term: { source_db: params[:source_db] }} if params[:source_db].present?
+          search_filter << { term: { author: params[:author] }} if params[:author].present?
+          search_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
+          search_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
+          search_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
+          search_filter << { range: { published_on: { gte: date_init , lt: date_end }}} if params[:published_on].present?
+
+          @rows = Tire.search indexes, load: false, from: from, size: per do
+            query do
+              boolean do
+                # SITE
+                must     { string 'site.name: BISE' }
+
+                # Article & Documents titles
+                should   { string 'title:'                     + q }
+                should   { string 'english_title:'             + q }
+                should   { string 'description:'               + q }
+                should   { string 'content:'                   + q }
+
+                should   { string 'attachment:'                + q }
+
+                # AUTHOR
+                should   { string 'ngram_author:'              + q }
+
+                # Countries & Languages
+                should   { string 'countries.ngram_name:'      + q }
+                should   { string 'languages.ngram_name:'      + q }
+
+                # Tags
+                should   { string 'tags.ngram_name:'           + q }
+
+                # Biographical Region
+                should   { string 'biographical_region_ngram:' + q }
+
+                # Protected Area name
+                should   { string 'name:'                      + q }
+                should   { string 'habitats.name:'             + q }
+                should   { string 'habitats.code:'             + q }
+                should   { string 'biogeo_regions.name:'       + q }
+                should   { string 'biogeo_regions.code:'       + q }
+              end
+            end
+
+            filter :bool, must: { term: { approved: true } }
+            filter :term, 'site.name' => site unless site.nil?
+            filter :term, source_db: source_db unless source_db.nil?
+            filter :term, author: author unless author.nil?
+            filter :term, 'countries.name' => countries unless countries.nil?
+            filter :term, 'languages.name' => languages unless languages.nil?
+            filter :term, biographical_region: biogeo unless biogeo.nil?
+            filter :range, published_on: { gte: date_init, lt: date_end } unless date_init.nil?
+
+            highlight attachment: { number_of_fragments: 2 }
+
+            facet 'source_db' do
+              terms :source_db
+              facet_filter :and, search_filter unless search_filter.empty?
+            end
+
+            facet 'author' do
+              terms :author
+              facet_filter :and, search_filter unless search_filter.empty?
+            end
+
+            facet 'countries' do
+              terms 'countries.name', size: 60
+              facet_filter :and, search_filter unless search_filter.empty?
+            end
+
+            facet 'biographical_region' do
+              terms :biographical_region
+              facet_filter :and, search_filter unless search_filter.empty?
+            end
+
+            facet 'languages' do
+              terms 'languages.name'
+              facet_filter :and, search_filter unless search_filter.empty?
+            end
+
+            facet 'published_on' do
+              date :published_on, interval: 'year'
+              facet_filter :and, search_filter unless search_filter.empty?
+            end
+          end
+        else
+          @rows = nil
+        end
+        respond_with render_response(@rows)
+      end
+
       def index
-        q = params[:query]
-        q = Sanitize.clean(q)
-        q = nil if q == ''
+        q = clean_param(params[:query])
 
         date_init = nil
         date_end = nil
@@ -243,6 +380,26 @@ module Api
           response['facets'] = @rows.results.facets
         end
         respond_with response
+      end
+
+      private
+
+      def clean_param(param)
+        Sanitize.clean(param)
+      end
+
+      def render_response(rows)
+        response = Hash.new
+        if rows.nil? or rows.results.nil?
+          response['total']   = 0
+          response['results'] = []
+          response['facets']  = []
+        else
+          response['total']   = rows.results.total
+          response['results'] = rows.results
+          response['facets']  = rows.results.facets
+        end
+        response
       end
 
     end

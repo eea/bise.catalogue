@@ -43,6 +43,7 @@ Catalogue::Application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       resources :ecosystem_assessments
+      match '/bise_search' => 'search#bise_search'
       match '/search' => 'search#index'
       post '/sync' => 'sync#create'
       put '/sync' => 'sync#update'
