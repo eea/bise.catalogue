@@ -8,7 +8,7 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
     mainTemplate: _.template(mainTemplate),
 
     indexes: {
-      all: 'All the Catalogue',
+      all: 'All BISE',
       articles: 'Articles',
       documents: 'Documents',
       // news: 'News',

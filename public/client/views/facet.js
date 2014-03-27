@@ -8,7 +8,7 @@ define(['jquery', 'underscore', 'backbone', 'models/facet', 'text!template/facet
 
     titles: {
       site: 'Source',
-      author: 'Author',
+      author: 'Contributor'
       countries: 'Country',
       biographical_region: 'Biogeographical Region',
       languages: 'Language',
