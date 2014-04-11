@@ -1,41 +1,12 @@
 %legend
   Tags
 
-- quarter = tags.size / 4
-
-.row-fluid
-  .span3
-    %ul.unstyled
-      - tags.each_with_index do |c, i|
-        - if i < quarter
-          %li
-            %label.checkbox
-              = check_box_tag "#{parent.class.name.downcase}[tag_list][]", c, parent.tag_list.include?(c)
-              .label.label-success= c
-  .span3
-    %ul.unstyled
-      - tags.each_with_index do |c, i|
-        - if i >= quarter and i < quarter * 2
-          %li
-            %label.checkbox
-              = check_box_tag "#{parent.class.name.downcase}[tag_list][]", c, parent.tag_list.include?(c)
-              .label.label-success= c
-  .span3
-    %ul.unstyled
-      - tags.each_with_index do |c, i|
-        - if i >= quarter *2 and i < quarter * 3
-          %li
-            %label.checkbox
-              = check_box_tag "#{parent.class.name.downcase}[tag_list][]", c, parent.tag_list.include?(c)
-              .label.label-success= c
-  .span3
-    %ul.unstyled
-      - tags.each_with_index do |c, i|
-        - if i >= quarter *3 and i < quarter * 4
-          %li
-            %label.checkbox
-              = check_box_tag "#{parent.class.name.downcase}[tag_list][]", c, parent.tag_list.include?(c)
-              .label.label-success= c
+= f.input :tag_list,
+          as: :grouped_select,
+          collection: KeywordContainer.all,
+          group_method: :keywords,
+          group_label_method: :title,
+          input_html: { class: 'tag-select input-block-level', multiple: true }
 
 
 %legend
@@ -44,6 +15,5 @@
 .row-fluid
   .span6
     = f.input :biographical_region, as: :select, collection: biographical_regions, include_blank: true , input_html: { class: "input-block-level bise-select"}
-
 
 

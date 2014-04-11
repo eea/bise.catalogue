@@ -54,6 +54,8 @@ Catalogue::Application.routes.draw do
   # Admin
   namespace :admin do
     resources :sites
+    resources :keyword_containers
+    resources :keywords
   end
 
   # ECOSYSTEM ASSESMENT

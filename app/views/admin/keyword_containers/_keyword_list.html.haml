@@ -1,0 +1,16 @@
+.container-fluid
+  %legend Keyword List
+  %table.table.table-striped
+    - container.keywords.each do |keyword|
+      %tr
+        %td
+          = keyword.name
+        -# %td
+        -#   = link_to edit_admin_keyword_path(keyword), class: 'btn btn-primary btn-mini' do
+        -#     = fa_icon 'pencil'
+        -#     Edit
+        %td{ style: 'width: 65px' }
+          = link_to admin_keyword_path(keyword), method: :delete, class: 'btn btn-danger btn-mini', data: { confirm: 'Are you sure?' } do
+            = fa_icon 'trash-o'
+            Destroy
+    %h6.muted= "#{@keyword_container.keywords.size} keywords founded in this category."

@@ -33,6 +33,10 @@
                   = link_to admin_sites_path do
                     = fa_icon 'cogs'
                     Manage sites
+                %li
+                  = link_to admin_keyword_containers_path do
+                    = fa_icon 'key'
+                    Manage Keywords
 
               %li
                 = link_to destroy_user_session_path, method: :delete do

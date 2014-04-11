@@ -1,4 +1,5 @@
 do $('.bise-select').chosen
+do $('.tag-select').chosen
 
 tinyMCE.init
     mode: 'textareas'

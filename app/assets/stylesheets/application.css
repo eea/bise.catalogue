@@ -38,6 +38,7 @@
  *= require jquery/chosen
  *= require jquery/qtip
 
+ *= require helpers
  *= require home
  *= require articles
  *= require documents

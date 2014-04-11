@@ -1,0 +1,17 @@
+
+= simple_form_for([:admin, @keyword_container]) do |f|
+  = f.error_notification
+
+  .container-fluid
+    .row-fluid
+      .span8
+        %legend{ style: 'margin-bottom: 0' }
+          General information
+        = f.input :title, input_html: { class: 'input-block-level' }
+      .span4
+        -# %legend{ style: 'margin-bottom: 0' }
+        -#   Other
+
+  .form-actions
+    = f.button :submit, class: 'btn-success'
+    = link_to 'Cancel', admin_keyword_containers_path, class: 'btn btn-default'

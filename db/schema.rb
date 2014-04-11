@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131205091634) do
+ActiveRecord::Schema.define(:version => 20140410111436) do
 
   create_table "actions", :force => true do |t|
     t.string   "title"
@@ -159,6 +159,22 @@ ActiveRecord::Schema.define(:version => 20131205091634) do
     t.datetime "updated_at",                                  :null => false
     t.boolean  "approved",                  :default => true
   end
+
+  create_table "keyword_containers", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "keywords", :force => true do |t|
+    t.string   "name"
+    t.integer  "keyword_container_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
+  end
+
+  add_index "keywords", ["keyword_container_id"], :name => "index_keywords_on_keyword_container_id"
 
   create_table "languages", :force => true do |t|
     t.string   "name"

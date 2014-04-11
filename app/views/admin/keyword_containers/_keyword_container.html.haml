@@ -1,0 +1,17 @@
+%legend Add New Keyword
+.well.well-flat
+  -# %form.form-inline{ action: '/admin/keywords' }
+  -#   %input{ type: 'hidden' }
+  -#   %input.input-small{ placeholder: "Title", type: "text" }
+  -#   %button.btn{ type: "submit" } Sign in
+  = simple_form_for([:admin, Keyword.new], html: { class: 'form-inline' }) do |f|
+    / = f.error_notification
+    = f.input :keyword_container_id, as: :hidden, input_html: { value: container.id }
+    = f.input :name, label: false, input_html: { class: 'input-block-level' }
+    %button.btn.btn-default.btn-block{ type: 'submit' }
+      = fa_icon 'plus'
+      Add
+
+.alert.alert-warning
+  %strong NOTE:
+  Deleting a tag will not be applied to existing content.

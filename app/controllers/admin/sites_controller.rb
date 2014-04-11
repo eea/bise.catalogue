@@ -1,5 +1,7 @@
 class Admin::SitesController < ApplicationController
 
+  before_filter :authenticate_user!
+
   def index
     @sites = Site.all
 

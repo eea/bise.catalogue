@@ -15,11 +15,6 @@ module Api
 
       after_filter :set_access_control_headers
 
-      def set_access_control_headers
-        headers['Access-Control-Allow-Origin'] = '*'
-        headers['Access-Control-Request-Method'] = '*'
-      end
-
 
       def bise_search
         q = clean_param(params[:query])
@@ -382,6 +377,11 @@ module Api
       end
 
       private
+
+      def set_access_control_headers
+        headers['Access-Control-Allow-Origin'] = '*'
+        headers['Access-Control-Request-Method'] = '*'
+      end
 
       def clean_param(param)
         (param.nil?) ? nil : Sanitize.clean(param)

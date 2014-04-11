@@ -36,8 +36,8 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_examples = true #factoryGirl
-  config.use_transactional_fixtures = false #fixtures
+  config.use_transactional_examples = true  # factoryGirl
+  config.use_transactional_fixtures = false # fixtures
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -48,7 +48,7 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
-  config.order = "random"
+  config.order = 'random'
 
 
   config.include FactoryGirl::Syntax::Methods
@@ -61,7 +61,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
-    # Rake::Task["db:seed"].invoke
+    # Rake::Task['db:seed'].invoke
     load "#{Rails.root}/db/seeds.rb"
     DatabaseCleaner.start
   end
@@ -69,34 +69,16 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
     clean_es_indexes
+    Rake::Task['db:seed'].invoke
   end
 
 end
 
 
 def clean_es_indexes
-  Article.index.delete
-  Document.index.delete
-  Link.index.delete
-  News.index.delete
-  ProtectedArea.index.delete
-  Habitat.index.delete
-  Species.index.delete
-
-  Article.create_elasticsearch_index
-  Document.create_elasticsearch_index
-  Link.create_elasticsearch_index
-  News.create_elasticsearch_index
-  ProtectedArea.create_elasticsearch_index
-  Habitat.create_elasticsearch_index
-  Species.create_elasticsearch_index
+  %w(Article Document Link News ProtectedArea Habitat Species).each do |obj|
+    obj.index.delete
+    obj.create_elasticsearch_index
+  end
 end
-
-
-# This file is copied to spec/ when you run 'rails generate rspec:install'
-
-
-# Requires supporting ruby files with custom matchers and macros, etc,
-# in spec/support/ and its subdirectories.
-
 

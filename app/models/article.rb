@@ -38,7 +38,7 @@ class Article < ActiveRecord::Base
         type: 'nGram',
         min_gram: 1,
         max_gram: 40,
-        token_chars: %(letter digit)
+        token_chars: %w(letter digit)
       }
     }
   } do
@@ -129,10 +129,9 @@ class Article < ActiveRecord::Base
     end
   end
 
-  # TODO: Fix the indentation
   def to_indexed_json
     {
-      site:           {
+      site: {
         _type: 'site',
         _id: site.id,
         name: site.name,

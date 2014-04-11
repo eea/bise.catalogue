@@ -11,7 +11,6 @@ Feature: Manage Articles
     Given I have article titled Biodiversity
     When I go to the list of articles
     Then I should see "Biodiversity"
-    And I should see "Invasive Species"
 
   Scenario: Create article
     When I go to the list of articles
