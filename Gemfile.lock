@@ -70,6 +70,9 @@ GEM
     ast (1.1.0)
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
+    best_in_place (2.1.0)
+      jquery-rails
+      rails (~> 3.1)
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -440,6 +443,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  best_in_place (~> 2.1.0)
   better_errors
   capistrano (~> 2.15.5)
   capistrano-rbenv (= 1.0.5)

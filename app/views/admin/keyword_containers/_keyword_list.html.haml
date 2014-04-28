@@ -3,8 +3,10 @@
   %table.table.table-striped
     - container.keywords.each do |keyword|
       %tr
+        %td{ style: 'width:25px' }
+          = fa_icon 'key'
         %td
-          = keyword.name
+          = best_in_place [:admin, keyword], :name
         -# %td
         -#   = link_to edit_admin_keyword_path(keyword), class: 'btn btn-primary btn-mini' do
         -#     = fa_icon 'pencil'

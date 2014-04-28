@@ -55,6 +55,7 @@
 // require jquery.ui.effect-transfer
 
 //= require jquery_ujs
+//= require best_in_place
 
 // ----- CHOSEN
 //= require jquery/chosen

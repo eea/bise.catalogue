@@ -29,6 +29,7 @@ group :assets do
 end
 
 gem 'underscore-rails'
+gem 'best_in_place'             , '~> 2.1.0'
 
 # Outside assets for production coffee handlers
 gem 'coffee-rails'              , '~> 3.2.1'

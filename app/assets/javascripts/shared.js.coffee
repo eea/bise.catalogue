@@ -1,7 +1,9 @@
-do $('.bise-select').chosen
-do $('.tag-select').chosen
+$ ->
+  do $('.bise-select').chosen
+  do $('.tag-select').chosen
+  do $('.best_in_place').best_in_place
 
-tinyMCE.init
+  tinyMCE.init
     mode: 'textareas'
     menubar:false
     statusbar: false
