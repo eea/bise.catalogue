@@ -52,5 +52,5 @@
   %legend Tags
   .row-fluid
     .span12
-      - @link.tag_list.each do |t|
-        .label.label-success= t
+      - @link.tags.each do |t|
+        .label.label-success= t.name

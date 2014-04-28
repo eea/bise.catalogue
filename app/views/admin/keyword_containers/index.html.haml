@@ -10,14 +10,16 @@
 
 
 .container-fluid
-  .alert.alert-danger
-    %strong Atention!!
-    If you change this options, a reindexation should be performed in order to
-    apply the changes in the search engine.
+  %br
+  %blockquote
+    %strong NOTE:
+    If you change any of the tags in these keyword categories, changes won't apply to already
+    existing documents to avoid confusions.
 
   %table.table.table-striped
     %thead
       %tr
+        %th{ style: 'width: 20px'}
         %th
           Keyword Category
         %th{ style: 'width: 70px' }
@@ -27,6 +29,8 @@
     %tbody
       - @keyword_containers.each do |container|
         %tr
+          %td
+            = fa_icon 'list'
           %td
             = link_to admin_keyword_container_path(container) do
               = container.title
@@ -41,7 +45,7 @@
                 = link_to edit_admin_keyword_container_path(container), class: 'btn btn-default btn-small' do
                   -# = fa_icon 'pencil'
                   Edit
-                = link_to admin_keyword_containers_path(container), method: :delete, class: 'btn btn-danger btn-small', data: { confirm: 'Are you sure?' } do
-                  -# = fa_icon 'trash-o'
-                  Destroy
+                = link_to admin_keyword_container_path(container), method: :delete, class: 'btn btn-danger btn-small', data: { confirm: 'Are you sure?' } do
+                  = fa_icon 'trash-o'
+                  -# Destroy
 
