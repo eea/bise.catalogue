@@ -5,6 +5,7 @@
           as: :grouped_select,
           collection: KeywordContainer.all,
           group_method: :keywords,
+          value_method: :name,
           group_label_method: :title,
           input_html: { class: 'tag-select input-block-level', multiple: true }
 

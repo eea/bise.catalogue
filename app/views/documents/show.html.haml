@@ -50,7 +50,9 @@
   %legend Tags
   .row-fluid
     .span12
-      - @document.tag_list.each do |t|
-        .label.label-success= t
+      - @document.tags.each do |t|
+        .label.label-success= t.name
+
+%br
 
 
