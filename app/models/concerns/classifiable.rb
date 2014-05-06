@@ -28,7 +28,7 @@ module Classifiable
     validates :title         , presence: true , length: { maximum: 255 }
     validates :english_title , presence: true , length: { maximum: 255 }
 
-    validates :author        , presence: true , length: { maximum: 255}
+    validates :author        , length: { maximum: 255 }
     validates :language_ids  , presence: true
     validate :published_on_is_valid_date
 
