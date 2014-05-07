@@ -82,7 +82,7 @@
 //= require raphael
 //= require morris
 
-//= require mustache
+// require mustache
 // require underscore
 
 //= require_tree ../../templates

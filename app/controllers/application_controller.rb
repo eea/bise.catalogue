@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
 
   protect_from_forgery
-  add_breadcrumb :index, :root_path
+  # add_breadcrumb :index, :root_path
 
   after_filter :set_access_control_headers
 
@@ -22,6 +22,14 @@ class ApplicationController < ActionController::Base
       "external"
     else
       "application"
+    end
+  end
+
+  def authenticate_active_admin_user!
+    authenticate_admin_user!
+    if current_admin_user.nil?
+      flash[:alert] = 'Unauthorized Access!'
+      redirect_to admin_users_path
     end
   end
 

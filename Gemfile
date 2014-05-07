@@ -3,8 +3,9 @@ source 'https://rubygems.org'
 
 gem 'rails'                   , '3.2.13'
 gem 'rack'                    , '~> 1.4.5'
+gem 'railties'                , '~> 3.2.13'
 
-gem 'devise'
+gem 'devise'                  , '~> 3.2'
 gem 'devise_ldap_authenticatable'
 
 # DATABASES
@@ -16,7 +17,7 @@ gem 'has_scope'
 gem 'responders'
 
 group :assets do
-  gem 'sass-rails'            ,   '~> 3.2.3'
+  gem 'sass-rails'            ,   '~> 3.2.6'
   gem "less-rails"
 
   gem 'therubyracer'          , '~> 0.12.0', require: 'v8'
@@ -40,7 +41,7 @@ gem 'sanitize'
 gem "remotipart"
 
 # Shared Mustache Templates
-gem 'smt_rails'                 , github: 'railsware/smt_rails'
+# gem 'smt_rails'                 , '~> 0.2.5' #github: 'railsware/smt_rails'
 
 # gem 'haml'
 gem "haml-rails"
@@ -57,12 +58,13 @@ gem "twitter-bootstrap-rails"  # , git: 'git://github.com/seyhunak/twitter-boots
 gem "font-awesome-rails"
 
 
-gem 'rdf'                       , '~> 1.0'
-gem 'rdf-isomorphic'            , '~> 1.0'
+
+gem 'rdf'                       , '~> 1.1.3'
+gem 'rdf-isomorphic'            , '~> 1.1'
 gem 'rdf-spec'
 gem 'rdf-raptor'                , '~> 1.0.1'
-gem 'rdf-virtuoso'              , git: 'https://github.com/jonarrien/rdf-virtuoso.git'
-gem 'spira'                     , git: 'https://github.com/ruby-rdf/spira.git'
+gem 'rdf-virtuoso'              , github: 'jonarrien/rdf-virtuoso'
+gem 'spira'                     , '~> 0.7.1'
 
 # JSON linked data
 gem 'json-ld'
@@ -75,6 +77,15 @@ gem 'sparql'
 gem 'rdf-do'
 #gem 'do_postgres'
 
+gem 'tilt'                      , '~> 1.3'
+gem 'activeadmin'               , github: 'gregbell/active_admin', branch: '0-6-stable'
+# gem 'meta_search'              , '>= 1.1.0.pre'
+# gem 'polyamorous', github: 'activerecord-hackery/polyamorous'
+# gem 'ransack', github: 'activerecord-hackery/ransack'
+# gem 'formtastic', github: 'justinfrench/formtastic'
+# gem 'activeadmin', github: 'gregbell/active_admin', branch: '0-6-stable'
+# gem 'activeadmin'               , '~> 0.6.2'
+
 
 group :development do
   gem 'coffee-rails-source-maps'
@@ -82,11 +93,13 @@ group :development do
 
   # gem 'ruby-debug19'
   gem 'pry', '>= 0.9.10'
+  gem 'pry-remote'
   gem 'pry-doc'
   gem 'pry-nav'
+  # gem 'pry-debugger'
+  # gem 'pry-byebug'
   gem 'pry-stack_explorer'
   gem 'pry-rails'
-  gem 'pry-remote'
 
   gem 'rubocop'
 end
@@ -96,7 +109,6 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'gem-ctags'
 
-  # TEST
   gem "rspec-rails"
   gem 'cucumber'      , '1.2.5'
   gem 'cucumber-rails', require: false
@@ -109,7 +121,7 @@ group :development, :test do
   gem 'guard-zeus-client'
 
   gem 'shoulda'
-  gem 'shoulda-matchers', require: false
+  gem 'shoulda-matchers' , require: false
   # gem 'guard-livereload'
 
   # Documentation
@@ -132,7 +144,8 @@ gem 'capistrano-rbenv', '1.0.5'
 
 
 gem 'custom_error_message'
-gem "will_paginate"
+# gem "will_paginate"
+gem 'will_paginate'           , '3.0.3'
 gem 'will_paginate-bootstrap' , '~> 0.2.5'
 
 gem 'acts-as-taggable-on'
