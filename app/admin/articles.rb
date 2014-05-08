@@ -5,6 +5,9 @@ ActiveAdmin.register Article do
   #               :created_at, answers_attributes: [:user_id, :content]
   config.comments = false
 
+  scope :unapproved
+  scope :approved
+
   index do
     selectable_column
     id_column

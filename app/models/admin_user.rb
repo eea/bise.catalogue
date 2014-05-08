@@ -9,7 +9,6 @@ class AdminUser < ActiveRecord::Base
   attr_accessible :password
   attr_accessible :password_confirmation
   attr_accessible :remember_me
-  # attr_accessible :title, :body
 
   def login=(login)
     @login = login
@@ -22,7 +21,7 @@ class AdminUser < ActiveRecord::Base
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
     login = conditions.delete(:login)
-    where(conditions).where(["lower(email) = :value", { :value => login.strip.downcase }]).first
+    where(conditions).where(["lower(email) = :value", { value: login.strip.downcase }]).first
   end
 end
 

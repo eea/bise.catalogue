@@ -6,29 +6,32 @@ ActiveAdmin.register_page "Dashboard" do
     columns do
       column span: 3 do
         panel 'Recent Documents' do
-          table_for Document.last(10) do
-            # column 'Date', :question_date
-            # column 'Title' do |question|
-            #   link_to(question.title, admin_question_path(question))
-            # end
+          table_for Document.last(5) do
+            column 'Id', :id
+            column 'Title' do |doc|
+              link_to(doc.title, admin_document_path(doc))
+            end
             # column 'Total answers' do |question|
             #   status_tag "#{question.answers.size.to_s} answers", :ok
             # end
           end
         end
+
         panel 'Recent Links' do
-          table_for Link.last(10) do
-            # column 'Id', :id
-            # column 'Email' do |user|
-            #   link_to(user.email, admin_user_path(user))
-            # end
-            # column 'Sign In Count', :sign_in_count
+          table_for Link.last(5) do
+            column 'Id', :id
+            column 'Title' do |link|
+              link_to(link.title, admin_link_path(link))
+            end
           end
         end
 
         panel 'Recent Webpages' do
-          table_for Article.last(10) do
-
+          table_for Article.last(5) do
+            column 'Id', :id
+            column 'Title' do |article|
+              link_to(article.title, admin_article_path(article))
+            end
           end
         end
       end
