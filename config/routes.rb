@@ -54,8 +54,8 @@ Catalogue::Application.routes.draw do
     end
   end
 
-  # Admin
-  namespace :admin do
+  # Bise Admin
+  namespace :biseadmin do
     resources :sites
     resources :keyword_containers
     resources :keywords

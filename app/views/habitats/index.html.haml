@@ -13,7 +13,7 @@
       - @habitats.each_with_hit do |habitat, hit|
         = render "cells/habitat", habitat: habitat, hit: hit
 
-      = page_entries_info @habitats
+      = page_entries_info @habitats, entry_name: 'habitat'
       %br
       = will_paginate @habitats, renderer: BootstrapPagination::Rails
   %br

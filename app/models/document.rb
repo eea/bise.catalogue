@@ -19,6 +19,8 @@ class Document < ActiveRecord::Base
   # TAGS
   attr_accessible :tag_list
   acts_as_taggable
+  # Target & Actions
+  acts_as_taggable_on :targets, :actions
 
   before_validation :compute_hash
   before_save :update_file_info
@@ -135,9 +137,9 @@ class Document < ActiveRecord::Base
       indexes :biographical_region,
               type: 'string',
               index: :not_analyzed
-      indexes :biographical_region_ngram,
-              index_analyzer: 'index_ngram_analyzer',
-              search_analyzer: 'snowball'
+      # indexes :biographical_region_ngram,
+      #         index_analyzer: 'index_ngram_analyzer',
+      #         search_analyzer: 'snowball'
 
       indexes :file_name,
               type: 'string' ,
@@ -193,7 +195,7 @@ class Document < ActiveRecord::Base
       end,
 
       biographical_region:       biographical_region,
-      biographical_region_ngram: biographical_region,
+
       file_name:                 document_path,
       content_type:              content_type,
       attachment:                attachment
@@ -240,7 +242,7 @@ class Document < ActiveRecord::Base
           should { string 'countries.ngram_name:'      + params[:query].to_s }
           should { string 'languages.ngram_name:'      + params[:query].to_s }
           should { string 'tags.ngram_name:'           + params[:query].to_s }
-          should { string 'biographical_region_ngram:' + params[:query].to_s }
+          should { string 'biographical_region:' + params[:query].to_s }
         end
       end if params[:query].present?
 

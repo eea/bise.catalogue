@@ -90,7 +90,7 @@
       - @protected_areas.each_with_hit do |site, hit|
         = render "cells/protected_area", site: site, hit: hit
 
-      = page_entries_info @protected_areas
+      = page_entries_info @protected_areas, entry_name: 'protected_area'
       = will_paginate @protected_areas, renderer: BootstrapPagination::Rails
 
   %br

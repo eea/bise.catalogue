@@ -11,6 +11,8 @@ class Link < ActiveRecord::Base
   # TAGS
   attr_accessible :tag_list
   acts_as_taggable
+  # Target & Actions
+  acts_as_taggable_on :targets, :actions
 
   validates :url, presence: true, uniqueness: true
   validates_format_of :url, with: /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
@@ -160,8 +162,7 @@ class Link < ActiveRecord::Base
       tags: tag_list.map do |c|
         { name: c, ngram_name: c }
       end,
-      biographical_region: biographical_region,
-      biographical_region_ngram: biographical_region
+      biographical_region: biographical_region
     }.to_json
   end
 
@@ -201,7 +202,7 @@ class Link < ActiveRecord::Base
           should { string 'countries.ngram_name:'      + params[:query].to_s }
           should { string 'languages.ngram_name:'      + params[:query].to_s }
           should { string 'tags.ngram_name:'           + params[:query].to_s }
-          should { string 'biographical_region_ngram:' + params[:query].to_s }
+          should { string 'biographical_region:' + params[:query].to_s }
         end
       end if params[:query].present?
 

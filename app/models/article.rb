@@ -9,9 +9,11 @@ class Article < ActiveRecord::Base
   attr_accessible :content
   attr_accessible :source_url
 
-  # TAGS
+  # Tags
   attr_accessible :tag_list
   acts_as_taggable
+  # Target & Actions
+  acts_as_taggable_on :targets, :actions
 
   index_name "#{Tire::Model::Search.index_prefix}articles"
   refresh = -> { Tire::Index.new(index_name).refresh }
@@ -45,13 +47,9 @@ class Article < ActiveRecord::Base
     mapping do
 
       indexes :site do
-        indexes :id,
-                type: 'integer'
-        indexes :name,
-                type: 'string',
-                index: :not_analyzed
-        indexes :ngram_name,
-                index_analyzer: 'index_ngram_analyzer',
+        indexes :id        , type: 'integer'
+        indexes :name      , type: 'string', index: :not_analyzed
+        indexes :ngram_name, index_analyzer: 'index_ngram_analyzer',
                 search_analyzer: 'snowball'
       end
 
@@ -156,8 +154,7 @@ class Article < ActiveRecord::Base
       tags: tag_list.map do |c|
         { name: c, ngram_name: c }
       end,
-      biographical_region:       biographical_region,
-      biographical_region_ngram: biographical_region
+      biographical_region:       biographical_region
     }.to_json
   end
 
@@ -189,18 +186,18 @@ class Article < ActiveRecord::Base
     tire.search load: true, page: params[:page], per_page: params[:per_page] do
       query do
         boolean do
-          should { string 'site.ngram_name:'           + params[:query].to_s }
-          should { string 'title:'                     + params[:query].to_s }
-          should { string 'title.exact:'               + params[:query].to_s }
-          should { string 'english_title:'             + params[:query].to_s }
-          should { string 'english_title.exact:'       + params[:query].to_s }
-          should { string 'description:'               + params[:query].to_s }
-          should { string 'ngram_author:'              + params[:query].to_s }
-          should { string 'attachment:'                + params[:query].to_s }
-          should { string 'countries.ngram_name:'      + params[:query].to_s }
-          should { string 'languages.ngram_name:'      + params[:query].to_s }
-          should { string 'tags.ngram_name:'           + params[:query].to_s }
-          should { string 'biographical_region_ngram:' + params[:query].to_s}
+          should { string 'site.ngram_name:'      + params[:query].to_s }
+          should { string 'title:'                + params[:query].to_s }
+          should { string 'title.exact:'          + params[:query].to_s }
+          should { string 'english_title:'        + params[:query].to_s }
+          should { string 'english_title.exact:'  + params[:query].to_s }
+          should { string 'description:'          + params[:query].to_s }
+          should { string 'ngram_author:'         + params[:query].to_s }
+          should { string 'attachment:'           + params[:query].to_s }
+          should { string 'countries.ngram_name:' + params[:query].to_s }
+          should { string 'languages.ngram_name:' + params[:query].to_s }
+          should { string 'tags.ngram_name:'      + params[:query].to_s }
+          should { string 'biographical_region:'  + params[:query].to_s}
           should { string 'content:' + params[:query].to_s }
         end
       end if params[:query].present?

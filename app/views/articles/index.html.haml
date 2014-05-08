@@ -31,6 +31,6 @@
         - if current_user.approver?
           = submit_tag (show_approved?) ? "Disapprove selected" : "Approve selected", class: "btn btn-small pull-right"
 
-      = page_entries_info @articles
+      = page_entries_info @articles, entry_name: 'article'
       = will_paginate @articles, renderer: BootstrapPagination::Rails
   %br

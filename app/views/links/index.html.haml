@@ -32,6 +32,6 @@
               = render "cells/link", link: link, hit: hit
         - if current_user.approver?
           = submit_tag (show_approved?) ? "Disapprove selected" : "Approve selected", class: "btn btn-small pull-right"
-      = page_entries_info @links
+      = page_entries_info @links, entry_name: 'link'
       = will_paginate @links, renderer: BootstrapPagination::Rails
   %br

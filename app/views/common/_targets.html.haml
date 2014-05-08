@@ -1,5 +1,15 @@
 %legend
-  Tags
+  Biodiversity Strategy Targets & Actions
+
+= f.input :target_list, as: :select, collection: Target.all.map {|t| [t.full_name, t.id] },
+          input_html: { class: 'target-select input-block-level', multiple: true }
+= f.input :action_list,
+          as: :grouped_select,
+          collection: Target.all,
+          group_method: :actions,
+          value_method: :title,
+          group_label_method: :title,
+          input_html: { class: 'tag-select input-block-level', multiple: true }
 
 = f.input :tag_list,
           as: :grouped_select,

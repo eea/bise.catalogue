@@ -3,6 +3,9 @@ module Classifiable
 
   included do
 
+    scope :unapproved, where(approved: false)
+    scope :approved, where(approved: true)
+
     belongs_to              :site
     attr_accessible         :site_id
     attr_accessible         :title
