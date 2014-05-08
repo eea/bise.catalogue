@@ -500,6 +500,7 @@ DEPENDENCIES
   railroady
   rails (= 3.2.13)
   railties (~> 3.2.13)
+  rake (= 10.3.1)
   ransack
   rdf (~> 1.1.3)
   rdf-do
