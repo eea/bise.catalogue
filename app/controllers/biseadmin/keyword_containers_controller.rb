@@ -1,5 +1,5 @@
 # Keyword controller
-class Admin::KeywordContainersController < ApplicationController
+class Biseadmin::KeywordContainersController < ApplicationController
 
   before_filter :authenticate_user!
 

@@ -1,4 +1,4 @@
-class Admin::SitesController < ApplicationController
+class Biseadmin::SitesController < ApplicationController
 
   before_filter :authenticate_user!
 
