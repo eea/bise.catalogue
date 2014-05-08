@@ -1,5 +1,5 @@
 
-= simple_form_for([:admin, @keyword_container]) do |f|
+= simple_form_for([:biseadmin, @keyword_container]) do |f|
   = f.error_notification
 
   .container-fluid
@@ -14,4 +14,4 @@
 
   .form-actions
     = f.button :submit, class: 'btn-success'
-    = link_to 'Cancel', admin_keyword_containers_path, class: 'btn btn-default'
+    = link_to 'Cancel', biseadmin_keyword_containers_path, class: 'btn btn-default'

@@ -3,7 +3,7 @@
 
 - content_for :actions do
   - if current_user.approver?
-    = link_to  new_admin_site_path, class: "btn" do
+    = link_to  new_biseadmin_site_path, class: "btn" do
       = fa_icon 'plus'
       New Site
 
@@ -19,10 +19,10 @@
         %td= site.name
         %td= raw site.description
         %td
-          = link_to edit_admin_site_path(site), class: 'btn btn-primary btn-mini' do
+          = link_to edit_biseadmin_site_path(site), class: 'btn btn-primary btn-mini' do
             = fa_icon 'pencil'
             Edit
         %td
-          = link_to admin_site_path(site), method: :delete, class: 'btn btn-danger btn-mini', data: { confirm: 'Are you sure?' } do
+          = link_to biseadmin_site_path(site), method: :delete, class: 'btn btn-danger btn-mini', data: { confirm: 'Are you sure?' } do
             = fa_icon 'trash-o'
             Destroy

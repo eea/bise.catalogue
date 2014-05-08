@@ -1,6 +1,6 @@
 %legend Add New Keyword
 .well.well-flat
-  = simple_form_for([:admin, Keyword.new], html: { class: 'form-inline' }) do |f|
+  = simple_form_for([:biseadmin, Keyword.new], html: { class: 'form-inline' }) do |f|
     / = f.error_notification
     = f.input :keyword_container_id, as: :hidden, input_html: { value: container.id }
     = f.input :name, label: false, input_html: { class: 'input-block-level' }
