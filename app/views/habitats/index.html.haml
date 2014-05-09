@@ -10,11 +10,14 @@
     .span3
       = render "facets/facet_countries"   , objs: @habitats
     .span9
-      - @habitats.each_with_hit do |habitat, hit|
-        = render "cells/habitat", habitat: habitat, hit: hit
+      - if @habitats.size > 0
+        - @habitats.each_with_hit do |habitat, hit|
+          = render "cells/habitat", habitat: habitat, hit: hit
 
-      = page_entries_info @habitats, entry_name: 'habitat'
-      %br
-      = will_paginate @habitats, renderer: BootstrapPagination::Rails
+        = page_entries_info @habitats, entry_name: 'habitat'
+        = will_paginate @habitats, renderer: BootstrapPagination::Rails
+      - else
+        = render 'common/empty_table'
+
   %br
 

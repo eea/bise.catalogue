@@ -8,89 +8,17 @@
 .container-fluid
   .row-fluid
     .span3
-      .accordion#source_dbs
-        .accordion-group
-          .accordion-head
-            %a.accordion-toggle.btn.btn-link.btn-small{ href: '#source-dbs-list', data: { toggle: 'collapse', parent: '#authors' } }
-              Sources
-              %span.caret
-          .accordion-body.in#source-dbs-list
-            .accordion-inner
-              %ul.unstyled
-                - if @protected_areas.respond_to?('facets')
-                  - @protected_areas.facets['source_db']['terms'].each do |facet|
-                    - if !current_page?(params.merge(source_db: facet['term'], page: 1))
-                      %li
-                        = link_to params.merge(source_db: facet['term'], page: 1) do
-                          = facet['term']
-                          %span.badge.badge-info.pull-right= facet['count']
-                    - else
-                      %li.selected
-                        = facet['term']
-                        %span.pull-right= link_to "Remove", params.except(:source_db)
-      .accordion#countries
-        .accordion-group
-          .accordion-head
-            %a.accordion-toggle.btn.btn-link.btn-small{ href: '#countries-list', data: { toggle: 'collapse', parent: '#countries' } }
-              Countries
-              %span.caret
-          .accordion-body.in#countries-list
-            .accordion-inner
-              %ul.unstyled
-                - if @protected_areas.respond_to?('facets')
-                  - @protected_areas.facets['countries']['terms'].each do |facet|
-                    - if !current_page?(params.merge(country: facet['term'], page: 1))
-                      %li
-                        = link_to params.merge(country: facet['term'], page: 1) do
-                          = facet['term']
-                          %span.badge.badge-info.pull-right= facet['count']
-                    - else
-                      %li.selected
-                        = facet['term']
-                        %span.pull-right= link_to "Remove", params.except(:country)
-      .accordion#designation_years
-        .accordion-group
-          .accordion-head
-            %a.accordion-toggle.btn.btn-link.btn-small{ href: '#designations-list', data: { toggle: 'collapse', parent: '#authors' } }
-              Designation Year
-              %span.caret
-          .accordion-body.in#designations-list
-            .accordion-inner
-              %ul.unstyled
-                - if @protected_areas.respond_to?('facets')
-                  - @protected_areas.facets['designation_year']['terms'].each do |facet|
-                    - if !current_page?(params.merge(designation_year: facet['term'], page: 1))
-                      %li
-                        = link_to params.merge(designation_year: facet['term'], page: 1) do
-                          = facet['term']
-                          %span.badge.badge-info.pull-right= facet['count']
-                    - else
-                      %li.selected
-                        = facet['term']
-                        %span.pull-right= link_to "Remove", params.except(:designation_year)
-
-
-                    / - if !current_page?(params.merge(author: facet['term'], page: 1))
-                    /     %li
-                    /         = link_to params.merge(author: facet['term'], page: 1) do
-                    /             = facet['term']
-                    /             %span.badge.badge-info.pull-right= facet['count']
-                    / - else
-                    /     %li.selected
-                    /         = facet['term']
-                    /         %span.pull-right= link_to "Remove", params.except(:author)
-
-        /= render "facets/facet_sites"       , objs: @protected_areas
-        /= render "facets/facet_authors"     , objs: @protected_areas
-        / = render "facets/facet_languages"   , objs: @protected_areas
-        /= render "facets/facet_countries"   , objs: @protected_areas
-        /= render "facets/facet_timeline"    , objs: @protected_areas
-
+      = render 'source_dbs'
+      = render 'countries'
+      = render 'designation_years'
     .span9
-      - @protected_areas.each_with_hit do |site, hit|
-        = render "cells/protected_area", site: site, hit: hit
+      - if @protected_areas.size > 0
+        - @protected_areas.each_with_hit do |site, hit|
+          = render "cells/protected_area", site: site, hit: hit
 
-      = page_entries_info @protected_areas, entry_name: 'protected_area'
-      = will_paginate @protected_areas, renderer: BootstrapPagination::Rails
+        = page_entries_info @protected_areas, entry_name: 'protected_area'
+        = will_paginate @protected_areas, renderer: BootstrapPagination::Rails
+      - else
+        = render 'common/empty_table'
 
   %br

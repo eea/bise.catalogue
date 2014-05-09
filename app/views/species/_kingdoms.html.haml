@@ -1,0 +1,20 @@
+.accordion#kingdoms
+  .accordion-group
+    .accordion-head
+      %a.accordion-toggle.btn.btn-link.btn-small{ href: '#kingdom-list', data: { toggle: 'collapse', parent: '#kingdoms' } }
+        Kingdom
+        %span.caret
+    .accordion-body.in#kingdom-list
+      .accordion-inner
+        %ul.unstyled
+          / - if @species.respond_to?('facets')
+          - @species.facets['kingdom']['terms'].each do |facet|
+            - if !current_page?(params.merge(kingdom: facet['term'], page: 1))
+              %li
+                = link_to params.merge(kingdom: facet['term'], page: 1) do
+                  = facet['term']
+                  %span.badge.badge-info.pull-right= facet['count']
+            - else
+              %li.selected
+                = facet['term']
+                %span.pull-right= link_to "Remove", params.except(:kingdom)

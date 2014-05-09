@@ -35,7 +35,7 @@ class Biseadmin::KeywordContainersController < ApplicationController
 
     respond_to do |format|
       if @keyword_container.save
-        format.html { redirect_to admin_keyword_containers_path, notice: 'KeywordContainer was successfully created.' }
+        format.html { redirect_to biseadmin_keyword_containers_path, notice: 'KeywordContainer was successfully created.' }
         format.json { render json: @keyword_container, status: :created, location: @keyword_container }
       else
         format.html { render action: "new" }
@@ -49,7 +49,7 @@ class Biseadmin::KeywordContainersController < ApplicationController
 
     respond_to do |format|
       if @keyword_container.update_attributes(params[:keyword_container])
-        format.html { redirect_to admin_keyword_containers_path, notice: 'KeywordContainer was successfully updated.' }
+        format.html { redirect_to biseadmin_keyword_containers_path, notice: 'KeywordContainer was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -63,7 +63,7 @@ class Biseadmin::KeywordContainersController < ApplicationController
     @keyword_container.destroy
 
     respond_to do |format|
-      format.html { redirect_to admin_keyword_containers_url }
+      format.html { redirect_to biseadmin_keyword_containers_url }
       format.json { head :no_content }
     end
   end

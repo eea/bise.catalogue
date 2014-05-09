@@ -1,0 +1,19 @@
+.accordion#species_group
+  .accordion-group
+    .accordion-head
+      %a.accordion-toggle.btn.btn-link.btn-small{ href: '#species_group-list', data: { toggle: 'collapse', parent: '#species_group' } }
+        Species Groups
+        %span.caret
+    .accordion-body.in#species_group-list
+      .accordion-inner
+        %ul.unstyled
+          - @species.facets['species_group']['terms'].each do |facet|
+            - if !current_page?(params.merge(species_group: facet['term'], page: 1))
+              %li
+                = link_to params.merge(species_group: facet['term'], page: 1) do
+                  = if facet['term'].size > 22 then facet['term'][0..22] + '...' else facet['term'] end
+                  %span.badge.badge-info.pull-right= facet['count']
+            - else
+              %li.selected
+                = facet['term']
+                %span.pull-right= link_to "Remove", params.except(:species_group)

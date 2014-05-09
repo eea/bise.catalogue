@@ -25,13 +25,16 @@
       = render "facets/facet_timeline"    , objs: @links
 
     .span9
-      = form_tag approve_multiple_links_path do
-        %table.table.table-striped
-          %tbody
-            - @links.each_with_hit do |link, hit|
-              = render "cells/link", link: link, hit: hit
-        - if current_user.approver?
-          = submit_tag (show_approved?) ? "Disapprove selected" : "Approve selected", class: "btn btn-small pull-right"
-      = page_entries_info @links, entry_name: 'link'
-      = will_paginate @links, renderer: BootstrapPagination::Rails
+      - if @links.size > 0
+        = form_tag approve_multiple_links_path do
+          %table.table.table-striped
+            %tbody
+              - @links.each_with_hit do |link, hit|
+                = render "cells/link", link: link, hit: hit
+          - if current_user.approver?
+            = submit_tag (show_approved?) ? "Disapprove selected" : "Approve selected", class: "btn btn-small pull-right"
+        = page_entries_info @links, entry_name: 'link'
+        = will_paginate @links, renderer: BootstrapPagination::Rails
+      - else
+        = render 'common/empty_table'
   %br

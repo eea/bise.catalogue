@@ -9,20 +9,24 @@
 
 .container-fluid
   %table.table.table-striped
-    %tr
-      %th Name
-      %th Description
-      %th{ style: 'width: 48px' }
-      %th{ style: 'width: 75px' }
-    - @sites.each do |site|
+    %thead
       %tr
-        %td= site.name
-        %td= raw site.description
-        %td
-          = link_to edit_biseadmin_site_path(site), class: 'btn btn-primary btn-mini' do
-            = fa_icon 'pencil'
-            Edit
-        %td
-          = link_to biseadmin_site_path(site), method: :delete, class: 'btn btn-danger btn-mini', data: { confirm: 'Are you sure?' } do
-            = fa_icon 'trash-o'
-            Destroy
+        %th Name
+        %th Description
+        %th Access Token
+        %th{ style: 'width: 75px' }
+    %tbody
+      - @sites.each do |site|
+        %tr
+          %td= site.name
+          %td= raw site.description
+          %td= site.auth_token
+
+          %td
+            .btn-group
+              = link_to edit_biseadmin_site_path(site), class: 'btn btn-default btn-mini' do
+                = fa_icon 'pencil'
+                Edit
+              = link_to biseadmin_site_path(site), method: :delete, class: 'btn btn-danger btn-mini', data: { confirm: 'Are you sure?' } do
+                = fa_icon 'trash-o'
+                Destroy

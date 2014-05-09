@@ -24,11 +24,15 @@
   %body
     = render 'layouts/topnavbar'
     .container
-      .pageheader
-        %h1
-          = yield :pageheader
+      -# .pageheader
+      -#   %h1
+      -#     = yield :pageheader
       .outter-container
-        = render partial: 'layouts/toolbar'
+        .pageheader
+          .container-fluid
+            %h1= yield :pageheader
+        - if content_for?(:actions)
+          = render partial: 'layouts/toolbar'
         .inner-container
           - if notice
             %p.alert.alert-success

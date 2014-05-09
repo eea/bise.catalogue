@@ -1,0 +1,20 @@
+.accordion#countries
+  .accordion-group
+    .accordion-head
+      %a.accordion-toggle.btn.btn-link.btn-small{ href: '#countries-list', data: { toggle: 'collapse', parent: '#countries' } }
+        Countries
+        %span.caret
+    .accordion-body.in#countries-list
+      .accordion-inner
+        %ul.unstyled
+          - if @protected_areas.respond_to?('facets')
+            - @protected_areas.facets['countries']['terms'].each do |facet|
+              - if !current_page?(params.merge(country: facet['term'], page: 1))
+                %li
+                  = link_to params.merge(country: facet['term'], page: 1) do
+                    = facet['term']
+                    %span.badge.badge-info.pull-right= facet['count']
+              - else
+                %li.selected
+                  = facet['term']
+                  %span.pull-right= link_to "Remove", params.except(:country)

@@ -1,0 +1,19 @@
+.accordion#classis
+  .accordion-group
+    .accordion-head
+      %a.accordion-toggle.btn.btn-link.btn-small{ href: '#classis-list', data: { toggle: 'collapse', parent: '#classis' } }
+        Class
+        %span.caret
+    .accordion-body.in#classis-list
+      .accordion-inner
+        %ul.unstyled
+          - @species.facets['classis']['terms'].each do |facet|
+            - if !current_page?(params.merge(classis: facet['term'], page: 1))
+              %li
+                = link_to params.merge(classis: facet['term'], page: 1) do
+                  = facet['term']
+                  %span.badge.badge-info.pull-right= facet['count']
+            - else
+              %li.selected
+                = facet['term']
+                %span.pull-right= link_to "Remove", params.except(:classis)
