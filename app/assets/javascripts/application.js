@@ -85,8 +85,6 @@
 // require mustache
 // require underscore
 
-//= require_tree ../../templates
-
 //= require shared
 //= require articles
 //= require documents

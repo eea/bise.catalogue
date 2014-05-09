@@ -32,5 +32,4 @@ class ApplicationController < ActionController::Base
       redirect_to admin_users_path
     end
   end
-
 end

@@ -41,9 +41,6 @@ gem 'sanitize'
 # Remote file uploading
 gem "remotipart"
 
-# Shared Mustache Templates
-# gem 'smt_rails'                 , '~> 0.2.5' #github: 'railsware/smt_rails'
-
 # gem 'haml'
 gem "haml-rails"
 

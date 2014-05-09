@@ -11,6 +11,8 @@
           group_label_method: :title,
           input_html: { class: 'tag-select input-block-level', multiple: true }
 
+%legend Tags
+
 = f.input :tag_list,
           as: :grouped_select,
           collection: KeywordContainer.all,

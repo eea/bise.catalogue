@@ -42,11 +42,12 @@ Document =
         when 'text/plain'
           img = 'plaintext'
           type = 'TXT'
-      content = SMT['documents/preview']({
-        image: img,
-        type: type,
-        size: Document.size(file)
-      })
+
+      console.log('rendering partial...')
+
+      content = $('<h1 class="file-preview">')
+      content.append($('<span class="mini-icon '+img+'">')).append(type)
+      content.append($('<small class="pull-right">').html(Document.size(file)))
       $(node).html('').append(content).show(0)
     else
       $(node).hide()
