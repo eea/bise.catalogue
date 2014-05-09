@@ -108,8 +108,6 @@ define([
               }
             })
           }
-          console.log('hasGeometry')
-          console.log(hasGeometry)
           if (hasGeometry)
             ifr.attr('src', "http://discomap.eea.europa.eu/map/Filtermap/?webmap=0b2680c2bc544431a9a97119aa63d707&SiteCode="+ifr.data('code')+"&autoquery=false&zoomto=true")
           else
@@ -119,12 +117,13 @@ define([
         })
       }
       if (this.$el.find('.preview').length > 0){
-        if (this.$el.find('.preview').css('display') == 'none'){
-          $(this.el).parent().find('.preview').hide()
-          $(this.el).find('.preview').show()
-        }
-        else
-          $(this.el).find('.preview').hide()
+        $(this.el).find('.preview').slideToggle()
+        // if (this.$el.find('.preview').css('display') == 'none'){
+        //   $(this.el).parent().find('.preview').hide()
+        //   $(this.el).find('.preview').show()
+        // }
+        // else
+        //   $(this.el).find('.preview').hide()
       }
     },
 

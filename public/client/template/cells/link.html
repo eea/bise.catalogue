@@ -1,34 +1,21 @@
 <div class="catalogue-cell">
+  <span class="label label-success">
+    <%= site.name %>
+  </span>
 
-  <div class="row-fluid">
+  <div class="cell-title">
+    <a target="_blank" href="<%= url %>"><%= title %></a>
+    <% if (title != english_title){ %>
+      <small>
+        <strong><%= english_title %></strong>
+      </small><br/>
+    <% } %>
+  </div>
 
-    <div class="span2">
-      <span style="padding: 7px; color: #5d5d5d">
-        Link
-      </span>
-    </div>
-
-    <div class="span10">
-
-      <div class="row-fluid">
-        <div class="span10 cell-title">
-
-          <a target="_blank" href="<%= url %>"><%= title %></a>
-          </br>
-
-          <small>
-            by <strong><%= author %></strong>
-            on <strong><%= published_on %></strong>
-          </small>
-
-        </div>
-
-        <div class="span2" style="text-align: right">
-          <small>
-            <span class="label label-success"><%= site.name %></strong>
-          </small>
-        </div>
-
-    </div>
+  <div class="cell-subtitle">
+    <strong>Link</strong>
+    published on
+    <%= published_on %>
+  </div>
 
 </div>

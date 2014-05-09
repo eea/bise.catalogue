@@ -1,5 +1,36 @@
 <div class="catalogue-cell">
 
+  <span class="label label-success">
+    <%= site.name %>
+  </span>
+
+  <div class="cell-title">
+    <a class="title">
+      <%= name %>
+    </a>
+  </div>
+
+  <div class="cell-subtitle">
+    <strong>Site </strong> in <%= countries[0].name %>.
+    <div class="row-fluid preview" style="display:none">
+      <div class="span12">
+
+        <iframe src="" data-code="<%= code %>" scrolling="no" style="height: 380px; width: 100%; "></iframe>
+
+        <div style="margin-top: 10px; text-align: right">
+          <a href="<%= uri %>" target="_blank" class="btn btn-mini">See at Eunis</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+<!-- <div class="catalogue-cell">
+
   <div class="row-fluid">
 
     <div class="span2">
@@ -47,3 +78,4 @@
     </div>
   </div>
 </div>
+ -->

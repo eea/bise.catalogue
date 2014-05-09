@@ -11,192 +11,323 @@
 
 
 #catalogue-app
-    font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+
+  .catalogue-sidebar
+    width: 25.914893617021278%
+    float: left;
+  .catalogue-content
+    margin-left: 4%
+    float: left
+    width: 70%
 
 .catalogue-toolbar
-    border-radius(5px)
-    padding: 12px
-    margin-bottom: 15px
-    background: BASE_GREEN
+  border-radius(4px)
+  padding: 12px
+  margin-bottom: 35px
+  background: BISE_GREEN
 
-    .select-field
+#catalogue-search-form
+  margin: 0
 
+  .field.switch
+    border-radius(4px)
+    width: 102%
+    height: 40px
+    -webkit-margin-before: 0
+    -webkit-margin-after: 0
+    margin-left: -5px
+
+
+    .bise-search, .advn-search
+      span
+        width: 45%
+        height: 30px
+        line-height: 26px
         float: left
-        width: 31% !important
-        overflow:hidden
+        color: white
+        background-color: darken(BISE_GREEN, 15%)
+        border: 2px solid darken(BISE_GREEN, 15%)
+        border-bottom: 0
+        text-align: center
+        padding: 12px 1px
+        margin-bottom: -20px
 
-        background: #1eaa46
-        background: -moz-linear-gradient(top,  #1eaa46 1%, #168130 100%)
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#1eaa46), color-stop(100%,#168130))
-        background: -webkit-linear-gradient(top,  #1eaa46 1%,#168130 100%)
-        background: -o-linear-gradient(top,  #1eaa46 1%,#168130 100%)
-        background: -ms-linear-gradient(top,  #1eaa46 1%,#168130 100%)
-        background: linear-gradient(to bottom,  #1eaa46 1%,#168130 100%)
+    .advn-search
+      span
+        margin-left: 7px
+        // border-left: 0
 
-        border-radius(5px)
-        border: 1px solid BORDER_GREEN
+    .bise-search.selected, .advn-search.selected
+      span
+        background-color: white
+        color: darken(DARK_GREEN, 30%)
+        border: 2px solid DARK_GREEN
+        border-bottom: 0
 
-        select
-            color: white
-            font-weight: bold
-            padding: 5px
-            float:left
-            width: 100%
-            height 30px
-            padding-left: 20px
-            // -webkit-appearance: none;
-            // -moz-appearance: none;
-            // appearance: none;
-            border: none;
-            background: transparent
-
-    form
-        margin: 0
-
+    label
+      cursor: pointer
     input
-        padding: 4px 6px
-        margin: 0
-        margin-left: 1.404255319148934%
-        width: 270px
+      display: none
 
-        border-radius(4px)
-        border: 1px solid #2d3f2e
 
-        font-size: 14px
-        line-height: 22px
+
+  .select-field
+    width: 100%
+    // overflow:hidden
+    position: relative
+
+    background: BISE_GREEN
+    border-radius(4px)
+    border: 2px solid darken(BISE_GREEN, 15%)
+    padding 0px 2px
+
+    .arrow-down
+      position: absolute
+      right: 10px
+      width: 0
+      height: 0
+      border-left: 8px solid transparent
+      border-right: 8px solid transparent
+      border-top: 8px solid DARK_GREEN
+      margin-top: 15px
+
+    select
+      color: white
+      font-size: 0.9em
+      // float:left
+      width: 100%
+      height 40px
+      padding-left: 20px
+
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+
+      border: none;
+      background: transparent
+
+
+
+  input
+    padding 10px 15px
+    // padding: 4px 6px
+    margin: 0
+    margin-left: 1.404255319148934%
+    width: 100%
+
+    border-radius(4px)
+    border: 2px solid darken(BISE_GREEN, 15%)
+    // border: 2px solid white
+
+    font-size: 14px
+    line-height: 20px
+
+
+  button
+    border-radius(5px)
+    background: BISE_GREEN
+    background-image: url('./assets/search.png')
+    background-repeat: no-repeat
+    background-position: 12px 8px, center
+    background-size: 25px 25px
+    height: 44px
+    width: 100%
+    text-align: center
+    cursor: pointer
+    border: 2px solid darken(BISE_GREEN, 15%)
+    margin: 0 7px
+    padding: 10px 15px
+    color: white
+    font-size: 1em
+    line-height: 20px
+
 
 
 
 
 #catalogue-queries
+  font-size: 1.5em
+  color: white
+  background: BISE_GREEN
+  border-radius(5px)
+  margin-bottom: 15px
+  padding: 10px
+
+  ul
+    list-style: none !important
+    padding: 0 !important
+    margin: 0 !important
+    margin-top: 10px !important
+    li
+      margin-left: 0 !important
+      display: block !important
+      line-height: 20px
+      font-size: 1.5em
+
+      list-style: none !important
+      list-style-image: none !important
+      list-style-position: inside !important
+      list-style-type: none
+
+  #results-count
+    margin-top: 1em
+    font-size: 0.8em
+    text-align: left
+
+
+
+#catalogue-categories
+  border-radius(3px)
+  padding 7px
+  border: 1px solid LIGHT_GRAY
+  margin-bottom 10px
+  font-size: 14px
+  font-family: Helvetica, sans-serif
+
+  h3
     font-size: 16px
-    color: white
-    display: none
-    background: BASE_GREEN
-    border-radius(5px)
-    margin-bottom: 15px
-    padding: 10px
+    // font-weight: normal
+    padding-bottom: 5px
+    margin-top: 2px
+    margin-bottom: 7px
+    border-bottom: 1px solid #CCC
 
-    ul
-        list-style: none !important
-        padding: 0
-        margin: 0px
-        li
-            display: block
-            height: 20px
-            line-height: 20px
-            .close
-                color: #107327
-                float: right
-                font-size: 20px
-                cursor:pointer
-                &:hover
-                    color: white
-    small
-        font-size: 12px
-        text-align:right
 
+
+
+
+
+
+
+
+  // input
+  //   margin-right: 10px
 
 .catalogue-facet
-    min-height: 40px
-    margin-bottom: 15px
-    font-size: 14px
+  border-radius(3px)
+  border 1px solid LIGHT_GRAY
+  margin-bottom: 10px
+  font-size: 14px
 
-    legend
-        font-size: 17px
-        width: 95%
-        padding-left: 10px
-        padding-bottom: 5px
-        margin-right: 10px
-        border-bottom: 1px dashed #c2c2c2
+  .facet-header
+    padding: 4px 7px
+    background: LIGHT_GRAY
+
+  legend
+    cursor: pointer
+    // color: #707070
+    color: DARK_GRAY
+    // font-size: 17px
+    font-size: 0.9em
+    width: 94%
+    font-weight: bold
+
+  ul
+    border-top: 1px solid #b8b8b8
+    list-style: none
+    margin: 0px
+    -webkit-padding-start: 0px
+
+    // padding-top: 14px
+    li
+      a
+        display:block
+        cursor: pointer
+        border-bottom: 1px solid #d7d7d7
+        padding: 10px 12px
+        &:hover
+          color: white
+          background: BISE_GREEN
+
+      .facet-count
+        float: right
+        margin-right: 5px
+        color: #575757
         font-weight: bold
-        color: #4a4a4a
+        border: 1px solid #e4e4e4
+        padding: 3px 7px
+        border-radius(5px)
+        margin-top: 6px
 
-    ul
-        list-style: none
-        -webkit-padding-start: 10px
-        li a
-            cursor: pointer
-            text-decoration: none
-            color: BASE_GREEN
-            font-weight: bold
+      .facet-remove
+        border-radius(5px)
+        font-size: 0.7em
+        font-weight: bold
+        padding: 4px 7px
+        border: 1px solid #c40000
+        color: #c40000 !important
+        float: right
+        margin-right: 5px
+        margin-top: 4px
 
-
+#content ul
+  list-style: none !important
+  margin: 0 !important
+  padding: 0 !important
+  li
+    margin-bottom: 0
 
 .catalogue-no-results
-    // border: 2px dashed #cbcbcb
-    height: 380px
+  height: 380px
 
-    h1
-        text-align: center
-        font-style: italic
-        font-size: 42px
-        position: relative
-        height: 100px
-        width: 90%
-        left: 50%
-        top: 50%
-        color: #bbbbbb
-        transform: translate(-50%, -50%)
-        -webkit-transform: translate(-50%, -50%)
-        -moz-transform: translate(-50%, -50%)
-        -ms-transform: translate(-50%, -50%)
+  h1
+    text-align: center
+    font-style: italic
+    font-size: 42px
+    position: relative
+    height: 100px
+    width: 90%
+    left: 50%
+    top: 50%
+    color: #bbbbbb
+    transform: translate(-50%, -50%)
+    -webkit-transform: translate(-50%, -50%)
+    -moz-transform: translate(-50%, -50%)
+    -ms-transform: translate(-50%, -50%)
 
 
 .catalogue-content
-    // background: white
+  .select-field
+    display: inline-block
+    overflow:hidden
 
-    .select-field
-        display: inline-block
-        overflow:hidden
+    border-radius(5px)
 
-        // background: #f6f8f9;
-        // background: -moz-linear-gradient(top,  #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%);
-        // background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6f8f9), color-stop(50%,#e5ebee), color-stop(51%,#d7dee3), color-stop(100%,#f5f7f9));
-        // background: -webkit-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%);
-        // background: -o-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%);
-        // background: -ms-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%);
-        // background: linear-gradient(to bottom,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%);
-
-        border-radius(5px)
-        // border: 1px solid #9b9b9b
-
-        select
-            color: #484848
-            // font-weight: bold
-            padding: 2px
-            // float:left
-            width: 100%
-            height 30px
-            padding-left: 10px
-            padding-right: 10px
-            -webkit-appearance: menulist-button
-            -moz-appearance: menulist-button
-            appearance: menulist-button
-            // border: none;
-            // background: transparent
+    select
+      color: #484848
+      padding: 2px
+      // float:left
+      width: 100%
+      height 30px
+      padding-left: 10px
+      padding-right: 10px
+      -webkit-appearance: menulist-button
+      -moz-appearance: menulist-button
+      appearance: menulist-button
+      // border: none;
+      // background: transparent
 
 
 .catalogue-options
-    // background: red
-    label
-        font-size: 12px
-        margin-right: 7px
+  label
+    font-size: 12px
+    margin-right: 7px
 
 .catalogue-status
-    text-align center
-    color #167124
-    font-size 24px
-    font-weight bold
-    vertical-align bottom
+  text-align center
+  color #167124
+  font-size 24px
+  font-weight bold
+  vertical-align bottom
 
 ul#catalogue-results
-    list-style: none
-    margin: 0 auto
-    padding: 0
-    font-family: Helvetica, sans-serif
-    font-size: 14px
+  list-style: none
+  margin: 0 auto
+  padding: 0
+  font-family: Helvetica, sans-serif
+  font-size: 14px
 
-    border-top: 1px solid #999999
-    padding-top: 10px
-    margin-top: 10px
+  border-top: 1px solid #999999
+  padding-top: 10px
+  margin-top: 10px

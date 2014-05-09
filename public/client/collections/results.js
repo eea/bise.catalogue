@@ -5,8 +5,8 @@ define(['underscore', 'backbone', 'models/result'], function(_, Backbone, Result
     model: Result,
     url: '',
 
-    initialize: function(host) {
-      this.url = 'http://' + host + '/api/v1/bise_search'
+    initialize: function(url) {
+      this.url = url;
     },
 
     parse: function(data) {

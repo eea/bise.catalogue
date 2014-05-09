@@ -1,4 +1,5 @@
-define(['jquery', 'underscore', 'backbone', 'models/facet', 'text!template/facet.html'], function($, _, Backbone, Facet, facetTemplate) {
+define(['jquery', 'underscore', 'backbone', 'models/facet', 'text!template/facet.html'],
+  function($, _, Backbone, Facet, facetTemplate) {
 
   var FacetView = Backbone.View.extend({
 
@@ -8,7 +9,7 @@ define(['jquery', 'underscore', 'backbone', 'models/facet', 'text!template/facet
 
     titles: {
       site: 'Source',
-      author: 'Contributor',
+      author: 'Author',
       countries: 'Country',
       biographical_region: 'Biogeographical Region',
       languages: 'Language',
@@ -24,7 +25,8 @@ define(['jquery', 'underscore', 'backbone', 'models/facet', 'text!template/facet
 
     events: {
       "click .facet-link": "applyFilter",
-      "click .facet-remove": "unapplyFilter"
+      "click .facet-remove": "unapplyFilter",
+      "click .facet-header": "toggleCollapse"
     },
 
     initialize: function() {
@@ -39,14 +41,11 @@ define(['jquery', 'underscore', 'backbone', 'models/facet', 'text!template/facet
     },
 
     render: function() {
-      console.log($(this.el));
       $(this.el).html(this.template(this.model.toJSON()));
-      // this.delegateEvents()
       return this;
     },
 
     applyFilter: function(e) {
-      console.log('apply filter...')
       el = $(e.currentTarget)
       Catalogue.mergeFacet(el.data('facet'), el.data('value'))
     },
@@ -69,6 +68,10 @@ define(['jquery', 'underscore', 'backbone', 'models/facet', 'text!template/facet
       this.model.unbind('destroy', this.remove, this);
       this.model.destroy();
       this.remove();
+    },
+
+    toggleCollapse: function(e) {
+      el = $(e.currentTarget).next().slideToggle()
     }
 
   })

@@ -2,6 +2,7 @@ require 'sanitize'
 
 module Api
   module V1
+    # Search service controller for API v1
     class SearchController < ApplicationController
 
       # We overwrite as_json method to create custom mappings
@@ -16,6 +17,9 @@ module Api
       after_filter :set_access_control_headers
 
 
+      # -----------------------------------------------------------------------
+      # Service to search only in bise
+      # -----------------------------------------------------------------------
       def bise_search
         q = clean_param(params[:query])
 
@@ -26,30 +30,36 @@ module Api
           date_end = DateTime.new(params[:published_on].to_i, 12, 31)
         end
 
-        indexes = params[:indexes]
-        if indexes == "all"
-          indexes = [
-            'articles',
-            'documents',
-            'links'
-          ]
-        else
-          indexes = [ indexes ]
-        end
+        # ----------------- OLD SEARCH -----------------------------------------
+        # indexes = params[:indexes]
+        # if indexes == "all"
+        #   indexes = [
+        #     'articles',
+        #     'documents',
+        #     'links'
+        #   ]
+        # else
+        #   indexes = [ indexes ]
+        # end
 
-        indexes = indexes.map do |i|
-          if Rails.env.production?
-            "catalogue_production_#{i}"
-          else
-            "catalogue_development_#{i}"
-          end
+        # indexes = indexes.map do |i|
+        #   if Rails.env.production?
+        #     "catalogue_production_#{i}"
+        #   else
+        #     "catalogue_development_#{i}"
+        #   end
+        # end
+
+        # ----------------- NEW SEARCH -----------------------------------------
+        indexes = params[:indexes].map do |category|
+          "catalogue_#{Rails.env}_#{category}"
         end
 
         if !q.nil?
 
-          page = if params[:page].present? then params[:page].to_i else 1 end
-          per  = if params[:per_page].present? then params[:per_page].to_i else 10 end
-          from = if page == 1 then 0 else (page - 1) * per end
+          page = params[:page].present? ? params[:page].to_i : 1
+          per  = params[:per_page].present? ? params[:per_page].to_i : 10
+          from = page == 1 ? 0 : (page - 1) * per
 
           source_db = params[:source_db] if params[:source_db].present?
           author    = params[:author] if params[:author].present?
@@ -57,14 +67,10 @@ module Api
           languages = params[:languages].split(/\//) if params[:languages].present?
           biogeo    = params[:biographical_region] if params[:biographical_region].present?
 
-          species_group  = params[:species_group] if params[:species_group].present?
-          genus          = params[:genus] if params[:genus].present?
-
           search_filter = []
           search_filter << { term: { approved: true }}
           search_filter << { term: { 'site.name' => 'BISE' }}
           search_filter << { term: { source_db: params[:source_db] }} if params[:source_db].present?
-          search_filter << { term: { author: params[:author] }} if params[:author].present?
           search_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
           search_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
           search_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
@@ -122,10 +128,10 @@ module Api
               facet_filter :and, search_filter unless search_filter.empty?
             end
 
-            facet 'author' do
-              terms :author
-              facet_filter :and, search_filter unless search_filter.empty?
-            end
+            # facet 'author' do
+            #   terms :author
+            #   facet_filter :and, search_filter unless search_filter.empty?
+            # end
 
             facet 'countries' do
               terms 'countries.name', size: 60
@@ -153,6 +159,9 @@ module Api
         respond_with render_response(@rows)
       end
 
+      # -----------------------------------------------------------------------
+      # Service to search in all the Catalogue
+      # -----------------------------------------------------------------------
       def index
         q = clean_param(params[:query])
 
@@ -163,27 +172,8 @@ module Api
           date_end = DateTime.new(params[:published_on].to_i, 12, 31)
         end
 
-        indexes = params[:indexes]
-        if indexes == "all"
-          indexes = [
-            'articles',
-            'documents',
-            # 'news',
-            'links',
-            'protected_areas',
-            'habitats',
-            'species'
-          ]
-        else
-          indexes = [ indexes ]
-        end
-
-        indexes = indexes.map do |i|
-          if Rails.env.production?
-            "catalogue_production_#{i}"
-          else
-            "catalogue_development_#{i}"
-          end
+        indexes = params[:indexes].map do |category|
+          "catalogue_#{Rails.env}_#{category}"
         end
 
         if !q.nil?
@@ -384,22 +374,32 @@ module Api
       end
 
       def clean_param(param)
-        (param.nil?) ? nil : Sanitize.clean(param)
+        param.nil? ? nil : Sanitize.clean(param)
       end
 
       def render_response(rows)
-        response = Hash.new
         if rows.nil? || rows.results.nil?
-          response['total']   = 0
-          response['results'] = []
-          response['facets']  = []
+          { total: 0, results: [], facets: [] }
         else
-          response['total']   = rows.results.total
-          response['results'] = rows.results
-          response['facets']  = rows.results.facets
+          { total: rows.results.total,
+            results: rows.results,
+            facets: rows.results.facets }
         end
-        response
       end
+
+      # def render_response(rows)
+      #   response = Hash.new
+      #   if rows.nil? || rows.results.nil?
+      #     response['total']   = 0
+      #     response['results'] = []
+      #     response['facets']  = []
+      #   else
+      #     response['total']   = rows.results.total
+      #     response['results'] = rows.results
+      #     response['facets']  = rows.results.facets
+      #   end
+      #   response
+      # end
 
     end
   end

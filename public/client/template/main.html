@@ -1,32 +1,57 @@
 
 <div class="catalogue-toolbar">
-    <div class="select-field">
-        <select id="catalogue-area"></select>
-    </div>
     <form id="catalogue-search-form">
-        <input id="query" name="query" type="text" class="input-medium search-query" placeholder="Search...">
-        <button type="submit" class="btn" style="margin:none;vertical-align:top">Search</button>
+        <div class="row-fluid">
+            <div class="span4">
+                <p class="field switch">
+                    <input type="radio" id="bise-search" name="searchtype" value="bise" checked="checked" />
+                    <input type="radio" id="advanced-search" name="searchtype" value="advanced" />
+                    <label for="bise-search" class="bise-search selected">
+                        <span>BISE Search</span>
+                    </label>
+                    <label for="advanced-search" class="advn-search">
+                        <span>Advanced</span>
+                    </label>
+                </p>
+            </div>
+            <div class="span6">
+                <input id="query" name="query" type="text"
+                       class="input-medium search-query"
+                       placeholder="Search..." autofocus="true">
+            </div>
+            <div class="span2">
+                <button type="submit">&nbsp;&nbsp;Search</button>
+            </div>
+            <div class="span3" style="display:none;">
+                <div class="select-field">
+                    <span class="arrow-down"></span>
+                    <select id="catalogue-area"></select>
+                </div>
+            </div>
+        </div>
     </form>
 </div>
 
 
 <div class="catalogue-container">
 
-    <div class="catalogue-sidebar span4">
+    <div class="catalogue-sidebar">
         <div id="catalogue-queries" style="display: block; ">
             <ul></ul>
-            <div id="results-count" style="text-align: right">About 0 results.</div>
+            <div id="results-count">About 0 results.</div>
         </div>
+
+        <div id="catalogue-categories"></div>
         <div id="catalogue-facets"></div>
     </div>
 
-    <div class="catalogue-no-results span8">
+    <div class="catalogue-no-results">
         <h1></h1>
     </div>
 
     <div class="catalogue-content span8" style="display:none">
 
-        <div class="row-fluid">
+        <div class="row-fluid" style="padding-bottom: 15px">
             <div class="span5">
                 <div class="catalogue-options">
                     <div class="btn-group">
@@ -51,7 +76,7 @@
             <div class="span2 catalogue-status"></div>
             <div class="span5">
                 <ul class="pager">
-                    <li><a class="p">Previous</a></li>
+                    <li><a class="p">Prev</a></li>
                     <li><a class="n">Next</a></li>
                 </ul>
             </div>
@@ -59,12 +84,12 @@
 
         <ul id="catalogue-results" style=""></ul>
 
-        <div class="row-fluid">
+        <div class="row-fluid" style="margin-bottom: 20px">
             <div class="span4"></div>
             <div class="span4 catalogue-status"></div>
             <div class="span4" style="padding-top: 8px">
                 <ul class="pager">
-                    <li><a class="p">Previous</a></li>
+                    <li><a class="p">Prev</a></li>
                     <li><a class="n">Next</a></li>
                 </ul>
             </div>
