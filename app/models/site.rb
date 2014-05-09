@@ -12,4 +12,12 @@ class Site < ActiveRecord::Base
 
   validates :name, uniqueness: true
 
+  before_save :generate_auth_token
+
+  private
+
+  def generate_auth_token
+    self.auth_token =  Digest::MD5.hexdigest(name)
+  end
+
 end

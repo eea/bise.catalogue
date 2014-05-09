@@ -13,11 +13,11 @@
           %input#file_title.string.required.input-xxlarge{ type: 'text', disabled: :disabled }
           %button#file_select.btn{ type: 'button' }
             Select
-        .file-info.pull-right
       .span4
-        %br
-        %br
-        %br
+        .file-info
+        -# %br
+        -# %br
+        -# %br
         .text-error
           = @document.errors[:file].try(:first) if @document.errors.any?
 

@@ -36,7 +36,7 @@ class Biseadmin::KeywordsController < ApplicationController
 
   def destroy
     @keyword = Keyword.find(params[:id])
-    path = admin_keyword_container_path(@keyword.keyword_container)
+    path = biseadmin_keyword_container_path(@keyword.keyword_container)
     @keyword.destroy
 
     respond_to do |format|

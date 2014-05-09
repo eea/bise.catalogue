@@ -345,7 +345,6 @@ class Document < ActiveRecord::Base
     end
 
     def compute_hash
-      # puts ":: compute_hash => #{self.file.nil?} - #{self.file.size}"
       self.md5hash = Digest::MD5.hexdigest(file.read) if file?
     end
 

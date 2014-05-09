@@ -13,11 +13,15 @@
       .span4
         %legend{ style: 'margin-bottom: 0' }
           API Access
-        = f.input :auth_token, input_html: { class: 'input-block-level' }
-        .alert.alert-warning
-          Auth token is a required parameter for 3rd party sites to be able to
-          synchronize data with BISE Catalogue.
+        = f.input :auth_token, input_html: { class: 'input-block-level', disabled: true }
+        .alert.alert-info
+          %strong{ style: 'magin-bottom dotted #4f86d8'}
+            = fa_icon 'info-circle'
+            Information:
+          %br
+          Auth token will be generated automatically and should be implemented in
+          any 3rd party Website to be able to send data to BISE Catalogue.
 
   .form-actions
     = f.button :submit, class: 'btn-success'
-    = link_to 'Cancel', admin_sites_path, class: 'btn btn-default'
+    = link_to 'Cancel', biseadmin_sites_path, class: 'btn btn-default'
