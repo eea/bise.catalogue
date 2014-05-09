@@ -1,4 +1,5 @@
 ActiveAdmin.register Target do
+  menu parent: 'Others'
   config.comments = false
 
   form do |f|

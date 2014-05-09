@@ -1,4 +1,5 @@
 ActiveAdmin.register KeywordContainer do
+  menu parent: 'Others'
   config.comments = false
 
   index do

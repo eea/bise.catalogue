@@ -1,5 +1,5 @@
 ActiveAdmin.register Species do
-  menu priority: 5
+  menu priority: 5, parent: 'Content'
   config.comments = false
 
   # filter :valid_name, as: :select

@@ -1,5 +1,5 @@
 ActiveAdmin.register Link do
-  menu priority: 4
+  menu priority: 3, parent: 'Content'
   config.comments = false
 
   scope :unapproved

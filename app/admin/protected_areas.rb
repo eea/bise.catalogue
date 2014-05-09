@@ -1,5 +1,5 @@
 ActiveAdmin.register ProtectedArea do
-  menu priority: 7
+  menu priority: 4, parent: 'Content'
   config.comments = false
 
   # filter :valid_name, as: :select

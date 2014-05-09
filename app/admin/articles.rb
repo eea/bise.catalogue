@@ -1,5 +1,5 @@
 ActiveAdmin.register Article do
-  menu priority: 2
+  menu priority: 1, parent: 'Content'
   # permit_params :title,
   #               :question_date,
   #               :created_at, answers_attributes: [:user_id, :content]

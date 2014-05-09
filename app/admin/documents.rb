@@ -1,5 +1,5 @@
 ActiveAdmin.register Document do
-  menu priority: 3
+  menu priority: 2, parent: 'Content'
   config.comments = false
 
   scope :unapproved

@@ -11,9 +11,6 @@ ActiveAdmin.register_page "Dashboard" do
             column 'Title' do |doc|
               link_to(doc.title, admin_document_path(doc))
             end
-            # column 'Total answers' do |question|
-            #   status_tag "#{question.answers.size.to_s} answers", :ok
-            # end
           end
         end
 
@@ -36,17 +33,16 @@ ActiveAdmin.register_page "Dashboard" do
         end
       end
 
-      column do
-        panel 'Other Details' do
-          # para 'Welcome to JourneyJournal.'
-          div class: 'blank_slate_container', id: 'others_panel' do
-            span class: 'blank_slate' do
-              span I18n.t('active_admin.dashboard_welcome.welcome')
-              small I18n.t('active_admin.dashboard_welcome.call_to_action')
-            end
+      column span: 2 do
+        panel 'Last signed in EIONET users:' do
+          table_for User.order('last_sign_in_at DESC').last(10) do
+            column 'Id', :id
+            column 'User', :login
+            column :last_sign_in_at
           end
         end
       end
+
     end
   end
 
