@@ -5,7 +5,7 @@ $ ->
   #   console.log(params)
   do $('.target-select').chosen
   do $('.tag-select').chosen
-  # do $('.best_in_place').best_in_place
+  do $('.best_in_place').best_in_place
 
   tinyMCE.init
     mode: 'textareas'

@@ -31,7 +31,7 @@ gem 'yui-compressor'
 gem 'bourbon'
 
 gem 'underscore-rails'
-# gem 'best_in_place'             , '~> 2.1.0'
+gem 'best_in_place'             , github: 'aaronchi/best_in_place'
 
 # Outside assets for production coffee handlers
 gem 'coffee-rails'              , '~> 4.0.1'

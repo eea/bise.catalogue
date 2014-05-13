@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/aaronchi/best_in_place.git
+  revision: 1152e2256afd485e66602833fd99d09d60994841
+  specs:
+    best_in_place (2.1.0)
+      jquery-rails
+      rails (>= 3.1)
+
+GIT
   remote: git://github.com/activerecord-hackery/polyamorous.git
   revision: 49b2607c14583fb35189f74dce05e0dd3bcf0bd8
   specs:
@@ -478,6 +486,7 @@ PLATFORMS
 DEPENDENCIES
   activeadmin!
   acts-as-taggable-on
+  best_in_place!
   better_errors
   bootstrap-sass (~> 3.1.1)
   bourbon
