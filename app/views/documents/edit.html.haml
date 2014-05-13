@@ -1,14 +1,14 @@
 - content_for :css do
-  = stylesheet_link_tag "documents", media: "all"
+  = stylesheet_link_tag 'documents', media: 'all'
 
 - content_for :pageheader do
   Editing document
 
 - content_for :actions do
-  = link_to documents_path, class: "btn" do
+  = link_to documents_path, class: 'btn btn-default' do
     = fa_icon 'reply'
     Back
-  = link_to @document, class: "btn" do
+  = link_to @document, class: 'btn btn-default' do
     = fa_icon 'search'
     Show
 
