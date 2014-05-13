@@ -3,55 +3,69 @@
 
 - content_for :actions do
   - if search_params_available?
-    = link_to :back, class: "btn" do
+    = link_to :back, class: 'btn btn-default' do
       = fa_icon 'reply'
       Back
   - else
-    = link_to links_path, class: "btn" do
+    = link_to links_path, class: 'btn btn-default' do
       = fa_icon 'reply'
       Back to List
   - if current_user.approver?
-    = link_to  edit_link_path(@link), class: "btn" do
+    = link_to  edit_link_path(@link), class: 'btn btn-default' do
       = fa_icon 'pencil'
       Edit
-    = link_to  link_path(@link), method: :delete, class: "btn btn-danger pull-right" do
-      = fa_icon 'trash'
+    = link_to  link_path(@link), method: :delete, class: 'btn btn-danger pull-right' do
+      = fa_icon 'trash-o'
       Delete
 
 
-.container-fluid
+.container
 
   = render 'common/showinfo', obj: @link
 
   %legend Link
-  .row-fluid
-    .span3.control-label.text-right
+  .row
+    .col-md-3.control-label.text-right
       URL:
-    .span9{ style: "text-align:left"}
+    .col-md-9{ style: "text-align:left"}
       %a{ href: @link.url }
         = @link.url
-  .row-fluid
-    .span3.control-label.text-right
+  .row
+    .col-md-3.control-label.text-right
       Description:
-    .span9
+    .col-md-9
       = raw @link.description
 
 
 
   %legend Countries
-  .row-fluid
-    .span12.text-right
+  .row
+    .col-md-12.text-right
       - @link.countries.each do |c|
         %span.label.label-success= c.name
 
   %legend Biographical Region:
-  .row-fluid
-    .span12
+  .row
+    .col-md-12
       = @link.biographical_region
 
+  .row
+    .col-md-6
+      %legend Biodiversity Strategy Targets
+      .row
+        .col-lg-12
+          - @link.targets.each do |t|
+            .label.label-success= t.name
+    .col-md-6
+      %legend Biodiversity Strategy Actions
+      .row
+        .col-lg-12
+          - @link.actions.each do |t|
+            .label.label-success= t.name
+
   %legend Tags
-  .row-fluid
-    .span12
+  .row
+    .col-md-12
       - @link.tags.each do |t|
         .label.label-success= t.name
 

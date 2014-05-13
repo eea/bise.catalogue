@@ -6,7 +6,7 @@
         %span.caret
     .accordion-body.in#country-list
       .accordion-inner
-        %ul.unstyled
+        %ul.list-unstyled
           - if objs.respond_to?('facets')
             - objs.facets['countries']['terms'].each do |facet|
               - if !current_page?(params.merge(countries: facet['term'], page: 1))

@@ -4,7 +4,7 @@
 - content_for :actions do
   - if current_user.approver?
     / = link_to  new_admin_site_path, class: "btn" do
-    = link_to  new_biseadmin_keyword_container_path, class: "btn" do
+    = link_to  new_biseadmin_keyword_container_path, class: 'btn btn-default' do
       = fa_icon 'plus'
       Add Keyword Category
 
@@ -39,13 +39,13 @@
           %td{ style: 'padding: 0' }
             .btn-toolbar{ style: 'margin: 4px 0 0 0' }
               .btn-group
-                = link_to biseadmin_keyword_container_path(container), class: 'btn btn-default btn-small' do
-                  -# = fa_icon 'eye'
-                  Show
-                = link_to edit_biseadmin_keyword_container_path(container), class: 'btn btn-default btn-small' do
+                -# = link_to biseadmin_keyword_container_path(container), class: 'btn btn-default btn-small' do
+                -#   -# = fa_icon 'eye'
+                -#   Show
+                = link_to edit_biseadmin_keyword_container_path(container), class: 'btn btn-default btn-xs' do
                   -# = fa_icon 'pencil'
                   Edit
-                = link_to biseadmin_keyword_container_path(container), method: :delete, class: 'btn btn-danger btn-small', data: { confirm: 'Are you sure?' } do
+                = link_to biseadmin_keyword_container_path(container), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
                   = fa_icon 'trash-o'
-                  -# Destroy
+                  Destroy
 

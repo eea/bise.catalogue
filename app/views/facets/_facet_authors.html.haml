@@ -6,7 +6,7 @@
         %span.caret
     .accordion-body.in#author-list
       .accordion-inner
-        %ul.unstyled
+        %ul.list-unstyled
           - if objs.respond_to?('facets')
             - objs.facets['authors']['terms'].each do |facet|
               - if !current_page?(params.merge(author: facet['term'], page: 1))

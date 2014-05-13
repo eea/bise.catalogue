@@ -6,8 +6,8 @@
 
     %legend Link
 
-    .row-fluid
-      .span12
+    .row
+      .col-lg-12
         = f.input :url, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
         / .span6
         = f.input :description, as: :text, input_html: { class: 'input-block-level tinymce', rows: 5 }
@@ -15,8 +15,8 @@
     = render partial: 'common/targets', locals: { parent: @link, f: f }
     = render partial: 'common/countries', locals: { parent: @link }
 
-  %div.form-actions.margin-none.text-right
-    = f.submit 'Save', class: "btn btn-success"
-    = link_to "Cancel", links_path, class: "btn"
+  .form-actions
+    = f.submit 'Save', class: 'btn btn-success'
+    = link_to 'Cancel', links_path, class: 'btn btn-default'
 
 

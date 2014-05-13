@@ -4,10 +4,6 @@
 - content_for :pageheader do
   New document
 
-- content_for :actions do
-  = link_to documents_path, class: 'btn' do
-    Cancel
-
 = render partial: 'documents/modals'
 
 = render 'form'

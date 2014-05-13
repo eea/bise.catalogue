@@ -6,7 +6,7 @@
         %span.caret
     .accordion-body.in#countries-list
       .accordion-inner
-        %ul.unstyled
+        %ul.list-unstyled
           - if @protected_areas.respond_to?('facets')
             - @protected_areas.facets['countries']['terms'].each do |facet|
               - if !current_page?(params.merge(country: facet['term'], page: 1))

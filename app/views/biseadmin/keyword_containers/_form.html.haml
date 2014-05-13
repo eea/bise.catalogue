@@ -2,9 +2,9 @@
 = simple_form_for([:biseadmin, @keyword_container]) do |f|
   = f.error_notification
 
-  .container-fluid
-    .row-fluid
-      .span8
+  .container
+    .row
+      .col-sm-8
         %legend{ style: 'margin-bottom: 0' }
           General information
         = f.input :title, input_html: { class: 'input-block-level' }

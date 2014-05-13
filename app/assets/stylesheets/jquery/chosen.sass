@@ -1,372 +1,466 @@
+//
+// bootstrap-chosen.scss
+//
+// An alternate stylesheet for Chosen (http://harvesthq.github.com/chosen/).
+// This one is supposed to integrate better with Bootstrap.
+//
+// Submit bugfixes to: http://github.com/alxlit/bootstrap-chosen
+//
+
+
+@import "bootstrap"
+
+$chosen-background: $input-bg !default
+$chosen-border: $input-border !default
+// $chosen-border-radius: $input-border-radius !default
+$chosen-border-radius: 4px !default
+$chosen-multi-border-radius: 4px !default
+$chosen-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075) !default
+$chosen-drop-border: $gray-light !default
+$chosen-drop-box-shadow: 0 8px 8px rgba(0, 0, 0, .25) !default
+$chosen-drop-zindex: 1060 !default
+$chosen-border-color:rgba(82, 168, 236, .8) !default
+$chosen-focus-border: $chosen-border-color !default
+$chosen-focus-box-shadow: 0 1px 1px rgba(0, 0, 0, .075) inset, 0 0 8px $chosen-border-color !default
+$chosen-focus-transition: border linear .2s, box-shadow linear .2s !default
+$chosen-height: $input-height-base !default
+$chosen-multi-height: $input-height-base + 6px !default
+$chosen-sprite-path: '/assets/chosen-sprite.png' !default
+
+
+
+.chosen-select
+  width: 100%
+.chosen-select-deselect
+  width: 100%
 
 .chosen-container
-  position: relative
   display: inline-block
+  font-size: $font-size-base
+  position: relative
   vertical-align: middle
-  font-size: 13px
-  zoom: 1
-  *display: inline
-  -webkit-user-select: none
-  -moz-user-select: none
-  user-select: none
-  margin-bottom: 10px
+
   .chosen-drop
+    background: $chosen-background
+    border: 1px solid $chosen-drop-border
+    border-top-color: lighten($chosen-drop-border, 25%)
+    @include border-bottom-radius($chosen-border-radius)
+    @include box-shadow($chosen-drop-box-shadow)
+    margin-top: -1px
     position: absolute
     top: 100%
-    left: -9999px
-    z-index: 1010
-    -webkit-box-sizing: border-box
-    -moz-box-sizing: border-box
-    box-sizing: border-box
-    width: 100%
-    border: 1px solid #aaa
-    border-top: 0
-    background: #fff
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15)
+    left: -9000px
+    z-index: $chosen-drop-zindex
+
+
   &.chosen-with-drop .chosen-drop
     left: 0
-  a
-    cursor: pointer
+    right: 0
+
+
+  .chosen-results
+    color: $gray
+    margin: 0 4px 4px 0
+    max-height: 240px
+    padding: 0 0 0 4px
+    position: relative
+    overflow-x: hidden
+    overflow-y: auto
+    -webkit-overflow-scrolling: touch
+
+    li
+      display: none
+      line-height: $line-height-base // 15px
+      list-style: none
+      margin: 0
+      padding: 5px 6px
+
+      em
+        background: #feffde
+        font-style: normal
+
+
+      &.group-result
+        display: list-item
+        cursor: default
+        color: #999
+        font-weight: bold
+
+
+      &.group-option
+        padding-left: 15px
+
+
+      &.active-result
+        cursor: pointer
+        display: list-item
+
+
+      &.highlighted
+        background-color: $link-color
+        color: white
+        border-radius: 5px
+
+        em
+          background: transparent
+          font-weight: bold
+
+
+
+      &.disabled-result
+        display: list-item
+        color: $gray-light
+
+
+
+    .no-results
+      background: $gray-lighter
+      display: list-item
+
+
+
+  .chosen-results-scroll
+    background: white
+    margin: 0 4px
+    position: absolute
+    text-align: center
+    width: 321px
+    z-index: 1
+
+    span
+      display: inline-block
+      height: $line-height-base // 17px
+      text-indent: -5000px
+      width: 9px
+
+
+
+  .chosen-results-scroll-down
+    bottom: 0
+
+    span
+      background: url($chosen-sprite-path) no-repeat -4px -3px
+
+
+
+  .chosen-results-scroll-up
+    span
+      background: url($chosen-sprite-path) no-repeat -22px -3px
+
+
 
 
 .chosen-container-single
   .chosen-single
-    position: relative
-    display: block
-    overflow: hidden
-    padding: 0 0 0 8px
-    height: 27px
-    border: 1px solid #aaa
-    border-radius: 4px
-    background-color: #fff
-    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, white), color-stop(50%, #f6f6f6), color-stop(52%, #eeeeee), color-stop(100%, #f4f4f4))
-    background: -webkit-linear-gradient(top, white 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%)
-    background: -moz-linear-gradient(top, white 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%)
-    background: -o-linear-gradient(top, white 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%)
-    background: linear-gradient(top, white 20%, #f6f6f6 50%, #eeeeee 52%, #f4f4f4 100%)
+    background-color: $chosen-background
+    @include gradient-vertical(white, $gray-lighter)
+    -webkit-background-clip: padding-box
+    -moz-background-clip: padding
     background-clip: padding-box
-    box-shadow: 0 0 3px white inset, 0 1px 1px rgba(0, 0, 0, 0.1)
-    color: #444
+    border: 1px solid $chosen-border
+    @include box-shadow($chosen-box-shadow)
+    border-radius: 5px
+    color: $gray
+    display: block
+    height: $chosen-height
+    overflow: hidden
+    line-height: $chosen-height
+    padding: 0 0 0 8px
+    position: relative
     text-decoration: none
     white-space: nowrap
-    line-height: 28px
-  .chosen-default
-    color: #999
-  .chosen-single span
-    display: block
-    overflow: hidden
-    margin-right: 26px
-    text-overflow: ellipsis
-    white-space: nowrap
-  .chosen-single-with-deselect span
-    margin-right: 38px
-  .chosen-single abbr
-    position: absolute
-    top: 6px
-    right: 26px
-    display: block
-    width: 12px
-    height: 12px
-    background: url('/assets/chosen-sprite.png') -42px 1px no-repeat
-    font-size: 1px
-    &:hover
-      background-position: -42px -10px
-  &.chosen-disabled .chosen-single abbr:hover
-    background-position: -42px -10px
-  .chosen-single div
-    position: absolute
-    top: 2px
-    right: 3px
-    display: block
-    width: 18px
-    height: 100%
-    b
+
+    span
       display: block
-      width: 100%
+      margin-right: 26px
+      @include text-overflow()
+
+
+    abbr
+      background: url($chosen-sprite-path) right top no-repeat
+      display: block
+      font-size: 1px
+      height: 10px
+      position: absolute
+      right: 26px
+      top: ($chosen-height - 10px) / 2
+      width: 12px
+
+      &:hover
+        background-position: right -11px
+
+
+
+    &.chosen-disabled .chosen-single abbr:hover
+      background-position: right 2px
+
+
+    div
+      display: block
       height: 100%
-      background: url('/assets/chosen-sprite.png') no-repeat 0px 2px
+      position: absolute
+      top: 0
+      right: 0
+      width: 18px
+
+      b
+        background: url($chosen-sprite-path) no-repeat 0 7px
+        display: block
+        height: 100%
+        width: 100%
+
+
+
+
+  .chosen-default
+    color: $gray-light
+
+
   .chosen-search
-    position: relative
-    z-index: 1010
     margin: 0
     padding: 3px 4px
+    position: relative
     white-space: nowrap
-    input[type="text"]
-      -webkit-box-sizing: border-box
-      -moz-box-sizing: border-box
-      box-sizing: border-box
+    z-index: $zindex-dropdown
+
+    input
+      background: url($chosen-sprite-path) no-repeat 100% -20px, $chosen-background
+      border: 1px solid $chosen-border
+      @include border-top-radius($chosen-border-radius)
+      @include border-bottom-radius($chosen-border-radius)
+      @include box-shadow($chosen-box-shadow)
       margin: 1px 0
-      padding: 4px 20px 4px 5px
+      padding: 4px 20px 4px 4px
       width: 100%
-      height: auto
-      outline: 0
-      border: 1px solid #aaa
-      background: white url('/assets/chosen-sprite.png') no-repeat 100% -20px
-      background: url('/assets/chosen-sprite.png') no-repeat 100% -20px, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, white))
-      background: url('/assets/chosen-sprite.png') no-repeat 100% -20px, -webkit-linear-gradient(#eeeeee 1%, white 15%)
-      background: url('/assets/chosen-sprite.png') no-repeat 100% -20px, -moz-linear-gradient(#eeeeee 1%, white 15%)
-      background: url('/assets/chosen-sprite.png') no-repeat 100% -20px, -o-linear-gradient(#eeeeee 1%, white 15%)
-      background: url('/assets/chosen-sprite.png') no-repeat 100% -20px, linear-gradient(#eeeeee 1%, white 15%)
-      font-size: 1em
-      font-family: sans-serif
-      line-height: normal
-      border-radius: 0
+
+
+
   .chosen-drop
     margin-top: -1px
-    border-radius: 0 0 4px 4px
+    @include border-bottom-radius($chosen-border-radius)
+    -webkit-background-clip: padding-box
+    -moz-background-clip: padding
     background-clip: padding-box
-  &.chosen-container-single-nosearch .chosen-search
-    position: absolute
-    left: -9999px
 
 
-.chosen-container .chosen-results
-  position: relative
-  overflow-x: hidden
-  overflow-y: auto
-  margin: 0 4px 4px 0
-  padding: 0 0 0 4px
-  max-height: 240px
-  -webkit-overflow-scrolling: touch
-  li
-    display: none
-    margin: 0
-    padding: 5px 6px
-    list-style: none
-    line-height: 15px
-    &.active-result
-      display: list-item
-      cursor: pointer
-    &.disabled-result
-      display: list-item
-      color: #ccc
-      cursor: default
-    &.highlighted
-      background-color: #3875d7
-      background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #3875d7), color-stop(90%, #2a62bc))
-      background-image: -webkit-linear-gradient(#3875d7 20%, #2a62bc 90%)
-      background-image: -moz-linear-gradient(#3875d7 20%, #2a62bc 90%)
-      background-image: -o-linear-gradient(#3875d7 20%, #2a62bc 90%)
-      background-image: linear-gradient(#3875d7 20%, #2a62bc 90%)
-      color: #fff
-    &.no-results
-      display: list-item
-      background: #f4f4f4
-    &.group-result
-      display: list-item
-      font-weight: bold
-      cursor: default
-    &.group-option
-      padding-left: 15px
-    em
-      font-style: normal
-      text-decoration: underline
+
+.chosen-container-single-nosearch
+  .chosen-search
+    input
+      position: absolute
+      left: -9000px
+
+
 
 
 .chosen-container-multi
   .chosen-choices
-    position: relative
-    overflow: hidden
-    -webkit-box-sizing: border-box
-    -moz-box-sizing: border-box
-    box-sizing: border-box
-    margin: 0
-    padding: 0
-    width: 100%
+    background-color: $chosen-background
+    border: 1px solid $chosen-border
+    @include border-top-radius($chosen-multi-border-radius)
+    @include border-bottom-radius($chosen-multi-border-radius)
+    @include box-shadow($chosen-box-shadow)
+    cursor: text
     height: auto !important
     height: 1%
-    border: 1px solid #aaa
-    border-radius: 4px
-    background-color: #fff
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, white))
-    background-image: -webkit-linear-gradient(#eeeeee 1%, white 15%)
-    background-image: -moz-linear-gradient(#eeeeee 1%, white 15%)
-    background-image: -o-linear-gradient(#eeeeee 1%, white 15%)
-    background-image: linear-gradient(#eeeeee 1%, white 15%)
-    cursor: text
+    margin: 0
+    overflow: hidden
+    padding: 0
+    position: relative
+
     li
       float: left
       list-style: none
-      &.search-field
+
+
+    .search-field
+      margin: 0
+      padding: 0
+      white-space: nowrap
+
+      input
+        background: transparent !important
+        border: 0 !important
+        @include box-shadow(none)
+        color: $gray
+        height: $chosen-multi-height - 8px
         margin: 0
-        padding: 0
-        white-space: nowrap
-        input[type="text"]
-          margin: 1px 0
-          padding: 5px
-          height: 15px
-          outline: 0
-          border: 0 !important
-          background: transparent !important
-          box-shadow: none
-          color: #666
-          font-size: 100%
-          font-family: sans-serif
-          line-height: normal
-          border-radius: 0
-        .default
-          color: #999
-      &.search-choice
-        position: relative
-        margin: 3px 0 3px 5px
-        padding: 3px 20px 3px 5px
-        border: 1px solid #aaa
-        border-radius: 3px
-        background-color: #e4e4e4
-        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee))
-        background-image: -webkit-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%)
-        background-image: -moz-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%)
-        background-image: -o-linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%)
-        background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%)
-        background-clip: padding-box
-        box-shadow: 0 0 2px white inset, 0 1px 0 rgba(0, 0, 0, 0.05)
-        color: #333
-        line-height: 13px
-        cursor: default
-        .search-choice-close
-          position: absolute
-          top: 4px
-          right: 3px
-          display: block
-          width: 12px
-          height: 12px
-          background: url('/assets/chosen-sprite.png') -42px 1px no-repeat
-          font-size: 1px
-          &:hover
-            background-position: -42px -10px
-      &.search-choice-disabled
-        padding-right: 5px
-        border: 1px solid #ccc
-        background-color: #e4e4e4
-        background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #f4f4f4), color-stop(50%, #f0f0f0), color-stop(52%, #e8e8e8), color-stop(100%, #eeeeee))
-        background-image: -webkit-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%)
-        background-image: -moz-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%)
-        background-image: -o-linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%)
-        background-image: linear-gradient(top, #f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eeeeee 100%)
-        color: #666
-      &.search-choice-focus
-        background: #d4d4d4
-        .search-choice-close
-          background-position: -42px -10px
+        padding: 4px
+        outline: 0
+
+
+      .default
+        color: #999
+
+
+
+    .search-choice
+      -webkit-background-clip: padding-box
+      -moz-background-clip: padding
+      background-clip: padding-box
+      background-color: $gray-lighter
+      border: 1px solid $chosen-border
+      @include border-top-radius($chosen-border-radius)
+      @include border-bottom-radius($chosen-border-radius)
+      @include gradient-vertical(white, $gray-lighter)
+      @include box-shadow($chosen-box-shadow)
+      color: $gray-dark
+      cursor: default
+      line-height: 13px
+      margin: 6px 0 3px 5px
+      padding: 3px 20px 3px 5px
+      position: relative
+
+      .search-choice-close
+        background: url($chosen-sprite-path) right top no-repeat
+        display: block
+        font-size: 1px
+        height: 10px
+        position: absolute
+        right: 4px
+        top: 5px
+        width: 12px
+
+        &:hover
+          background-position: right -11px
+
+
+
+
+    .search-choice-focus
+      background: #d4d4d4
+
+      .search-choice-close
+        background-position: right -11px
+
+
+
+
   .chosen-results
-    margin: 0
+    margin: 0 0 0 0
     padding: 0
-  .chosen-drop .result-selected
-    display: list-item
-    color: #ccc
-    cursor: default
+
+
+  .chosen-drop
+    .result-selected
+      display: none
+
+
 
 
 .chosen-container-active
   .chosen-single
-    border: 1px solid #5897fb
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3)
+    border: 1px solid $chosen-focus-border
+    @include box-shadow($chosen-focus-box-shadow)
+    @include transition($chosen-focus-transition)
+
+
   &.chosen-with-drop .chosen-single
-    border: 1px solid #aaa
-    -moz-border-radius-bottomright: 0
-    border-bottom-right-radius: 0
-    -moz-border-radius-bottomleft: 0
-    border-bottom-left-radius: 0
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(20%, #eeeeee), color-stop(80%, white))
-    background-image: -webkit-linear-gradient(#eeeeee 20%, white 80%)
-    background-image: -moz-linear-gradient(#eeeeee 20%, white 80%)
-    background-image: -o-linear-gradient(#eeeeee 20%, white 80%)
-    background-image: linear-gradient(#eeeeee 20%, white 80%)
-    box-shadow: 0 1px 0 #fff inset
+    background-color: $gray-lighter
+    border: 1px solid $chosen-focus-border
+    @include box-shadow($chosen-focus-box-shadow)
+    @include transition($chosen-focus-transition)
+
     div
-      border-left: none
       background: transparent
+      border-left: none
+
       b
-        background-position: -18px 2px
+        background-position: -18px 7px
+
+
+
+
   .chosen-choices
-    border: 1px solid #5897fb
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3)
-    li.search-field input[type="text"]
+    border: 1px solid $chosen-focus-border
+    @include border-bottom-radius(0)
+    @include box-shadow($chosen-focus-box-shadow)
+    @include transition($chosen-focus-transition)
+
+    .search-field input
       color: #111 !important
 
 
+
+
 .chosen-disabled
-  opacity: 0.5 !important
   cursor: default
-  .chosen-single, .chosen-choices .search-choice .search-choice-close
+  opacity: 0.5 !important
+
+  .chosen-single
     cursor: default
+
+
+  .chosen-choices .search-choice .search-choice-close
+    cursor: default
+
 
 
 .chosen-rtl
   text-align: right
+
   .chosen-single
-    overflow: visible
     padding: 0 8px 0 0
+    overflow: visible
+
     span
-      margin-right: 0
       margin-left: 26px
+      margin-right: 0
       direction: rtl
-  .chosen-single-with-deselect span
-    margin-left: 38px
-  .chosen-single
+
+
     div
+      left: 7px
       right: auto
-      left: 3px
+
+
     abbr
-      right: auto
       left: 26px
-  .chosen-choices li
-    float: right
-    &.search-field input[type="text"]
+      right: auto
+
+
+
+  .chosen-choices
+    .search-field input
       direction: rtl
-    &.search-choice
-      margin: 3px 5px 3px 0
+
+
+    li
+      float: right
+
+
+    .search-choice
+      margin: 6px 5px 3px 0
       padding: 3px 5px 3px 19px
+
       .search-choice-close
-        right: auto
+        background-position: right top
         left: 4px
-  &.chosen-container-single-nosearch .chosen-search, .chosen-drop
-    left: 9999px
+        right: auto
+
+
+
+
   &.chosen-container-single .chosen-results
     margin: 0 0 4px 4px
     padding: 0 4px 0 0
-  .chosen-results li.group-option
-    padding-right: 15px
+
+
+  .chosen-results .group-option
     padding-left: 0
+    padding-right: 15px
+
+
   &.chosen-container-active.chosen-with-drop .chosen-single div
     border-right: none
-  .chosen-search input[type="text"]
-    padding: 4px 5px 4px 20px
-    background: white url('/assets/chosen-sprite.png') no-repeat -30px -20px
-    background: url('/assets/chosen-sprite.png') no-repeat -30px -20px, -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(1%, #eeeeee), color-stop(15%, white))
-    background: url('/assets/chosen-sprite.png') no-repeat -30px -20px, -webkit-linear-gradient(#eeeeee 1%, white 15%)
-    background: url('/assets/chosen-sprite.png') no-repeat -30px -20px, -moz-linear-gradient(#eeeeee 1%, white 15%)
-    background: url('/assets/chosen-sprite.png') no-repeat -30px -20px, -o-linear-gradient(#eeeeee 1%, white 15%)
-    background: url('/assets/chosen-sprite.png') no-repeat -30px -20px, linear-gradient(#eeeeee 1%, white 15%)
-    direction: rtl
-  &.chosen-container-single
-    .chosen-single div b
-      background-position: 6px 2px
-    &.chosen-with-drop .chosen-single div b
-      background-position: -12px 2px
 
-@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 144dpi)
-  .chosen-rtl .chosen-search input[type="text"]
-    background-image: url('/assets/chosen-sprite@2x.png') !important
-    background-size: 52px 37px !important
-    background-repeat: no-repeat !important
-  .chosen-container-single
-    .chosen-single
-      abbr, div b
-        background-image: url('/assets/chosen-sprite@2x.png') !important
-        background-size: 52px 37px !important
-        background-repeat: no-repeat !important
-    .chosen-search input[type="text"]
-      background-image: url('/assets/chosen-sprite@2x.png') !important
-      background-size: 52px 37px !important
-      background-repeat: no-repeat !important
-  .chosen-container-multi .chosen-choices .search-choice .search-choice-close
-    background-image: url('/assets/chosen-sprite@2x.png') !important
-    background-size: 52px 37px !important
-    background-repeat: no-repeat !important
-  .chosen-container
-    .chosen-results-scroll-down span, .chosen-results-scroll-up span
-      background-image: url('/assets/chosen-sprite@2x.png') !important
-      background-size: 52px 37px !important
-      background-repeat: no-repeat !important
+
+  .chosen-search input
+    background: url($chosen-sprite-path) no-repeat -28px -20px, $chosen-background
+    direction: rtl
+    padding: 4px 5px 4px 20px
+
+
+
+
 

@@ -1,7 +1,7 @@
 .btn-group
-  = link_to params.merge( approved: false, page: 1), class: "btn #{(show_approved?) ? '' : 'active'}" do
+  = link_to params.merge( approved: false, page: 1), class: "btn #{(show_approved?) ? 'btn-default' : 'btn-success'}" do
     = fa_icon 'thumbs-o-down'
     Unapproved
-  = link_to params.merge( approved: true, page: 1), class: "btn #{(show_approved?) ? 'active' : ''}" do
+  = link_to params.merge( approved: true, page: 1), class: "btn #{(show_approved?) ? 'btn-success' : 'btn-default'}" do
     = fa_icon 'thumbs-o-up'
     Approved

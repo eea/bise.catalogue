@@ -3,14 +3,14 @@
 
 - content_for :actions do
   - if search_params_available?
-    = link_to :back, class: "btn" do
+    = link_to :back, class: 'btn btn-default' do
       = fa_icon 'reply'
       Back
   - else
-    = link_to documents_path, class: "btn" do
+    = link_to documents_path, class: 'btn btn-default' do
       = fa_icon 'reply'
       Back to List
-  = link_to @document.file_url, class: "btn" do
+  = link_to @document.file_url, class: 'btn btn-default' do
     = fa_icon 'download'
     Download
     %small
@@ -18,10 +18,10 @@
       = (@document.file_size/1024).round(2)
       KB)
   - if current_user.approver?
-    = link_to  edit_document_path(@document), class: "btn" do
+    = link_to  edit_document_path(@document), class: 'btn btn-default' do
       = fa_icon 'pencil'
       Edit
-    = link_to  document_path(@document), method: :delete, class: "btn btn-danger pull-right", confirm: 'Please confirm you want to delete the resource.' do
+    = link_to  document_path(@document), method: :delete, class: 'btn btn-danger pull-right', confirm: 'Please confirm you want to delete the resource.' do
       = fa_icon 'trash-o'
       Delete
 
@@ -31,25 +31,39 @@
   = render 'common/showinfo', obj: @document
 
   %legend Description
-  .row-fluid
-    .span12
+  .row
+    .col-lg-12
       = raw @document.description
 
   %legend Countries
-  .row-fluid
-    .span12
+  .row
+    .col-lg-12
       %dl.dl-horizontal
         - @document.countries.each do |l|
           .label= l.name
 
   %legend Biographical Region:
-  .row-fluid
-    .span12
+  .row
+    .col-lg-12
       = @document.biographical_region
 
+  .row
+    .col-md-6
+      %legend Biodiversity Strategy Targets
+      .row
+        .col-lg-12
+          - @document.targets.each do |t|
+            .label.label-success= t.name
+    .col-md-6
+      %legend Biodiversity Strategy Actions
+      .row
+        .col-lg-12
+          - @document.actions.each do |t|
+            .label.label-success= t.name
+
   %legend Tags
-  .row-fluid
-    .span12
+  .row
+    .col-lg-12
       - @document.tags.each do |t|
         .label.label-success= t.name
 

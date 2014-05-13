@@ -6,7 +6,7 @@
         %span.caret
     .accordion-body.in#site-list
       .accordion-inner
-        %ul.unstyled
+        %ul.list-unstyled
           - if objs.respond_to?('facets')
             - objs.facets['sites']['terms'].each do |facet|
               - if !current_page?(params.merge(site: facet['term'], page: 1))

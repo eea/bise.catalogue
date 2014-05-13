@@ -3,22 +3,22 @@
 
 - content_for :actions do
   - if search_params_available?
-    = link_to :back, class: "btn" do
+    = link_to :back, class: 'btn btn-default' do
       = fa_icon 'reply'
       Back
   - else
-    = link_to habitats_path, class: "btn" do
+    = link_to habitats_path, class: 'btn btn-default' do
       = fa_icon 'reply'
       Back to List
-  = link_to  @habitat.uri, class: "btn", target: "_blank" do
+  = link_to  @habitat.uri, class: 'btn btn-default', target: "_blank" do
     = fa_icon 'eye'
     Watch in EUNIS
 
 / %p#notice= notice
 
-.container-fluid
-  .row-fluid
-    .span7
+.container
+  .row
+    .col-md-7
       %legend Habitat Information
       %dl.dl-horizontal
         %dt Code:
@@ -47,7 +47,7 @@
       %dl.dl-horizontal
         %dt Description:
         %dd= @habitat.description
-    .span5
+    .col-md-5
       %legend Typical Species
       %ul
       - @habitat.species.each do |s|

@@ -3,28 +3,26 @@
 
 - content_for :actions do
   - if current_user.approver?
-    = link_to  new_link_path, class: "btn" do
+    = link_to  new_link_path, class: 'btn btn-default' do
       = fa_icon 'plus'
       New Link
   = render 'common/approved_toggle'
   = form_tag links_path, method: 'get', class: 'search-query pull-right' do       #
     - if params[:approved].present?
-      = hidden_field_tag :approved, params[:approved] != "" ? params[:approved] : false
+      = hidden_field_tag :approved, params[:approved] != '' ? params[:approved] : false
     - if params[:per_page].present?
-      = hidden_field_tag :per_page, params[:per_page] != "" ? params[:per_page] : false
-    = text_field_tag :query, params[:query], class: "search-query", placeholder: 'Search link..'    #
+      = hidden_field_tag :per_page, params[:per_page] != '' ? params[:per_page] : false
+    = text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search link..'    #
 
 .container-fluid
-  .row-fluid
-
-    .span3
+  .row
+    .col-sm-3
       = render "facets/facet_sites"       , objs: @links
       = render "facets/facet_authors"     , objs: @links
       = render "facets/facet_languages"   , objs: @links
       = render "facets/facet_countries"   , objs: @links
       = render "facets/facet_timeline"    , objs: @links
-
-    .span9
+    .col-sm-9
       - if @links.size > 0
         = form_tag approve_multiple_links_path do
           %table.table.table-striped
@@ -32,7 +30,7 @@
               - @links.each_with_hit do |link, hit|
                 = render "cells/link", link: link, hit: hit
           - if current_user.approver?
-            = submit_tag (show_approved?) ? "Disapprove selected" : "Approve selected", class: "btn btn-small pull-right"
+            = submit_tag (show_approved?) ? 'Disapprove selected' : 'Approve selected', class: 'btn btn-default btn-sm pull-right'
         = page_entries_info @links, entry_name: 'link'
         = will_paginate @links, renderer: BootstrapPagination::Rails
       - else

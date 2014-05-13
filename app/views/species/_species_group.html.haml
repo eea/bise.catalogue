@@ -6,7 +6,7 @@
         %span.caret
     .accordion-body.in#species_group-list
       .accordion-inner
-        %ul.unstyled
+        %ul.list-unstyled
           - @species.facets['species_group']['terms'].each do |facet|
             - if !current_page?(params.merge(species_group: facet['term'], page: 1))
               %li

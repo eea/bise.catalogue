@@ -9,13 +9,13 @@ class Link < ActiveRecord::Base
   attr_accessible :description
 
   # TAGS
-  attr_accessible :tag_list
   acts_as_taggable
-  # Target & Actions
+  attr_accessible :tag_list
   acts_as_taggable_on :targets, :actions
+  attr_accessible :target_list, :action_list
 
   validates :url, presence: true, uniqueness: true
-  validates_format_of :url, with: /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
+  # validates_format_of :url, with: /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
 
   index_name "#{Tire::Model::Search.index_prefix}links"
 

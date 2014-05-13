@@ -10,46 +10,46 @@
 
   .btn-toolbar
     .btn-group{ style: 'margin-bottom: 15px' }
-      %a.btn.btn-small.eu15
+      %a.btn.btn-default.btn-sm.eu15
         EU15
-      %a.btn.btn-small.eu25
+      %a.btn.btn-default.btn-sm.eu25
         EU25
-      %a.btn.btn-small.eu27
+      %a.btn.btn-default.btn-sm.eu27
         EU27
-      %a.btn.btn-small.eu28
+      %a.btn.btn-default.btn-sm.eu28
         EU28
-      %a.btn.btn-small.eea-members
+      %a.btn.btn-default.btn-sm.eea-members
         EEA Members
-      %a.btn.btn-small.no-country
+      %a.btn.btn-default.btn-sm.no-country
         None
 
-  .row-fluid
-    .span3
-      %ul.unstyled
+  .row
+    .col-sm-3
+      %ul.list-unstyled
         - countries.each_with_index do |c, i|
           - if i < quarter
             %li
               %label.checkbox
                 = check_box_tag class_name + '[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
                 = c.name
-    .span3
-      %ul.unstyled
+    .col-sm-3
+      %ul.list-unstyled
         - countries.each_with_index do |c, i|
           - if i >= quarter and i < quarter * 2
             %li
               %label.checkbox
                 = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
                 = c.name
-    .span3
-      %ul.unstyled
+    .col-sm-3
+      %ul.list-unstyled
         - countries.each_with_index do |c, i|
           - if i >= quarter *2 and i < quarter * 3
             %li
               %label.checkbox
                 = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
                 = c.name
-    .span3
-      %ul.unstyled
+    .col-sm-3
+      %ul.list-unstyled
         - countries.each_with_index do |c, i|
           - if i >= quarter *3 and i < quarter * 4
             %li

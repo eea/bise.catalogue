@@ -1,12 +1,12 @@
 
-.row-fluid
-  .span8
+.row
+  .col-sm-8
     %legend Info
     = f.input :title, placeholder: 'Write a title...' , input_html: { class: "input-block-level", required: true }
     = f.input :english_title, placeholder: 'Write an English title', input_html: { class: "input-block-level", required: true }
     - langs = Language.all
-    = f.input :language_ids, as: :select, collection: langs, input_html: { multiple: true, 'data-placeholder' => 'Search language...' }
-  .span4
+    = f.input :language_ids, as: :select, collection: langs, input_html: { class: 'bise-select', multiple: true, 'data-placeholder' => 'Search language...' }
+  .col-sm-4
     %legend Publication
     = f.association :site , input_html: { class: "input-block-level bise-select" }, include_blank: true
     = f.input :published_on, as: :string, input_html: { class: 'input-block-level' }, required: true, autocomplete: 'off'

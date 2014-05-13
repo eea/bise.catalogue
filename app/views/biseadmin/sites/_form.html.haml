@@ -2,18 +2,21 @@
 = simple_form_for([:biseadmin, @site]) do |f|
   = f.error_notification
 
-  .container-fluid
-    .row-fluid
-      .span8
+  .container
+    .row
+      .col-sm-8
         %legend{ style: 'margin-bottom: 0' }
           General information
+        %br
         = f.input :name, input_html: { class: 'input-block-level' }
         = f.input :origin_url, input_html: { class: 'input-block-level' }
         = f.input :description, as: 'text', input_html: { class: 'input-block-level', rows: 5 }
-      .span4
+      .col-sm-4
         %legend{ style: 'margin-bottom: 0' }
           API Access
+        %br
         = f.input :auth_token, input_html: { class: 'input-block-level', disabled: true }
+        %br
         .alert.alert-info
           %strong{ style: 'magin-bottom dotted #4f86d8'}
             = fa_icon 'info-circle'
@@ -21,6 +24,8 @@
           %br
           Auth token will be generated automatically and should be implemented in
           any 3rd party Website to be able to send data to BISE Catalogue.
+
+  %br
 
   .form-actions
     = f.button :submit, class: 'btn-success'

@@ -3,15 +3,15 @@
 
 - content_for :actions do
   = form_tag protected_areas_path, method: 'get', class: 'search-query pull-right' do
-    = text_field_tag :query, params[:query], class: "search-query", placeholder: 'Search site...'
+    = text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search site...'
 
 .container-fluid
-  .row-fluid
-    .span3
+  .row
+    .col-sm-3
       = render 'source_dbs'
       = render 'countries'
       = render 'designation_years'
-    .span9
+    .col-sm-9
       - if @protected_areas.size > 0
         - @protected_areas.each_with_hit do |site, hit|
           = render "cells/protected_area", site: site, hit: hit

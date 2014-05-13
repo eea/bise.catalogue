@@ -7,20 +7,17 @@ class Document < ActiveRecord::Base
 
   include Classifiable
 
-  attr_accessible         :description
-  attr_accessible         :downloads
-  attr_accessible         :thumbnail
-  attr_accessible         :file
   mount_uploader          :file, FileUploader
 
+  attr_accessible :file
   validates :file          , presence: { on: :create }
   validate :uniqueness_of_md5hash, on: :create
 
-  # TAGS
-  attr_accessible :tag_list
+  # Tags
   acts_as_taggable
-  # Target & Actions
+  attr_accessible :tag_list
   acts_as_taggable_on :targets, :actions
+  attr_accessible :target_list, :action_list
 
   before_validation :compute_hash
   before_save :update_file_info

@@ -84,7 +84,7 @@
                 %span.caret
             .accordion-body.collapse{ id: "#{key.downcase.parameterize}-list" }
               .accordion-inner
-                %ul.unstyled
+                %ul.list-unstyled
                   - groups[key].each do |s|
                     %li= link_to s.binomial_name, species_path(s)
 

@@ -1,18 +1,28 @@
 
 = simple_form_for(@article) do |f|
 
+  = f.error_notification
+
+  - if @article.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@article.errors.count, "error")} prohibited this article from being saved:"
+      %ul
+        - @article.errors.full_messages.each do |msg|
+          %li= msg
+
+
   .tab-content
     .container-fluid
       = render partial: 'common/common_info', locals: { f: f }
       %legend Article
-      .row-fluid
-        .span12
-          = f.input :content, as: :text, input_html: { class: "input-block-level tinymce" }
+      .row
+        .col-lg-12
+          = f.input :content, as: :text, input_html: { class: 'form-control tinymce' }
       = render partial: 'common/targets', locals: { parent: @article, f: f }
       = render partial: 'common/countries', locals: { parent: @article }
 
-  %div.form-actions.margin-none.text-right
-    = f.submit 'Save', class: "btn btn-success"
-    = link_to "Cancel", articles_path, class: "btn"
+  .form-actions
+    = f.submit 'Save', class: 'btn btn-success'
+    = link_to 'Cancel', articles_path, class: 'btn btn-default'
 
 

@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 # ruby "1.9.3"
 
-gem 'rails'                   , '3.2.13'
+gem 'rails'                   , '4.1.0'
 gem 'rake'                    , '10.3.1'
-gem 'rack'                    , '~> 1.4.5'
-gem 'railties'                , '~> 3.2.13'
+gem 'rack'                    , '~> 1.5.2'
+# gem 'railties'                , '~> 3.2.13'
+gem 'i18n'
 
 gem 'devise'                  , '~> 3.2'
 gem 'devise_ldap_authenticatable'
@@ -13,28 +14,24 @@ gem 'devise_ldap_authenticatable'
 gem 'sqlite3'
 gem 'pg'
 
-gem 'inherited_resources'
 gem 'has_scope'
 gem 'responders'
 
-group :assets do
-  gem 'sass-rails'            ,   '~> 3.2.6'
-  gem "less-rails"
+gem 'sass-rails'            ,   '~> 4.0.3'
+gem "less-rails"
 
-  gem 'therubyracer'          , '~> 0.12.0', require: 'v8'
+gem 'therubyracer'          , '~> 0.12.0', require: 'v8'
 
-  gem 'jquery-rails'
-  gem 'jquery-ui-rails'
-  gem 'yui-compressor'
-  gem 'turbo-sprockets-rails3',    '~> 0.3.6'
-  #gem 'jquery-fileupload-rails'
-end
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'yui-compressor'
+gem 'bourbon'
 
 gem 'underscore-rails'
-gem 'best_in_place'             , '~> 2.1.0'
+# gem 'best_in_place'             , '~> 2.1.0'
 
 # Outside assets for production coffee handlers
-gem 'coffee-rails'              , '~> 3.2.1'
+gem 'coffee-rails'              , '~> 4.0.1'
 gem 'uglifier'                  , '>= 1.0.3'
 gem 'sanitize'
 
@@ -42,17 +39,17 @@ gem 'sanitize'
 gem "remotipart"
 
 # gem 'haml'
-gem "haml-rails"
+gem 'haml-rails'                , '~> 0.5.3'
 
 # TINYMCE WYSIWYG EDITOR
 gem 'tinymce-rails'
 
 # Advanced Search
 gem 'tire', '>= 0.5.4'
-gem 'ransack'
 
 # TWITTER BOOTSTRAP
-gem "twitter-bootstrap-rails"  # , git: 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+# gem "twitter-bootstrap-rails"   , github: 'seyhunak/twitter-bootstrap-rails', branch: 'bootstrap3'
+gem 'bootstrap-sass'            , '~> 3.1.1'
 gem "font-awesome-rails"
 
 
@@ -76,14 +73,15 @@ gem 'rdf-do'
 #gem 'do_postgres'
 
 gem 'tilt'                      , '~> 1.3'
-gem 'activeadmin'               , github: 'gregbell/active_admin', branch: '0-6-stable'
-# gem 'meta_search'              , '>= 1.1.0.pre'
-# gem 'polyamorous', github: 'activerecord-hackery/polyamorous'
-# gem 'ransack', github: 'activerecord-hackery/ransack'
-# gem 'formtastic', github: 'justinfrench/formtastic'
-# gem 'activeadmin', github: 'gregbell/active_admin', branch: '0-6-stable'
-# gem 'activeadmin'               , '~> 0.6.2'
+# gem 'activeadmin'               , github: 'gregbell/active_admin', branch: '0-6-stable'
+gem 'activeadmin'         , github: 'gregbell/active_admin'
+gem 'polyamorous'         , github: 'activerecord-hackery/polyamorous'
+gem 'ransack'             , github: 'ernie/ransack'
+gem 'formtastic'          , github: 'justinfrench/formtastic'
 
+# API
+gem 'rabl'
+gem 'oj'
 
 group :development do
   gem 'coffee-rails-source-maps'
@@ -148,9 +146,16 @@ gem 'will_paginate-bootstrap' , '~> 0.2.5'
 
 gem 'acts-as-taggable-on'
 
-gem 'simple_form'
+gem 'simple_form'             , '~> 3.0.2'
 
 # File Uploading
 gem 'carrierwave'     , '~> 0.9.0'
 gem 'docsplit'
 
+
+# Rails 4 migration
+gem 'protected_attributes'
+# gem 'rails-observers'
+# gem 'actionpack-page_caching'
+# gem 'actionpack-action_caching'
+# gem 'activerecord-deprecated_finders'

@@ -1,5 +1,5 @@
-class ArticlesController < InheritedResources::Base
-
+class ArticlesController < ApplicationController
+  inherit_resources
   before_filter :authenticate_user!
   has_scope :approved, type: :boolean
 
@@ -22,7 +22,19 @@ class ArticlesController < InheritedResources::Base
     end
   end
 
+private
+
+  def permitted_params
+    params.permit(article: [
+      :id, :site_id, :title, :english_title, :author, :source_url, :content,
+      :biographical_region, :published_on, :published, :approved, :approved_at,
+      tag_list: [], target_list: [], action_list: [],
+      country_ids: [], language_ids: []
+    ])
+  end
+
 protected
+
   def collection
     @articles ||= end_of_association_chain.search(params)
   end

@@ -2,13 +2,14 @@
   = @keyword_container.title
 
 - content_for :actions do
-  = link_to  biseadmin_keyword_containers_path, class: "btn" do
+  = link_to  biseadmin_keyword_containers_path, class: 'btn btn-default' do
     = fa_icon 'reply'
     Back
 
-.row
-  .span8
-    = render 'keyword_list'     , container: @keyword_container
-  .span4
-    = render 'keyword_container', container: @keyword_container
+.container
+  .row
+    .col-sm-8
+      = render 'keyword_list'     , container: @keyword_container
+    .col-sm-4
+      = render 'keyword_container', container: @keyword_container
 

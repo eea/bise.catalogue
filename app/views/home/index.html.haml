@@ -5,19 +5,18 @@
   = javascript_include_tag "home"
 
 
-.container-fluid
-
-
-  .row-fluid
-    .span6
+.container
+  .row
+    .col-md-6
       %legend Published / Unpublished Content
       #overview-graph{ style: 'height: 380px', data: { overview: overview_data } }
-    .span6
+    .col-md-6
       %legend Semantic Data
       #eunis-graph{ data: { eunis: eunis_data } }
 
-  .row-fluid
-    .span12
-      /#flot{ style: 'width: 100px;height: 100px; background:orange'}
+  %hr
+
+  .row
+    .col-md-12
       #timeline-graph{ data: { timeline: timeline } }
 

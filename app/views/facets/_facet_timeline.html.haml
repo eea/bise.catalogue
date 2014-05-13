@@ -6,7 +6,7 @@
         %span.caret
     .accordion-body.in#timeline-list
       .accordion-inner
-        %ul.unstyled
+        %ul.list-unstyled
           - if objs.respond_to?('facets')
             - objs.facets['timeline']['entries'].each do |facet|
               - year = Time.at(facet['time']/1000).strftime("%Y")

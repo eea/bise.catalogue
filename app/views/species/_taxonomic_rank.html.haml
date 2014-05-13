@@ -6,7 +6,7 @@
         %span.caret
     .accordion-body.in#taxonomic_rank-list
       .accordion-inner
-        %ul.unstyled
+        %ul.list-unstyled
           - @species.facets['taxonomic_rank']['terms'].each do |facet|
             - if !current_page?(params.merge(taxonomic_rank: facet['term'], page: 1))
               %li

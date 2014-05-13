@@ -8,12 +8,11 @@ class Article < ActiveRecord::Base
 
   attr_accessible :content
   attr_accessible :source_url
-
   # Tags
-  attr_accessible :tag_list
   acts_as_taggable
-  # Target & Actions
+  attr_accessible :tag_list
   acts_as_taggable_on :targets, :actions
+  attr_accessible :target_list, :action_list
 
   index_name "#{Tire::Model::Search.index_prefix}articles"
   refresh = -> { Tire::Index.new(index_name).refresh }

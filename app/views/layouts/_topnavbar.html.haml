@@ -1,44 +1,49 @@
-%div.navbar.navbar-fixed-top
-  %div.navbar-inner
-    %div.container{ 'data-target' => '.nav-collapse', 'data-toggle' => 'collapse' }
-      = link_to root_path, class: "brand" do
+.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", type: "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to root_path, class: 'navbar-brand' do
         = fa_icon "archive"
         Catalogue
-      %div.container.nav-collapse
-        %ul.nav
-          %li{ class: "#{ current_page?(articles_path) ? 'active' : '' }"}
-            = link_to "Articles", articles_path
-          %li{ class: "#{ current_page?(documents_path) ? 'active' : '' }"}
-            = link_to "Documents", documents_path
-          %li{ class: "#{ current_page?(links_path) ? 'active' : '' }"}
-            = link_to "Links", links_path
-          / %li{ class: "#{ current_page?(news_index_path) ? 'active' : '' }"}
-          /     = link_to "News", news_index_path
-          %li{ class: "#{ current_page?(protected_areas_path) ? 'active' : '' }"}
-            = link_to "Sites", protected_areas_path
-          %li{ class: "#{ current_page?(habitats_path) ? 'active' : '' }"}
-            = link_to "Habitats", habitats_path
-          %li{ class: "#{ current_page?(species_index_path) ? 'active' : '' }"}
-            = link_to "Species", species_index_path
-        %ul.nav.pull-right
-          %li.dropdown
-            %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
-              = fa_icon 'user'
-              = current_user.get_ldap_displayname
-              = "(admin)" if current_user.approver?
-              %b.caret
-            %ul.dropdown-menu
-              - if current_user.approver?
-                %li
-                  = link_to biseadmin_sites_path do
-                    = fa_icon 'cogs'
-                    Manage sites
-                %li
-                  = link_to biseadmin_keyword_containers_path do
-                    = fa_icon 'key'
-                    Manage keywords
-
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        %li{ class: "#{ current_page?(articles_path) ? 'active' : '' }"}
+          = link_to "Articles", articles_path
+        %li{ class: "#{ current_page?(documents_path) ? 'active' : '' }"}
+          = link_to "Documents", documents_path
+        %li{ class: "#{ current_page?(links_path) ? 'active' : '' }"}
+          = link_to "Links", links_path
+        / %li{ class: "#{ current_page?(news_index_path) ? 'active' : '' }"}
+        /     = link_to "News", news_index_path
+        %li{ class: "#{ current_page?(protected_areas_path) ? 'active' : '' }"}
+          = link_to "Protected sites", protected_areas_path
+        %li{ class: "#{ current_page?(habitats_path) ? 'active' : '' }"}
+          = link_to "Habitat types", habitats_path
+        %li{ class: "#{ current_page?(species_index_path) ? 'active' : '' }"}
+          = link_to "Species", species_index_path
+      %ul.nav.navbar-nav.pull-right
+        %li.dropdown
+          %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
+            = fa_icon (current_user.approver?) ? 'cog' : 'user'
+            = current_user.get_ldap_displayname
+            %b.caret
+          %ul.dropdown-menu
+            - if current_user.approver?
               %li
-                = link_to destroy_user_session_path, method: :delete do
-                  = fa_icon 'power-off'
-                  Close session
+                = link_to biseadmin_sites_path do
+                  = fa_icon 'cogs'
+                  Manage sites
+              %li
+                = link_to biseadmin_keyword_containers_path do
+                  = fa_icon 'key'
+                  Manage keywords
+
+            %li
+              = link_to destroy_user_session_path, method: :delete do
+                = fa_icon 'power-off'
+                Close session
+

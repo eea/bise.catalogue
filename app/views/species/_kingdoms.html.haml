@@ -6,7 +6,7 @@
         %span.caret
     .accordion-body.in#kingdom-list
       .accordion-inner
-        %ul.unstyled
+        %ul.list-unstyled
           / - if @species.respond_to?('facets')
           - @species.facets['kingdom']['terms'].each do |facet|
             - if !current_page?(params.merge(kingdom: facet['term'], page: 1))

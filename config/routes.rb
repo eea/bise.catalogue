@@ -46,11 +46,14 @@ Catalogue::Application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       resources :ecosystem_assessments
-      match '/bise_search' => 'search#bise_search'
-      match '/search' => 'search#index'
-      post '/sync' => 'sync#create'
-      put '/sync' => 'sync#update'
-      delete '/sync' => 'sync#delete'
+      get 'bise_search' => 'search#bise_search'
+      get 'search'      => 'search#index'
+
+      post 'sync'       => 'sync#create'
+      put 'sync'        => 'sync#update'
+      delete 'sync'     => 'sync#delete'
+
+      get 'shared_tags', controller: 'tag', action: 'all_tags'
     end
   end
 
@@ -65,7 +68,7 @@ Catalogue::Application.routes.draw do
   # resources :ecosystem_assessments
 
   # scope '/api' do
-  #   match '/search' => 'search#index'
+  #   get '/search' => 'search#index'
   #   post '/sync' => 'sync#create'
   #   put '/sync' => 'sync#update'
   #   delete '/sync' => 'sync#delete'
