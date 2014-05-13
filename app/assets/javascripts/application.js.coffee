@@ -16,7 +16,7 @@
 #= require jquery.ui.widget
 # require jquery.ui.mouse
 # require jquery.ui.position
-# require jquery.ui.draggable
+#= require jquery.ui.draggable
 # require jquery.ui.droppable
 # require jquery.ui.resizable
 # require jquery.ui.selectable
@@ -25,7 +25,7 @@
 # ----- JQUERY UI COMPONENTS
 #= require jquery.ui.accordion
 # require jquery.ui.autocomplete
-#= require jquery.ui.button
+# require jquery.ui.button
 #= require jquery.ui.datepicker
 # require jquery.ui.datepicker-en-GB
 #= require jquery.ui.dialog

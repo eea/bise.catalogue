@@ -22,7 +22,7 @@ SimpleForm.setup do |config|
     b.use :html5
 
     # Calculates placeholders automatically from I18n
-    # You can also pass a string as f.input placeholder: "Placeholder"
+    # You can also pass a string as f.input placeholder: 'Placeholder'
     b.use :placeholder
 
     ## Optional extensions
@@ -45,11 +45,11 @@ SimpleForm.setup do |config|
 
     ## Inputs
     b.use :label_input
-    b.use :hint,  wrap_with: { tag: :span, class: :hint }
-    b.use :error, wrap_with: { tag: :span, class: :error }
+    b.use :hint,  wrap_with: { tag: :span, class: 'help-block' }
+    b.use :error, wrap_with: { tag: :span, class: 'help-block has-error' }
   end
 
-  config.wrappers :bootstrap, tag: 'div', class: 'control-group', error_class: 'error' do |b|
+  config.wrappers :bootstrap, tag: 'div', class: 'form-group', error_class: 'error' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label
@@ -60,7 +60,7 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers :prepend, tag: 'div', class: "control-group", error_class: 'error' do |b|
+  config.wrappers :prepend, tag: 'div', class: 'form-group', error_class: 'error' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label
@@ -73,7 +73,7 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers :append, tag: 'div', class: "control-group", error_class: 'error' do |b|
+  config.wrappers :append, tag: 'div', class: 'form-group', error_class: 'error' do |b|
     b.use :html5
     b.use :placeholder
     b.use :label
@@ -86,7 +86,7 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.wrappers :toggle, tag: 'div', class: 'control-group', error_class: 'error' do |t|
+  config.wrappers :toggle, tag: 'div', class: 'form-group', error_class: 'error' do |t|
     t.use :html5
     t.use :placeholder
     t.use :label
@@ -154,7 +154,7 @@ SimpleForm.setup do |config|
   # config.item_wrapper_class = nil
 
   # How the label text should be generated altogether with the required text.
-  # config.label_text = lambda { |label, required| "#{required} #{label}" }
+  # config.label_text = lambda { |label, required| '#{required} #{label}' }
 
   # You can define the class to use on all labels. Default is nil.
   config.label_class = 'control-label'
