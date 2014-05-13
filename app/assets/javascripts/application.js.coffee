@@ -53,6 +53,8 @@
 # require jquery.ui.effect-slide
 # require jquery.ui.effect-transfer
 
+#= require turbolinks
+
 #= require jquery_ujs
 # require best_in_place
 

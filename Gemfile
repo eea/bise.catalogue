@@ -10,6 +10,9 @@ gem 'i18n'
 gem 'devise'                  , '~> 3.2'
 gem 'devise_ldap_authenticatable'
 
+gem 'turbolinks'
+gem 'jquery-turbolinks'
+
 # DATABASES
 gem 'sqlite3'
 gem 'pg'
