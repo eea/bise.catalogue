@@ -19,8 +19,9 @@
         - @species.each_with_hit do |s, hit|
           = render "cells/species", species: s, hit: hit
 
-        = page_entries_info @species, entry_name: 'species'
         = will_paginate @species, renderer: BootstrapPagination::Rails
+        %br
+        = page_entries_info @species, entry_name: 'species'
       - else
         = render 'common/empty_table'
 

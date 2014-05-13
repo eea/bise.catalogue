@@ -145,7 +145,7 @@ gem 'capistrano-rbenv', '1.0.5'
 gem 'custom_error_message'
 # gem "will_paginate"
 gem 'will_paginate'           , '3.0.3'
-gem 'will_paginate-bootstrap' , '~> 0.2.5'
+gem 'will_paginate-bootstrap' , '~> 1.0.0'
 
 gem 'acts-as-taggable-on'
 

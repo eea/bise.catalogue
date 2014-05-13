@@ -42,7 +42,7 @@ private
       :id, :site_id, :title, :english_title, :author, :source_url, :file,
       :biographical_region, :published_on, :published, :approved, :approved_at,
       :description, tag_list: [], target_list: [], action_list: [],
-      country_ids: [], language_ids: [], country_ids: []
+      country_ids: [], language_ids: []
     ])
   end
 

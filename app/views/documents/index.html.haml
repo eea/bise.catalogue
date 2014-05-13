@@ -2,14 +2,15 @@
   Documents
 
 - content_for :actions do
+  = render 'common/approved_toggle'
   - if current_user.approver?
-    = link_to new_document_path, class: 'btn btn-default' do
-      = fa_icon 'plus'
-      New Document
+    .btn-group
+      = link_to new_document_path, class: 'btn btn-default' do
+        = fa_icon 'plus'
+        New Document
   = link_to params.merge(format: 'xls'), class: 'btn btn-default' do
     = fa_icon 'download'
     Export XLS
-  = render 'common/approved_toggle'
   .btn-group
     %button.btn.btn-default.dropdown-toggle{'data-toggle' => 'dropdown'}
       Sort by
@@ -17,7 +18,7 @@
     %ul.dropdown-menu.text-left
       %li= link_to 'Title', params.merge(sort: 'title.exact', page: 1)
       %li= link_to 'Published On', params.merge(sort: 'published_on', page: 1)
-  = render 'per_page'
+  = render 'common/per_page'
   = form_tag documents_path, method: 'get', class: 'form-search pull-right' do
     - if params[:approved].present?
       = hidden_field_tag :approved, params[:approved] != "" ? params[:approved] : false
@@ -42,9 +43,9 @@
                 = render "cells/document", doc: doc, hit: hit
           - if current_user.approver?
             = submit_tag (show_approved?) ? 'Disapprove selected' : 'Approve selected', class: 'btn btn-default btn-sm pull-right'
-        = page_entries_info @documents, entry_name: 'document'
-        %br
         = will_paginate @documents, renderer: BootstrapPagination::Rails
+        %br
+        = page_entries_info @documents, entry_name: 'document'
       - else
         = render 'common/empty_table'
 

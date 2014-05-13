@@ -1,7 +1,7 @@
 %legend
   Biodiversity Strategy Targets & Actions
 
-= f.input :target_list, as: :select, collection: Target.all.order(:title).map {|t| [t.full_name, t.id] },
+= f.input :target_list, as: :select, collection: Target.all.order(:title).map(&:full_name),
           input_html: { class: 'target-select', multiple: true }
 = f.input :action_list,
           as: :grouped_select,

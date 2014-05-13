@@ -2,11 +2,12 @@
   Links
 
 - content_for :actions do
-  - if current_user.approver?
-    = link_to  new_link_path, class: 'btn btn-default' do
-      = fa_icon 'plus'
-      New Link
   = render 'common/approved_toggle'
+  - if current_user.approver?
+    .btn-group
+      = link_to  new_link_path, class: 'btn btn-default' do
+        = fa_icon 'plus'
+        New Link
   = form_tag links_path, method: 'get', class: 'search-query pull-right' do       #
     - if params[:approved].present?
       = hidden_field_tag :approved, params[:approved] != '' ? params[:approved] : false
@@ -31,8 +32,9 @@
                 = render "cells/link", link: link, hit: hit
           - if current_user.approver?
             = submit_tag (show_approved?) ? 'Disapprove selected' : 'Approve selected', class: 'btn btn-default btn-sm pull-right'
-        = page_entries_info @links, entry_name: 'link'
         = will_paginate @links, renderer: BootstrapPagination::Rails
+        %br
+        = page_entries_info @links, entry_name: 'link'
       - else
         = render 'common/empty_table'
   %br
