@@ -35,7 +35,8 @@ namespace :catalogue do
                   'http://eunis.eea.europa.eu/rdf/species-schema.rdf#')
       @repo   = RDF::Virtuoso::Repository.new(
                   'http://semantic.eea.europa.eu/sparql')
-      Spira.add_repository(:default, @repo)
+      # Spira.add_repository(:default, @repo)
+      Spira.repository = @repo
 
       # Loads Spira Classes to map subjects to objects
       path =  File.expand_path(File.dirname(__FILE__))
