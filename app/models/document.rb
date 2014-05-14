@@ -13,6 +13,8 @@ class Document < ActiveRecord::Base
   validates :file          , presence: { on: :create }
   validate :uniqueness_of_md5hash, on: :create
 
+  attr_accessible :description
+
   # Tags
   acts_as_taggable
   attr_accessible :tag_list
