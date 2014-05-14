@@ -28,45 +28,17 @@
 
 .container-fluid
 
-  = render 'common/showinfo', obj: @document
+  = render 'templates/common_info', obj: @document
 
   %legend Description
   .row
     .col-lg-12
       = raw @document.description
+  %br
 
-  %legend Countries
-  .row
-    .col-lg-12
-      %dl.dl-horizontal
-        - @document.countries.each do |l|
-          %span.label.label-sucess= l.name
-
-  %legend Biographical Region:
-  .row
-    .col-lg-12
-      = @document.biographical_region
-
-  .row
-    .col-md-6
-      %legend Biodiversity Strategy Targets
-      .row
-        .col-lg-12
-          - @document.targets.each do |t|
-            .label.label-success= t.name
-    .col-md-6
-      %legend Biodiversity Strategy Actions
-      .row
-        .col-lg-12
-          - @document.actions.each do |t|
-            .label.label-success= t.name
-
-  %legend Tags
-  .row
-    .col-lg-12
-      - @document.tags.each do |t|
-        .label.label-success= t.name
-
-%br
+  = render 'templates/countries', object: @document
+  = render 'templates/biographical_region', object: @document
+  = render 'templates/targets_and_actions', object: @document
+  = render 'templates/tags', object: @document
 
 

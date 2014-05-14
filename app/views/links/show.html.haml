@@ -21,7 +21,7 @@
 
 .container
 
-  = render 'common/showinfo', obj: @link
+  = render 'templates/common_info', obj: @link
 
   %legend Link
   .row
@@ -38,35 +38,7 @@
 
 
 
-  %legend Countries
-  .row
-    .col-md-12.text-right
-      - @link.countries.each do |c|
-        %span.label.label-success= c.name
-
-  %legend Biographical Region:
-  .row
-    .col-md-12
-      = @link.biographical_region
-
-  .row
-    .col-md-6
-      %legend Biodiversity Strategy Targets
-      .row
-        .col-lg-12
-          - @link.targets.each do |t|
-            .label.label-success= t.name
-    .col-md-6
-      %legend Biodiversity Strategy Actions
-      .row
-        .col-lg-12
-          - @link.actions.each do |t|
-            .label.label-success= t.name
-
-  %legend Tags
-  .row
-    .col-md-12
-      - @link.tags.each do |t|
-        .label.label-success= t.name
-
-%br
+  = render 'templates/countries', object: @link
+  = render 'templates/biographical_region', object: @link
+  = render 'templates/targets_and_actions', object: @link
+  = render 'templates/tags', object: @link

@@ -12,7 +12,7 @@
       %span.label.label-success.pull-right
         Approved
     - else
-      %span.label.label-important.pull-right
+      %span.label.label-danger.pull-right
         Unapproved
     %br
     - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content_without_tags'

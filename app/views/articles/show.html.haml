@@ -21,43 +21,16 @@
 
 .container-fluid
 
-  = render 'common/showinfo', obj: @article
+  = render 'templates/common_info', obj: @article
 
   %legend Article
   .row
     .col-lg-12
       = raw @article.content
 
-  %legend Countries
-  .row
-    .col-lg-12
-      - for c in @article.countries
-        %span.label.label-success= c.name
-
-  %legend Biographical Region:
-  .row
-    .col-lg-12
-      = @article.biographical_region
-
-  .row
-    .col-md-6
-      %legend Biodiversity Strategy Targets
-      .row
-        .col-lg-12
-          - @article.targets.each do |t|
-            .label.label-success= t.name
-    .col-md-6
-      %legend Biodiversity Strategy Actions
-      .row
-        .col-lg-12
-          - @article.actions.each do |t|
-            .label.label-success= t.name
+  = render 'templates/countries', object: @article
+  = render 'templates/biographical_region', object: @article
+  = render 'templates/targets_and_actions', object: @article
+  = render 'templates/tags', object: @article
 
 
-  %legend Tags
-  .row
-    .col-lg-12
-      - @article.tags.each do |t|
-        .label.label-success= t.name
-
-%br
