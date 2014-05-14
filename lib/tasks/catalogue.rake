@@ -169,7 +169,8 @@ namespace :catalogue do
         species.taxonomic_rank              = s.taxonomicRank
 
         unless s.taxonomy.nil?
-          species.taxonomy_id = Taxonomy.find_by_code(s.taxonomy.code).id
+          t = Taxonomy.find_by_code(s.taxonomy.code)
+          species.taxonomy_id = t.id unless t.nil?
         end
         species.save
         s.vernacularName_with_locales.keys.each do |key|
