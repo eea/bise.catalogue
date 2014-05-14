@@ -105,6 +105,9 @@ end
 
 group :development              , :test do
 
+  gem 'spring-commands-rspec'
+  gem 'spring-commands-cucumber'
+
   gem 'dotenv-rails'
   gem 'gem-ctags'
 
@@ -125,6 +128,7 @@ group :development              , :test do
 
   # Documentation
   gem 'railroady'
+  gem 'guard'
 
 end
 
