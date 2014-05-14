@@ -16,27 +16,25 @@
       = hidden_field_tag :per_page, params[:per_page] != '' ? params[:per_page] : false
     = text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search article..'
 
-.container
-  .row
-    .col-sm-3
-      = render 'facets/facet_sites'       , objs: @articles
-      = render 'facets/facet_authors'     , objs: @articles
-      = render 'facets/facet_languages'   , objs: @articles
-      = render 'facets/facet_countries'   , objs: @articles
-      = render 'facets/facet_timeline'    , objs: @articles
-    .col-sm-9
-      - if @articles.size > 0
-        = form_tag approve_multiple_articles_path do
-          %table.table.table-striped
-            %tbody
-              - @articles.each_with_hit do |article, hit|
-                = render 'cells/article', article: article, hit: hit
-          - if current_user.approver?
-            = submit_tag (show_approved?) ? 'Disapprove selected' : 'Approve selected', class: 'btn btn-default btn-sm pull-right'
+.row
+  .col-sm-3
+    = render 'facets/facet_sites'       , objs: @articles
+    = render 'facets/facet_authors'     , objs: @articles
+    = render 'facets/facet_languages'   , objs: @articles
+    = render 'facets/facet_countries'   , objs: @articles
+    = render 'facets/facet_timeline'    , objs: @articles
+  .col-sm-9
+    - if @articles.size > 0
+      = form_tag approve_multiple_articles_path do
+        %table.table.table-striped
+          %tbody
+            - @articles.each_with_hit do |article, hit|
+              = render 'cells/article', article: article, hit: hit
+        - if current_user.approver?
+          = submit_tag (show_approved?) ? 'Disapprove selected' : 'Approve selected', class: 'btn btn-default btn-sm pull-right'
 
-        = will_paginate @articles, renderer: BootstrapPagination::Rails
-        %br
-        = page_entries_info @articles, entry_name: 'article'
-      - else
-        = render 'common/empty_table'
-  %br
+      = will_paginate @articles, renderer: BootstrapPagination::Rails
+      %br
+      = page_entries_info @articles, entry_name: 'article'
+    - else
+      = render 'common/empty_table'

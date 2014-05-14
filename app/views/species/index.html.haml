@@ -5,24 +5,22 @@
   = form_tag species_index_path, method: 'get', class: 'search-query pull-right' do       #
     = text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search species...'    #
 
-.container-fluid
-  .row
-    .col-sm-3
-      //.menu-wrapper
-      = render 'kingdoms'
-      = render 'phylums'
-      = render 'classis'
-      = render 'species_group'
-      = render 'taxonomic_rank'
-    .col-sm-9
-      - if @species.size > 0
-        - @species.each_with_hit do |s, hit|
-          = render "cells/species", species: s, hit: hit
+.row
+  .col-sm-3
+    //.menu-wrapper
+    = render 'kingdoms'
+    = render 'phylums'
+    = render 'classis'
+    = render 'species_group'
+    = render 'taxonomic_rank'
+  .col-sm-9
+    - if @species.size > 0
+      - @species.each_with_hit do |s, hit|
+        = render "cells/species", species: s, hit: hit
 
-        = will_paginate @species, renderer: BootstrapPagination::Rails
-        %br
-        = page_entries_info @species, entry_name: 'species'
-      - else
-        = render 'common/empty_table'
+      = will_paginate @species, renderer: BootstrapPagination::Rails
+      %br
+      = page_entries_info @species, entry_name: 'species'
+    - else
+      = render 'common/empty_table'
 
-  %br

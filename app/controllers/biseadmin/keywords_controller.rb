@@ -11,10 +11,10 @@ class Biseadmin::KeywordsController < ApplicationController
     @keyword = Keyword.new(params[:keyword])
     respond_to do |format|
       if @keyword.save
-        format.html { redirect_to admin_keyword_container_path(@keyword.keyword_container), notice: 'Keyword was successfully created.' }
+        format.html { redirect_to biseadmin_keyword_container_path(@keyword.keyword_container), notice: 'Keyword was successfully created.' }
         format.json { render json: @keyword, status: :created, location: @keyword }
       else
-        format.html { render action: admin_keyword_container_path(@keyword.keyword_container) }
+        format.html { render action: biseadmin_keyword_container_path(@keyword.keyword_container) }
         format.json { render json: @keyword.errors, status: :unprocessable_entity }
       end
     end
@@ -25,7 +25,7 @@ class Biseadmin::KeywordsController < ApplicationController
 
     respond_to do |format|
       if @keyword.update_attributes(params[:keyword])
-        format.html { redirect_to admin_keyword_container_path(@keyword.keyword_container), notice: 'Keyword was successfully updated.' }
+        format.html { redirect_to biseadmin_keyword_container_path(@keyword.keyword_container), notice: 'Keyword was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

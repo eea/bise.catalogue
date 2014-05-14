@@ -5,20 +5,18 @@
   = form_tag habitats_path, method: 'get', class: 'form-search pull-right' do
     = text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search habitat..'
 
-.container-fluid
-  .row
-    .col-sm-3
-      = render "facets/facet_countries"   , objs: @habitats
-    .col-sm-9
-      - if @habitats.size > 0
-        - @habitats.each_with_hit do |habitat, hit|
-          = render "cells/habitat", habitat: habitat, hit: hit
+.row
+  .col-sm-3
+    = render "facets/facet_countries"   , objs: @habitats
+  .col-sm-9
+    - if @habitats.size > 0
+      - @habitats.each_with_hit do |habitat, hit|
+        = render "cells/habitat", habitat: habitat, hit: hit
 
-        = will_paginate @habitats, renderer: BootstrapPagination::Rails
-        %br
-        = page_entries_info @habitats, entry_name: 'habitat'
-      - else
-        = render 'common/empty_table'
+      = will_paginate @habitats, renderer: BootstrapPagination::Rails
+      %br
+      = page_entries_info @habitats, entry_name: 'habitat'
+    - else
+      = render 'common/empty_table'
 
-  %br
 

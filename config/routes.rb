@@ -62,6 +62,8 @@ Catalogue::Application.routes.draw do
     resources :sites
     resources :keyword_containers
     resources :keywords
+    resources :targets
+    resources :actions
   end
 
   # ECOSYSTEM ASSESMENT

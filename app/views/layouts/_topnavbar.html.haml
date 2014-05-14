@@ -39,8 +39,12 @@
                   Manage sites
               %li
                 = link_to biseadmin_keyword_containers_path do
-                  = fa_icon 'key'
+                  = fa_icon 'tag'
                   Manage keywords
+              %li
+                = link_to biseadmin_targets_path do
+                  = fa_icon 'bullseye'
+                  Manage targets & actions
 
             %li
               = link_to destroy_user_session_path, method: :delete do

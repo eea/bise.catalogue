@@ -76,7 +76,6 @@ gem 'rdf-do'
 #gem 'do_postgres'
 
 gem 'tilt'                      , '~> 1.3'
-# gem 'activeadmin'             , github: 'gregbell/active_admin'            , branch: '0-6-stable'
 gem 'activeadmin'               , github: 'gregbell/active_admin'
 gem 'polyamorous'               , github: 'activerecord-hackery/polyamorous'
 gem 'ransack'                   , github: 'ernie/ransack'

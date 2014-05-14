@@ -26,28 +26,26 @@
       = hidden_field_tag :per_page, params[:per_page] != "" ? params[:per_page] : false
     = text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search document..', autocomplete:'off'
 
-.container-fluid
-  .row
-    .col-sm-3
-      = render "facets/facet_sites"     , objs: @documents
-      = render "facets/facet_authors"   , objs: @documents
-      = render "facets/facet_languages" , objs: @documents
-      = render "facets/facet_countries" , objs: @documents
-      = render "facets/facet_timeline"  , objs: @documents
-    .col-sm-9
-      - if @documents.size > 0
-        = form_tag approve_multiple_documents_path do
-          %table.table.table-striped
-            %tbody
-              - @documents.each_with_hit do |doc, hit|
-                = render "cells/document", doc: doc, hit: hit
-          - if current_user.approver?
-            = submit_tag (show_approved?) ? 'Disapprove selected' : 'Approve selected', class: 'btn btn-default btn-sm pull-right'
-        = will_paginate @documents, renderer: BootstrapPagination::Rails
-        %br
-        = page_entries_info @documents, entry_name: 'document'
-      - else
-        = render 'common/empty_table'
+.row
+  .col-sm-3
+    = render "facets/facet_sites"     , objs: @documents
+    = render "facets/facet_authors"   , objs: @documents
+    = render "facets/facet_languages" , objs: @documents
+    = render "facets/facet_countries" , objs: @documents
+    = render "facets/facet_timeline"  , objs: @documents
+  .col-sm-9
+    - if @documents.size > 0
+      = form_tag approve_multiple_documents_path do
+        %table.table.table-striped
+          %tbody
+            - @documents.each_with_hit do |doc, hit|
+              = render "cells/document", doc: doc, hit: hit
+        - if current_user.approver?
+          = submit_tag (show_approved?) ? 'Disapprove selected' : 'Approve selected', class: 'btn btn-default btn-sm pull-right'
+      = will_paginate @documents, renderer: BootstrapPagination::Rails
+      %br
+      = page_entries_info @documents, entry_name: 'document'
+    - else
+      = render 'common/empty_table'
 
-  %br
 

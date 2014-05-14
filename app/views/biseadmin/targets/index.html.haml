@@ -1,0 +1,49 @@
+- content_for :pageheader do
+  Manage targets and actions
+
+- content_for :actions do
+  - if current_user.approver?
+    = link_to  new_biseadmin_target_path, class: 'btn btn-default' do
+      = fa_icon 'plus'
+      Add Target
+
+
+.row
+  .col-lg-12
+    %table.table.table-striped
+      %thead
+        %tr
+          %th{ style: 'width: 20px'}
+          %th
+            Target
+          %th
+            Short Description
+          %th{ style: 'width: 180px' }
+            Strategy actions
+          %th{ style: 'width: 120px' }
+            Actions
+      %tbody
+        - @targets.each do |target|
+          %tr
+            %td
+              = fa_icon 'list'
+            %td
+              = link_to biseadmin_target_path(target) do
+                = target.title
+            %td
+              = target.short_desc
+            %td
+              = target.actions.size
+            %td{ style: 'padding: 0' }
+              .btn-toolbar{ style: 'margin: 4px 0 0 0' }
+                .btn-group
+                  -# = link_to biseadmin_keyword_container_path(target), class: 'btn btn-default btn-small' do
+                  -#   -# = fa_icon 'eye'
+                  -#   Show
+                  = link_to edit_biseadmin_keyword_container_path(target), class: 'btn btn-default btn-xs' do
+                    -# = fa_icon 'pencil'
+                    Edit
+                  = link_to biseadmin_keyword_container_path(target), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
+                    = fa_icon 'trash-o'
+                    Destroy
+
