@@ -4,22 +4,11 @@ module Api
   module V1
     # Search service controller for API v1
     class SearchController < ApplicationController
-
-      # We overwrite as_json method to create custom mappings
-      # class EcosystemAssessment < ::EcosystemAssessment
-      #     def as_json(options={})
-      #         super.merge(:released_on => released_at.to_date)
-      #     end
-      # end
-
       respond_to :json
-
       after_filter :set_access_control_headers
 
 
-      # -----------------------------------------------------------------------
-      # Service to search only in bise
-      # -----------------------------------------------------------------------
+      # To search only in BISE
       def bise_search
         q = clean_param(params[:query])
 
@@ -30,27 +19,6 @@ module Api
           date_end = DateTime.new(params[:published_on].to_i, 12, 31)
         end
 
-        # ----------------- OLD SEARCH -----------------------------------------
-        # indexes = params[:indexes]
-        # if indexes == "all"
-        #   indexes = [
-        #     'articles',
-        #     'documents',
-        #     'links'
-        #   ]
-        # else
-        #   indexes = [ indexes ]
-        # end
-
-        # indexes = indexes.map do |i|
-        #   if Rails.env.production?
-        #     "catalogue_production_#{i}"
-        #   else
-        #     "catalogue_development_#{i}"
-        #   end
-        # end
-
-        # ----------------- NEW SEARCH -----------------------------------------
         indexes = params[:indexes].map do |category|
           "catalogue_#{Rails.env}_#{category}"
         end
@@ -159,9 +127,7 @@ module Api
         respond_with render_response(@rows)
       end
 
-      # -----------------------------------------------------------------------
-      # Service to search in all the Catalogue
-      # -----------------------------------------------------------------------
+      # Service to search in ALL CATALOGUES
       def index
         q = clean_param(params[:query])
 
@@ -386,20 +352,6 @@ module Api
             facets: rows.results.facets }
         end
       end
-
-      # def render_response(rows)
-      #   response = Hash.new
-      #   if rows.nil? || rows.results.nil?
-      #     response['total']   = 0
-      #     response['results'] = []
-      #     response['facets']  = []
-      #   else
-      #     response['total']   = rows.results.total
-      #     response['results'] = rows.results
-      #     response['facets']  = rows.results.facets
-      #   end
-      #   response
-      # end
 
     end
   end

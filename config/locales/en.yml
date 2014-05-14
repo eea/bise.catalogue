@@ -8,7 +8,7 @@ en:
 
   activerecord:
     models:
-      article: Article
+      article: Web Page
       document: Document
     attributes:
       article:
