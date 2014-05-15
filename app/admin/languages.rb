@@ -9,10 +9,13 @@ ActiveAdmin.register Language do
     f.actions
   end
 
+  filter :name
+
   index do
     selectable_column
     id_column
     column :name
+    column :code
     actions
   end
 end
