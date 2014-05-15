@@ -5,6 +5,8 @@ ActiveAdmin.register Link do
   scope :unapproved
   scope :approved
 
+  filter :site
+
   index do
     selectable_column
     id_column

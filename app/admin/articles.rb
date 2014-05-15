@@ -8,6 +8,8 @@ ActiveAdmin.register Article do
   scope :unapproved
   scope :approved
 
+  filter :site
+
   index do
     selectable_column
     id_column
