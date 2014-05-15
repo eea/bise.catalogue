@@ -33,12 +33,12 @@ Catalogue::Application.configure do
   config.assets.debug = true
 
   # PRY
-  silence_warnings do
-    begin
-      require 'pry'
-      IRB = Pry
-    rescue LoadError
-      puts ":: NEGRO"
-    end
-  end
+  # silence_warnings do
+  #   begin
+  #     require 'pry'
+  #     IRB = Pry
+  #   rescue LoadError
+  #     puts ":: NEGRO"
+  #   end
+  # end
 end
