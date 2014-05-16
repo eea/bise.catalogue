@@ -47,7 +47,7 @@ Catalogue::Application.routes.draw do
     namespace :v1 do
       resources :ecosystem_assessments
       get 'bise_search' => 'search#bise_search'
-      get 'search'      => 'search#index'
+      get 'search'      => 'search#advanced_search'
 
       post 'sync'       => 'sync#create'
       put 'sync'        => 'sync#update'
