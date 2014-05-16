@@ -6,16 +6,15 @@
         %span.caret
     .accordion-body.in#timeline-list
       .accordion-inner
-        %ul.list-unstyled
-          - if objs.respond_to?('facets')
+        - if objs.respond_to?('facets')
+          .list-group
             - objs.facets['timeline']['entries'].each do |facet|
               - year = Time.at(facet['time']/1000).strftime("%Y")
               - if !current_page?(params.merge(published_on: year, page: 1))
-                %li
-                  = link_to params.merge(published_on: year, page: 1) do
-                    = year
-                    %span.badge.badge-info.pull-right= facet['count']
-              - else
-                %li.selected
+                = link_to params.merge(published_on: year, page: 1), class: 'list-group-item' do
                   = year
-                  %span.pull-right= link_to "Remove", params.except(:published_on)
+                  %span.badge.badge-info.pull-right= facet['count']
+              - else
+                = link_to params.except(:published_on), class: 'list-group-item active' do
+                  = fa_icon 'times'
+                  = "Remove #{facet['term']}"
