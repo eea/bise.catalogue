@@ -6,15 +6,14 @@
         %span.caret
     .accordion-body.in#countries-list
       .accordion-inner
-        %ul.list-unstyled
-          - if @protected_areas.respond_to?('facets')
+        - if @protected_areas.respond_to?('facets')
+          .list-group
             - @protected_areas.facets['countries']['terms'].each do |facet|
               - if !current_page?(params.merge(country: facet['term'], page: 1))
-                %li
-                  = link_to params.merge(country: facet['term'], page: 1) do
-                    = facet['term']
-                    %span.badge.badge-info.pull-right= facet['count']
-              - else
-                %li.selected
+                = link_to params.merge(country: facet['term'], page: 1), class: 'list-group-item' do
                   = facet['term']
-                  %span.pull-right= link_to "Remove", params.except(:country)
+                  %span.badge.pull-right= facet['count']
+              - else
+                = link_to params.except(:country), class: 'list-group-item active' do
+                  = fa_icon 'times'
+                  = "Remove #{facet['term']}"

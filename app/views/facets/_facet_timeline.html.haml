@@ -13,7 +13,7 @@
               - if !current_page?(params.merge(published_on: year, page: 1))
                 = link_to params.merge(published_on: year, page: 1), class: 'list-group-item' do
                   = year
-                  %span.badge.badge-info.pull-right= facet['count']
+                  %span.badge.pull-right= facet['count']
               - else
                 = link_to params.except(:published_on), class: 'list-group-item active' do
                   = fa_icon 'times'

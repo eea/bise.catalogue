@@ -12,7 +12,7 @@
               - if !current_page?(params.merge(site: facet['term'], page: 1))
                 = link_to params.merge(site: facet['term'], page: 1), class: 'list-group-item' do
                   = facet['term']
-                  %span.badge.badge-info.pull-right= facet['count']
+                  %span.badge.pull-right= facet['count']
               - else
                 = link_to params.except(:site), class: 'list-group-item active' do
                   = fa_icon 'times'

@@ -6,15 +6,13 @@
         %span.caret
     .accordion-body.in#kingdom-list
       .accordion-inner
-        %ul.list-unstyled
-          / - if @species.respond_to?('facets')
+        .list-group
           - @species.facets['kingdom']['terms'].each do |facet|
             - if !current_page?(params.merge(kingdom: facet['term'], page: 1))
-              %li
-                = link_to params.merge(kingdom: facet['term'], page: 1) do
-                  = facet['term']
-                  %span.badge.badge-info.pull-right= facet['count']
-            - else
-              %li.selected
+              = link_to params.merge(kingdom: facet['term'], page: 1), class: 'list-group-item' do
                 = facet['term']
-                %span.pull-right= link_to "Remove", params.except(:kingdom)
+                %span.badge.pull-right= facet['count']
+            - else
+              = link_to params.except(:kingdom), class: 'list-group-item active' do
+                = fa_icon 'times'
+                = "Remove #{facet['term']}"

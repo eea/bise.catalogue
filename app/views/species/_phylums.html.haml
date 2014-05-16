@@ -6,14 +6,13 @@
         %span.caret
     .accordion-body.in#phylum-list
       .accordion-inner
-        %ul.list-unstyled
+        .list-group
           - @species.facets['phylum']['terms'].each do |facet|
             - if !current_page?(params.merge(phylum: facet['term'], page: 1))
-              %li
-                = link_to params.merge(phylum: facet['term'], page: 1) do
-                  = facet['term']
-                  %span.badge.badge-info.pull-right= facet['count']
-            - else
-              %li.selected
+              = link_to params.merge(phylum: facet['term'], page: 1), class: 'list-group-item' do
                 = facet['term']
-                %span.pull-right= link_to "Remove", params.except(:phylum)
+                %span.badge.pull-right= facet['count']
+            - else
+              = link_to params.except(:phylum), class: 'list-group-item active' do
+                = fa_icon 'times'
+                = "Remove #{facet['term']}"

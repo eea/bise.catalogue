@@ -6,14 +6,13 @@
         %span.caret
     .accordion-body.in#taxonomic_rank-list
       .accordion-inner
-        %ul.list-unstyled
+        .list-group
           - @species.facets['taxonomic_rank']['terms'].each do |facet|
             - if !current_page?(params.merge(taxonomic_rank: facet['term'], page: 1))
-              %li
-                = link_to params.merge(taxonomic_rank: facet['term'], page: 1) do
-                  = if facet['term'].size > 22 then facet['term'][0..22] + '...' else facet['term'] end
-                  %span.badge.badge-info.pull-right= facet['count']
+              = link_to params.merge(taxonomic_rank: facet['term'], page: 1), class: 'list-group-item' do
+                = if facet['term'].size > 22 then facet['term'][0..22] + '...' else facet['term'] end
+                %span.badge.pull-right= facet['count']
             - else
-              %li.selected
-                = facet['term']
-                %span.pull-right= link_to "Remove", params.except(:taxonomic_rank)
+              = link_to params.except(:taxonomic_rank), class: 'list-group-item active' do
+                = fa_icon 'times'
+                = "Remove #{facet['term']}"
