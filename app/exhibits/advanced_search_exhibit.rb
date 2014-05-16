@@ -39,6 +39,7 @@ class AdvancedSearchExhibit < SimpleDelegator
 
   def process
     q = self.current_query
+    site      = self.site
     source_db = self.source_db
     countries = self.countries
     languages = self.languages
@@ -107,7 +108,7 @@ class AdvancedSearchExhibit < SimpleDelegator
       end
 
       filter :bool, must: { term: { approved: true } }
-      filter :term, 'site.name' => 'BISE'
+      filter :term, 'site.name' => site unless site.nil?
       filter :term, source_db: source_db unless source_db.nil?
       filter :term, 'countries.name' => countries unless countries.nil?
       filter :term, 'languages.name' => languages unless languages.nil?
