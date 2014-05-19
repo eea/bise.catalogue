@@ -23,19 +23,19 @@ class BiseSearchExhibit < SimpleDelegator
     a << { term: { source_db: source_db } } if source_db.present?
     a << { term: { 'countries.name' => countries } } if countries.present?
     a << { term: { 'languages.name' => languages } } if languages.present?
-    a << { term: { biographical_region: bioregion } } if bioregion.present?
-    a << { range: { published_on: { gte: date_init , lt: date_end } } } if published_on.present?
+    a << { term: { biographical_region: biographical_region } } if biographical_region.present?
+    a << { range: { published_on: { gte: start_date , lt: end_date } } } if start_date.present?
     a
   end
 
   def process
-    q = self.current_query
+    q = self.query
     source_db = self.source_db
     countries = self.countries
     languages = self.languages
-    biogeo    = self.bioregion
-    date_init = self.from_date
-    date_end  = self.to_date
+    biogeo    = self.biographical_region
+    date_init = self.start_date
+    date_end  = self.end_date
     search_filter = self.search_filter
     indexes = self.es_indexes
 

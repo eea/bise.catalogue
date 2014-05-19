@@ -38,14 +38,14 @@ class AdvancedSearchExhibit < SimpleDelegator
   end
 
   def process
-    q = self.current_query
+    q = self.query
     site      = self.site
     source_db = self.source_db
     countries = self.countries
     languages = self.languages
-    biogeo    = self.bioregion
-    date_init = self.from_date
-    date_end  = self.to_date
+    biogeo    = self.biographical_region
+    date_init = self.start_date
+    date_end  = self.end_date
     search_filter = self.search_filter
     indexes = self.es_indexes
 
@@ -59,28 +59,25 @@ class AdvancedSearchExhibit < SimpleDelegator
     rows = Tire.search indexes, load: false, from: self.start_page, size: self.per do
       query do
         boolean do
+          should   { string 'site.ngram_name:'           + q }
+
           should   { string 'title:'                     + q }
           should   { string 'english_title:'             + q }
           should   { string 'description:'               + q }
           should   { string 'content:'                   + q }
-
           should   { string 'attachment:'                + q }
 
-          # AUTHOR
           should   { string 'ngram_author:'              + q }
 
-          # SITE
-          should   { string 'site.ngram_name:'           + q }
-
-          # Countries & Languages
           should   { string 'countries.ngram_name:'      + q }
           should   { string 'languages.ngram_name:'      + q }
 
-          # Tags
           should   { string 'tags.ngram_name:'           + q }
-
-          # Biographical Region
           should   { string 'biographical_region_ngram:' + q }
+
+          should   { string 'name:'                      + q }
+          should   { string 'biogeo_regions.name:'       + q }
+          should   { string 'biogeo_regions.code:'       + q }
 
           # Species scientifi name
           should   { string 'scientific_name:'           + q }
@@ -96,14 +93,9 @@ class AdvancedSearchExhibit < SimpleDelegator
           should   { string 'synonyms.scientific_name:'  + q }
           should   { string 'protected_areas.code:'      + q }
           should   { string 'protected_areas.name:'      + q }
-          # TODO: Add habitats
-
-          # Protected Area name
-          should   { string 'name:'                      + q }
           should   { string 'habitats.name:'             + q }
           should   { string 'habitats.code:'             + q }
-          should   { string 'biogeo_regions.name:'       + q }
-          should   { string 'biogeo_regions.code:'       + q }
+
         end
       end
 
@@ -142,20 +134,20 @@ class AdvancedSearchExhibit < SimpleDelegator
         facet_filter :and, search_filter unless search_filter.empty?
       end
 
-      facet 'kingdom' do
-        terms :kingdom
-        facet_filter :and, search_filter  unless search_filter.empty?
-      end
+      # facet 'kingdom' do
+      #   terms :kingdom
+      #   facet_filter :and, search_filter  unless search_filter.empty?
+      # end
 
-      facet 'phylum' do
-        terms :phylum
-        facet_filter :and, search_filter  unless search_filter.empty?
-      end
+      # facet 'phylum' do
+      #   terms :phylum
+      #   facet_filter :and, search_filter  unless search_filter.empty?
+      # end
 
-      facet 'classis' do
-        terms :classis
-        facet_filter :and, search_filter  unless search_filter.empty?
-      end
+      # facet 'classis' do
+      #   terms :classis
+      #   facet_filter :and, search_filter  unless search_filter.empty?
+      # end
 
       facet 'species_group' do
         terms :species_group, size: 15

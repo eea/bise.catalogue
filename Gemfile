@@ -85,6 +85,8 @@ gem 'formtastic'                , github: 'justinfrench/formtastic'
 gem 'rabl'
 gem 'oj'
 
+gem 'geoip'
+
 group :development do
   gem 'coffee-rails-source-maps'
   gem 'better_errors'

@@ -227,7 +227,7 @@ namespace :catalogue do
     task habitats: :load_repo_before
 
     # Loads sites from EUNIS
-    desc 'EUNIS: Import Sites'
+    desc 'EUNIS: Import protected sites'
     task sites: :environment do
       puts ':: Loading protected areas...'
 

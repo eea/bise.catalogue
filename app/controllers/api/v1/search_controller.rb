@@ -8,16 +8,33 @@ module Api
       after_filter :set_access_control_headers
 
       def bise_search
-        search = Search.new(params).save_query
-        respond_with BiseSearchExhibit.new(search).process
+        search = CatalogueSearch.new(search_params)
+
+        @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")
+        search.queried_from_ip = request.remote_ip
+        location = @geoip.country(request.remote_ip)[2]
+        search.location = location if location != 0
+
+
+        if search.save!
+          respond_with BiseSearchExhibit.new(search).process
+        else
+          respond_with {}
+        end
       end
 
       def advanced_search
-        search = Search.new(params).save_query
+        search = CatalogueSearch.new(search_params).save_query
         respond_with AdvancedSearchExhibit.new(search).process
       end
 
       private
+
+      def search_params
+        params.permit(:query, :page, :per, :site, :source_db, :countries,
+                      :languages, :biographical_region, :published_on,
+                      indexes: [])
+      end
 
       def set_access_control_headers
         headers['Access-Control-Allow-Origin'] = '*'

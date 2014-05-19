@@ -3,11 +3,10 @@
 
 - content_for :actions do
   = render 'common/approved_toggle'
-  - if current_user.approver?
-    .btn-group
-      = link_to new_document_path, class: 'btn btn-default' do
-        = fa_icon 'plus'
-        New Document
+  .btn-group
+    = link_to new_document_path, class: 'btn btn-default' do
+      = fa_icon 'plus'
+      New Document
   = link_to params.merge(format: 'xls'), class: 'btn btn-default' do
     = fa_icon 'download'
     Export XLS

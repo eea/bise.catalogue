@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140512125152) do
+ActiveRecord::Schema.define(version: 20140519084857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,34 @@ ActiveRecord::Schema.define(version: 20140512125152) do
   create_table "biogeo_regions_protected_areas", id: false, force: true do |t|
     t.integer "biogeo_region_id"
     t.integer "protected_area_id"
+  end
+
+  create_table "catalogue_searches", force: true do |t|
+    t.string   "query"
+    t.integer  "page"
+    t.integer  "per"
+    t.boolean  "document"
+    t.boolean  "webpage"
+    t.boolean  "link"
+    t.boolean  "protected_site"
+    t.boolean  "habitat"
+    t.boolean  "species"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "site"
+    t.string   "source_db"
+    t.string   "countries"
+    t.string   "languages"
+    t.string   "biographical_region"
+    t.string   "species_group"
+    t.string   "taxonomic_rank"
+    t.string   "genus"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "format"
+    t.string   "indexes"
+    t.string   "queried_from_ip"
+    t.string   "location"
   end
 
   create_table "countries", force: true do |t|
