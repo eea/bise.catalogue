@@ -12,7 +12,7 @@ module Api
 
         @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")
         search.queried_from_ip = request.remote_ip
-        location = @geoip.country(request.remote_ip)[2]
+        location = @geoip.country(request.remote_ip)[:country_name]
         search.location = location if location != 0
 
 
@@ -28,7 +28,7 @@ module Api
 
         @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")
         search.queried_from_ip = request.remote_ip
-        location = @geoip.country(request.remote_ip)[2]
+        location = @geoip.country(request.remote_ip)[:country_name]
         search.location = location if location != 0
 
         if search.save!
