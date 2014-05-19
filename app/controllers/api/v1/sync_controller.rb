@@ -5,6 +5,8 @@ module Api
 
     class SyncController < ApplicationController
 
+      skip_before_filter :protect_from_forgery
+
       # We overwrite as_json method to create custom mappings
       # class EcosystemAssessment < ::EcosystemAssessment
       #     def as_json(options={})
