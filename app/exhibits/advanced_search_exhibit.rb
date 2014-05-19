@@ -24,7 +24,7 @@ class AdvancedSearchExhibit < SimpleDelegator
     # a << { term: { author: @params[:author] }} if @params[:author].present?
     a << { term: { 'countries.name' => countries } } if countries.present?
     a << { term: { 'languages.name' => languages } } if languages.present?
-    a << { term: { biographical_region: bioregion } } if bioregion.present?
+    a << { term: { biographical_region: biographical_region } } if biographical_region.present?
     a << { range: { published_on: { gte: date_init , lt: date_end } } } if published_on.present?
 
     # EUNIS attrs
