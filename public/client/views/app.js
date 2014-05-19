@@ -10,7 +10,7 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
     bise_indexes: {
       documents: 'Documents',
       links: 'Links',
-      articles: 'Webpages'
+      articles: 'Web Pages'
     },
 
     all_indexes: {
@@ -27,7 +27,7 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
       indexes: [],
       query: '',
       page: 1,
-      per_page: 10
+      per: 10
     },
 
     events: {
@@ -85,7 +85,7 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
       this.queryparams = {
         indexes: this._getSelectedCategories(),
         query: q.replace(/(<([^>]+)>)/ig,""),
-        page: 1, per_page: 10
+        page: 1, per: 10
       }
       $('#catalogue-search-form input').val('')
       this.runQuery()
@@ -103,7 +103,7 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
     },
     setPerPage: function(e){
       this.queryparams.page = 1
-      this.queryparams.per_page = parseInt($(e.target).html());
+      this.queryparams.per = parseInt($(e.target).html());
       this.runQuery()
       // this.Results.fetch({ data: $.param(this.queryparams) })
     },
@@ -167,8 +167,8 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
         this.$('.n').parent().removeClass('disabled')
     },
     _getLastPage: function(){
-      var pages = Math.floor(this.Results.total / this.queryparams.per_page)
-      if (this.Results.total % this.queryparams.per_page > 0)
+      var pages = Math.floor(this.Results.total / this.queryparams.per)
+      if (this.Results.total % this.queryparams.per > 0)
         pages += 1;
       return pages;
     },
