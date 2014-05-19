@@ -23,29 +23,29 @@
 
   %body
     = render 'layouts/topnavbar'
-    .container
+    .container.outter-container
       -# .pageheader
       -#   %h1
       -#     = yield :pageheader
-      .outter-container
-        .pageheader
-          .container-fluid
-            %h1= yield :pageheader
-        - if content_for?(:actions)
-          = render partial: 'layouts/toolbar'
-        .inner-container
-          - if notice
-            %p.alert.alert-success
-              %a.close{ href: '#', 'data-dismiss'=> 'alert'}
-                &times;
-              = notice
-          - if alert
-            %p.alert.alert-danger
-              %a.close{ href: '#', 'data-dismiss'=> 'alert'}
-                &times;
-              = alert
-          = yield
-      = render partial: 'layouts/footer'
+      -# .outter-container
+      .pageheader
+        .container-fluid
+          %h1= yield :pageheader
+      - if content_for?(:actions)
+        = render partial: 'layouts/toolbar'
+      .inner-container
+        - if notice
+          %p.alert.alert-success
+            %a.close{ href: '#', 'data-dismiss'=> 'alert'}
+              &times;
+            = notice
+        - if alert
+          %p.alert.alert-danger
+            %a.close{ href: '#', 'data-dismiss'=> 'alert'}
+              &times;
+            = alert
+        = yield
+    = render partial: 'layouts/footer'
 
     / Placed at the end of the document so the pages load faster
     = javascript_include_tag "application"

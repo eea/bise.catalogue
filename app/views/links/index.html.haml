@@ -23,6 +23,7 @@
     = render "facets/facet_countries"   , objs: @links
     = render "facets/facet_timeline"    , objs: @links
   .col-sm-9
+    %legend Results
     - if @links.size > 0
       = form_tag approve_multiple_links_path do
         %table.table.table-striped

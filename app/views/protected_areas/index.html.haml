@@ -11,6 +11,7 @@
     = render 'countries'
     = render 'designation_years'
   .col-sm-9
+    %legend Results
     - if @protected_areas.size > 0
       - @protected_areas.each_with_hit do |site, hit|
         = render "cells/protected_area", site: site, hit: hit

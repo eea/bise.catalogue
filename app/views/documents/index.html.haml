@@ -33,6 +33,7 @@
     = render "facets/facet_countries" , objs: @documents
     = render "facets/facet_timeline"  , objs: @documents
   .col-sm-9
+    %legend Results
     - if @documents.size > 0
       = form_tag approve_multiple_documents_path do
         %table.table.table-striped

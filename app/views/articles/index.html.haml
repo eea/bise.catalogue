@@ -24,6 +24,7 @@
     = render 'facets/facet_countries'   , objs: @articles
     = render 'facets/facet_timeline'    , objs: @articles
   .col-sm-9
+    %legend Results
     - if @articles.size > 0
       = form_tag approve_multiple_articles_path do
         %table.table.table-striped

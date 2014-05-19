@@ -14,6 +14,7 @@
     = render 'species_group'
     = render 'taxonomic_rank'
   .col-sm-9
+    %legend Results
     - if @species.size > 0
       - @species.each_with_hit do |s, hit|
         = render "cells/species", species: s, hit: hit
