@@ -49,9 +49,6 @@ class AdvancedSearchExhibit < SimpleDelegator
     search_filter = self.search_filter
     indexes = self.es_indexes
 
-    kingdom        = self.kingdom
-    phylum         = self.phylum
-    classis        = self.classis
     species_group  = self.species_group
     taxonomic_rank = self.taxonomic_rank
     genus          = self.genus
@@ -133,21 +130,6 @@ class AdvancedSearchExhibit < SimpleDelegator
         terms 'languages.name'
         facet_filter :and, search_filter unless search_filter.empty?
       end
-
-      # facet 'kingdom' do
-      #   terms :kingdom
-      #   facet_filter :and, search_filter  unless search_filter.empty?
-      # end
-
-      # facet 'phylum' do
-      #   terms :phylum
-      #   facet_filter :and, search_filter  unless search_filter.empty?
-      # end
-
-      # facet 'classis' do
-      #   terms :classis
-      #   facet_filter :and, search_filter  unless search_filter.empty?
-      # end
 
       facet 'species_group' do
         terms :species_group, size: 15
