@@ -17,7 +17,7 @@ class Site < ActiveRecord::Base
   private
 
   def generate_auth_token
-    self.auth_token =  Digest::MD5.hexdigest(name)
+    self.auth_token =  Digest::MD5.hexdigest(name) unless auth_token.present?
   end
 
 end
