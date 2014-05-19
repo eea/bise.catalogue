@@ -1,6 +1,9 @@
 %legend Countries
 .row
   .col-lg-12
-    - for c in object.countries
-      %span.label.label-success= c.name
+    - if object.countries.size > 0
+      - for c in object.countries
+        %span.label.label-success= c.name
+    - else
+      No countries associated.
 %br

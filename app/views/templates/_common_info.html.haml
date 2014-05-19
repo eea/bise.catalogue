@@ -1,30 +1,27 @@
 %legend Info
 
-.row
-  .col-sm-2.control-label.text-right
-    Title:
-  .col-sm-4
-    = obj.title
-  .col-sm-2.control-label.text-right
-    Site:
-  .col-sm-4
-    = obj.site.name
-.row
-  .col-sm-2.control-label.text-right
-    English title:
-  .col-sm-4
-    = obj.english_title
-  .col-sm-2.control-label.text-right
-    Published on:
-  .col-sm-4
-    = obj.published_on
-.row
-  .col-sm-2.control-label.text-right
-    Languages:
-  .col-sm-4
-    - for a in obj.languages
-      %span.label.label-success= a.name
-  .col-sm-2.control-label.text-right
-    Author:
-  .span4
-    = obj.author
+.panel.panel-default
+  .panel-body
+    .row
+      .col-md-6
+        %dl.dl-horizontal
+          %dt Title:
+          %dd= obj.title
+        %dl.dl-horizontal
+          %dt English Title:
+          %dd= obj.english_title
+        %dl.dl-horizontal.margin-none
+          %dt Languages:
+          %dd
+            - for a in obj.languages
+              %span.label.label-success= a.name
+      .col-md-6
+        %dl.dl-horizontal
+          %dt Site:
+          %dd= obj.site.name
+        %dl.dl-horizontal
+          %dt Published on:
+          %dd= obj.published_on
+        %dl.dl-horizontal.margin-none
+          %dt Author:
+          %dd= obj.author

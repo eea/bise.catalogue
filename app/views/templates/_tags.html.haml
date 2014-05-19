@@ -1,6 +1,9 @@
 %legend Tags
 .row
   .col-lg-12
-    - object.tags.each do |t|
-      .label.label-success= t.name
+    - if object.tags.size > 0
+      - object.tags.each do |t|
+        .label.label-success= t.name
+    - else
+      No tags added.
 %br

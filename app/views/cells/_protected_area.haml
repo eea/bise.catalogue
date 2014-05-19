@@ -1,11 +1,9 @@
-.article_cell
-
-  - unless site.source_db.nil?
-    %span.label.label-info.pull-right
-      = site.source_db
-  .cell-title
-    .col-sm-2
-      = site.country_name
+%tr
+  %td
     = link_to site.name, site
+    - unless site.source_db.nil?
+      .label.label-info.pull-right
+        = site.source_db
+    = site.country_name
 
 

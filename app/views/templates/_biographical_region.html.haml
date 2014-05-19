@@ -1,5 +1,8 @@
 %legend Biographical Region:
 .row
   .col-lg-12
-    .label.label-success= object.biographical_region
+    - if object.biographical_region.present?
+      .label.label-success= object.biographical_region
+    - else
+      No biogeographical region associated.
 %br

@@ -33,7 +33,10 @@
   %legend Description
   .row
     .col-lg-12
-      = raw @document.description
+      - if @document.description.present?
+        = raw @document.description
+      - else
+        No description added to this document.
   %br
 
   = render 'templates/countries', object: @document

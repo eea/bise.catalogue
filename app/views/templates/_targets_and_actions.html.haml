@@ -3,12 +3,18 @@
     %legend Biodiversity Strategy Targets
     .row
       .col-lg-12
-        - object.targets.each do |t|
-          .label.label-success= t.name
+        - if object.targets.size > 0
+          - object.targets.each do |t|
+            .label.label-success= t.name
+        - else
+          No targets associated.
   .col-md-6
     %legend Biodiversity Strategy Actions
     .row
       .col-lg-12
-        - object.actions.each do |t|
-          .label.label-success= t.name
+        - if object.actions.size > 0
+          - object.actions.each do |t|
+            .label.label-success= t.name
+        - else
+          No targets associated.
 %br

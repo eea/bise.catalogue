@@ -16,8 +16,10 @@
   .col-sm-9
     %legend Results
     - if @species.size > 0
-      - @species.each_with_hit do |s, hit|
-        = render "cells/species", species: s, hit: hit
+      %table.table.table-striped
+        %tbody
+          - @species.each_with_hit do |s, hit|
+            = render "cells/species", species: s, hit: hit
 
       = will_paginate @species, renderer: BootstrapPagination::Rails
       %br

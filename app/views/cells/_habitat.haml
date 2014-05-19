@@ -1,8 +1,6 @@
-.article_cell
-  .cell-title
-    .row
-      .col-md-10
-        = link_to habitat.name, habitat
-      .col-md-2.text-right
-        .label.label-info= habitat.habitat_code
+%tr
+  %td
+    = link_to habitat.name, habitat
+  %td{ style: 'width: 70px' }
+    .label.label-info= habitat.habitat_code
 

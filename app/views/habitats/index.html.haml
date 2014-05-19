@@ -11,8 +11,10 @@
   .col-sm-9
     %legend Results
     - if @habitats.size > 0
-      - @habitats.each_with_hit do |habitat, hit|
-        = render "cells/habitat", habitat: habitat, hit: hit
+      %table.table.table-striped
+        %tbody
+          - @habitats.each_with_hit do |habitat, hit|
+            = render "cells/habitat", habitat: habitat, hit: hit
 
       = will_paginate @habitats, renderer: BootstrapPagination::Rails
       %br
