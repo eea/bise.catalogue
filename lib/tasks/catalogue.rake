@@ -169,7 +169,7 @@ namespace :catalogue do
         species.taxonomic_rank              = s.taxonomicRank
 
         unless s.taxonomy.nil?
-          t = Taxonomy.find_by_code(s.taxonomy.code)
+          t = Taxonomy.find_by_uri(s.taxonomy.uri)
           species.taxonomy_id = t.id unless t.nil?
         end
         species.save
