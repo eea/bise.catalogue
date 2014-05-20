@@ -1,5 +1,5 @@
 ActiveAdmin.register Taxonomy do
-  menu parent: 'Other'
+  menu parent: 'Others'
   config.comments = false
 
   filter :uri

@@ -109,6 +109,8 @@ define([
             })
           }
           if (hasGeometry)
+            // http://bio.discomap.eea.europa.eu/arcgis/rest/services/ProtectedSites/Natura2000_Dyna_WM/MapServer
+            // http://bio.discomap.eea.europa.eu/map/Filtermap/?webmap=0b2680c2bc544431a9a97119aa63d707
             ifr.attr('src', "http://discomap.eea.europa.eu/map/Filtermap/?webmap=0b2680c2bc544431a9a97119aa63d707&SiteCode="+ifr.data('code')+"&autoquery=false&zoomto=true")
           else
             ifr.hide()

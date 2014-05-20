@@ -184,7 +184,7 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
       if (this.Results.total == undefined)
         this.$('#results-count').html("No search")
       else
-        this.$('#results-count').html('About <strong>' + this.Results.total + '</strong> results.')
+        this.$('#results-count').html('<strong>' + this.Results.total + '</strong> results.')
     },
     _drawCategories: function(){
       this.$("#catalogue-categories").html('');
