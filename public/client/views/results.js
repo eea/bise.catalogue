@@ -96,7 +96,8 @@ define([
           f: 'pjson'
         }
         $.ajax({
-          url: "http://test.discomap.eea.europa.eu/arcgis/rest/services/N2K/Natura2000Query_WM/MapServer/3/query",
+          // url: "http://test.discomap.eea.europa.eu/arcgis/rest/services/N2K/Natura2000Query_WM/MapServer/3/query",
+          url: "http://bio.discomap.eea.europa.eu/arcgis/rest/services/ProtectedSites/Natura2000Query_WM/MapServer/3/query",
           data: data,
           dataType: 'json'
         }).done(function (data){
