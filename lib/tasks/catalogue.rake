@@ -161,7 +161,7 @@ namespace :catalogue do
         species.scientific_name_authorship  = s.scientificNameAuthorship
         species.species_code                = s.speciesCode
         unless s.speciesGroup.nil?
-          species.species_group             = s.speciesGroup.scientificName
+          species.species_group             = s.speciesGroup.commonName
         end
         unless s.synonymFor.nil?
           species.synonym_for = s.synonymFor.subject.to_s

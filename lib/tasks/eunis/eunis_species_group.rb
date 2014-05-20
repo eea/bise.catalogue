@@ -6,6 +6,7 @@ class EunisSpeciesGroup < Spira::Base
   configure base_uri: "http://eunis.eea.europa.eu/speciesgroup"
 
   property :scientificName   , predicate: EUNIS.scientific_name       , type: XSD.string
+  property :commonName       , predicate: EUNIS.common_name           , type: XSD.string
 
 end
 
