@@ -91,13 +91,12 @@ group :development do
   gem 'coffee-rails-source-maps'
   gem 'better_errors'
 
-  # gem 'ruby-debug19'
+  gem 'byebug'
   gem 'pry'                     , '>= 0.9.10'
   gem 'pry-remote'
   gem 'pry-doc'
   gem 'pry-nav'
-  # gem 'pry-debugger'
-  # gem 'pry-byebug'
+  gem 'pry-byebug'
   gem 'pry-stack_explorer'
   gem 'pry-rails'
 
