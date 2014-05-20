@@ -28,9 +28,6 @@ class AdvancedSearchExhibit < SimpleDelegator
     a << { range: { published_on: { gte: start_date , lt: end_date } } } if start_date.present?
 
     # EUNIS attrs
-    a << { term: { kingdom: kingdom } } if kingdom.present?
-    a << { term: { phylum: phylum } } if phylum.present?
-    a << { term: { classis: classis } } if classis.present?
     a << { term: { species_group: species_group } } if species_group.present?
     a << { term: { taxonomic_rank: taxonomic_rank } } if taxonomic_rank.present?
     a << { term: { genus: genus } } if genus.present?
