@@ -225,13 +225,13 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
     },
 
     _addWrappedCategory: function(input, key){
-      var label = this.all_indexes[key]
+      var label = $('<label>').append(input).append(this.all_indexes[key])
       // var inputWrapper = $('<div>');
       // inputWrapper.append(input).append($('<label>'));
       // inputWrapper.append(label);
       // this.$("#catalogue-categories").append(inputWrapper)
-      this.$("#catalogue-categories").append(input)
-      this.$("#catalogue-categories").append(label).append($('<br>'))
+      this.$("#catalogue-categories").append(label).append('<br>')
+      // this.$("#catalogue-categories").append(label).append($('<br>'))
     },
 
     _drawFacets: function(){
