@@ -22,7 +22,7 @@ ActiveAdmin.register ProtectedArea do
     actions
   end
 
-  show title: :title do |site|
+  show title: :name do |site|
     attributes_table do
       row :id
       row :name
