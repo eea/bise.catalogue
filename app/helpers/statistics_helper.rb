@@ -4,4 +4,10 @@ module StatisticsHelper
       { text: t, weight: v }
     end.to_json
   end
+
+  def queries_by_country
+    CatalogueSearch.group(:countries).count(:countries).map do |c, v|
+      { country: c, queries: v }
+    end
+  end
 end

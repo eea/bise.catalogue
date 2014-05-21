@@ -5,27 +5,44 @@
 
 
 .row-fluid
-  .col-lg-12
 
-    %legend Tag Cloud
-    #tag-cloud{ style: 'border: 1px dotted #dedede; margin-bottom: 7px', data: { cloud: tag_cloud_data } }
+  .col-md-8
+    %legend Tag Cloud:
+    #tag-cloud{ data: { cloud: tag_cloud_data } }
 
-    %legend Queries
+  .col-md-4
+    %legend Queries by Country:
     %table.table.table-striped
       %thead
         %tr
           %th
-          %th Query
-          %th Location
-          %th IP
-          %th Date
+            Country
+          %th
+            Queries
       %tbody
-        - @catalogue_searches.each do |s|
+        - queries_by_country.each do |q|
           %tr
-            %td= fa_icon 'list'
-            %td= s.query
-            %td= s.location
-            %td= s.queried_from_ip
-            %td= s.created_at
+            %td
+              = q[:country] || 'N/A'
+            %td
+              = q[:queries]
+
+%legend Queries
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+      %th Query
+      %th Location
+      %th IP
+      %th Date
+  %tbody
+    - @catalogue_searches.each do |s|
+      %tr
+        %td= fa_icon 'list'
+        %td= s.query
+        %td= s.location
+        %td= s.queried_from_ip
+        %td= s.created_at
 
 
