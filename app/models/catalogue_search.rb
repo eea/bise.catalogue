@@ -8,8 +8,8 @@ class CatalogueSearch < ActiveRecord::Base
     logger.info args
     args[:indexes] = args[:indexes].join(',')
     super
-    @countries_list = args[:countries].join(',') if args[:countries].present?
-    @languages_list = args[:languages].join(',') if args[:languages].present?
+    # @countries_list = args[:countries].join(',') if args[:countries].present?
+    # @languages_list = args[:languages].join(',') if args[:languages].present?
     if args[:published_on].present?
       self.start_date = DateTime.new(args[:published_on].to_i, 1, 1)
       self.end_date = DateTime.new(args[:published_on].to_i, 12, 31)
@@ -26,13 +26,13 @@ class CatalogueSearch < ActiveRecord::Base
     end
   end
 
-  def countries
-    @countries_list.present? ? @countries_list.split(',') : nil
-  end
+  # def countries
+  #   @countries_list.present? ? @countries_list.split(',') : nil
+  # end
 
-  def languages
-    @languages_list.present? ? @languages_list.split(',') : nil
-  end
+  # def languages
+  #   @languages_list.present? ? @languages_list.split(',') : nil
+  # end
 
   def es_indexes
     indexes.split(',').map do |category|
