@@ -28,7 +28,7 @@ class AdvancedSearchExhibit < SimpleDelegator
     a << { term: { 'languages.name' => languages } } if languages.present?
     a << { term: { biographical_region: biographical_region } } if biographical_region.present?
     a << { range: { published_on: { gte: start_date , lt: end_date } } } if start_date.present?
-    a << { term: { 'targets.title' => target } } if target.present?
+    # a << { term: { 'targets.title' => target } } if target.present?
 
     # EUNIS attrs
     a << { term: { species_group: species_group } } if species_group.present?
