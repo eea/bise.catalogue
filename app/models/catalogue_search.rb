@@ -1,12 +1,13 @@
 # class to store all searches performed from catalogue-client
 class CatalogueSearch < ActiveRecord::Base
-
   validates_presence_of :query
   before_save :sanitize_query
 
   def initialize(args)
+    logger.info '::::::::::::: CATALOGUE SEARCH :::::::::::::::::'
+    logger.info args
     args[:indexes] = args[:indexes].join(',')
-    super
+    super(args)
     @countries_list = args[:countries].join(',') if args[:countries].present?
     @languages_list = args[:languages].join(',') if args[:languages].present?
     if args[:published_on].present?
@@ -26,17 +27,17 @@ class CatalogueSearch < ActiveRecord::Base
   end
 
   def countries
-    countries_list.present? ? countries_list.split(',') : nil
+    @countries_list.present? ? @countries_list.split(',') : nil
   end
 
   def languages
-    languages_list.present? ? languages_list.split(',') : nil
+    @languages_list.present? ? @languages_list.split(',') : nil
   end
 
   def es_indexes
     indexes.split(',').map do |category|
       "catalogue_#{Rails.env}_#{category}"
-    end if indexes.present?
+    end unless indexes.nil?
   end
 
   def start_page
