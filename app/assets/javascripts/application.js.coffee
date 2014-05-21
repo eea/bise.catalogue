@@ -10,7 +10,7 @@
 # WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 # GO AFTER THE REQUIRES BELOW.
 #= require jquery
-#= require jquery.turbolinks
+# require jquery.turbolinks
 
 # ----- JQUERY UI CORE
 #= require jquery.ui.core
@@ -84,5 +84,5 @@
 #= require countries
 #= require protected_areas
 
-#= require turbolinks
+# require turbolinks
 #= require jquery_ujs

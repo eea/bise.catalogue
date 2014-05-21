@@ -21,24 +21,5 @@
       %legend Content added last 12 months:
       #timeline-graph{ data: { timeline: timeline } }
 
-  .row
-    .col-md-12
-      %legend Latest queries
-      %table.table.table-striped
-        %thead
-          %tr
-            %th
-            %th Query
-            %th Location
-            %th IP
-            %th Date
-        %tbody
-          - @catalogue_searches.each do |s|
-            %tr
-              %td= fa_icon 'list'
-              %td= s.query
-              %td= s.location
-              %td= s.queried_from_ip
-              %td= s.created_at
   %br
 

@@ -5,7 +5,35 @@
 
 
 .row-fluid
+  .col-lg-12
+    %legend Queries
+    %table.table.table-striped
+      %thead
+        %tr
+          %th{ style: 'width:30px' }
+          %th Query
+          %th{ style: 'width: 130px'} Search Type
+          %th{ style: 'width: 130px'} Location
+          %th.text-right{ style: 'width: 90px' } IP
+          %th.text-right{ style: 'width: 120px' } Date
+      %tbody
+        - @searches.each do |s|
+          %tr
+            %td= fa_icon 'list'
+            %td= s.query
+            %td= s.search_type
+            %td= s.location
+            %td.text-right
+              .text-success= s.queried_from_ip
+            %td.text-primary
+              = s.created_at.strftime("%B %d, %I:%M%p")
+    .text-right
+      = will_paginate @searches, renderer: BootstrapPagination::Rails
+    /= page_entries_info @searches, entry_name: 'search'
+    %br
+    %br
 
+.row-fluid
   .col-md-8
     %legend Tag Cloud:
     #tag-cloud{ data: { cloud: tag_cloud_data } }
@@ -26,23 +54,5 @@
               = q[:country] || 'N/A'
             %td
               = q[:queries]
-
-%legend Queries
-%table.table.table-striped
-  %thead
-    %tr
-      %th
-      %th Query
-      %th Location
-      %th IP
-      %th Date
-  %tbody
-    - @catalogue_searches.each do |s|
-      %tr
-        %td= fa_icon 'list'
-        %td= s.query
-        %td= s.location
-        %td= s.queried_from_ip
-        %td= s.created_at
 
 

@@ -2,6 +2,7 @@
 class CatalogueSearch < ActiveRecord::Base
   validates_presence_of :query
   before_save :sanitize_query
+  paginates_per 20
 
   def initialize(args)
     logger.info '::::::::::::: CATALOGUE SEARCH :::::::::::::::::'

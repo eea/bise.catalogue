@@ -6,6 +6,8 @@ class AdvancedSearchExhibit < SimpleDelegator
 
   def initialize(model)
     super(model)
+    @search_type = 'Advanced'
+    save!
   end
 
   def to_model

@@ -6,6 +6,8 @@ class BiseSearchExhibit < SimpleDelegator
 
   def initialize(model)
     super(model)
+    @search_type = 'BISE'
+    save!
   end
 
   def to_model

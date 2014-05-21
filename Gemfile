@@ -24,8 +24,8 @@ gem 'therubyracer'              , '~> 0.12.0'                                , r
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'turbolinks'
-gem 'jquery-turbolinks'
+# gem 'turbolinks'
+# gem 'jquery-turbolinks'
 gem "jqcloud-rails"
 
 
@@ -144,7 +144,7 @@ gem 'capistrano'                , '~> 2.15.5'
 gem 'capistrano-rbenv'          , '1.0.5'
 
 gem 'custom_error_message'
-gem 'will_paginate'             , '3.0.3'
+gem 'will_paginate'             , '3.0.5'
 gem 'will_paginate-bootstrap'   , '~> 1.0.0'
 
 gem 'acts-as-taggable-on'
