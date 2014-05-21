@@ -10,9 +10,6 @@ gem 'i18n'
 gem 'devise'                    , '~> 3.2'
 gem 'devise_ldap_authenticatable'
 
-gem 'turbolinks'
-gem 'jquery-turbolinks'
-
 # DATABASES
 gem 'sqlite3'
 gem 'pg'
@@ -27,6 +24,11 @@ gem 'therubyracer'              , '~> 0.12.0'                                , r
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'turbolinks'
+gem 'jquery-turbolinks'
+gem "jqcloud-rails"
+
+
 gem 'yui-compressor'
 gem 'bourbon'
 

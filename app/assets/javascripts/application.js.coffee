@@ -14,10 +14,10 @@
 
 # ----- JQUERY UI CORE
 #= require jquery.ui.core
-#= require jquery.ui.widget
+# require jquery.ui.widget
 # require jquery.ui.mouse
 # require jquery.ui.position
-#= require jquery.ui.draggable
+# require jquery.ui.draggable
 # require jquery.ui.droppable
 # require jquery.ui.resizable
 # require jquery.ui.selectable
@@ -29,12 +29,12 @@
 # require jquery.ui.button
 #= require jquery.ui.datepicker
 # require jquery.ui.datepicker-en-GB
-#= require jquery.ui.dialog
+# require jquery.ui.dialog
 # require jquery.ui.menu
-#= require jquery.ui.progressbar
+# require jquery.ui.progressbar
 # require jquery.ui.slider
 # require jquery.ui.spinner
-#= require jquery.ui.tabs
+# require jquery.ui.tabs
 # require jquery.ui.tooltip
 
 # ----- JQUERY UI EFFECTS
@@ -54,29 +54,27 @@
 # require jquery.ui.effect-slide
 # require jquery.ui.effect-transfer
 
+#= require jqcloud
+
 #= require best_in_place
 
 # ----- CHOSEN
 #= require jquery/chosen
 #= require jquery/qtip
-
 # ----- REMOTIPART
 #= require jquery.remotipart
-
 # ----- TINYMCE WYSIWYG EDITOR
 #= require tinymce-jquery
-
 # ----- TWITTER BOOTSTRAP
 #= require bootstrap
-# require jquery.toggle.buttons
 
+#= require underscore
 #= require raphael
 #= require morris
 
-# require mustache
-# require underscore
-
+#= require statistics
 #= require shared
+
 #= require articles
 #= require documents
 #= require links

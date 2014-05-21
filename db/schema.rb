@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521061527) do
+ActiveRecord::Schema.define(version: 20140521093534) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,8 +107,8 @@ ActiveRecord::Schema.define(version: 20140521061527) do
     t.date     "end_date"
     t.string   "site"
     t.string   "source_db"
-    t.string   "countries_list"
-    t.string   "languages_list"
+    t.string   "countries"
+    t.string   "languages"
     t.string   "biographical_region"
     t.string   "species_group"
     t.string   "taxonomic_rank"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 20140521061527) do
     t.string   "queried_from_ip"
     t.string   "location"
     t.string   "search_type"
+    t.string   "published_on"
   end
 
   create_table "countries", force: true do |t|

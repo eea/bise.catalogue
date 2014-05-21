@@ -66,6 +66,8 @@ Catalogue::Application.routes.draw do
     resources :actions
   end
 
+  resources :statistics, only: [:index]
+
   # ECOSYSTEM ASSESMENT
   # resources :ecosystem_assessments
 
