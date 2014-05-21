@@ -133,6 +133,15 @@ class Document < ActiveRecord::Base
                 search_analyzer: 'snowball'
       end
 
+      indexes :targets do
+        indexes :title,
+                type: 'string' ,
+                index: :not_analyzed
+        indexes :ngram_title ,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
+      end
+
       indexes :biographical_region,
               type: 'string',
               index: :not_analyzed
@@ -191,6 +200,9 @@ class Document < ActiveRecord::Base
       countries:      countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
       tags: tag_list.map do |c|
         { name: c, ngram_name: c }
+      end,
+      targets: target_list.map do |c|
+        { title: c, ngram_title: c }
       end,
 
       biographical_region:       biographical_region,
@@ -294,6 +306,11 @@ class Document < ActiveRecord::Base
         date :published_on, interval: 'year'
         facet_filter :and, doc_filter unless doc_filter.empty?
       end
+
+      # facet('target') do
+      #   terms 'targets.title'
+      #   facet_filter :and, doc_filter unless doc_filter.empty?
+      # end
     end
   end
 

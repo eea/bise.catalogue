@@ -27,6 +27,7 @@ class BiseSearchExhibit < SimpleDelegator
     a << { term: { 'languages.name' => languages } } if languages.present?
     a << { term: { biographical_region: biographical_region } } if biographical_region.present?
     a << { range: { published_on: { gte: start_date , lt: end_date } } } if start_date.present?
+    a << { term: { 'targets.title' => target } } if target.present?
     a
   end
 
@@ -92,6 +93,11 @@ class BiseSearchExhibit < SimpleDelegator
 
       facet 'published_on' do
         date :published_on, interval: 'year'
+        facet_filter :and, search_filter unless search_filter.empty?
+      end
+
+      facet('target') do
+        terms 'targets.title'
         facet_filter :and, search_filter unless search_filter.empty?
       end
     end

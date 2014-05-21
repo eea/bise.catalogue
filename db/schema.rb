@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521093534) do
+ActiveRecord::Schema.define(version: 20140521145946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20140521093534) do
     t.string   "location"
     t.string   "search_type"
     t.string   "published_on"
+    t.string   "target"
   end
 
   create_table "countries", force: true do |t|

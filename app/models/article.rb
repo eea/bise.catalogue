@@ -111,6 +111,15 @@ class Article < ActiveRecord::Base
                 search_analyzer: 'snowball'
       end
 
+      indexes :targets do
+        indexes :title,
+                type: 'string' ,
+                index: :not_analyzed
+        indexes :ngram_title ,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
+      end
+
       indexes :biographical_region,
               type: 'string',
               index: :not_analyzed
@@ -152,6 +161,9 @@ class Article < ActiveRecord::Base
       end,
       tags: tag_list.map do |c|
         { name: c, ngram_name: c }
+      end,
+      targets: target_list.map do |c|
+        { title: c, ngram_title: c }
       end,
       biographical_region:       biographical_region
     }.to_json
@@ -250,6 +262,11 @@ class Article < ActiveRecord::Base
         date :published_on, interval: 'year'
         facet_filter :and, art_filter unless art_filter.empty?
       end
+
+      # facet('target') do
+      #   terms 'targets.title'
+      #   facet_filter :and, art_filter unless art_filter.empty?
+      # end
     end
   end
 
