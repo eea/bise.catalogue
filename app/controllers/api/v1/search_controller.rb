@@ -41,8 +41,9 @@ module Api
       private
 
       def search_params
-        params.permit(:query, :page, :per, :site, :source_db, :countries,
-                      :languages, :biographical_region, :published_on,
+        params.permit(:query, :page, :per, :site,
+                      :source_db, :biographical_region, :published_on,
+                      countries: [], languages: [],
                       indexes: [])
       end
 

@@ -6,12 +6,9 @@ class CatalogueSearch < ActiveRecord::Base
 
   def initialize(args)
     args[:indexes] = args[:indexes].join(',')
-    args[:countries] = args[:countries].join(',') if args[:countries].present?
-    args[:languages] = args[:languages].join(',') if args[:languages].present?
+    args[:countries_list] = args[:countries].join(',') if args[:countries].present?
+    args[:languages_list] = args[:languages].join(',') if args[:languages].present?
     super
-    @params = args
-    # @filters ||= []
-    @categories = args[:indexes]
     if args[:published_on].present?
       self.start_date = DateTime.new(args[:published_on].to_i, 1, 1)
       self.end_date = DateTime.new(args[:published_on].to_i, 12, 31)
@@ -28,14 +25,18 @@ class CatalogueSearch < ActiveRecord::Base
     end
   end
 
+  def countries
+    countries_list.present? ? countries_list.split(',') : nil
+  end
+
+  def languages
+    languages_list.present? ? languages_list.split(',') : nil
+  end
+
   def es_indexes
-    if indexes.present?
-      indexes.split(',').map do |category|
-        "catalogue_#{Rails.env}_#{category}"
-      end
-    else
-      indexes
-    end
+    indexes.split(',').map do |category|
+      "catalogue_#{Rails.env}_#{category}"
+    end if indexes.present?
   end
 
   def start_page
