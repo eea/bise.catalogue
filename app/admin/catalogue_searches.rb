@@ -14,8 +14,8 @@ ActiveAdmin.register CatalogueSearch do
         status_tag(i, :ok)
       end unless ind.indexes.nil?
     end
-    column :countries_list
-    column :languages_list
+    column :countries
+    column :languages
     column :created_at
     actions
   end
