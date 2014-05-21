@@ -10,9 +10,9 @@ ActiveAdmin.register CatalogueSearch do
     id_column
     column :query
     column :indexes do |ind|
-      ind.split(',').each do |i|
+      ind.indexes.split(',').each do |i|
         status_tag(i, :ok)
-      end unless ind.nil?
+      end unless ind.indexes.nil?
     end
     column :countries_list
     column :languages_list
