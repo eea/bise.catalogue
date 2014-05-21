@@ -5,8 +5,8 @@ module StatisticsHelper
     end.to_json
   end
 
-  def queries_by_country
-    CatalogueSearch.group(:countries).count(:countries).map do |c, v|
+  def queries_by_location
+    CatalogueSearch.group(:location).count(:location).map do |c, v|
       { country: c, queries: v }
     end
   end
