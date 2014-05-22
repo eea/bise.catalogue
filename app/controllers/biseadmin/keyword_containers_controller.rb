@@ -35,7 +35,7 @@ class Biseadmin::KeywordContainersController < ApplicationController
 
     respond_to do |format|
       if @keyword_container.save
-        format.html { redirect_to biseadmin_keyword_container_path(@keyword), notice: 'KeywordContainer was successfully created.' }
+        format.html { redirect_to biseadmin_keyword_containers_path(@keyword), notice: 'KeywordContainer was successfully created.' }
         format.json { render json: @keyword_container, status: :created, location: @keyword_container }
       else
         format.html { render action: "new" }
