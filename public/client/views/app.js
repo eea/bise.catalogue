@@ -18,7 +18,7 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
       links: 'Links',
       articles: 'Webpages',
       species: 'Species',
-      habitats: 'Habitats',
+      habitats: 'Habitat types',
       protected_areas: 'Sites'
     },
 
