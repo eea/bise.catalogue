@@ -142,12 +142,6 @@ class Document < ActiveRecord::Base
           },
           exact: { type: 'string', index: :not_analyzed }
         }
-        # indexes :title,
-        #         type: 'string' ,
-        #         index: :no
-        # indexes :ngram_title ,
-        #         index_analyzer: 'index_ngram_analyzer' ,
-        #         search_analyzer: 'snowball'
       end
 
       indexes :biographical_region,
@@ -211,7 +205,7 @@ class Document < ActiveRecord::Base
         { name: t.name, ngram_name: t.name }
       end,
       targets: targets.map do |t|
-        { title: t.name.split(':')[0], ngram_title: t.name }
+        { title: t.name.split(':')[0] }
       end,
 
       biographical_region:       biographical_region,

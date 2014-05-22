@@ -175,7 +175,7 @@ class Link < ActiveRecord::Base
         { name: t.name, ngram_name: t.name }
       end,
       targets: targets.map do |t|
-        { title: t.name.split(':')[0], ngram_title: t.name }
+        { title: t.name.split(':')[0] }
       end,
 
       biographical_region: biographical_region
