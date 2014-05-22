@@ -151,7 +151,7 @@ class AdvancedSearchExhibit < SimpleDelegator
         facet_filter :and, search_filter unless search_filter.empty?
       end
 
-      facet('target') do
+      facet 'strategytarget' do
         terms 'targets.title'
         facet_filter :and, search_filter unless search_filter.empty?
       end
