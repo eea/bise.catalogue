@@ -119,7 +119,7 @@ class Link < ActiveRecord::Base
       indexes :targets do
         indexes :title,
                 type: 'string' ,
-                index: :not_analyzed
+                index: :no
         indexes :ngram_title ,
                 index_analyzer: 'index_ngram_analyzer' ,
                 search_analyzer: 'snowball'
