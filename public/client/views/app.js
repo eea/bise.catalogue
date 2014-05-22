@@ -16,7 +16,7 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
     all_indexes: {
       documents: 'Documents',
       links: 'Links',
-      articles: 'Webpages',
+      articles: 'Web Pages',
       species: 'Species',
       habitats: 'Habitat types',
       protected_areas: 'Sites'
