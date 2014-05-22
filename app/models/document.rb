@@ -198,11 +198,12 @@ class Document < ActiveRecord::Base
       languages:      languages.map { |l| { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name } },
 
       countries:      countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
-      tags: tag_list.map do |c|
-        { name: c, ngram_name: c }
+
+      tags: tags.map do |t|
+        { name: t.name, ngram_name: t.name }
       end,
-      targets: target_list.map do |c|
-        { title: c, ngram_title: c }
+      targets: targets.map do |t|
+        { title: t.name.split(':')[0], ngram_title: t.name }
       end,
 
       biographical_region:       biographical_region,
