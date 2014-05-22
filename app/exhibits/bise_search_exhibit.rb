@@ -97,7 +97,7 @@ class BiseSearchExhibit < SimpleDelegator
       end
 
       facet 'strategytarget' do
-        terms 'targets.title'
+        terms 'targets.title.exact'
         facet_filter :and, search_filter unless search_filter.empty?
       end
     end
