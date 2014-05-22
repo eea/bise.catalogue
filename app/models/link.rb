@@ -117,12 +117,14 @@ class Link < ActiveRecord::Base
       end
 
       indexes :targets do
-        indexes :title,
-                type: 'string' ,
-                index: :no
-        indexes :ngram_title ,
-                index_analyzer: 'index_ngram_analyzer' ,
-                search_analyzer: 'snowball'
+        indexes :title, type: 'multi_field', fields: {
+          title: {
+            type: 'string',
+            index_analyzer: 'index_ngram_analyzer',
+            search_analyzer: 'snowball'
+          },
+          exact: { type: 'string', index: :not_analyzed }
+        }
       end
 
       indexes :biographical_region,
