@@ -28,7 +28,7 @@ class AdvancedSearchExhibit < SimpleDelegator
     a << { term: { 'languages.name' => languages } } if languages.present?
     a << { term: { biographical_region: biographical_region } } if biographical_region.present?
     a << { range: { published_on: { gte: start_date , lt: end_date } } } if start_date.present?
-    # a << { term: { 'targets.title' => target } } if target.present?
+    a << { term: { 'targets.title' => strategytarget } } if strategytarget.present?
 
     # EUNIS attrs
     a << { term: { species_group: species_group } } if species_group.present?
@@ -46,6 +46,8 @@ class AdvancedSearchExhibit < SimpleDelegator
     biogeo    = self.biographical_region
     date_init = self.start_date
     date_end  = self.end_date
+    target    = self.strategytarget
+
     search_filter = self.search_filter
     indexes = self.es_indexes
 
@@ -103,6 +105,7 @@ class AdvancedSearchExhibit < SimpleDelegator
       filter :term, 'languages.name' => languages unless languages.nil?
       filter :term, biographical_region: biogeo unless biogeo.nil?
       filter :range, published_on: { gte: date_init, lt: date_end } unless date_init.nil?
+      filter :term, 'targets.title' => target unless target.nil?
 
       highlight attachment: { number_of_fragments: 2 }
 

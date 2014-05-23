@@ -42,7 +42,7 @@ module Api
 
       def search_params
         params.permit(:query, :page, :per, :site,
-                      :countries, :languages, :target,
+                      :countries, :languages, :strategytarget,
                       :source_db, :biographical_region, :published_on,
                       indexes: [])
       end
