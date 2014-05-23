@@ -27,7 +27,7 @@ class BiseSearchExhibit < SimpleDelegator
     a << { term: { 'languages.name' => languages } } if languages.present?
     a << { term: { biographical_region: biographical_region } } if biographical_region.present?
     a << { range: { published_on: { gte: start_date , lt: end_date } } } if start_date.present?
-    a << { term: { 'targets.title' => strategytarget } } if strategytarget.present?
+    a << { term: { 'targets.title.exact' => strategytarget } } if strategytarget.present?
     a
   end
 
