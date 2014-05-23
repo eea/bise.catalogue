@@ -105,7 +105,7 @@ class AdvancedSearchExhibit < SimpleDelegator
       filter :term, 'languages.name' => languages unless languages.nil?
       filter :term, biographical_region: biogeo unless biogeo.nil?
       filter :range, published_on: { gte: date_init, lt: date_end } unless date_init.nil?
-      filter :term, 'targets.title' => target unless target.nil?
+      filter :term, 'targets.title.exact' => target unless target.nil?
 
       highlight attachment: { number_of_fragments: 2 }
 
