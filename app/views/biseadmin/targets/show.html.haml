@@ -21,21 +21,21 @@
           %th{ style: 'width: 120px' }
             Actions
       %tbody
-        - @target.actions.each do |action|
+        - @target.strategy_actions.each do |action|
           %tr
             %td
               = fa_icon 'list'
             %td
               = best_in_place [:biseadmin, action], :title
             %td{ style: 'padding: 5px' }
-              = link_to biseadmin_action_path(action), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
+              = link_to biseadmin_strategy_action_path(action), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
                 = fa_icon 'trash-o'
                 Destroy
 
 .well.well-flat
-  = simple_form_for([:biseadmin, Action.new], html: { class: 'form-inline' }) do |f|
+  = simple_form_for([:biseadmin, StrategyAction.new], html: { class: 'form-inline' }) do |f|
     / = f.error_notification
-    /= f.input :target_id, as: :hidden, input_html: { class: }
+    = f.input :target_id, as: :hidden, input_html: { value: @target.id }
     = f.input :title, label: false, placeholder: 'Add a new action...', input_html: {style: 'width: 300px'}
     %button.btn.btn-default{ type: 'submit' }
       = fa_icon 'plus'

@@ -29,7 +29,7 @@ class Biseadmin::TargetsController < ApplicationController
   end
 
   def create
-    @target = Target.new(params[:target])
+    @target = Target.new(target_params)
 
     respond_to do |format|
       if @target.save
@@ -46,7 +46,7 @@ class Biseadmin::TargetsController < ApplicationController
     @target = Target.find(params[:id])
 
     respond_to do |format|
-      if @target.update_attributes(params[:target])
+      if @target.update_attributes(target_params)
         format.html { redirect_to biseadmin_targets_path, notice: 'Target was successfully updated.' }
         format.json { head :no_content }
       else
@@ -64,5 +64,11 @@ class Biseadmin::TargetsController < ApplicationController
       format.html { redirect_to biseadmin_targets_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+
+  def target_params
+    params.require(:target).permit(:title, :short_desc)
   end
 end

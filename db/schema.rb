@@ -11,20 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521145946) do
+ActiveRecord::Schema.define(version: 20140523083146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "actions", force: true do |t|
-    t.string   "title"
-    t.string   "short_desc"
-    t.integer  "target_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "actions", ["target_id"], name: "index_actions_on_target_id", using: :btree
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -375,6 +365,16 @@ ActiveRecord::Schema.define(version: 20140521145946) do
   end
 
   add_index "species_translations", ["species_id", "locale"], name: "index_species_translations_on_species_id_and_locale", unique: true, using: :btree
+
+  create_table "strategy_actions", force: true do |t|
+    t.string   "title"
+    t.string   "short_desc"
+    t.integer  "target_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "strategy_actions", ["target_id"], name: "index_strategy_actions_on_target_id", using: :btree
 
   create_table "taggings", force: true do |t|
     t.integer  "tag_id"

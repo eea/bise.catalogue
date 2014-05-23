@@ -33,17 +33,17 @@
             %td
               = target.short_desc
             %td
-              = target.actions.size
+              = target.strategy_actions.size
             %td{ style: 'padding: 0' }
               .btn-toolbar{ style: 'margin: 4px 0 0 0' }
                 .btn-group
                   -# = link_to biseadmin_keyword_container_path(target), class: 'btn btn-default btn-small' do
                   -#   -# = fa_icon 'eye'
                   -#   Show
-                  = link_to edit_biseadmin_keyword_container_path(target), class: 'btn btn-default btn-xs' do
+                  = link_to edit_biseadmin_target_path(target), class: 'btn btn-default btn-xs' do
                     -# = fa_icon 'pencil'
                     Edit
-                  = link_to biseadmin_keyword_container_path(target), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
+                  = link_to biseadmin_target_path(target), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
                     = fa_icon 'trash-o'
                     Destroy
 

@@ -4,8 +4,8 @@ class Target < ActiveRecord::Base
   attr_accessible :short_desc
   attr_accessible :actions_attributes
 
-  has_many :actions, dependent: :destroy
-  accepts_nested_attributes_for :actions
+  has_many :strategy_actions, dependent: :destroy
+  accepts_nested_attributes_for :strategy_actions
 
   def to_s
     title

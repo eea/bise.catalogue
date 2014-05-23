@@ -1,12 +1,12 @@
 # class to store all searches performed from catalogue-client
 class CatalogueSearch < ActiveRecord::Base
-  validates_presence_of :query
   before_save :sanitize_query
   paginates_per 20
 
   def initialize(args)
-    logger.info '::::::::::::: CATALOGUE SEARCH :::::::::::::::::'
-    logger.info args
+    logger.info ''
+    logger.info '::::: CLIENT SEARCH PARAMS => ' + args
+    logger.info ''
     args[:indexes] = args[:indexes].join(',')
     super
     # @countries_list = args[:countries].join(',') if args[:countries].present?

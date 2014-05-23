@@ -1,9 +1,10 @@
 # Keyword Categories controller
-class Action < ActiveRecord::Base
+class StrategyAction < ActiveRecord::Base
   attr_accessible :title
   attr_accessible :short_desc
+  attr_accessible :target_id
 
-  belongs_to :keyword_container
+  belongs_to :target
 
   def to_s
     title

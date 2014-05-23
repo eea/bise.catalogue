@@ -63,7 +63,7 @@ Catalogue::Application.routes.draw do
     resources :keyword_containers
     resources :keywords
     resources :targets
-    resources :actions
+    resources :strategy_actions
   end
 
   resources :statistics, only: [:index]
