@@ -6,7 +6,7 @@
 = f.input :action_list,
           as: :grouped_select,
           collection: Target.all,
-          group_method: :actions,
+          group_method: :strategy_actions,
           value_method: :title,
           group_label_method: :title,
           input_html: { class: 'tag-select', multiple: true }
