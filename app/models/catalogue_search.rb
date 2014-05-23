@@ -5,7 +5,8 @@ class CatalogueSearch < ActiveRecord::Base
 
   def initialize(args)
     logger.info ''
-    logger.info '::::: CLIENT SEARCH PARAMS => ' + args
+    logger.info '::::: CLIENT SEARCH PARAMS => '
+    logger.info args
     logger.info ''
     args[:indexes] = args[:indexes].join(',')
     super
