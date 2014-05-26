@@ -21,7 +21,7 @@ define(['jquery', 'underscore', 'backbone', 'models/facet', 'text!template/facet
       taxonomic_rank: 'Taxonomic Rank',
       genus: 'Genus',
       published_on: 'Timeline',
-      strategytarget: 'Strategy Targets'
+      strategytarget: 'Biodiversity Strategy Targets'
     },
 
     events: {
