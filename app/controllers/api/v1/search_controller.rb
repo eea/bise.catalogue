@@ -44,6 +44,7 @@ module Api
         params.permit(:query, :page, :per, :site,
                       :countries, :languages, :strategytarget,
                       :source_db, :biographical_region, :published_on,
+                      :species_group, :taxonomic_rank, :genus,
                       indexes: [])
       end
 
