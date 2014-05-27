@@ -11,7 +11,7 @@
       = fa_icon 'reply'
       Back to List
   - if current_user.approver?
-    = link_to  edit_article_path(@article), class: 'btn btn-default' do
+    = link_to edit_article_path(@article), class: 'btn btn-default', disabled: !@article.editable? do
       = fa_icon 'pencil'
       Edit
     = link_to  article_path(@article), method: :delete, class: 'btn btn-danger pull-right' do

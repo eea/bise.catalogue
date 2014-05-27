@@ -46,6 +46,9 @@ module Classifiable
       errors.add(:published_on, :not_valid) unless published_on.class == Date
     end
 
+    def editable?
+      source_url.nil?
+    end
   end
 
 end

@@ -18,7 +18,7 @@
       = (@document.file_size/1024).round(2)
       KB)
   - if current_user.approver?
-    = link_to  edit_document_path(@document), class: 'btn btn-default' do
+    = link_to  edit_document_path(@document), class: 'btn btn-default', disabled: !@document.editable? do
       = fa_icon 'pencil'
       Edit
     = link_to  document_path(@document), method: :delete, class: 'btn btn-danger pull-right', confirm: 'Please confirm you want to delete the resource.' do
