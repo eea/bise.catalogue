@@ -15,62 +15,47 @@
     Watch in EUNIS
 
 
-.container
-
-  .row-fluid
-    .span6
+.container-fluid
+  .row
+    .col-md-6
       %legend Species Information
 
-      %dl.dl-horizontal
-        %dt Code:
-        %dd= @species.species_code
+      %table.table.table-striped
+        %tbody
+          %tr
+            %td Code
+            %td= @species.species_code
+          %tr
+            %td Binomial Name
+            %td= @species.binomial_name
+          %tr
+            %td Scfientific Name
+            %td= @species.scientific_name
+          %tr
+            %td Genus
+            %td= @species.genus
+          %tr
+            %td Species Group
+            %td= @species.species_group
+          %tr
+            %td Taxonomic Rank
+            %td= @species.taxonomic_rank
+          %tr
+            %td Authorship
+            %td= @species.scientific_name_authorship
+          -# %tr
+          -#   %td Taxonomies
+          -#   %td
+          -#     - unless @species.taxonomy.nil?
+          -#       - taxonomy = @species.taxonomy
+          -#       - while taxonomy.level != 'Kingdom'
+          -#         .label.label-success= taxonomy.name
+          -#         taxonomy = taxonomy.parent
 
-      %dl.dl-horizontal
-        %dt Binomial Name:
-        %dd= @species.binomial_name
-
-      %dl.dl-horizontal
-        %dt Scientific Name:
-        %dd= @species.scientific_name
-
-      %dl.dl-horizontal
-        %dt Genus:
-        %dd= @species.genus
-
-      %dl.dl-horizontal
-        %dt Species Group:
-        %dd= @species.species_group
-
-      %dl.dl-horizontal
-        %dt Taxonomies:
-        %dd
-          / - unless @species.taxonomy.nil?
-          /   - taxonomy = @species.taxonomy
-          /   - while taxonomy.level != 'Kingdom'
-          /     .label.label-success= taxonomy.name
-          /     taxonomy = taxonomy.parent
-
-      %dl.dl-horizontal
-        %dt Taxonomic Rank:
-        %dd= @species.taxonomic_rank
-
-      %dl.dl-horizontal
-        %dt Authorship:
-        %dd= @species.scientific_name_authorship
-
-
-    .span6
+    .col-md-6
       %legend Sites
       %ul
         - @species.protected_areas.each do |pa|
           %li
             = link_to pa.name, pa unless @species.taxonomy.nil?
 
-
-  / %table.table
-  /   %tbody
-  /     %tr
-  /       %td{ style: 'width: 20%;text-align: right;' }
-  /         %b Species group:
-  /       %td
-  /         = link_to @species.species_group, @species.species_group

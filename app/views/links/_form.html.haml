@@ -9,7 +9,6 @@
     .row
       .col-lg-12
         = f.input :url, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
-        / .span6
         = f.input :description, as: :text, input_html: { class: 'input-block-level tinymce', rows: 5 }
 
     = render partial: 'common/targets', locals: { parent: @link, f: f }

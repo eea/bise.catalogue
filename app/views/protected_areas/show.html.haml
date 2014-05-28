@@ -17,16 +17,13 @@
 
 .container-fluid
 
-  .row-fluid
-    %p#notice= notice
+  %p#notice= notice
 
   - if map_exists?(@protected_area.code)
-    .row-fluid
-      .span12
-        %iframe{ src: "http://discomap.eea.europa.eu/map/Filtermap/?webmap=0b2680c2bc544431a9a97119aa63d707&SiteCode=#{@protected_area.code}&autoquery=false&zoomto=true", scrolling: "no", style: "height: 380px; width: 100%;" }
+    %iframe{ src: "http://discomap.eea.europa.eu/map/Filtermap/?webmap=0b2680c2bc544431a9a97119aa63d707&SiteCode=#{@protected_area.code}&autoquery=false&zoomto=true", scrolling: "no", style: "height: 380px; width: 100%;" }
 
-  .row-fluid
-    .span7
+  .row
+    .col-sm-7
       %legend
         Site Information:
       %dl.dl-horizontal
@@ -64,14 +61,8 @@
         %dd
           = "#{@protected_area.long} (decimal deg.)"
 
-      %legend Habitats
-      .accordion-inner
-        %ul
-          - @protected_area.habitats.each do |h|
-            %li
-              = link_to h.name, habitat_path(h)
 
-    .span5
+    .col-sm-5
       %legend Fauna and Flora
       - groups = @protected_area.species.select('species.*, species.species_group').group_by(&:species_group)
       - groups.keys.each do |key|
@@ -88,10 +79,13 @@
                   - groups[key].each do |s|
                     %li= link_to s.binomial_name, species_path(s)
 
-  .row-fluid
-    .span5
 
-    .span7
-
+  .row
+    .col-lg-12
+      %legend Habitats
+      %ul
+        - @protected_area.habitats.each do |h|
+          %li
+            = link_to h.name, habitat_path(h)
 
 

@@ -1,27 +1,43 @@
 %legend Info
 
-.panel.panel-default
-  .panel-body
-    .row
-      .col-md-6
-        %dl.dl-horizontal
-          %dt Title:
-          %dd= obj.title
-        %dl.dl-horizontal
-          %dt English Title:
-          %dd= obj.english_title
-        %dl.dl-horizontal.margin-none
-          %dt Languages:
-          %dd
-            - for a in obj.languages
-              %span.label.label-success= a.name
-      .col-md-6
-        %dl.dl-horizontal
-          %dt Site:
-          %dd= obj.site.name
-        %dl.dl-horizontal
-          %dt Published on:
-          %dd= obj.published_on
-        %dl.dl-horizontal.margin-none
-          %dt Author:
-          %dd= obj.author
+%table.table.table-bordered.table-striped
+  %tbody
+    %tr
+      %td{ style: 'width: 25%; font-weight: bold' }
+        Site
+      %td{ colspan: '3' }
+        = obj.site.name
+
+
+    %tr
+      %td{ style: 'width: 25%; font-weight: bold' }
+        Title
+      %td{ colspan: '3' }
+        = obj.title
+    %tr
+      %td{ style: 'width: 25%; font-weight: bold' }
+        English Title
+      %td{ colspan: '3' }
+        = obj.english_title
+    %tr
+      %td{ style: 'width: 25%; font-weight: bold' }
+        Languages
+      %td{ colspan: '3' }
+        - for a in obj.languages
+          %span.label.label-success= a.name
+    %tr
+      %td{ style: 'width: 25%; font-weight: bold' }
+        Author
+      %td
+        = obj.author
+      %td{ style: 'width: 25%; font-weight: bold' }
+        Published_on
+      %td
+        = obj.published_on
+
+    %tr
+      %td
+        Source URL
+      %td{ colspan: '3' }
+        - unless obj.source_url.nil?
+          = link_to obj.source_url, obj.source_url

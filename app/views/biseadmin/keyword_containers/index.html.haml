@@ -8,44 +8,45 @@
       Add Keyword Category
 
 
-.row
-  .col-lg-12
-    %table.table.table-striped
-      %thead
-        %tr
-          %th{ style: 'width: 20px'}
-          %th
-            Keyword Category
-          %th{ style: 'width: 70px' }
-            Keywords
-          %th{ style: 'width: 120px' }
-            Actions
-      %tbody
-        - @keyword_containers.each do |container|
+.container-fluid
+  .row
+    .col-lg-12
+      %table.table.table-striped
+        %thead
           %tr
-            %td
-              = fa_icon 'list'
-            %td
-              = link_to biseadmin_keyword_container_path(container) do
-                = container.title
-            %td
-              = container.keywords.size
-            %td{ style: 'padding: 0' }
-              .btn-toolbar{ style: 'margin: 4px 0 0 0' }
-                .btn-group
-                  -# = link_to biseadmin_keyword_container_path(container), class: 'btn btn-default btn-small' do
-                  -#   -# = fa_icon 'eye'
-                  -#   Show
-                  = link_to edit_biseadmin_keyword_container_path(container), class: 'btn btn-default btn-xs' do
-                    -# = fa_icon 'pencil'
-                    Edit
-                  = link_to biseadmin_keyword_container_path(container), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
-                    = fa_icon 'trash-o'
-                    Destroy
+            %th{ style: 'width: 20px'}
+            %th
+              Keyword Category
+            %th{ style: 'width: 70px' }
+              Keywords
+            %th{ style: 'width: 120px' }
+              Actions
+        %tbody
+          - @keyword_containers.each do |container|
+            %tr
+              %td
+                = fa_icon 'list'
+              %td
+                = link_to biseadmin_keyword_container_path(container) do
+                  = container.title
+              %td
+                = container.keywords.size
+              %td{ style: 'padding: 0' }
+                .btn-toolbar{ style: 'margin: 4px 0 0 0' }
+                  .btn-group
+                    -# = link_to biseadmin_keyword_container_path(container), class: 'btn btn-default btn-small' do
+                    -#   -# = fa_icon 'eye'
+                    -#   Show
+                    = link_to edit_biseadmin_keyword_container_path(container), class: 'btn btn-default btn-xs' do
+                      -# = fa_icon 'pencil'
+                      Edit
+                    = link_to biseadmin_keyword_container_path(container), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
+                      = fa_icon 'trash-o'
+                      Destroy
 
-    %br
-    .text-warning{ style: 'padding: 10px 20px' }
-      %strong NOTE:
-      If you change any of the tags in these keyword categories, changes won't apply to already
-      existing documents to avoid confusions.
+      %br
+      .text-warning{ style: 'padding: 10px 20px' }
+        %strong NOTE:
+        If you change any of the tags in these keyword categories, changes won't apply to already
+        existing documents to avoid confusions.
 
