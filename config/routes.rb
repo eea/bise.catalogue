@@ -53,7 +53,8 @@ Catalogue::Application.routes.draw do
       put 'sync'        => 'sync#update'
       delete 'sync'     => 'sync#delete'
 
-      get 'shared_tags', controller: 'tag', action: 'all_tags'
+      get 'shared_tags'   , controller: 'tag', action: 'all_tags'
+      get 'shared_targets', controller: 'tag', action: 'all_targets'
     end
   end
 

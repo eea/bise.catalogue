@@ -8,6 +8,10 @@ module Api
       def all_tags
         @categories = KeywordContainer.all
       end
+
+      def all_targets
+        @targets = Target.all
+      end
     end
   end
 end
