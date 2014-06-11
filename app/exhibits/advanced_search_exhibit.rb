@@ -23,7 +23,6 @@ class AdvancedSearchExhibit < SimpleDelegator
     a << { term: { approved: true } }
     a << { term: { 'site.name' => site } } if site.present?
     a << { term: { source_db: source_db } } if source_db.present?
-    # a << { term: { author: @params[:author] }} if @params[:author].present?
     a << { term: { 'countries.name' => countries } } if countries.present?
     a << { term: { 'languages.name' => languages } } if languages.present?
     a << { term: { biographical_region: biographical_region } } if biographical_region.present?
@@ -58,8 +57,7 @@ class AdvancedSearchExhibit < SimpleDelegator
     rows = Tire.search indexes, load: false, from: self.start_page, size: self.per do
       query do
         boolean do
-          should   { string 'site.ngram_name:'           + q }
-
+          # should   { string 'site.ngram_name:'           + q }
           should   { string 'title:'                     + q }
           should   { string 'english_title:'             + q }
           should   { string 'description:'               + q }

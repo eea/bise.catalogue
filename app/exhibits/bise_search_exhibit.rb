@@ -26,7 +26,7 @@ class BiseSearchExhibit < SimpleDelegator
     a << { term: { 'countries.name' => countries } } if countries.present?
     a << { term: { 'languages.name' => languages } } if languages.present?
     a << { term: { biographical_region: biographical_region } } if biographical_region.present?
-    a << { range: { published_on: { gte: start_date , lt: end_date } } } if start_date.present?
+    a << { range:{ published_on: { gte: start_date , lt: end_date } } } if start_date.present?
     a << { term: { 'targets.title.exact' => strategytarget } } if strategytarget.present?
     a
   end
@@ -47,7 +47,7 @@ class BiseSearchExhibit < SimpleDelegator
     rows = Tire.search indexes, load: false, from: self.start_page, size: self.per do
       query do
         boolean do
-          should   { string 'site.name: BISE' }
+          # should   { string 'site.name: BISE' }
           should   { string 'title:'                     + q }
           should   { string 'english_title:'             + q }
           should   { string 'description:'               + q }
