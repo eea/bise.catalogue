@@ -50,7 +50,9 @@ gem 'haml-rails'                , '~> 0.5.3'
 gem 'tinymce-rails'
 
 # Advanced Search
+gem 'sidekiq'                   , '~> 3.1.3'
 gem 'tire'                      , '>= 0.5.4'
+gem 'tire_async_index'
 
 # TWITTER BOOTSTRAP
 # gem "twitter-bootstrap-rails" , github: 'seyhunak/twitter-bootstrap-rails' , branch: 'bootstrap3'

@@ -1,9 +1,9 @@
 # encoding: UTF-8
 # Object
 class Document < ActiveRecord::Base
-
   include Tire::Model::Search
   include Tire::Model::Callbacks
+  include Tire::Model::AsyncCallbacks
 
   include Classifiable
 
