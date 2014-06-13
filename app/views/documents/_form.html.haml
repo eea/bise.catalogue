@@ -1,30 +1,29 @@
 = simple_form_for @document, html: { multipart: true } do |f|
 
-  .container
-    = render partial: 'common/common_info', locals: { f: f }
-    %br
+  = render partial: 'common/common_info', locals: { f: f }
+  %br
 
-    %legend Document / File
-    .row
-      .col-sm-8
-        = f.input :file , as: :file , input_html: { style: 'display:none' }
-        .input-group
-          %input#file_title.form-control{ type: 'text', disabled: :disabled, class: 'form-control' }
-          %span.input-group-btn
-            %button#file_select.btn.btn-default{ type: 'button' }
-              = fa_icon 'folder'
-              Select
-      .col-sm-4
-        .file-info
-        .text-error
-          = @document.errors[:file].try(:first) if @document.errors.any?
+  %legend Document / File
+  .row
+    .col-sm-8
+      = f.input :file , as: :file , input_html: { style: 'display:none' }
+      .input-group
+        %input#file_title.form-control{ type: 'text', disabled: :disabled, class: 'form-control' }
+        %span.input-group-btn
+          %button#file_select.btn.btn-default{ type: 'button' }
+            = fa_icon 'folder'
+            Select
+    .col-sm-4
+      .file-info
+      .text-error
+        = @document.errors[:file].try(:first) if @document.errors.any?
 
-    .row
-      .col-lg-12
-        = f.input :description, as: :text, input_html: { class: 'input-block-level ', rows: 5 }
+  .row
+    .col-lg-12
+      = f.input :description, as: :text, input_html: { class: 'input-block-level ', rows: 5 }
 
-    = render partial: 'common/targets', locals: { parent: @document, f: f }
-    = render partial: 'common/countries', locals: { parent: @document }
+  = render partial: 'common/targets', locals: { parent: @document, f: f }
+  = render partial: 'common/countries', locals: { parent: @document }
 
   .form-actions
     = f.submit 'Save', class: 'btn btn-success'

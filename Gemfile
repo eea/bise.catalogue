@@ -144,6 +144,7 @@ gem 'unicorn'
 # Deploy with Capistrano
 gem 'capistrano'                , '~> 2.15.5'
 gem 'capistrano-rbenv'          , '1.0.5'
+gem 'capistrano-sidekiq'
 
 gem 'custom_error_message'
 gem 'will_paginate'             , '3.0.5'
