@@ -557,7 +557,7 @@ DEPENDENCIES
   pg
   polyamorous!
   protected_attributes
-  pry (>= 0.9.10)
+  pry (~> 0.9.12)
   pry-byebug
   pry-doc
   pry-nav

@@ -96,7 +96,7 @@ group :development do
   gem 'better_errors'
 
   gem 'byebug'
-  gem 'pry'                     , '>= 0.9.10'
+  gem 'pry'                     , '~> 0.9.12'
   gem 'pry-remote'
   gem 'pry-doc'
   gem 'pry-nav'
