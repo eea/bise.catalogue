@@ -41,6 +41,10 @@ module Api
       end
 
       def check_languages(params)
+        logger.info ''
+        logger.info '::::: SYNC PARAMS => '
+        logger.info params
+        logger.info ''
         if params[:language].present?
           language = params[:language]
           lang = Language.where(name: language).first
