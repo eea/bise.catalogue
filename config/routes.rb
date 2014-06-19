@@ -1,5 +1,8 @@
 Catalogue::Application.routes.draw do
 
+  comfy_route :cms_admin, path: '/cmsadmin'
+  comfy_route :cms, path: '/help', sitemap: false
+
   root to: 'home#index'
 
   devise_for :users

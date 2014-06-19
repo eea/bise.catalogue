@@ -26,6 +26,10 @@
         %li{ class: "#{ current_page?(species_index_path) ? 'active' : '' }"}
           = link_to "Species", species_index_path
       %ul.nav.navbar-nav.pull-right
+        %li
+          = link_to '/help' do
+            = fa_icon 'book'
+            Help
         %li.dropdown
           %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
             = fa_icon (current_user.approver?) ? 'cog' : 'user'
