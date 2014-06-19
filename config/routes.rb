@@ -68,6 +68,7 @@ Catalogue::Application.routes.draw do
     resources :keywords
     resources :targets
     resources :strategy_actions
+    resources :unprocessed_objects, only: [:index]
   end
 
   resources :statistics, only: [:index]

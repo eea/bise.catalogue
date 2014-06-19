@@ -49,10 +49,16 @@
                 = link_to biseadmin_targets_path do
                   = fa_icon 'bullseye'
                   Manage targets & actions
+              %li.divider
               %li
                 = link_to statistics_path do
                   = fa_icon 'bar-chart-o'
                   Statistics
+              %li
+                = link_to biseadmin_unprocessed_objects_path do
+                  = fa_icon 'times-circle'
+                  Unprocessed Objects
+              %li.divider
 
             %li
               = link_to destroy_user_session_path, method: :delete do

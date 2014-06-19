@@ -1,0 +1,23 @@
+- content_for :pageheader do
+  Unprocessed Objects
+
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Model
+      %th Method
+      %th Failed Field
+      %th Message
+      %th IP
+  %tbody
+    - @unprocessed.each do |u|
+      %tr
+        %td= u.model
+        %td= u.http_method
+        %td= u.field
+        %td= u.message
+        %td= u.ip
+
+= will_paginate @unprocessed, renderer: BootstrapPagination::Rails
+
