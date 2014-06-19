@@ -1,4 +1,4 @@
-Pry.config.commands.import Pry::ExtendedCommands::Experimental
+# Pry.config.commands.import Pry::ExtendedCommands::Experimental
 
 Pry.config.pager = false
 
