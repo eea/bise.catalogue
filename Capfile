@@ -1,6 +1,3 @@
-require 'capistrano/sidekiq'
-# require 'capistrano/sidekiq/monit' #to require monit tasks # Only for capistrano3
-
 load 'deploy'
 # Uncomment if you are using Rails' asset pipeline
 load 'deploy/assets'

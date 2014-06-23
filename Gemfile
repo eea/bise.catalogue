@@ -5,6 +5,7 @@ gem 'rails'                     , '4.1.0'
 gem 'rake'                      , '10.3.1'
 gem 'rack'                      , '~> 1.5.2'
 # gem 'railties'                , '~> 3.2.13'
+gem 'sinatra'                   , '>= 1.3.0', :require => nil
 gem 'i18n'
 
 gem 'devise'                    , '~> 3.2'
