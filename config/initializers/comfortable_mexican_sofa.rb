@@ -20,7 +20,7 @@ ComfortableMexicanSofa.configure do |config|
   # for example '/cms-admin/users'
   #   config.admin_route_redirect = ''
 
-  # File uploads use Paperclip and can support filesystem or s3 uploads.  Override
+  # File uploads use Paperclip and can support filesystem or s3 uploads. Override
   # the upload method and appropriate settings based on Paperclip.  For S3 see:
   # http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/S3, and for
   # filesystem see: http://rdoc.info/gems/paperclip/2.3.8/Paperclip/Storage/Filesystem
@@ -31,9 +31,10 @@ ComfortableMexicanSofa.configure do |config|
   # request (if necessary). Please note that database entries are destroyed if there's
   # no corresponding file. Fixtures are disabled by default.
   #   config.enable_fixtures = false
+  config.enable_fixtures = Rails.env.development?
 
   # Path where fixtures can be located.
-  #   config.fixtures_path = File.expand_path('db/cms_fixtures', Rails.root)
+  config.fixtures_path = File.expand_path('db/cms_fixtures', Rails.root)
 
   # Importing fixtures into Database
   # To load fixtures into the database just run this rake task:
