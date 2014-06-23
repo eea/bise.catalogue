@@ -33,29 +33,14 @@ class Document < ActiveRecord::Base
   after_destroy(&refresh)
 
   settings analysis: {
-
-    # An analyzer of type snowball that uses the standard tokenizer, with
-    # standard filter, lowercase filter, stop filter, and snowball filter.
     analyzer: {
-      search_analyzer: {
-        type: 'custom',
-        tokenizer: 'standard',
-        filter: %w(lowercase snowball)
-      },
-      index_ngram_analyzer: {
-        type: 'custom',
-        tokenizer: 'standard',
-        filter: %w(lowercase snowball substring)
-      }
+      search_analyzer: { type: 'custom', tokenizer: 'standard',
+                         filter: %w(lowercase snowball) },
+      ngramer: { type: 'custom', tokenizer: 'standard',
+                 filter: %w(lowercase snowball substring) }
     },
-    filter: {
-      substring: {
-        type: 'nGram',
-        min_gram: 1,
-        max_gram: 40,
-        token_chars: %w(letter digit)
-      }
-    }
+    filter: { substring: { type: 'nGram', min_gram: 1, max_gram: 40,
+                           token_chars: %w(letter digit) } }
   } do
     mapping _source: { excludes: %w(attachment) } do
 
@@ -63,7 +48,7 @@ class Document < ActiveRecord::Base
         indexes :id, type: 'integer'
         indexes :name, type: 'string', index: :not_analyzed
         indexes :ngram_name,
-                index_analyzer: 'index_ngram_analyzer',
+                index_analyzer: 'ngramer',
                 search_analyzer: 'snowball'
       end
 
@@ -71,7 +56,7 @@ class Document < ActiveRecord::Base
       indexes :title, type: 'multi_field', fields: {
         title: {
           type: 'string',
-          index_analyzer: 'index_ngram_analyzer',
+          index_analyzer: 'ngramer',
           search_analyzer: 'snowball'
         },
         exact: { type: 'string', index: :not_analyzed }
@@ -79,17 +64,17 @@ class Document < ActiveRecord::Base
       indexes :english_title, type: 'multi_field', fields: {
         english_title: {
           type: 'string',
-          index_analyzer: 'index_ngram_analyzer',
+          index_analyzer: 'ngramer',
           search_analyzer: 'snowball'
         },
         exact: { type: 'string', index: :not_analyzed }
       }
       indexes :english_title ,
-              index_analyzer: 'index_ngram_analyzer',
+              index_analyzer: 'ngramer',
               search_analyzer: 'snowball' ,
               boost: 100
       indexes :description,
-              index_analyzer: 'index_ngram_analyzer',
+              index_analyzer: 'ngramer',
               search_analyzer: 'snowball'
 
       indexes :languages do
@@ -99,7 +84,7 @@ class Document < ActiveRecord::Base
                 type: 'string',
                 index: :not_analyzed
         indexes :ngram_name ,
-                index_analyzer: 'index_ngram_analyzer',
+                index_analyzer: 'ngramer',
                 search_analyzer: 'snowball'
       end
 
@@ -110,7 +95,7 @@ class Document < ActiveRecord::Base
               type: 'string',
               index: :not_analyzed
       indexes :ngram_author ,
-              index_analyzer: 'index_ngram_analyzer' ,
+              index_analyzer: 'ngramer' ,
               search_analyzer: 'snowball'
 
       indexes :countries do
@@ -120,26 +105,22 @@ class Document < ActiveRecord::Base
                 type: 'string',
                 index: :not_analyzed
         indexes :ngram_name ,
-                index_analyzer: 'index_ngram_analyzer' ,
+                index_analyzer: 'ngramer' ,
                 search_analyzer: 'snowball'
       end
 
       indexes :tags do
-        indexes :name,
-                type: 'string',
-                index: :not_analyzed
-        indexes :ngram_name ,
-                index_analyzer: 'index_ngram_analyzer' ,
-                search_analyzer: 'snowball'
+        indexes :name, type: 'multi_field', fields: {
+          name:  { type: 'string', index_analyzer: 'ngramer',
+                   search_analyzer: 'snowball' },
+          exact: { type: 'string', index: :not_analyzed }
+        }
       end
 
       indexes :targets do
         indexes :title, type: 'multi_field', fields: {
-          title: {
-            type: 'string',
-            index_analyzer: 'index_ngram_analyzer',
-            search_analyzer: 'snowball'
-          },
+          title: { type: 'string', index_analyzer: 'ngramer',
+                   search_analyzer: 'snowball' },
           exact: { type: 'string', index: :not_analyzed }
         }
       end
@@ -148,12 +129,12 @@ class Document < ActiveRecord::Base
               type: 'string',
               index: :not_analyzed
       # indexes :biographical_region_ngram,
-      #         index_analyzer: 'index_ngram_analyzer',
+      #         index_analyzer: 'ngramer',
       #         search_analyzer: 'snowball'
 
       indexes :file_name,
               type: 'string' ,
-              index_analyzer: 'index_ngram_analyzer',
+              index_analyzer: 'ngramer',
               search_analyzer: 'snowball'
       indexes :content_type ,
               type: 'string',
@@ -165,11 +146,11 @@ class Document < ActiveRecord::Base
         content: {
           store: 'yes',
           term_vector: 'with_positions_offsets',
-          index_analyzer: 'index_ngram_analyzer',
+          index_analyzer: 'ngramer',
           search_analyzer: 'search_analyzer'
         },
         attachment: { store: 'yes', term_vector: 'with_positions_offsets' },
-        author: { analyzer: 'index_ngram_analyzer' }
+        author: { analyzer: 'ngramer' }
       }
 
       indexes :approved           , type: 'boolean'
@@ -201,12 +182,8 @@ class Document < ActiveRecord::Base
 
       countries:      countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
 
-      tags: tags.map do |t|
-        { name: t.name, ngram_name: t.name }
-      end,
-      targets: targets.map do |t|
-        { title: t.name.split(':')[0] }
-      end,
+      tags:           tag_list.map { |t| { name: t } },
+      targets:        target_list.map { |t| { title: t.split(':')[0] } },
 
       biographical_region:       biographical_region,
 
