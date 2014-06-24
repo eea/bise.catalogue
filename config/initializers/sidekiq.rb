@@ -14,9 +14,7 @@ Sidekiq.configure_server do |config|
   config.on(:shutdown) { puts 'Goodbye!' }
 end
 
-unless Rails.env.production?
-  Sidekiq.configure_client do |config|
-    config.redis = { namespace: 'sidekiq' }
-  end
+Sidekiq.configure_client do |config|
+  config.redis = { namespace: 'sidekiq' }
 end
 
