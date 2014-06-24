@@ -1,11 +1,11 @@
-ENV["REDIS_URL"] ||= "redis://localhost:6379"
-
 Sidekiq.configure_server do |config|
-  config.redis = { url: ENV["REDIS_URL"], namespace: 'sidekiq' }
+  config.redis = { namespace: 'sidekiq' }
+  require 'sidekiq/middleware/server/retry_jobs'
+  Sidekiq::Middleware::Server::RetryJobs::MAX_COUNT = 1
 end
 
 unless Rails.env.production?
   Sidekiq.configure_client do |config|
-    config.redis = { url: ENV["REDIS_URL"], namespace: 'sidekiq'  }
+    config.redis = { namespace: 'sidekiq' }
   end
 end
