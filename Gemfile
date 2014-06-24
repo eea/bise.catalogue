@@ -53,7 +53,8 @@ gem 'haml-rails'                , '~> 0.5.3'
 gem 'tinymce-rails'
 
 # Advanced Search
-gem 'sidekiq'                   , '~> 3.1.3'
+gem 'whenever'
+gem 'sidekiq'                   , github: 'mperham/sidekiq'
 gem 'tire'                      , '>= 0.5.4'
 gem 'tire_async_index'
 

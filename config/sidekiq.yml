@@ -4,8 +4,10 @@
 ---
 :verbose: false
 :pidfile: ./tmp/pids/sidekiq.pid
-:concurrency: 25
+:namespace: sidekiq
+:concurrency: 10
 # Set timeout to 8 on Heroku, longer if you manage your own systems.
 :timeout: 30
 :queues:
-  - [default, 2]
+  - [default]
+  - [document_indexer, 5]
