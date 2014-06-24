@@ -2,7 +2,9 @@ require 'sidekiq/web'
 
 Catalogue::Application.routes.draw do
 
-  mount Sidekiq::Web, at: '/sidekiq'
+  authenticate :user do
+    mount Sidekiq::Web, at: '/sidekiq'
+  end
 
   comfy_route :cms_admin, path: '/cmsadmin'
   comfy_route :cms, path: '/help', sitemap: false
