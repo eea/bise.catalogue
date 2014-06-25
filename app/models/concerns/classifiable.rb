@@ -49,6 +49,10 @@ module Classifiable
     def editable?
       source_url.nil?
     end
-  end
 
+    def splitted_authors
+      # author.split(/[\,,(and)]/).map { |a| a.strip }
+      author.gsub(/\sand/, ',').split(/\,/).map { |a| a.strip }
+    end
+  end
 end

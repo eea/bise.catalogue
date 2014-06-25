@@ -43,6 +43,7 @@ class Document < ActiveRecord::Base
   } do
     mapping _source: { excludes: %w(attachment) } do
 
+      indexes :id, index: :not_analyzed
       indexes :site do
         indexes :id, type: 'integer'
         indexes :name, type: 'string', index: :not_analyzed
@@ -51,7 +52,6 @@ class Document < ActiveRecord::Base
                 search_analyzer: 'snowball'
       end
 
-      indexes :id, index: :not_analyzed
       indexes :title, type: 'multi_field', fields: {
         title: {
           type: 'string',
@@ -68,10 +68,11 @@ class Document < ActiveRecord::Base
         },
         exact: { type: 'string', index: :not_analyzed }
       }
-      indexes :english_title ,
-              index_analyzer: 'ngramer',
-              search_analyzer: 'snowball' ,
-              boost: 100
+
+      indexes :authors do
+        indexes :name, type: 'string', index: :not_analyzed
+      end
+
       indexes :description,
               index_analyzer: 'ngramer',
               search_analyzer: 'snowball'
@@ -90,12 +91,8 @@ class Document < ActiveRecord::Base
       indexes :published_on ,
               type: 'date',
               index: :not_analyzed
-      indexes :author,
-              type: 'string',
-              index: :not_analyzed
-      indexes :ngram_author ,
-              index_analyzer: 'ngramer' ,
-              search_analyzer: 'snowball'
+
+
 
       indexes :countries do
         indexes :id,
@@ -127,9 +124,6 @@ class Document < ActiveRecord::Base
       indexes :biographical_region,
               type: 'string',
               index: :not_analyzed
-      # indexes :biographical_region_ngram,
-      #         index_analyzer: 'ngramer',
-      #         search_analyzer: 'snowball'
 
       indexes :file_name,
               type: 'string' ,
@@ -169,21 +163,22 @@ class Document < ActiveRecord::Base
       title:          title,
       english_title:  english_title,
       description:    description,
-      author:         author,
-      ngram_author:   author,
+      authors:        splitted_authors.map { |a| { name: a } },
       published_on:   published_on,
 
       approved:       approved,
       approved_at:    approved_at,
       created_at:     created_at,
 
-      languages:      languages.map { |l| { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name } },
-
-      countries:      countries.map { |c| { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name } },
+      languages:      languages.map do |l|
+        { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name }
+      end,
+      countries:      countries.map do |c|
+        { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name }
+      end,
 
       tags:           tag_list.map { |t| { name: t } },
       targets:        target_list.map { |t| { title: t.split(':')[0] } },
-
       biographical_region:       biographical_region,
 
       file_name:                 document_path,
@@ -198,7 +193,6 @@ class Document < ActiveRecord::Base
   end
 
   def self.search(params)
-
     params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)]/, '\\1')                          if params[:query].present?
     show_approved = (params[:approved] && params[:approved] == 'true') ? true : false
 
@@ -211,7 +205,7 @@ class Document < ActiveRecord::Base
     # Facet Filter
     doc_filter = []
     doc_filter << { term: { 'site.name' => params[:site] }} if params[:site].present?
-    doc_filter << { term: { author: params[:author] }} if params[:author].present?
+    doc_filter << { term: { 'authors.name' => params[:author] }} if params[:author].present?
     doc_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
     doc_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
     doc_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
@@ -240,7 +234,7 @@ class Document < ActiveRecord::Base
 
       filter :term, 'site.name' => params[:site] if params[:site].present?
       filter :term, source_db: params[:source_db] if params[:source_db].present?
-      filter :term, author: params[:author] if params[:author].present?
+      filter :term, 'authors.name' => params[:author] if params[:author].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
       filter :term, biographical_region: params[:biographical_region] if params[:biographical_region].present?
@@ -262,7 +256,7 @@ class Document < ActiveRecord::Base
       end
 
       facet 'authors' do
-        terms :author
+        terms 'authors.name'
         facet_filter :and, doc_filter unless doc_filter.empty?
       end
 
