@@ -16,6 +16,19 @@ class DocumentsController < InheritedResources::Base
     end
   end
 
+  def create
+    @document = Document.new(permitted_params)
+    @document.creator = current_user
+    create!
+  end
+
+  def update
+    @document = Document.find(params[:id])
+    @document.modifier = current_user
+    update!
+  end
+
+
   def approve_multiple
     if (params[:document_ids].nil?)
       respond_to do |format|

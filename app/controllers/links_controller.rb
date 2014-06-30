@@ -2,6 +2,18 @@ class LinksController < InheritedResources::Base
 
   before_filter :authenticate_user!
 
+  def create
+    @link = Link.new(permitted_params)
+    @link.creator = current_user
+    create!
+  end
+
+  def update
+    @link = Link.find(params[:id])
+    @link.modifier = current_user
+    update!
+  end
+
   def approve_multiple
     if (params[:link_ids].nil?)
       respond_to do |format|
