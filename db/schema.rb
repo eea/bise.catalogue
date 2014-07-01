@@ -560,7 +560,7 @@ ActiveRecord::Schema.define(version: 20140701103359) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "login",               default: "", null: false
+    t.string   "login",               default: "",    null: false
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",       default: 0
     t.datetime "current_sign_in_at"
@@ -569,9 +569,9 @@ ActiveRecord::Schema.define(version: 20140701103359) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "role_admin"
-    t.boolean  "role_validator"
-    t.boolean  "role_author"
+    t.boolean  "role_admin",          default: false
+    t.boolean  "role_validator",      default: false
+    t.boolean  "role_author",         default: false
   end
 
   add_index "users", ["login"], name: "index_users_on_login", unique: true, using: :btree

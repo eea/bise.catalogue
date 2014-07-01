@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
   inherit_resources
+
+  load_and_authorize_resource only: [:new, :edit, :create, :update, :destroy]
   before_filter :authenticate_user!
   has_scope :approved, type: :boolean
 
@@ -22,7 +24,7 @@ class ArticlesController < ApplicationController
     end
   end
 
-private
+  private
 
   def permitted_params
     params.permit(article: [
@@ -33,7 +35,7 @@ private
     ])
   end
 
-protected
+  protected
 
   def collection
     @articles ||= end_of_association_chain.search(params)

@@ -15,15 +15,15 @@ class User < ActiveRecord::Base
 
   # Returns complete name
   def get_ldap_displayname
-    Devise::LDAP::Adapter.get_ldap_param(self.login,"cn").first
+    Devise::LDAP::Adapter.get_ldap_param(login, 'cn').first
   end
 
   def get_ldap_email
-    Devise::LDAP::Adapter.get_ldap_param(self.login,"mail").first
+    Devise::LDAP::Adapter.get_ldap_param(login, 'mail').first
   end
 
   def approver?
-    admin_role = "cn=extranet-bise-cat-approve,cn=extranet-bise-cat,cn=extranet-bise,cn=extranet,ou=Roles,o=EIONET,l=Europe"
+    admin_role = 'cn=extranet-bise-cat-approve,cn=extranet-bise-cat,cn=extranet-bise,cn=extranet,ou=Roles,o=EIONET,l=Europe'
     Devise::LDAP::Adapter.get_groups(self.login).include? admin_role
   end
 

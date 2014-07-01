@@ -6,23 +6,24 @@ class ApplicationController < ActionController::Base
     render text: exception, status: 500
   end
 
+  # check_authorization :unless => :devise_controller?
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, alert: exception.message
+  end
+
   protect_from_forgery
   # add_breadcrumb :index, :root_path
 
   after_filter :set_access_control_headers
 
   def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = "GET, PUT, POST, DELETE"
-    headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
+    headers['Access-Control-Allow-Origin'] = 'GET, PUT, POST, DELETE'
+    headers['Access-Control-Allow-Headers'] = 'Content-Type, X-Requested-With'
     headers['Access-Control-Request-Method'] = '*'
   end
 
   def layout_by_resource
-    if devise_controller?
-      "external"
-    else
-      "application"
-    end
+    (devise_controller?) ? 'external' : 'application'
   end
 
   def authenticate_active_admin_user!

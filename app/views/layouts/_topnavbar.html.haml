@@ -32,11 +32,11 @@
             Help
         %li.dropdown
           %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
-            = fa_icon (current_user.approver?) ? 'cog' : 'user'
+            = fa_icon (current_user.role_admin?) ? 'cog' : 'user'
             = current_user.get_ldap_displayname
             %b.caret
           %ul.dropdown-menu
-            - if current_user.approver?
+            - if current_user.role_admin?
               %li
                 = link_to biseadmin_sites_path do
                   = fa_icon 'cogs'

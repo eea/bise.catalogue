@@ -2,7 +2,6 @@ class Link < ActiveRecord::Base
 
   include Tire::Model::Search
   include Tire::Model::Callbacks
-
   include Classifiable
 
   attr_accessible :url

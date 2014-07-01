@@ -138,6 +138,7 @@ GEM
     byebug (2.7.0)
       columnize (~> 0.3)
       debugger-linecache (~> 1.2)
+    cancan (1.6.10)
     capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
@@ -558,6 +559,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   bourbon
   byebug
+  cancan
   capistrano (~> 2.15.5)
   capistrano-rbenv (= 1.0.5)
   capistrano-sidekiq
