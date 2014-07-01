@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140619090458) do
+ActiveRecord::Schema.define(version: 20140630065153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,7 +64,12 @@ ActiveRecord::Schema.define(version: 20140619090458) do
     t.datetime "updated_at"
     t.boolean  "approved",            default: false
     t.datetime "approved_at"
+    t.integer  "creator_id"
+    t.integer  "modifier_id"
   end
+
+  add_index "articles", ["creator_id"], name: "index_articles_on_creator_id", using: :btree
+  add_index "articles", ["modifier_id"], name: "index_articles_on_modifier_id", using: :btree
 
   create_table "articles_countries", id: false, force: true do |t|
     t.integer "article_id"
@@ -288,7 +293,12 @@ ActiveRecord::Schema.define(version: 20140619090458) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "approved_at"
+    t.integer  "creator_id"
+    t.integer  "modifier_id"
   end
+
+  add_index "documents", ["creator_id"], name: "index_documents_on_creator_id", using: :btree
+  add_index "documents", ["modifier_id"], name: "index_documents_on_modifier_id", using: :btree
 
   create_table "documents_countries", id: false, force: true do |t|
     t.integer "document_id"
@@ -369,7 +379,12 @@ ActiveRecord::Schema.define(version: 20140619090458) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "source_url"
+    t.integer  "creator_id"
+    t.integer  "modifier_id"
   end
+
+  add_index "links", ["creator_id"], name: "index_links_on_creator_id", using: :btree
+  add_index "links", ["modifier_id"], name: "index_links_on_modifier_id", using: :btree
 
   create_table "links_countries", id: false, force: true do |t|
     t.integer "link_id"
