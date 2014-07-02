@@ -5,11 +5,11 @@ gem 'rails'                     , '4.1.0'
 gem 'rake'                      , '10.3.1'
 gem 'rack'                      , '~> 1.5.2'
 # gem 'railties'                , '~> 3.2.13'
-gem 'sinatra'                   , '>= 1.3.0', :require => nil
 gem 'i18n'
 
 gem 'devise'                    , '~> 3.2'
 gem 'devise_ldap_authenticatable'
+gem 'cancan'
 
 gem 'comfortable_mexican_sofa'  , github: 'comfy/comfortable-mexican-sofa'
 
@@ -53,8 +53,7 @@ gem 'haml-rails'                , '~> 0.5.3'
 gem 'tinymce-rails'
 
 # Advanced Search
-gem 'whenever'
-gem 'sidekiq'                   , github: 'mperham/sidekiq'
+gem 'sidekiq'                   , '~> 3.1.3'
 gem 'tire'                      , '>= 0.5.4'
 gem 'tire_async_index'
 

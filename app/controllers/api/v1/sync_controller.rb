@@ -194,7 +194,7 @@ class Api::V1::SyncController < ApplicationController
   end
 
   def return_error(msg)
-    render json: { error: msg }, status: :unprocessable_entity
+    render json: { error: msg }
     return
   end
 

@@ -1,7 +1,9 @@
 class DocumentsController < ApplicationController
   inherit_resources
 
+  load_and_authorize_resource only: [:new, :edit, :create, :update, :destroy]
   before_filter :authenticate_user!
+  has_scope :approved, type: :boolean
 
   def index
     if params[:format] == 'xls'
@@ -29,7 +31,6 @@ class DocumentsController < ApplicationController
     @document.save!
     update!
   end
-
 
   def approve_multiple
     if (params[:document_ids].nil?)

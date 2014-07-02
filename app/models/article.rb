@@ -28,7 +28,7 @@ class Article < ActiveRecord::Base
         tokenizer: 'standard',
         filter: %w(lowercase snowball)
       },
-      ngramer: {
+      index_ngram_analyzer: {
         type: 'custom',
         tokenizer: 'standard',
         filter: %w(lowercase snowball substring)
@@ -45,18 +45,18 @@ class Article < ActiveRecord::Base
   } do
     mapping do
 
-      indexes :id, index: :not_analyzed
       indexes :site do
         indexes :id        , type: 'integer'
         indexes :name      , type: 'string', index: :not_analyzed
-        indexes :ngram_name, index_analyzer: 'ngramer',
-                             search_analyzer: 'snowball'
+        indexes :ngram_name, index_analyzer: 'index_ngram_analyzer',
+                search_analyzer: 'snowball'
       end
 
+      indexes :id, index: :not_analyzed
       indexes :title, type: 'multi_field', fields: {
         title: {
           type: 'string',
-          index_analyzer: 'ngramer',
+          index_analyzer: 'index_ngram_analyzer',
           search_analyzer: 'snowball'
         },
         exact: { type: 'string', index: :not_analyzed }
@@ -64,35 +64,33 @@ class Article < ActiveRecord::Base
       indexes :english_title, type: 'multi_field', fields: {
         english_title: {
           type: 'string',
-          index_analyzer: 'ngramer',
+          index_analyzer: 'index_ngram_analyzer',
           search_analyzer: 'snowball'
         },
         exact: { type: 'string', index: :not_analyzed }
       }
-
-      indexes :authors do
-        indexes :name, type: 'string', index: :not_analyzed
-      end
+      indexes :english_title, type: 'string',
+              index_analyzer: 'index_ngram_analyzer',
+              search_analyzer: 'snowball'
 
       indexes :content, type: 'multi_field', fields: {
         content: {
           type: 'string',
-          index_analyzer: 'ngramer',
+          index_analyzer: 'index_ngram_analyzer',
           search_analyzer: 'snowball'
         },
         exact: { type: 'string', index: :not_analyzed }
       }
-
       indexes :source_url,
               type: 'string',
-              index_analyzer: 'ngramer' ,
+              index_analyzer: 'index_ngram_analyzer' ,
               search_analyzer: 'search_analyzer'
 
       indexes :languages do
         indexes :id , type: 'integer'
         indexes :name , type: 'string' , index: :not_analyzed
         indexes :ngram_name ,
-                index_analyzer: 'ngramer' ,
+                index_analyzer: 'index_ngram_analyzer' ,
                 search_analyzer: 'snowball'
       end
 
@@ -100,31 +98,38 @@ class Article < ActiveRecord::Base
         indexes :id, type: 'integer'
         indexes :name, type: 'string' , index: :not_analyzed
         indexes :ngram_name ,
-                index_analyzer: 'ngramer' ,
+                index_analyzer: 'index_ngram_analyzer' ,
                 search_analyzer: 'snowball'
       end
 
       indexes :tags do
-        indexes :name, type: 'multi_field', fields: {
-          name:  { type: 'string', index_analyzer: 'ngramer',
-                   search_analyzer: 'snowball' },
-          exact: { type: 'string', index: :not_analyzed }
-        }
+        indexes :name,
+                type: 'string' ,
+                index: :not_analyzed
+        indexes :ngram_name ,
+                index_analyzer: 'index_ngram_analyzer' ,
+                search_analyzer: 'snowball'
       end
 
       indexes :targets do
         indexes :title, type: 'multi_field', fields: {
           title: {
             type: 'string',
-            index_analyzer: 'ngramer',
+            index_analyzer: 'index_ngram_analyzer',
             search_analyzer: 'snowball'
           },
           exact: { type: 'string', index: :not_analyzed }
         }
       end
 
-      indexes :biographical_region, type: 'string', index: :not_analyzed
-      indexes :published_on       , type: 'date', index: :not_analyzed
+      indexes :biographical_region,
+              type: 'string',
+              index: :not_analyzed
+      indexes :author,
+              type: 'string', index: :not_analyzed
+      indexes :published_on,
+              type: 'date',
+              index: :not_analyzed
 
       indexes :approved           , type: 'boolean'
       indexes :approved_at        , type: 'date'
@@ -144,22 +149,24 @@ class Article < ActiveRecord::Base
       english_title:  english_title,
       content:        content_without_tags,
       source_url:     source_url,
-      authors:        splitted_authors.map { |a| { name: a } },
+      author:         author,
+      ngram_author:   author,
       published_on:   published_on,
-
       approved:       approved,
       approved_at:    approved_at,
       created_at:     created_at,
-
       languages:      languages.map do |l|
         { _type: 'language', _id: l.id, name: l.name, ngram_name: l.name }
       end,
       countries:      countries.map do |c|
         { _type: 'country', _id: c.id, name: c.name, ngram_name: c.name }
       end,
-
-      tags:           tag_list.map { |t| { name: t } },
-      targets:        target_list.map { |t| { title: t.split(':')[0] } },
+      tags: tags.map do |t|
+        { name: t.name, ngram_name: t.name }
+      end,
+      targets: targets.map do |t|
+        { title: t.name.split(':')[0] }
+      end,
       biographical_region: biographical_region
     }.to_json
   end
@@ -182,7 +189,7 @@ class Article < ActiveRecord::Base
     # Facet Filter
     art_filter = []
     art_filter << { term: { 'site.name' => params[:site] }}                            if params[:site].present?
-    art_filter << { term: { 'authors.name' => params[:author] }}                                 if params[:author].present?
+    art_filter << { term: { author: params[:author] }}                                 if params[:author].present?
     art_filter << { term: { 'countries.name' => params[:countries].split(/\//) }}      if params[:countries].present?
     art_filter << { term: { 'languages.name' => params[:languages].split(/\//) }}      if params[:languages].present?
     art_filter << { term: { biographical_region: params[:biographical_region] }}       if params[:biographical_region].present?
@@ -212,7 +219,7 @@ class Article < ActiveRecord::Base
 
       filter :term, 'site.name' => params[:site] if params[:site].present?
       filter :term, source_db: params[:source_db] if params[:source_db].present?
-      filter :term, 'authors.name' =>  params[:author] if params[:author].present?
+      filter :term, author: params[:author] if params[:author].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
       # filter :term, geographical_coverage: params[:geographical_coverage] if params[:geographical_coverage].present?
@@ -234,7 +241,7 @@ class Article < ActiveRecord::Base
       end
 
       facet 'authors' do
-        terms 'authors.name'
+        terms :author
         facet_filter :and, art_filter unless art_filter.empty?
       end
 

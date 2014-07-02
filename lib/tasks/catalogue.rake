@@ -13,6 +13,7 @@ namespace :catalogue do
   end
 
   namespace :import do
+
     # Internal task that loads common vocabularies, spira inherited classes and
     # a Virtuoso Repository to query agains
     # NOTE: Is executed before each rake task
@@ -312,22 +313,6 @@ namespace :catalogue do
       end
     end
     task clean: :load_repo_before
-  end
-
-  namespace :reindex do
-    desc 'Reindex documents'
-    task documents: :environment do
-      Document.find_each do |doc|
-        begin
-          puts ":: Reindexing document #{doc.title}..."
-          doc.save!
-        rescue Exception => e
-          puts ':::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::'
-          puts ":: #{e}"
-          puts ':::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::'
-        end
-      end
-    end
 
   end
 

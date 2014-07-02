@@ -6,6 +6,11 @@ class ApplicationController < ActionController::Base
     render text: exception, status: 500
   end
 
+  # check_authorization :unless => :devise_controller?
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, alert: exception.message
+  end
+
   protect_from_forgery
   # add_breadcrumb :index, :root_path
 
@@ -18,11 +23,7 @@ class ApplicationController < ActionController::Base
   end
 
   def layout_by_resource
-    if devise_controller?
-      'external'
-    else
-      'application'
-    end
+    (devise_controller?) ? 'external' : 'application'
   end
 
   def authenticate_active_admin_user!

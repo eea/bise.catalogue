@@ -26,10 +26,6 @@
         %li{ class: "#{ current_page?(species_index_path) ? 'active' : '' }"}
           = link_to "Species", species_index_path
       %ul.nav.navbar-nav.pull-right
-        -# %li
-        -#   = link_to '/help' do
-        -#     = fa_icon 'book'
-        -#     Help
         %li.dropdown
           %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', style: 'padding: 4px 15px' }
             .media{ style: 'padding-top: 4px'}
@@ -41,12 +37,6 @@
                   %strong= current_user.role
                   %b.caret
 
-            -# %br
-            -# %small
-            -#   %span.glyphicon.glyphicon-cog
-            -#   -# Role:
-            -#   %strong= current_user.role
-            -# %b.caret
           %ul.dropdown-menu
             %li
               = link_to '/help' do
@@ -54,6 +44,12 @@
                 Documentation (Pending)
             - if current_user.approver?
               %li.divider
+          %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
+            = fa_icon (current_user.role_admin?) ? 'cog' : 'user'
+            = current_user.get_ldap_displayname
+            %b.caret
+          %ul.dropdown-menu
+            - if current_user.role_admin?
               %li
                 = link_to biseadmin_sites_path do
                   = fa_icon 'cogs'
