@@ -4,8 +4,8 @@ class ArticlesController < ApplicationController
   has_scope :approved, type: :boolean
 
   def create
-    @article = Article.new(permitted_params)
-    @article.creator = current_user
+    resource = Article.new(permitted_params[:article])
+    resource.creator = current_user
     create!
   end
 
