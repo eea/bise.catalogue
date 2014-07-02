@@ -29,8 +29,6 @@ class ArticlesController < ApplicationController
     respond_to { |format| format.html { redirect_to articles_url } }
   end
 
-private
-
   def permitted_params
     params.require(:article).permit(
       :id, :site_id, :title, :english_title, :author, :source_url, :content,
