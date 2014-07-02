@@ -26,17 +26,34 @@
         %li{ class: "#{ current_page?(species_index_path) ? 'active' : '' }"}
           = link_to "Species", species_index_path
       %ul.nav.navbar-nav.pull-right
-        %li
-          = link_to '/help' do
-            = fa_icon 'book'
-            Help
+        -# %li
+        -#   = link_to '/help' do
+        -#     = fa_icon 'book'
+        -#     Help
         %li.dropdown
-          %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
-            = fa_icon (current_user.approver?) ? 'cog' : 'user'
-            = current_user.get_ldap_displayname
-            %b.caret
+          %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', style: 'padding: 4px 15px' }
+            .media{ style: 'padding-top: 4px'}
+              %h3.pull-left.margin-none
+                %span.glyphicon.glyphicon-user.media-object{ style: 'margin-top: 4px'}
+              .media-body
+                %h6.media-heading= current_user.name
+                %small
+                  %strong= current_user.role
+                  %b.caret
+
+            -# %br
+            -# %small
+            -#   %span.glyphicon.glyphicon-cog
+            -#   -# Role:
+            -#   %strong= current_user.role
+            -# %b.caret
           %ul.dropdown-menu
+            %li
+              = link_to '/help' do
+                = fa_icon 'book'
+                Documentation (Pending)
             - if current_user.approver?
+              %li.divider
               %li
                 = link_to biseadmin_sites_path do
                   = fa_icon 'cogs'
@@ -58,8 +75,7 @@
                 = link_to biseadmin_unprocessed_objects_path do
                   = fa_icon 'times-circle'
                   Unprocessed Objects
-              %li.divider
-
+            %li.divider
             %li
               = link_to destroy_user_session_path, method: :delete do
                 = fa_icon 'power-off'
