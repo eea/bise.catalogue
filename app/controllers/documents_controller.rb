@@ -20,8 +20,8 @@ class DocumentsController < ApplicationController
   end
 
   def create
-    resource = Document.new(permitted_params[:document])
-    resource.creator = current_user
+    @document = Document.new(permitted_params[:document])
+    @document.creator = current_user
     create!
   end
 

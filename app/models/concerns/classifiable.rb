@@ -21,6 +21,9 @@ module Classifiable
     attr_accessible         :published_on
     attr_accessible         :published
 
+    belongs_to :creator, class_name: 'User'
+    belongs_to :modifier, class_name: 'User'
+
     attr_accessible         :approved
     attr_accessible         :approved_at
 
