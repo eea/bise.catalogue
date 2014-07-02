@@ -21,6 +21,7 @@ ActiveAdmin.register User do
     selectable_column
     id_column
     column :login
+    column :name
     column :email
     column :role_admin
     column :role_validator
