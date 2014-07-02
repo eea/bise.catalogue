@@ -2,6 +2,10 @@ ActiveAdmin.register User do
   menu parent: 'Others'
   config.comments = false
 
+  scope :admins
+  scope :approvers
+  scope :authors
+
   form do |f|
     f.inputs 'User Details' do
       f.input :login
@@ -22,6 +26,12 @@ ActiveAdmin.register User do
     column :role_validator
     column :role_author
     actions
+  end
+
+  controller do
+    def permitted_params
+      params.require(:user).permit(:email, :role_admin, :role_validator, :role_author)
+    end
   end
 end
 
