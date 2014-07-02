@@ -7,9 +7,10 @@
     = link_to new_document_path, class: 'btn btn-default' do
       = fa_icon 'plus'
       New Document
-  = link_to params.merge(format: 'xls'), class: 'btn btn-default' do
-    = fa_icon 'download'
-    Export XLS
+  .btn-group
+    = link_to params.merge(format: 'xls'), class: 'btn btn-default' do
+      = fa_icon 'download'
+      Export XLS
   .btn-group
     %button.btn.btn-default.dropdown-toggle{'data-toggle' => 'dropdown'}
       Sort by
