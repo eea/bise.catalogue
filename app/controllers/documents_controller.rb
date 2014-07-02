@@ -49,15 +49,15 @@ class DocumentsController < InheritedResources::Base
   end
 
   def permitted_params
-    params.require(:document).permit(
+    params.permit(document:[
       :id, :site_id, :title, :english_title, :author, :source_url, :file,
       :biographical_region, :published_on, :published, :approved, :approved_at,
       :description, tag_list: [], target_list: [], action_list: [],
       country_ids: [], language_ids: []
-    )
+    ])
   end
 
-protected
+  protected
 
   def collection
     @articles ||= end_of_association_chain.search(params)
