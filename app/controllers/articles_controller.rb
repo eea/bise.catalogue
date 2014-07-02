@@ -30,12 +30,12 @@ class ArticlesController < ApplicationController
   end
 
   def permitted_params
-    params.require(:article).permit(
+    params.permit(article:[
       :id, :site_id, :title, :english_title, :author, :source_url, :content,
       :biographical_region, :published_on, :published, :approved, :approved_at,
       tag_list: [], target_list: [], action_list: [],
       country_ids: [], language_ids: []
-    )
+    ])
   end
 
 protected

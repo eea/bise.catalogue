@@ -1,4 +1,5 @@
-class DocumentsController < InheritedResources::Base
+class DocumentsController < ApplicationController
+  inherit_resources
 
   before_filter :authenticate_user!
 
@@ -17,14 +18,15 @@ class DocumentsController < InheritedResources::Base
   end
 
   def create
-    @document = Document.new(permitted_params)
-    @document.creator = current_user
+    resource = Document.new(permitted_params[:document])
+    resource.creator = current_user
     create!
   end
 
   def update
     @document = Document.find(params[:id])
     @document.modifier = current_user
+    @document.save!
     update!
   end
 

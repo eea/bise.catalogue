@@ -12,16 +12,16 @@ class ApplicationController < ActionController::Base
   after_filter :set_access_control_headers
 
   def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = "GET, PUT, POST, DELETE"
-    headers["Access-Control-Allow-Headers"] = "Content-Type, X-Requested-With"
+    headers['Access-Control-Allow-Origin'] = 'GET, PUT, POST, DELETE'
+    headers['Access-Control-Allow-Headers'] = 'Content-Type, X-Requested-With'
     headers['Access-Control-Request-Method'] = '*'
   end
 
   def layout_by_resource
     if devise_controller?
-      "external"
+      'external'
     else
-      "application"
+      'application'
     end
   end
 
