@@ -180,7 +180,7 @@ class Document < ActiveRecord::Base
 
   def to_indexed_json
     {
-      site:           {
+      site: {
         _type: 'site',
         _id: site.id,
         name: site.name,
