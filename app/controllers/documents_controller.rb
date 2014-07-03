@@ -52,6 +52,7 @@ class DocumentsController < ApplicationController
   end
 
   def permitted_params
+    params[:document][:country_ids] ||= []
     params.permit(document:[
       :id, :site_id, :title, :english_title, :author, :source_url, :file,
       :biographical_region, :published_on, :published, :approved, :approved_at,

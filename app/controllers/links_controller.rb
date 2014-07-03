@@ -21,6 +21,16 @@ class LinksController < ApplicationController
     end
   end
 
+  def permitted_params
+    params[:link][:country_ids] ||= []
+    params.permit(link: [
+      :id, :site_id, :title, :english_title, :author, :url, :source_url, :content,
+      :biographical_region, :published_on, :published, :approved, :approved_at,
+      tag_list: [], target_list: [], action_list: [],
+      country_ids: [], language_ids: []
+    ])
+  end
+
   protected
 
   def collection
