@@ -37,7 +37,7 @@ class ArticlesController < ApplicationController
   end
 
   def permitted_params
-    params[:article][:country_ids] ||= []
+    params[:article][:country_ids] ||= [] if params[:article].present?
     params.permit(article: [
       :id, :site_id, :title, :english_title, :author, :source_url, :content,
       :biographical_region, :published_on, :published, :approved, :approved_at,

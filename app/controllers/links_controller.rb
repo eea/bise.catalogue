@@ -22,7 +22,7 @@ class LinksController < ApplicationController
   end
 
   def permitted_params
-    params[:link][:country_ids] ||= []
+    params[:link][:country_ids] ||= [] if params[:link].present?
     params.permit(link: [
       :id, :site_id, :title, :english_title, :author, :url, :source_url, :content,
       :biographical_region, :published_on, :published, :approved, :approved_at,
