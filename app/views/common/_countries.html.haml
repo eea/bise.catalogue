@@ -23,36 +23,36 @@
       %a.btn.btn-default.btn-sm.no-country
         None
 
-.row
-  .col-sm-3
-    %ul.list-unstyled
-      - countries.each_with_index do |c, i|
-        - if i < quarter
-          %li
-            %label.checkbox
-              = check_box_tag class_name + '[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
-              = c.name
-  .col-sm-3
-    %ul.list-unstyled
-      - countries.each_with_index do |c, i|
-        - if i >= quarter and i < quarter * 2
-          %li
-            %label.checkbox
-              = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
-              = c.name
-  .col-sm-3
-    %ul.list-unstyled
-      - countries.each_with_index do |c, i|
-        - if i >= quarter *2 and i < quarter * 3
-          %li
-            %label.checkbox
-              = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
-              = c.name
-  .col-sm-3
-    %ul.list-unstyled
-      - countries.each_with_index do |c, i|
-        - if i >= quarter *3 and i < quarter * 4
-          %li
-            %label.checkbox
-              = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
-              = c.name
+  .row
+    .col-sm-3
+      %ul.list-unstyled
+        - countries.each_with_index do |c, i|
+          - if i < quarter
+            %li
+              %label.checkbox
+                = check_box_tag class_name + '[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
+                = c.name
+    .col-sm-3
+      %ul.list-unstyled
+        - countries.each_with_index do |c, i|
+          - if i >= quarter and i < quarter * 2
+            %li
+              %label.checkbox
+                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
+                = c.name
+    .col-sm-3
+      %ul.list-unstyled
+        - countries.each_with_index do |c, i|
+          - if i >= quarter *2 and i < quarter * 3
+            %li
+              %label.checkbox
+                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
+                = c.name
+    .col-sm-3
+      %ul.list-unstyled
+        - countries.each_with_index do |c, i|
+          - if i >= quarter *3 and i < quarter * 4
+            %li
+              %label.checkbox
+                = check_box_tag class_name+'[country_ids][]', c.id, parent.country_ids.include?(c.id), { id: c.name.parameterize }
+                = c.name
