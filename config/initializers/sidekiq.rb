@@ -1,3 +1,5 @@
+ENV['DATABASE_URL'] ||=
+
 Sidekiq.configure_server do |config|
   # config.redis = { namespace: 'sidekiq' }
   config.redis = { url: 'redis://localhost:6379/0', namespace: 'sidekiq' }
@@ -16,7 +18,6 @@ end
 
 unless Rails.env.production?
   Sidekiq.configure_client do |config|
-    config.redis = { namespace: 'sidekiq' }
+    config.redis = { url: 'redis://localhost:6379/0', namespace: 'sidekiq' }
   end
 end
-
