@@ -57,7 +57,7 @@ Document =
     fileAdded = $('#document_file')[0].files.length == 1
     if fileAdded
       form = if $('#new_document').size() > 0 then '#new_document' else '#edit_document'
-      progressModal.modal('show')
+      # progressModal.modal('show')
       # progressModal.find('.modal-footer').html window.doc.title()
       $(form)[0].submit()
     else
@@ -83,11 +83,11 @@ $ ->
   $('#file_select').click ()-> $('#document_file').click()
   $('#document_file').change(Document.hasChanged)
 
-  progressModal = $("#prog-modal").modal({
-    backdrop: "static",
-    keyboard: true,
-    show: false
-  })
+  # progressModal = $("#prog-modal").modal({
+  #   backdrop: "static",
+  #   keyboard: true,
+  #   show: false
+  # })
 
   form = if $('.new_document').size() > 0 then '#new_document' else '#edit_document'
   $(form).submit ->
