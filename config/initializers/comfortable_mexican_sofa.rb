@@ -30,10 +30,10 @@ ComfortableMexicanSofa.configure do |config|
   # Sofa allows you to setup entire site from files. Database is updated with each
   # request (if necessary). Please note that database entries are destroyed if there's
   # no corresponding file. Fixtures are disabled by default.
-  #   config.enable_fixtures = false
+  config.enable_fixtures = true
 
   # Path where fixtures can be located.
-  #   config.fixtures_path = File.expand_path('db/cms_fixtures', Rails.root)
+  config.fixtures_path = File.expand_path('db/cms_fixtures', Rails.root)
 
   # Importing fixtures into Database
   # To load fixtures into the database just run this rake task:

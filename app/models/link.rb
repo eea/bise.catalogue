@@ -2,6 +2,7 @@ class Link < ActiveRecord::Base
 
   include Tire::Model::Search
   include Tire::Model::Callbacks
+
   include Classifiable
 
   attr_accessible :url
@@ -28,7 +29,7 @@ class Link < ActiveRecord::Base
         tokenizer: 'keyword',
         filter: %w(lowercase snowball)
       },
-      index_ngram_analyzer: {
+      ngramer: {
         type: 'custom',
         tokenizer: 'standard',
         filter: %w(lowercase snowball substring)
@@ -45,6 +46,7 @@ class Link < ActiveRecord::Base
   } do
     mapping {
 
+      indexes :id, index: :not_analyzed
       indexes :site do
         indexes :id,
                 type: 'integer'
@@ -52,15 +54,14 @@ class Link < ActiveRecord::Base
                 type: 'string',
                 index: :not_analyzed
         indexes :ngram_name,
-                index_analyzer: 'index_ngram_analyzer' ,
+                index_analyzer: 'ngramer' ,
                 search_analyzer: 'snowball'
       end
 
-      indexes :id, index: :not_analyzed
       indexes :title, type: 'multi_field', fields: {
         title: {
           type: 'string',
-          index_analyzer: 'index_ngram_analyzer',
+          index_analyzer: 'ngramer',
           search_analyzer: 'snowball'
         },
         exact: { type: 'string', index: :not_analyzed }
@@ -68,20 +69,24 @@ class Link < ActiveRecord::Base
       indexes :english_title, type: 'multi_field', fields: {
         english_title: {
           type: 'string',
-          index_analyzer: 'index_ngram_analyzer',
+          index_analyzer: 'ngramer',
           search_analyzer: 'snowball'
         },
         exact: { type: 'string', index: :not_analyzed }
       }
 
+      indexes :authors do
+        indexes :name, type: 'string', index: :not_analyzed
+      end
+
       indexes :url,
               type: 'string',
-              index_analyzer: 'index_ngram_analyzer' ,
+              index_analyzer: 'ngramer' ,
               search_analyzer: 'search_analyzer'
 
       indexes :description,
               type: 'string',
-              index_analyzer: 'index_ngram_analyzer' ,
+              index_analyzer: 'ngramer' ,
               search_analyzer: 'snowball'
 
       indexes :languages do
@@ -91,7 +96,7 @@ class Link < ActiveRecord::Base
                 type: 'string',
                 index: :not_analyzed
         indexes :ngram_name ,
-                index_analyzer: 'index_ngram_analyzer' ,
+                index_analyzer: 'ngramer' ,
                 search_analyzer: 'snowball'
       end
 
@@ -102,7 +107,7 @@ class Link < ActiveRecord::Base
                 type: 'string',
                 index: :not_analyzed
         indexes :ngram_name,
-                index_analyzer: 'index_ngram_analyzer',
+                index_analyzer: 'ngramer',
                 search_analyzer: 'snowball'
       end
 
@@ -111,7 +116,7 @@ class Link < ActiveRecord::Base
                 type: 'string' ,
                 index: :not_analyzed
         indexes :ngram_name ,
-                index_analyzer: 'index_ngram_analyzer' ,
+                index_analyzer: 'ngramer' ,
                 search_analyzer: 'snowball'
       end
 
@@ -119,21 +124,15 @@ class Link < ActiveRecord::Base
         indexes :title, type: 'multi_field', fields: {
           title: {
             type: 'string',
-            index_analyzer: 'index_ngram_analyzer',
+            index_analyzer: 'ngramer',
             search_analyzer: 'snowball'
           },
           exact: { type: 'string', index: :not_analyzed }
         }
       end
 
-      indexes :biographical_region,
-              type: 'string',
-              index: :not_analyzed
-      indexes :author,
-              type: 'string',
-              index: :not_analyzed
-      indexes :published_on,
-              type: 'date'
+      indexes :biographical_region, type: 'string', index: :not_analyzed
+      indexes :published_on, type: 'date'
 
       indexes :approved           , type: 'boolean'
       indexes :approved_at        , type: 'date'
@@ -155,8 +154,7 @@ class Link < ActiveRecord::Base
       url:          url,
       description:  description,
 
-      author:       author,
-      ngram_author: author,
+      authors:      splitted_authors.map { |a| { name: a } },
       published_on: published_on,
 
       approved:     approved,
@@ -195,7 +193,7 @@ class Link < ActiveRecord::Base
     # Facet Filter
     link_filter = []
     link_filter << { term: { 'site.name' => params[:site] }} if params[:site].present?
-    link_filter << { term: { author: params[:author] }} if params[:author].present?
+    link_filter << { term: { 'authors.name' => params[:author] }} if params[:author].present?
     link_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
     link_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
     link_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
@@ -213,7 +211,7 @@ class Link < ActiveRecord::Base
           should { string 'english_title.exact:'       + params[:query].to_s }
           should { string 'description:'               + params[:query].to_s }
           should { string 'url:'                       + params[:query].to_s }
-          should { string 'ngram_author:'              + params[:query].to_s }
+          should { string 'authors.name:'              + params[:query].to_s }
           should { string 'countries.ngram_name:'      + params[:query].to_s }
           should { string 'languages.ngram_name:'      + params[:query].to_s }
           should { string 'tags.ngram_name:'           + params[:query].to_s }
@@ -225,7 +223,7 @@ class Link < ActiveRecord::Base
 
       filter :term, 'site.name' => params[:site] if params[:site].present?
       filter :term, source_db: params[:source_db] if params[:source_db].present?
-      filter :term, author: params[:author] if params[:author].present?
+      filter :term, 'authors.name' => params[:author] if params[:author].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
       # filter :term, geographical_coverage: params[:geographical_coverage] if params[:geographical_coverage].present?
@@ -242,7 +240,7 @@ class Link < ActiveRecord::Base
       end
 
       facet 'authors' do
-        terms :author
+        terms 'authors.name'
         facet_filter :and, link_filter unless link_filter.empty?
       end
 
