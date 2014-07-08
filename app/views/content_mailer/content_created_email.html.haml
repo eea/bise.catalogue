@@ -1,0 +1,13 @@
+%h1
+  BISE CATALOGUE
+%hr
+%p
+  = @user.name
+  has created new content on BISE Catalogue.
+
+%p
+  The content created on BISE needs to be approved to be searchable on BISE portal.
+  Please, click in the link bellow to go directly to the content.
+
+%p
+  = link_to @obj.title, @url

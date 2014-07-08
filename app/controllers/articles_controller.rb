@@ -5,6 +5,9 @@ class ArticlesController < ApplicationController
   before_filter :authenticate_user!
   has_scope :approved, type: :boolean
 
+  after_filter :notify_created_content, only: :create
+  after_filter :notify_updated_content, only: :update
+
   def create
     resource = Article.new(permitted_params[:article])
     resource.creator = current_user
@@ -44,6 +47,14 @@ class ArticlesController < ApplicationController
       tag_list: [], target_list: [], action_list: [],
       country_ids: [], language_ids: []
     ])
+  end
+
+  def notify_created_content
+    ContentMailer.content_created_email(current_user, @article).deliver
+  end
+
+  def notify_updated_content
+    ContentMailer.content_updated_email(current_user, @article).deliver
   end
 
   protected
