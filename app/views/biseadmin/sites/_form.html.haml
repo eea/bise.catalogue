@@ -2,31 +2,48 @@
 = simple_form_for([:biseadmin, @site]) do |f|
   = f.error_notification
 
-  .container
-    .row
-      .col-sm-8
-        %legend{ style: 'margin-bottom: 0' }
-          General information
+  .row
+    .col-sm-8
+      %legend{ style: 'margin-bottom: 0' }
+        General information
+      %br
+      = f.input :name, input_html: { class: 'input-block-level' }
+      = f.input :origin_url, input_html: { class: 'input-block-level' }
+      = f.input :description, as: 'text', input_html: { class: 'input-block-level', rows: 5 }
+    .col-sm-4
+      %legend{ style: 'margin-bottom: 0' }
+        API Access
+      %br
+      = f.input :auth_token, input_html: { class: 'input-block-level', disabled: true }
+      %br
+      .alert.alert-info
+        %strong{ style: 'magin-bottom dotted #4f86d8'}
+          = fa_icon 'info-circle'
+          Information:
         %br
-        = f.input :name, input_html: { class: 'input-block-level' }
-        = f.input :origin_url, input_html: { class: 'input-block-level' }
-        = f.input :description, as: 'text', input_html: { class: 'input-block-level', rows: 5 }
-      .col-sm-4
-        %legend{ style: 'margin-bottom: 0' }
-          API Access
-        %br
-        = f.input :auth_token, input_html: { class: 'input-block-level', disabled: true }
-        %br
-        .alert.alert-info
-          %strong{ style: 'magin-bottom dotted #4f86d8'}
-            = fa_icon 'info-circle'
-            Information:
-          %br
-          Auth token will be generated automatically and should be implemented in
-          any 3rd party Website to be able to send data to BISE Catalogue.
+        Auth token will be generated automatically and should be implemented in
+        any 3rd party Website to be able to send data to BISE Catalogue.
 
   %br
+
+
+
+  %legend Default Biodiversity Strategy Targets & Actions
+
+  %p.text-warning
+    Only in case you want to create a relationship between a source and strategy targets and actions.
+
+  = f.input :target_list, as: :select, collection: Target.all.order(:title).map(&:full_name),
+            input_html: { class: 'target-select', multiple: true }
+  = f.input :action_list,
+            as: :grouped_select,
+            collection: Target.all.order(:title),
+            group_method: :strategy_actions,
+            value_method: :title,
+            group_label_method: :title,
+            input_html: { class: 'tag-select', multiple: true }
 
   .form-actions
     = f.button :submit, class: 'btn-success'
     = link_to 'Cancel', biseadmin_sites_path, class: 'btn btn-default'
+

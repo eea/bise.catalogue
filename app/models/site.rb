@@ -10,6 +10,9 @@ class Site < ActiveRecord::Base
 	has_many :links
 	has_many :news
 
+  acts_as_taggable_on :targets, :actions
+  attr_accessible :target_list, :action_list
+
   validates :name, uniqueness: true
 
   before_save :generate_auth_token
