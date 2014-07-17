@@ -6,6 +6,7 @@ class ContentMailer < ActionMailer::Base
     @user = user
     @obj = obj
     @url = url_for_obj(obj)
+    attachments.inline['logo.png'] = File.read('app/assets/images/bise_logo_big.png')
     User.approvers.each do |approver|
       mail(to: approver.email,
            subject: "[CATALOGUE] - #{@user.name} has created new content!")
@@ -15,6 +16,8 @@ class ContentMailer < ActionMailer::Base
   def content_updated_email(user, obj)
     @user = user
     @obj = obj
+    @url = url_for_obj(obj)
+    attachments.inline['logo.png'] = File.read('app/assets/images/bise_logo_big.png')
     if @obj.creator != @user
       mail(to: @obj.creator.email,
            subject: "[CATALOGUE] - #{@user.name} updated your #{@obj.class.to_s.downcase}")
@@ -24,13 +27,19 @@ class ContentMailer < ActionMailer::Base
   private
 
   def url_for_obj(object)
-    case object.class
-    when Article
-      link_to object.title, article_url(object)
-    when Document
-      link_to object.title, document_url(object)
-    when Link
-      link_to object.title, link_url(object)
+    if object.id.nil?
+      ''
+    else
+      case object
+      when Article
+        article_url(object)
+      when Document
+        document_url(object)
+      when Link
+        link_url(object)
+      else
+        '#'
+      end
     end
   end
 end

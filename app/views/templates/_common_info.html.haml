@@ -1,43 +1,71 @@
-%legend Info
+%br
 
-%table.table.table-bordered.table-striped
-  %tbody
-    %tr
-      %td{ style: 'width: 25%; font-weight: bold' }
-        Site
-      %td{ colspan: '3' }
-        = obj.site.name
+.row
+  .col-md-7
+    %legend Info
+    .text-muted
+      Common information about this content type:
+    %br
+    %table.table
+      %tbody
+        %tr
+          %td{ style: 'width: 25%; font-weight: bold' }
+            Site
+          %td{ colspan: '3' }
+            = obj.site.name
+        %tr
+          %td{ style: 'width: 25%; font-weight: bold' }
+            Title
+          %td{ colspan: '3' }
+            = obj.title
+        %tr
+          %td{ style: 'width: 25%; font-weight: bold' }
+            English Title
+          %td{ colspan: '3' }
+            = obj.english_title
+        %tr
+          %td{ style: 'width: 25%; font-weight: bold' }
+            Languages
+          %td{ colspan: '3' }
+            - for a in obj.languages
+              %span.label.label-success= a.name
+        %tr
+          %td{ style: 'width: 25%; font-weight: bold' }
+            Author
+          %td
+            = obj.author
+        %tr
+          %td{ style: 'width: 25%; font-weight: bold' }
+            Published_on
+          %td
+            = obj.published_on
 
-
-    %tr
-      %td{ style: 'width: 25%; font-weight: bold' }
-        Title
-      %td{ colspan: '3' }
-        = obj.title
-    %tr
-      %td{ style: 'width: 25%; font-weight: bold' }
-        English Title
-      %td{ colspan: '3' }
-        = obj.english_title
-    %tr
-      %td{ style: 'width: 25%; font-weight: bold' }
-        Languages
-      %td{ colspan: '3' }
-        - for a in obj.languages
-          %span.label.label-success= a.name
-    %tr
-      %td{ style: 'width: 25%; font-weight: bold' }
-        Author
-      %td
-        = obj.author
-      %td{ style: 'width: 25%; font-weight: bold' }
-        Published_on
-      %td
-        = obj.published_on
-
-    %tr
-      %td
-        Source URL
-      %td{ colspan: '3' }
-        - unless obj.source_url.nil?
-          = link_to obj.source_url, obj.source_url
+  .col-md-5
+    %legend Content versioning
+    %table.table.margin-none
+      %thead
+        %tr
+          %th Event
+          %th User
+          %th Version date
+      %tbody
+        - obj.versions.order('created_at desc').each do |version|
+          %tr
+            %td
+              .label.label-primary= version.event
+            %td
+              - user = User.find(version.whodunnit)
+              = link_to user.name, "mailto:#{user.email}"
+            %td= version.created_at.strftime('%H:%M %p - %m/%d/%Y')
+    %br
+    - if obj.source_url.present?
+      %legend Source URL
+      %table
+        %tbody
+          %tr
+            %td
+              = link_to obj.source_url, obj.source_url
+      %hr
+      .text-muted
+        ** Source url is used when harvesting content from other sites. Is a way to
+        identify the origin of each content type.

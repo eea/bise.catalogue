@@ -3,6 +3,7 @@ module Classifiable
   extend ActiveSupport::Concern
 
   included do
+    has_paper_trail
 
     scope :unapproved, where(approved: false)
     scope :approved, where(approved: true)

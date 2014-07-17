@@ -8,6 +8,18 @@ class LinksController < ApplicationController
   after_filter :notify_created_content, only: :create
   after_filter :notify_updated_content, only: :update
 
+  def create
+    @link = Link.new(permitted_params[:link])
+    @link.creator = current_user
+    create!
+  end
+
+  def update
+    @link = Link.find(params[:id])
+    @link.modifier = current_user
+    update!
+  end
+
   def approve_multiple
     return respond_to do |format|
       format.html { redirect_to links_path, alert: 'Please, select at least one link!' }

@@ -99,10 +99,7 @@ module ApplicationHelper
   end
 
   def search_params_available?
-
-    # params = %w(query site author countries languages published_on approved)
     prev = request.referer
-
     if prev.present? &&
        (
         prev.include?('query') ||

@@ -1,0 +1,61 @@
+AllCops:
+  Include:
+    - Gemfile
+    - Rakefile
+  Exclude:
+    - bin/**/*
+    - spec/**/*
+    - vendor/**/*
+    - tmp/**/*
+
+AlignParameters:
+  Enabled: false
+
+Blocks:
+  Enabled: false # {} for multi-line blocks in RSpec expectations is very common
+
+CaseIndentation:
+  Enabled: false
+
+ClassLength:
+  Enabled: false
+
+CollectionMethods:
+  Enabled: false # Enabling this doesn't like "inject"
+
+Documentation:
+  Enabled: false
+
+DotPosition:
+  Enabled: false
+
+Encoding:
+  Enabled: false
+
+IfUnlessModifier:
+  Enabled: false # It's nice to be able to use an if on its line
+
+LineLength:
+  Max: 80
+
+MethodLength:
+  Enabled: false
+  CountComments: false
+  Max: 20
+
+SpecialGlobalVars:
+  Enabled: false # Unfortunately $CHILD_STATUS isn't always the same as $?
+
+SpaceInsideBrackets:
+  Enabled: true
+
+StringLiterals:
+  EnforcedStyle:
+    Enabled: false
+
+TrailingComma:
+  Enabled: false
+
+TrivialAccessors:
+  Enabled: false # Bosh::Stemcell::Infrastructure#light? was a false positive
+

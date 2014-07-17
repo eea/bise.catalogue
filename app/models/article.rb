@@ -1,6 +1,5 @@
 # encoding: UTF-8
 class Article < ActiveRecord::Base
-
   include Tire::Model::Search
   include Tire::Model::Callbacks
 

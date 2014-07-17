@@ -19,26 +19,16 @@
       Delete
 
 
-.container
 
-  = render 'templates/common_info', obj: @link
+= render 'templates/common_info', obj: @link
 
-  %legend Link
-  .row
-    .col-md-3.control-label.text-right
-      URL:
-    .col-md-9{ style: "text-align:left"}
-      %a{ href: @link.url }
-        = @link.url
-  .row
-    .col-md-3.control-label.text-right
-      Description:
-    .col-md-9
-      = raw @link.description
+%legend Link
+.well
+  = link_to @link.url, @link.url
+  %br
+  = raw @link.description
 
-
-
-  = render 'templates/countries', object: @link
-  = render 'templates/biographical_region', object: @link
-  = render 'templates/targets_and_actions', object: @link
-  = render 'templates/tags', object: @link
+= render 'templates/countries', object: @link
+= render 'templates/biographical_region', object: @link
+= render 'templates/targets_and_actions', object: @link
+= render 'templates/tags', object: @link

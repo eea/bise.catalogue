@@ -1,6 +1,19 @@
 %h1
-  BISE CATALOGUE
+  = image_tag attachments['logo.png'].url
 %hr
 %p
   = @obj.modifier.name
-  has updated content created by you. Please, review and validate.
+  has updated content created by you.
+
+%p
+  If you want to see which updates has been made, you can go direclty to BISE
+  Catalogue by clicking the following link:
+
+- if @obj.class.eql? Article
+  = link_to @obj.title, article_url(@obj)
+- if @obj.class.eql? Document
+  = link_to @obj.title, document_url(@obj)
+- if @obj.class.eql? Link
+  = link_to @obj.title, link_url(@obj)
+
+

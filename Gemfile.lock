@@ -346,6 +346,9 @@ GEM
       mini_portile (~> 0.5.0)
     oj (2.9.0)
     orm_adapter (0.5.0)
+    paper_trail (3.0.3)
+      activerecord (>= 3.0, < 5.0)
+      activesupport (>= 3.0, < 5.0)
     paperclip (4.1.1)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -611,6 +614,7 @@ DEPENDENCIES
   json-ld
   less-rails
   oj
+  paper_trail (~> 3.0.3)
   pg
   polyamorous!
   protected_attributes

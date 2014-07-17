@@ -9,8 +9,8 @@ class ArticlesController < ApplicationController
   after_filter :notify_updated_content, only: :update
 
   def create
-    resource = Article.new(permitted_params[:article])
-    resource.creator = current_user
+    @article = Article.new(permitted_params[:article])
+    @article.creator = current_user
     create!
   end
 

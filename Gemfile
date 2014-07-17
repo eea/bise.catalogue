@@ -5,7 +5,7 @@ gem 'rails'                     , '4.1.0'
 gem 'rake'                      , '10.3.1'
 gem 'rack'                      , '~> 1.5.2'
 # gem 'railties'                , '~> 3.2.13'
-gem 'sinatra'                   , '>= 1.3.0', :require => nil
+gem 'sinatra'                   , '>= 1.3.0', require: nil
 gem 'i18n'
 
 gem 'devise'                    , '~> 3.2'
@@ -59,6 +59,8 @@ gem 'sidekiq'                   , github: 'mperham/sidekiq'
 
 gem 'tire'                      , '>= 0.5.4'
 gem 'tire_async_index'
+
+gem 'paper_trail'               , '~> 3.0.3'
 
 # TWITTER BOOTSTRAP
 # gem "twitter-bootstrap-rails" , github: 'seyhunak/twitter-bootstrap-rails' , branch: 'bootstrap3'
