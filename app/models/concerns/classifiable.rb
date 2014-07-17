@@ -19,6 +19,7 @@ module Classifiable
     has_and_belongs_to_many :languages, class_name: 'Language', join_table: "#{name.pluralize.downcase}_languages", foreign_key: "#{name.downcase}_id"
 
     attr_accessible :biographical_region
+    validates_presence_of :biographical_region, unless: lambda { self.biographical_region.blank? }
 
     attr_accessible :published_on
     attr_accessible :published
