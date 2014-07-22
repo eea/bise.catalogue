@@ -55,7 +55,9 @@ Catalogue::Application.routes.draw do
   # API
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
+      resources :sites, only: :show
       resources :ecosystem_assessments
+
       get 'bise_search' => 'search#bise_search'
       get 'search'      => 'search#advanced_search'
 

@@ -1,8 +1,24 @@
+
+
 $ ->
-  do $('.bise-select').chosen
-  # $('.target-select').on 'change', (evt, params) ->
-  #   console.log('target selected... ')
-  #   console.log(params)
+  $('.bise-select').chosen().change (e) ->
+    site_id = $(e.currentTarget).val()[0]
+    $.ajax(
+      url: "/api/v1/sites/" + site_id,
+      context: document.body
+    ).done (data) ->
+      targets = []
+      for obj in data.site.targets
+        targets.push obj.target.name
+      $('.target-select').val targets
+      $('.target-select').trigger("chosen:updated")
+
+      actions = []
+      for obj in data.site.actions
+        actions.push obj.target.name
+      $('.action-select').val actions
+      $('.action-select').trigger("chosen:updated")
+
   do $('.target-select').chosen
   do $('.tag-select').chosen
   do $('.best_in_place').best_in_place
