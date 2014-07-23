@@ -1,9 +1,10 @@
-<div class="facet-header">
+<div class="facet-header closed">
+  <div class="triangle"></div>
   <legend><%= this.titleFor(title) %></legend>
 </div>
 
 <% if (typeof(terms) != 'undefined' ){ %>
-  <ul>
+  <ul style="display:none">
       <% _.each(terms, function(t) { %>
         <% if (t.term != ''){ %>
           <li>
@@ -24,7 +25,7 @@
       <% }) %>
   </ul>
 <% } else { %>
-  <ul>
+  <ul style="display:none">
     <% _.each(entries, function(e) { %>
       <li>
         <% d = new Date(e.time) %>

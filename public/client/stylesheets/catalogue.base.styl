@@ -217,6 +217,19 @@
     padding: 4px 7px
     background: LIGHT_GRAY
 
+    .triangle
+      margin-top: 5px
+      float: right
+      border-style: solid
+      border-width: 7px 5px 0 5px
+      border-color: #515151 transparent transparent transparent
+      &.up
+        -webkit-transform: rotate(180deg)
+        -webkit-animation-name: rotate
+        -webkit-animation-duration: 0.5s
+        -webkit-animation-iteration-count:  infinite
+        -webkit-transition-timing-function: linear
+
   legend
     cursor: pointer
     // color: #707070
