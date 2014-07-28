@@ -4,10 +4,10 @@
 </div>
 
 <% if (typeof(terms) != 'undefined' ){ %>
-  <ul style="display:none">
+  <ul>
       <% _.each(terms, function(t) { %>
         <% if (t.term != ''){ %>
-          <li>
+          <li class="facet-item">
             <% if (Catalogue.isFacetSelected(title, t.term )){ %>
               <a class="facet-remove" data-facet="<%= title %>" data-value="<%= t.term %>">
                 Remove
@@ -23,11 +23,18 @@
           </li>
         <% } %>
       <% }) %>
+      <% if (terms.length > 5){ %>
+        <li class="show-more">
+          <a>
+            -- Show/Hide more... --
+          </a>
+        </li>
+      <% } %>
   </ul>
 <% } else { %>
-  <ul style="display:none">
+  <ul>
     <% _.each(entries, function(e) { %>
-      <li>
+      <li class="facet-item">
         <% d = new Date(e.time) %>
         <% if (Catalogue.isFacetSelected(title, d.getFullYear() )){ %>
           <a class="facet-remove" data-facet="<%= title %>" data-value="<%= d.getFullYear() %>">
@@ -41,5 +48,12 @@
         <a class="facet-link" data-facet="<%= title %>" data-value="<%= d.getFullYear() %>"><%= d.getFullYear() %></a>
       </li>
     <% }) %>
+    <% if (entries.length > 5){ %>
+      <li class="show-more">
+        <a>
+          -- Show/Hide more... --
+        </a>
+      </li>
+    <% } %>
   </ul>
 <% } %>

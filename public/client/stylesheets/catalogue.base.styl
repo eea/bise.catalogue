@@ -204,9 +204,6 @@
 
 
 
-  // input
-  //   margin-right: 10px
-
 .catalogue-facet
   border-radius(3px)
   border 1px solid LIGHT_GRAY
@@ -218,9 +215,13 @@
     background: LIGHT_GRAY
 
     legend
+      cursor: pointer
       width: 90%
       padding: 0 2px !important
-      // height 29px
+      color: DARK_GRAY
+      font-size: 0.9em
+      width: 94%
+      font-weight: bold
 
     .triangle
       margin-top: 7px
@@ -235,22 +236,12 @@
         -webkit-animation-iteration-count:  infinite
         -webkit-transition-timing-function: linear
 
-  legend
-    cursor: pointer
-    // color: #707070
-    color: DARK_GRAY
-    // font-size: 17px
-    font-size: 0.9em
-    width: 94%
-    font-weight: bold
-
   ul
     border-top: 1px solid #b8b8b8
     list-style: none
     margin: 0px
     -webkit-padding-start: 0px
 
-    // padding-top: 14px
     li
       a
         display:block
@@ -272,7 +263,7 @@
         margin-top: 6px
 
       .facet-remove
-        border-radius(5px)
+        // border-radius(5px)
         font-size: 0.7em
         font-weight: bold
         padding: 4px 7px
@@ -281,6 +272,18 @@
         float: right
         margin-right: 5px
         margin-top: 4px
+    li.show-more
+      a
+        text-align: center
+        background: #f6f6f6
+        color: #386d03
+        &:hover
+          background: #386d03
+          color: white
+
+  ul.first-five
+    li.facet-item:nth-child(n+6)
+      display: none
 
 #content ul
   list-style: none !important

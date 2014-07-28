@@ -292,6 +292,10 @@ define(['jquery', 'underscore', 'backbone', 'bootstrap', 'collections/results', 
       this.queryparams['page'] = 1
       this.runQuery()
     },
+    containsFacetKey: function(key){
+      if (_.has(this.queryparams, key)) return true
+      return false
+    },
     isFacetSelected: function(key, value){
       if (_.has(this.queryparams, key))
         if (this.queryparams[key] == value)
