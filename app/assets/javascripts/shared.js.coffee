@@ -20,8 +20,26 @@ $ ->
       $('.action-select').trigger("chosen:updated")
 
   do $('.target-select').chosen
+  do $('.action-select').chosen
   do $('.tag-select').chosen
   do $('.best_in_place').best_in_place
+
+  $('.btn-explore-tags').on 'click', (e)->
+    $('#explore-tags').modal()
+  $('.tag-tree').bonsai
+    expandAll: true
+    checkboxes: false
+    createCheckboxes: false
+  $('.tag-tree li.item a').on 'click', (e) ->
+    values = $('.tag-select').val() || []
+    val = $(@).html()
+    if (_.contains(values, val))
+      values = _.without(values, _.findWhere(values, val));
+    else
+      values.push val
+    $('.tag-select').val(values)
+    $('.tag-select').trigger("chosen:updated");
+
 
   tinyMCE.init
     mode: 'textareas'

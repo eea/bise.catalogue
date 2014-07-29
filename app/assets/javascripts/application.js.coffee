@@ -71,6 +71,7 @@
 #= require underscore
 #= require raphael
 #= require morris
+#= require jquery.bonsai
 
 #= require statistics
 #= require shared

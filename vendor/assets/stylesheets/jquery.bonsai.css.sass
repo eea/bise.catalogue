@@ -1,0 +1,40 @@
+.bonsai
+  margin: 0
+  padding: 0
+  list-style: none
+  overflow: hidden
+  legend
+    font-size: 14px
+    margin-bottom: 7px
+  li
+    margin: 0
+    padding: 0
+    list-style: none
+    overflow: hidden
+    position: relative
+    padding-left: 1.3em
+
+    .thumb
+      margin: -1px 0 0 -1em
+      position: absolute
+      cursor: hand
+
+    &.item > .thumb:after
+      content: '▪'
+      margin-right: 4px
+
+    &.has-children > .thumb:after
+      content: '▸'
+    &.expanded > .thumb:after
+      content: '▾'
+    &.collapsed > ol.bonsai
+      height: 0
+      overflow: hidden
+
+  li.item a
+    cursor: pointer
+    &:hover
+      text-decoration: none
+      font-weight: bold
+
+

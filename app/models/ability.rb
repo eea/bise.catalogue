@@ -3,6 +3,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
+    return false if user.nil?
     can :read, :all
     if user.role_author?
       can [:new, :create, :edit, :update], [Article, Document, Link]

@@ -18,7 +18,7 @@ class ContentMailer < ActionMailer::Base
     @obj = obj
     @url = url_for_obj(obj)
     attachments.inline['logo.png'] = File.read('app/assets/images/bise_logo_big.png')
-    if @obj.creator != @user
+    if @obj.creator.present? && @obj.creator != @user
       mail(to: @obj.creator.email,
            subject: "[CATALOGUE] - #{@user.name} updated your #{@obj.class.to_s.downcase}")
     end

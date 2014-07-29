@@ -9,18 +9,47 @@
           group_method: :strategy_actions,
           value_method: :title,
           group_label_method: :title,
-          input_html: { class: 'tag-select', multiple: true }
+          input_html: { class: 'action-select', multiple: true }
 
 %legend Tags
 
-= f.input :tag_list,
-          as: :grouped_select,
-          collection: KeywordContainer.all.order(:title),
-          group_method: :keywords,
-          value_method: :name,
-          group_label_method: :title,
-          input_html: { class: 'tag-select', multiple: true }
+#explore-tags.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", type: "button"}
+          %span{"aria-hidden" => "true"} &#215;
+          %span.sr-only Close
+        %h4.modal-title
+          Explore tags
+          /%small Select any to add it to your content
+      .modal-body
+        %ul.tag-tree
+          - KeywordContainer.all.order(:title).each do |kc|
+            %li
+              %legend= kc.title
+              %ul.list-unstyled
+                - kc.keywords.each do |k|
+                  %li.item{ data: {name: 'aaa', value: 'bbb'}}
+                    %a= k.name
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss" => "modal", type: "button"} Ok
+.row
+  .col-sm-10
+    = f.input :tag_list,
+              as: :grouped_select,
+              collection: KeywordContainer.all.order(:title),
+              group_method: :keywords,
+              value_method: :name,
+              group_label_method: :title,
+              label: false,
+              input_html: { class: 'tag-select', multiple: true }
+  .col-sm-2
+    %a.btn.btn-primary.btn-block.btn-explore-tags
+      = fa_icon 'search'
+      Explore
 
+%br
 
 %legend
   Biodiversity

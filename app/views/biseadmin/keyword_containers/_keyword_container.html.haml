@@ -1,10 +1,10 @@
 %legend Add New Keyword
 .well.well-flat
-  = simple_form_for([:biseadmin, Keyword.new], html: { class: 'form-inline' }) do |f|
+  = simple_form_for([:biseadmin, Keyword.new]) do |f|
     / = f.error_notification
     = f.input :keyword_container_id, as: :hidden, input_html: { value: container.id }
     %br
-    = f.input :name, label: false
+    = f.input :name, label: false, input_html: { placeholder: 'Enter a new tag...' }
     %button.btn.btn-default.btn-block{ type: 'submit' }
       = fa_icon 'plus'
       Add

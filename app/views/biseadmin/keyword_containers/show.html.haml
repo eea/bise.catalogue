@@ -6,10 +6,9 @@
     = fa_icon 'reply'
     Back
 
-.container
-  .row
-    .col-sm-8
-      = render 'keyword_list'     , container: @keyword_container
-    .col-sm-4
-      = render 'keyword_container', container: @keyword_container
+.row
+  .col-sm-8
+    = render 'keyword_list'     , container: @keyword_container
+  .col-sm-4
+    = render 'keyword_container', container: @keyword_container
 
