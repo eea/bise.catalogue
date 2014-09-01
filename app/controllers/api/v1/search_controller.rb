@@ -15,7 +15,6 @@ module Api
         location = @geoip.country(request.remote_ip)[:country_name]
         search.location = location if location != 0
 
-
         if search.save!
           respond_with BiseSearchExhibit.new(search).process
         else

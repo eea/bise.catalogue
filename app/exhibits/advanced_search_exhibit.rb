@@ -26,7 +26,7 @@ class AdvancedSearchExhibit < SimpleDelegator
     a << { term: { 'countries.name' => countries } } if countries.present?
     a << { term: { 'languages.name' => languages } } if languages.present?
     a << { term: { biographical_region: biographical_region } } if biographical_region.present?
-    a << { range: { published_on: { gte: start_date , lt: end_date } } } if start_date.present?
+    a << { range:{ published_on: { gte: start_date , lt: end_date } } } if start_date.present?
     a << { term: { 'targets.title.exact' => strategytarget } } if strategytarget.present?
 
     # EUNIS attrs
@@ -148,7 +148,7 @@ class AdvancedSearchExhibit < SimpleDelegator
       end
 
       facet 'published_on' do
-        date :published_on, interval: 'year'
+        date :published_on, interval: 'year' #, order: 'reverse_term'
         facet_filter :and, search_filter unless search_filter.empty?
       end
 
