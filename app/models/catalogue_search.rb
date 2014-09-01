@@ -10,6 +10,7 @@ class CatalogueSearch < ActiveRecord::Base
     logger.info ''
     args[:indexes] = args[:indexes].join(',')
     super
+    self.query = '*' unless args[:query].present?
     # @countries_list = args[:countries].join(',') if args[:countries].present?
     # @languages_list = args[:languages].join(',') if args[:languages].present?
     if args[:published_on].present?
