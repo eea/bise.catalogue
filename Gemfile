@@ -60,7 +60,7 @@ gem 'sidekiq'                   , github: 'mperham/sidekiq'
 gem 'tire'                      , '>= 0.5.4'
 gem 'tire_async_index'
 
-gem 'paper_trail'               , '~> 3.0.3'
+gem 'paper_trail'               , '~> 3.0.5'
 
 # TWITTER BOOTSTRAP
 # gem "twitter-bootstrap-rails" , github: 'seyhunak/twitter-bootstrap-rails' , branch: 'bootstrap3'
