@@ -25,6 +25,9 @@ require.config({
             deps: ['jquery'],
             exports: 'Bootstrap'
         }
+    },
+    tpl: {
+        extension: '.html'
     }
     // map: {
     //     // '*' means all modules will get 'jquery-private'
@@ -40,7 +43,7 @@ require.config({
 
 require(['views/app'], function(AppView){
     window.Catalogue = new AppView({
-        // host: 'termite.eea.europa.eu'
-        host: 'bise.catalogue.dev'
+        host: 'termite.eea.europa.eu'
+        // host: 'bise.catalogue.dev'
     })
 });
