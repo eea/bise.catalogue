@@ -14,6 +14,7 @@ require.config({
     },
     paths: {
         jquery     : 'lib/jquery/jquery-min',
+        jqcloud    : 'lib/jquery/jqcloud-min',
         underscore : 'lib/underscore/underscore',
         backbone   : 'lib/backbone/backbone',
         bootstrap  : 'lib/bootstrap/bootstrap',
@@ -39,6 +40,7 @@ require.config({
 
 require(['views/app'], function(AppView){
     window.Catalogue = new AppView({
-        host: 'termite.eea.europa.eu'
+        // host: 'termite.eea.europa.eu'
+        host: 'bise.catalogue.dev'
     })
 });
