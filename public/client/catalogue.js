@@ -13,12 +13,12 @@ require.config({
         }
     },
     paths: {
+        text       : 'lib/require/text',
         jquery     : 'lib/jquery/jquery-min',
         jqcloud    : 'lib/jquery/jqcloud-min',
         underscore : 'lib/underscore/underscore',
         backbone   : 'lib/backbone/backbone',
-        bootstrap  : 'lib/bootstrap/bootstrap',
-        text       : 'lib/require/text'
+        bootstrap  : 'lib/bootstrap/bootstrap'
     },
     shim: {
         'bootstrap': {
