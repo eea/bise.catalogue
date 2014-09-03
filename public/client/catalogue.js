@@ -7,11 +7,14 @@
 
 require.config({
     // optimizeAllPluginResources: true,
-    text: {
-        useXhr: function (url, protocol, hostname, port) {
-            return true
-        }
+    config: {
+        text: { useXhr: function () { return true } }
     },
+    // text: {
+    //     useXhr: function (url, protocol, hostname, port) {
+    //         return true
+    //     }
+    // },
     paths: {
         text       : 'lib/require/text',
         jquery     : 'lib/jquery/jquery-min',
@@ -21,6 +24,9 @@ require.config({
         bootstrap  : 'lib/bootstrap/bootstrap'
     },
     shim: {
+        'text': {
+            exports : 'text'
+        },
         'bootstrap': {
             deps: ['jquery'],
             exports: 'Bootstrap'
