@@ -8,16 +8,18 @@ class User < ActiveRecord::Base
   scope :approvers, -> { where(role_validator: true) }
   scope :authors, -> { where(role_author: true) }
 
+  has_many :library_roles
+  accepts_nested_attributes_for :library_roles
+
   before_save :fetch_user_data
 
-  # Setup accessible (or protected) attributes for your model
   attr_accessible :login
   attr_accessible :password
   attr_accessible :password_confirmation
   attr_accessible :remember_me
+  attr_accessible :library_roles
 
   validates :login, presence: true
-  # validates :password, presence: true
 
   def approver?
     admin_role = 'cn=extranet-bise-cat-approve,cn=extranet-bise-cat,cn=extranet-bise,cn=extranet,ou=Roles,o=EIONET,l=Europe'
@@ -29,6 +31,15 @@ class User < ActiveRecord::Base
     return 'Approver' if role_validator?
     return 'Author' if role_author?
     'Guest'
+  end
+
+  def update_library_roles
+    Site.find_each do |site|
+      unless library_roles.where(site_id: site.id ).size > 0
+        library_roles.push LibraryRole.new(user_id: id, site_id: site.id)
+      end
+      save!
+    end
   end
 
   private

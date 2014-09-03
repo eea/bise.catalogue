@@ -1,0 +1,28 @@
+- content_for :pageheader do
+  Show
+  /= @user.name
+  /%small= "(#{@user.email})"
+
+
+%h1 Not working
+
+-# %table.table
+-#   %thead
+-#     %tr
+-#       %th Library
+-#       %th{ style: 'width: 80px'} Create?
+-#       %th{ style: 'width: 80px'} Approve?
+-#   %tbody
+-#     - Site.find_each do |s|
+-#       %tr
+-#         %td
+-#           = s.name
+-#         %td
+-#           = check_box_tag 'hola'
+-#         %td
+-#           = check_box_tag 'hola'
+
+
+-# = link_to biseadmin_users_path, class: 'btn btn-default' do
+-#   = fa_icon 'chevron-left'
+-#   Back to users list

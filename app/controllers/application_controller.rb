@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   layout :layout_by_resource
 
@@ -32,5 +33,9 @@ class ApplicationController < ActionController::Base
       flash[:alert] = 'Unauthorized Access!'
       redirect_to admin_users_path
     end
+  end
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:account_update) { |u| u.permit({ library_roles_attributes: [:site_id, :allowed] }, :email, :password, :password_confirmation) }
   end
 end

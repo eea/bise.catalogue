@@ -5,10 +5,12 @@ class Site < ActiveRecord::Base
   attr_accessible :origin_url
   attr_accessible :auth_token
 
+  has_many :library_roles
+
   has_many :articles
   has_many :documents
-	has_many :links
-	has_many :news
+  has_many :links
+  has_many :news
 
   acts_as_taggable_on :targets, :actions
   attr_accessible :target_list, :action_list

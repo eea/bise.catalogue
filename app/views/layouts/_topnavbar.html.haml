@@ -49,6 +49,10 @@
             - if current_user.role_admin?
               %li.divider
               %li
+                = link_to biseadmin_users_path do
+                  = fa_icon 'users'
+                  Manage Users
+              %li
                 = link_to biseadmin_sites_path do
                   = fa_icon 'cogs'
                   Manage Sources

@@ -72,6 +72,7 @@ Catalogue::Application.routes.draw do
 
   # Bise Admin
   namespace :biseadmin do
+    resources :users, except: [:create]
     resources :sites
     resources :keyword_containers
     resources :keywords

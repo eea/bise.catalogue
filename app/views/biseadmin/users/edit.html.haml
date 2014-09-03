@@ -1,0 +1,28 @@
+- content_for :pageheader do
+  = @user.name
+  %small= "(#{@user.email})"
+
+= simple_form_for [:biseadmin, @user] do |f|
+  = f.input :id, as: :hidden
+  %table.table
+    %thead
+      %tr
+        %th Library
+        %th{ style: 'width: 80px'} Allowed?
+    %tbody
+      = f.fields_for :library_roles do |lr|
+        %tr
+          %td
+            = lr.object.site.name
+            = lr.input :site_id, as: :hidden
+          %td
+            = lr.input :allowed, as: :boolean, label: false
+
+
+  .btn-toolbar.pull-right
+    = link_to biseadmin_users_path, class: 'btn btn-default' do
+      = fa_icon 'chevron-left'
+      Back to users list
+    %button.btn.btn-success{ type: 'submit' }
+      = fa_icon 'save'
+      Save
