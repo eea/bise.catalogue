@@ -8,13 +8,12 @@
 require.config({
     // optimizeAllPluginResources: true,
     config: {
-        text: { useXhr: function () { return true } }
+        'text': {
+            useXhr: function (url, protocol, hostname, port) {
+                return true
+            }
+        },
     },
-    // text: {
-    //     useXhr: function (url, protocol, hostname, port) {
-    //         return true
-    //     }
-    // },
     paths: {
         text       : 'lib/require/text',
         jquery     : 'lib/jquery/jquery-min',
