@@ -57,6 +57,7 @@ Catalogue::Application.routes.draw do
     namespace :v1 do
       resources :sites, only: :show
       resources :ecosystem_assessments
+      resources :stats, only: :index
 
       get 'bise_search' => 'search#bise_search'
       get 'search'      => 'search#advanced_search'
