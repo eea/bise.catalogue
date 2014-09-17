@@ -56,10 +56,11 @@ class Biseadmin::StrategyActionsController < ApplicationController
 
   def destroy
     @action = StrategyAction.find(params[:id])
+    target = @action.target
     @action.destroy
 
     respond_to do |format|
-      format.html { redirect_to biseadmin_actions_url }
+      format.html { redirect_to biseadmin_target_path(target) }
       format.json { head :no_content }
     end
   end
