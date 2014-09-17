@@ -26,11 +26,17 @@
             %td
               = fa_icon 'list'
             %td
-              = best_in_place [:biseadmin, action], :title
+              = action.title
+              /= best_in_place [:biseadmin, action], :title
             %td{ style: 'padding: 5px' }
-              = link_to biseadmin_strategy_action_path(action), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
-                = fa_icon 'trash-o'
-                Destroy
+              .btn-toolbar
+                .btn-group
+                  = link_to edit_biseadmin_strategy_action_path(action), class: 'btn btn-default btn-xs' do
+                    -# = fa_icon 'pencil'
+                    Edit
+                  = link_to biseadmin_strategy_action_path(action), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
+                    = fa_icon 'trash-o'
+                    Destroy
 
 .well.well-flat
   = simple_form_for([:biseadmin, StrategyAction.new], html: { class: 'form-inline' }) do |f|

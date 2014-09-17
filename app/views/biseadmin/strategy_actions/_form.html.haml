@@ -1,0 +1,16 @@
+
+= simple_form_for([:biseadmin, @action]) do |f|
+  = f.error_notification
+  .container
+    .row
+      .col-lg-12
+        %legend
+          General information
+        = f.input :title
+        = f.input :short_desc
+
+        %div{ style: 'height: 170px' }
+
+  .form-actions
+    = f.button :submit, class: 'btn-success'
+    = link_to 'Cancel', biseadmin_targets_path, class: 'btn btn-default'

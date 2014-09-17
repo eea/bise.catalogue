@@ -29,7 +29,6 @@ class Biseadmin::StrategyActionsController < ApplicationController
 
   def create
     @action = StrategyAction.new(action_params)
-
     respond_to do |format|
       if @action.save
         format.html { redirect_to biseadmin_target_path(@action.target), notice: 'StrategyAction was successfully created.' }
@@ -68,6 +67,6 @@ class Biseadmin::StrategyActionsController < ApplicationController
   private
 
   def action_params
-    params.require(:strategy_action).permit(:title, :target_id)
+    params.require(:strategy_action).permit(:title, :short_desc, :target_id)
   end
 end
