@@ -10,7 +10,7 @@ module Api
       end
 
       def all_targets
-        @targets = Target.all
+        @targets = Target.all.order(:id)
       end
     end
   end
