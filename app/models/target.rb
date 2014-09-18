@@ -14,4 +14,8 @@ class Target < ActiveRecord::Base
   def full_name
     "#{title}: #{short_desc}"
   end
+
+  def ordered_actions
+    strategy_actions.order(:id)
+  end
 end
