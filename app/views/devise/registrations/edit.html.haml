@@ -1,5 +1,5 @@
 %h2
-  = "Edit #{resource_name.to_s.humanize}"
+  = "Edit #{resource_name.to_s.humanize} #{resource.name}"
 
 = simple_form_for(resource, as: resource_name, url: user_registration_path(resource), :html => { :method => :put }) do |f|
   = f.error_notification
