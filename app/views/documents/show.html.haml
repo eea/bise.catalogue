@@ -17,7 +17,7 @@
       (
       = (@document.file_size/1024).round(2)
       KB)
-  - if current_user.approver?
+  - if can? :edit, @document
     = link_to  edit_document_path(@document), class: 'btn btn-default', disabled: !@document.editable? do
       = fa_icon 'pencil'
       Edit

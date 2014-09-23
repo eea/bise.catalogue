@@ -10,7 +10,7 @@
     = link_to links_path, class: 'btn btn-default' do
       = fa_icon 'reply'
       Back to List
-  - if current_user.approver?
+  - if can? :edit, @link
     = link_to  edit_link_path(@link), class: 'btn btn-default', disabled: !@link.editable? do
       = fa_icon 'pencil'
       Edit
