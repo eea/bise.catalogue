@@ -4,20 +4,13 @@
 
 = simple_form_for [:biseadmin, @user] do |f|
   = f.input :id, as: :hidden
-  %table.table
-    %thead
-      %tr
-        %th Library
-        %th{ style: 'width: 80px'} Allowed?
-    %tbody
-      = f.fields_for :library_roles do |lr|
-        %tr
-          %td
-            = lr.object.site.name
-            = lr.input :site_id, as: :hidden
-          %td
-            = lr.input :allowed, as: :boolean, label: false
 
+  .row
+    = f.fields_for :library_roles do |lr|
+      .col-md-3
+        .well.well-sm
+          = lr.input :site_id, as: :hidden
+          = lr.input :allowed, as: :chk, label: lr.object.site.name, inline_label: 'Remember me'
 
   .btn-toolbar.pull-right
     = link_to biseadmin_users_path, class: 'btn btn-default' do

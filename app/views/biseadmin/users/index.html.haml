@@ -10,4 +10,5 @@
     - User.find_each do |u|
       %tr
         %td
-          = link_to u.name, edit_biseadmin_user_path(u)
+          = link_to u.name, edit_user_registration_path(u)
+          /= link_to u.name, edit_biseadmin_user_path(u)

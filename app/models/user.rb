@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   scope :authors, -> { where(role_author: true) }
 
   has_many :library_roles
+  attr_accessible :library_roles_attributes
   accepts_nested_attributes_for :library_roles
 
   before_save :fetch_user_data
@@ -17,7 +18,6 @@ class User < ActiveRecord::Base
   attr_accessible :password
   attr_accessible :password_confirmation
   attr_accessible :remember_me
-  attr_accessible :library_roles
 
   validates :login, presence: true
 
@@ -35,11 +35,16 @@ class User < ActiveRecord::Base
 
   def update_library_roles
     Site.find_each do |site|
-      unless library_roles.where(site_id: site.id ).size > 0
-        library_roles.push LibraryRole.new(user_id: id, site_id: site.id)
+      if library_roles.where(site_id: site.id ).empty?
+        library_roles.push LibraryRole.new(user_id: id, site_id: site.id, allowed: false)
       end
       save!
     end
+  end
+
+  def update_with_password(params, *options)
+    permited = params.permit(:id, library_roles_attributes: [ :id, :site_id, :allowed])
+    update_attributes(permited, *options)
   end
 
   private

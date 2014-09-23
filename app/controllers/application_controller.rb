@@ -36,6 +36,9 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.for(:account_update) { |u| u.permit({ library_roles_attributes: [:site_id, :allowed] }, :email, :password, :password_confirmation) }
+    # devise_parameter_sanitizer.for(:account_update) { |u| u.permit({ library_roles_attributes: [:site_id, :allowed] }, :email, :password, :password_confirmation) }
+    devise_parameter_sanitizer.for(:account_update) do |u|
+      u.permit(:email, :password, library_roles_attributes: [:site_id, :allowed])
+    end
   end
 end

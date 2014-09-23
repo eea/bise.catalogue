@@ -1,0 +1,22 @@
+%h2
+  = "Edit #{resource_name.to_s.humanize}"
+
+= simple_form_for(resource, as: resource_name, url: user_registration_path(resource), :html => { :method => :put }) do |f|
+  = f.error_notification
+
+  .form-inputs
+    %legend Access to Libraries
+    = f.input :id, as: :hidden
+    .row
+      = f.fields_for :library_roles do |lr|
+        .col-md-3
+          .well.well-sm
+            = lr.input :id, as: :hidden
+            = lr.input :site_id, as: :hidden
+            = lr.input :allowed, as: :chk, label: lr.object.site.name, inline_label: 'Remember me'
+
+  .form-actions
+    = link_to "Cancel", :back, class: 'btn btn-danger'
+    = f.button :submit, "Update", class: 'btn btn-success'
+
+

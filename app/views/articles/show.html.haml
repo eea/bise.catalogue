@@ -10,10 +10,11 @@
     = link_to articles_path, class: 'btn btn-default' do
       = fa_icon 'reply'
       Back to List
-  - if current_user.approver?
+  - if can? :edit, @article
     = link_to edit_article_path(@article), class: 'btn btn-default', disabled: !@article.editable? do
       = fa_icon 'pencil'
       Edit
+  - if can? :delete, @article
     = link_to  article_path(@article), method: :delete, class: 'btn btn-danger pull-right' do
       = fa_icon 'trash-o'
       Delete

@@ -6,23 +6,22 @@ Catalogue::Application.routes.draw do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-
   comfy_route :cms_admin, path: '/cmsadmin'
   comfy_route :cms, path: '/help', sitemap: false
 
   root to: 'home#index'
 
-  devise_for :users
+  devise_for :users, controllers: {registrations: 'users/registrations'}
+  as :user do
+    get 'biseadmin/users/:id/edit', to: 'users/registrations#edit', as: 'edit_user_registration'
+    put 'biseadmin/users/:id' => 'users/registrations#update', as: 'user_registration'
+  end
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-
   get "home/index"
 
-  # SITES
-  # resources :sites
-
-  # ARTICLES
   resources :articles do
     collection do
       get :search
@@ -30,29 +29,24 @@ Catalogue::Application.routes.draw do
     end
   end
 
-  # DOCUMENTS
   resources :documents do
     collection do
       post :approve_multiple
     end
   end
 
-  # LINKS
   resources :links do
     collection do
       post :approve_multiple
     end
   end
 
-  # NEWS
   resources :news
-
-  # EUNIS (Species, Sites, Habitats)
   resources :protected_areas
   resources :habitats
   resources :species
 
-  # API
+  # ----- API -----
   namespace :api, defaults: { format: 'json' } do
     namespace :v1 do
       resources :sites, only: :show
@@ -71,7 +65,7 @@ Catalogue::Application.routes.draw do
     end
   end
 
-  # Bise Admin
+  # ----- Bise Admin -----
   namespace :biseadmin do
     resources :users, except: [:create]
     resources :sites
@@ -93,5 +87,4 @@ Catalogue::Application.routes.draw do
   #   put '/sync' => 'sync#update'
   #   delete '/sync' => 'sync#delete'
   # end
-
 end
