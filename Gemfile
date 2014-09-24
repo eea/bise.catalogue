@@ -12,6 +12,9 @@ gem 'devise'                    , '~> 3.2'
 gem 'devise_ldap_authenticatable'
 gem 'cancan'
 
+gem 'rsense'
+gem 'rubocop'
+
 gem 'comfortable_mexican_sofa'  , github: 'comfy/comfortable-mexican-sofa'
 
 # DATABASES
