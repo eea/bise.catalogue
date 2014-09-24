@@ -77,14 +77,4 @@ Catalogue::Application.routes.draw do
   end
 
   resources :statistics, only: [:index]
-
-  # ECOSYSTEM ASSESMENT
-  # resources :ecosystem_assessments
-
-  # scope '/api' do
-  #   get '/search' => 'search#index'
-  #   post '/sync' => 'sync#create'
-  #   put '/sync' => 'sync#update'
-  #   delete '/sync' => 'sync#delete'
-  # end
 end
