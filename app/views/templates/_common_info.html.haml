@@ -54,8 +54,12 @@
             %td
               .label.label-primary= version.event
             %td
-              - user = User.find(version.whodunnit)
-              = link_to user.name, "mailto:#{user.email}"
+              - if version.whodunnit.present?
+                - user = User.find(version.whodunnit)
+                = link_to user.name, "mailto:#{user.email}"
+              - else
+                = "3rd party systems"
+
             %td= version.created_at.strftime('%H:%M %p - %m/%d/%Y')
     %br
     - if obj.source_url.present?
