@@ -27,7 +27,7 @@ class Api::V1::StatsController < ApplicationController
       links: Link.where(approved: true).size,
       sites: ProtectedArea.all.size,
       habitats: Habitat.all.size,
-      species: Article.all.size
+      species: Species.all.size
     }
     # @counts_per_country =
 
