@@ -1,4 +1,9 @@
 # encoding: utf-8
+module ComfortableMexicanSofa::CatalogueAuth
+  def authenticate
+    redirect_to root_path unless current_user
+  end
+end
 
 ComfortableMexicanSofa.configure do |config|
   # Title of the admin area
