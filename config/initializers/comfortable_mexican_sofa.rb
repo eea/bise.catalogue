@@ -14,7 +14,8 @@ ComfortableMexicanSofa.configure do |config|
   # Module responsible for public authentication. Similar to the above. You also
   # will have access to @cms_site, @cms_layout, @cms_page so you can use them in
   # your logic. Default module doesn't do anything.
-  #   config.public_auth = 'ComfortableMexicanSofa::DummyAuth'
+  # config.public_auth = 'ComfortableMexicanSofa::DummyAuth'
+  config.public_auth = 'ComfortableMexicanSofa::CatalogueAuth'
 
   # When arriving at /cms-admin you may chose to redirect to arbirtary path,
   # for example '/cms-admin/users'
@@ -50,7 +51,7 @@ ComfortableMexicanSofa.configure do |config|
   # Content for Layouts, Pages and Snippets has a revision history. You can revert
   # a previous version using this system. You can control how many revisions per
   # object you want to keep. Set it to 0 if you wish to turn this feature off.
-  #   config.revisions_limit = 25
+  config.revisions_limit = 10
 
   # Locale definitions. If you want to define your own locale merge
   # {:locale => 'Locale Title'} with this.
