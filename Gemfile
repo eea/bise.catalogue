@@ -7,6 +7,7 @@ gem 'rack'                      , '~> 1.5.2'
 # gem 'railties'                , '~> 3.2.13'
 gem 'sinatra'                   , '>= 1.3.0', require: nil
 gem 'i18n'
+gem 'delayed_job_active_record'
 
 gem 'devise'                    , '~> 3.2'
 gem 'devise_ldap_authenticatable'
@@ -102,6 +103,7 @@ gem 'oj'
 gem 'geoip'
 
 group :development do
+  gem 'rack-mini-profiler', require: false
   gem 'coffee-rails-source-maps'
   gem 'better_errors'
 
