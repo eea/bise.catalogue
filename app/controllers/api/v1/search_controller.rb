@@ -1,4 +1,6 @@
 require 'sanitize'
+require "benchmark"
+
 
 module Api
   module V1
@@ -9,12 +11,6 @@ module Api
 
       def bise_search
         search = CatalogueSearch.new(search_params)
-
-        @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")
-        search.queried_from_ip = request.remote_ip
-        location = @geoip.country(request.remote_ip)[:country_name]
-        search.location = location if location != 0
-
         if search.save!
           respond_with BiseSearchExhibit.new(search).process
         else
@@ -23,15 +19,23 @@ module Api
       end
 
       def advanced_search
+        # binding.remote_pry
+        logger.debug { ":::::::::::: BENCHMARK :::::::::::::::" }
+        time = Benchmark.measure do
+          # (1..10000).each { |i| i }
+          search = CatalogueSearch.new(search_params)
+          response = AdvancedSearchExhibit.new(search).process
+        end
+        logger.debug { ":: TIME => #{time}" }
+
+        beginning_time = Time.now
         search = CatalogueSearch.new(search_params)
-
-        @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")
-        search.queried_from_ip = request.remote_ip
-        location = @geoip.country(request.remote_ip)[:country_name]
-        search.location = location if location != 0
-
         if search.save!
           respond_with AdvancedSearchExhibit.new(search).process
+          end_time = Time.now
+          logger.debug { "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" }
+          logger.debug { ":: Time elapsed #{(end_time - beginning_time)*1000} milliseconds" }
+          logger.debug { "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" }
         else
           respond_with {}
         end
@@ -40,7 +44,7 @@ module Api
       private
 
       def search_params
-        params.permit(:query, :page, :per, :site,
+        params.permit(:format, :query, :page, :per, :site,
                       :countries, :languages, :strategytarget,
                       :source_db, :biographical_region, :published_on,
                       :species_group, :taxonomic_rank, :genus,
