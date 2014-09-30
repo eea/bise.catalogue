@@ -20,22 +20,22 @@ module Api
 
       def advanced_search
         # binding.remote_pry
-        logger.debug { ":::::::::::: BENCHMARK :::::::::::::::" }
+        logger.warn { ":::::::::::: BENCHMARK :::::::::::::::" }
         time = Benchmark.measure do
           # (1..10000).each { |i| i }
           search = CatalogueSearch.new(search_params)
           response = AdvancedSearchExhibit.new(search).process
         end
-        logger.debug { ":: TIME => #{time}" }
+        logger.warn { ":: TIME => #{time}" }
 
         beginning_time = Time.now
         search = CatalogueSearch.new(search_params)
         if search.save!
           respond_with AdvancedSearchExhibit.new(search).process
           end_time = Time.now
-          logger.debug { "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" }
-          logger.debug { ":: Time elapsed #{(end_time - beginning_time)*1000} milliseconds" }
-          logger.debug { "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" }
+          logger.warn { "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" }
+          logger.warn { ":: Time elapsed #{(end_time - beginning_time)*1000} milliseconds" }
+          logger.warn { "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" }
         else
           respond_with {}
         end
