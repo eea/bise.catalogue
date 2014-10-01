@@ -128,6 +128,7 @@ group :development              , :test do
   gem 'gem-ctags'
 
   gem "rspec-rails"
+  gem 'faker'
   gem 'cucumber'                , '1.3.15'
   gem 'cucumber-rails'          , require: false
   gem 'database_cleaner'
