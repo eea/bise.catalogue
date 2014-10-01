@@ -4,16 +4,9 @@ class CatalogueSearch < ActiveRecord::Base
   paginates_per 20
 
   def initialize(args)
-    logger.info ''
-    logger.info '::::: CLIENT SEARCH PARAMS => '
-    logger.info args
-    logger.info ''
-
     args[:indexes] = args[:indexes].join(',')
     super
     self.query = '*' unless args[:query].present?
-    # @countries_list = args[:countries].join(',') if args[:countries].present?
-    # @languages_list = args[:languages].join(',') if args[:languages].present?
     if args[:published_on].present?
       self.start_date = DateTime.new(args[:published_on].to_i, 1, 1)
       self.end_date = DateTime.new(args[:published_on].to_i, 12, 31)
@@ -33,7 +26,7 @@ class CatalogueSearch < ActiveRecord::Base
 
   def geolocate_search
     @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")
-    self.queried_from_ip = request.remote_ip
+    # self.queried_from_ip = request.remote_ip
     loc = @geoip.country(request.remote_ip)[:country_name]
     self.location = loc if loc != 0
     save!
