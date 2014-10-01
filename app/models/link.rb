@@ -64,7 +64,7 @@ class Link < ActiveRecord::Base
           index_analyzer: 'ngramer',
           search_analyzer: 'snowball'
         },
-        exact: { type: 'string', index: :not_analyzed }
+        exact: { type: 'string', index: :not_analyzed, boost: 50 }
       }
       indexes :english_title, type: 'multi_field', fields: {
         english_title: {
