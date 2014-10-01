@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :language do
-    name "Swahili"
+    name Faker::Lorem.word
   end
 end

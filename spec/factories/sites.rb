@@ -2,8 +2,8 @@
 
 FactoryGirl.define do
   factory :site do
-    name 'BISE'
-    origin_url 'http://biodiversity.europa.eu'
+    name "#{Faker::Lorem.word} Library"
+    origin_url "http://#{Faker::Internet.slug}"
     description 'This is a description for BISE site...'
   end
 end
