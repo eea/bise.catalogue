@@ -1,5 +1,7 @@
 # class to store all searches performed from catalogue-client
 class CatalogueSearch < ActiveRecord::Base
+  include Sidekiq::Delay
+
   before_save :sanitize_query
   paginates_per 20
 
