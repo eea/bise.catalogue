@@ -7,7 +7,6 @@ gem 'rack'                      , '~> 1.5.2'
 # gem 'railties'                , '~> 3.2.13'
 gem 'sinatra'                   , '>= 1.3.0', require: nil
 gem 'i18n'
-gem 'delayed_job_active_record'
 
 gem 'devise'                    , '~> 3.2'
 gem 'devise_ldap_authenticatable'
@@ -59,6 +58,7 @@ gem 'tinymce-rails'
 # Advanced Search
 gem 'whenever'
 gem 'sidekiq'                   , github: 'mperham/sidekiq'
+gem 'sidekiq-delay'
 
 gem 'tire'                      , '>= 0.5.4'
 gem 'tire_async_index'
