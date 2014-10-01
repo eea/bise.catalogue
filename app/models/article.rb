@@ -25,7 +25,7 @@ class Article < ActiveRecord::Base
       search_analyzer: {
         type: 'custom',
         tokenizer: 'standard',
-        filter: %w(lowercase snowball)
+        filter: %w(standard lowercase asciifolding)
       },
       ngramer: {
         type: 'custom',

@@ -27,7 +27,7 @@ class Link < ActiveRecord::Base
     analyzer: {
       search_analyzer: {
         tokenizer: 'keyword',
-        filter: %w(lowercase snowball)
+        filter: %w(standard lowercase asciifolding)
       },
       ngramer: {
         type: 'custom',

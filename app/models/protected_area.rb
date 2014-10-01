@@ -26,7 +26,7 @@ class ProtectedArea < ActiveRecord::Base
     analyzer: {
       search_analyzer: {
         tokenizer: "keyword",
-        filter: ["lowercase"]
+        filter: %w(standard lowercase asciifolding)
       },
       index_ngram_analyzer: {
         tokenizer: "keyword",

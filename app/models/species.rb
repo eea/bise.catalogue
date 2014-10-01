@@ -42,7 +42,7 @@ class Species < ActiveRecord::Base
     analyzer: {
       search_analyzer: {
         tokenizer: "keyword",
-        filter: ["lowercase"]
+        filter: %w(standard lowercase asciifolding)
       },
       index_ngram_analyzer: {
         tokenizer: "keyword",
@@ -105,8 +105,7 @@ class Species < ActiveRecord::Base
       indexes :phylum         , index: :not_analyzed
       indexes :classis        , index: :not_analyzed
 
-      indexes :published_on,
-              type: 'date'
+      indexes :published_on   , type: 'date'
       indexes :approved       , type: 'boolean'
 
     }
