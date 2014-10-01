@@ -1,7 +1,7 @@
 class Habitat < ActiveRecord::Base
 
   include Tire::Model::Search
-  include Tire::Model::Callbacks
+  include Tire::Model::AsyncCallbacks
 
   attr_accessible :code
   attr_accessible :comment

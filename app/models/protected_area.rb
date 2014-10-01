@@ -1,7 +1,7 @@
 class ProtectedArea < ActiveRecord::Base
 
   include Tire::Model::Search
-  include Tire::Model::Callbacks
+  include Tire::Model::AsyncCallbacks
 
   attr_accessible :area
   attr_accessible :iucnat
