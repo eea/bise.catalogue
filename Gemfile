@@ -102,6 +102,8 @@ gem 'oj'
 
 gem 'geoip'
 
+gem 'faker'
+
 group :development do
   gem 'rack-mini-profiler', require: false
   gem 'coffee-rails-source-maps'
@@ -128,7 +130,6 @@ group :development              , :test do
   gem 'gem-ctags'
 
   gem "rspec-rails"
-  gem 'faker'
   gem 'cucumber'                , '1.3.15'
   gem 'cucumber-rails'          , require: false
   gem 'database_cleaner'
