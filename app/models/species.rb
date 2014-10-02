@@ -42,7 +42,7 @@ class Species < ActiveRecord::Base
     analyzer: {
       search_analyzer: {
         tokenizer: "keyword",
-        filter: %w(standard lowercase asciifolding)
+        filter: %w(lowercase snowball asciifolding)
       },
       index_ngram_analyzer: {
         tokenizer: "keyword",

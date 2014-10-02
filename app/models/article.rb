@@ -25,7 +25,7 @@ class Article < ActiveRecord::Base
       search_analyzer: {
         type: 'custom',
         tokenizer: 'standard',
-        filter: %w(standard lowercase asciifolding)
+        filter: %w(lowercase snowball asciifolding)
       },
       ngramer: {
         type: 'custom',
@@ -48,8 +48,7 @@ class Article < ActiveRecord::Base
       indexes :site do
         indexes :id        , type: 'integer'
         indexes :name      , type: 'string', index: :not_analyzed
-        indexes :ngram_name, index_analyzer: 'ngramer',
-                             search_analyzer: 'snowball'
+        indexes :ngram_name, index_analyzer: 'ngramer', search_analyzer: 'snowball'
       end
 
       indexes :title, type: 'multi_field', fields: {

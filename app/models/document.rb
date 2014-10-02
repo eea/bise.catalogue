@@ -34,7 +34,7 @@ class Document < ActiveRecord::Base
   settings analysis: {
     analyzer: {
       search_analyzer: { type: 'custom', tokenizer: 'standard',
-                         filter: %w(standard lowercase asciifolding) },
+                         filter: %w(lowercase snowball asciifolding) },
       ngramer: { type: 'custom', tokenizer: 'standard',
                  filter: %w(lowercase snowball substring) }
     },
@@ -215,18 +215,18 @@ class Document < ActiveRecord::Base
     tire.search load: true, page: params[:page], per_page: params[:per_page] do
       query do
         boolean do
-          should { string 'site.ngram_name:'           + params[:query].to_s }
-          should { string 'title:'                     + params[:query].to_s }
-          should { string 'title.exact:'               + params[:query].to_s }
-          should { string 'english_title:'             + params[:query].to_s }
-          should { string 'english_title.exact:'       + params[:query].to_s }
-          should { string 'description:'               + params[:query].to_s }
-          should { string 'ngram_author:'              + params[:query].to_s }
-          should { string 'attachment:'                + params[:query].to_s }
-          should { string 'countries.ngram_name:'      + params[:query].to_s }
-          should { string 'languages.ngram_name:'      + params[:query].to_s }
-          should { string 'tags.ngram_name:'           + params[:query].to_s }
-          should { string 'biographical_region:' + params[:query].to_s }
+          should { string 'site.ngram_name:'      + params[:query].to_s }
+          should { string 'title:'                + params[:query].to_s }
+          should { string 'title.exact:'          + params[:query].to_s }
+          should { string 'english_title:'        + params[:query].to_s }
+          should { string 'english_title.exact:'  + params[:query].to_s }
+          should { string 'description:'          + params[:query].to_s }
+          should { string 'ngram_author:'         + params[:query].to_s }
+          should { string 'attachment:'           + params[:query].to_s }
+          should { string 'countries.ngram_name:' + params[:query].to_s }
+          should { string 'languages.ngram_name:' + params[:query].to_s }
+          should { string 'tags.ngram_name:'      + params[:query].to_s }
+          should { string 'biographical_region:'  + params[:query].to_s }
         end
       end if params[:query].present?
 

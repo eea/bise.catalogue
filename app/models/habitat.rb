@@ -24,7 +24,7 @@ class Habitat < ActiveRecord::Base
       search_analyzer: {
         type: 'custom',
         tokenizer: 'standard',
-        filter: %w(standard lowercase asciifolding)
+        filter: %w(lowercase snowball asciifolding)
       },
       index_ngram_analyzer: {
         type: 'custom',
