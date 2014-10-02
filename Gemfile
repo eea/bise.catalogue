@@ -59,6 +59,7 @@ gem 'tinymce-rails'
 gem 'whenever'
 gem 'sidekiq'                   , github: 'mperham/sidekiq'
 gem 'sidekiq-delay'
+gem 'redmon'                    , require: false
 
 gem 'tire'                      , '>= 0.5.4'
 gem 'tire_async_index'
