@@ -3,6 +3,7 @@ class CatalogueSearch < ActiveRecord::Base
   include Sidekiq::Delay
 
   before_save :sanitize_query
+  after_create :geolocate_search
   paginates_per 20
 
   def initialize(args)
@@ -13,7 +14,6 @@ class CatalogueSearch < ActiveRecord::Base
       self.start_date = DateTime.new(args[:published_on].to_i, 1, 1)
       self.end_date = DateTime.new(args[:published_on].to_i, 12, 31)
     end
-    self.delay.geolocate_search
   end
 
   def extract_response(rows)
@@ -24,14 +24,6 @@ class CatalogueSearch < ActiveRecord::Base
         results: rows.results,
         facets: rows.results.facets }
     end
-  end
-
-  def geolocate_search
-    @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")
-    # self.queried_from_ip = request.remote_ip
-    loc = @geoip.country(request.remote_ip)[:country_name]
-    self.location = loc if loc != 0
-    save!
   end
 
   # def countries
@@ -57,4 +49,13 @@ class CatalogueSearch < ActiveRecord::Base
   def sanitize_query
     @query = Sanitize.clean(query)
   end
+
+  def geolocate_search
+    @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")
+    # self.queried_from_ip = request.remote_ip
+    loc = @geoip.country(request.remote_ip)[:country_name]
+    self.location = loc if loc != 0
+    save!
+  end
+
 end
