@@ -1,68 +1,56 @@
-require 'delegate'
+class BiseSearch
 
-# Exhibit to wrap search model and allow search
-# only in bise site
-class BiseSearchExhibit < SimpleDelegator
-
-  def initialize(model)
-    super(model)
-    @search_type = 'BISE'
-    save!
+  def initialize(search)
+    search.attributes.each_pair{ |k, v| instance_variable_set( "@#{k}", v) }
+    @start_page ||= 1
   end
 
-  def to_model
-    __getobj__
+  # Allows :json format for API
+  def process(format)
+    (format.eql?(:json)) ? extract_json(elastic_query) : elastic_query
   end
 
-  def class
-    __getobj__.class
-  end
-
-  def search_filter
+  def filters
     a = []
     a << { term: { approved: true } }
     a << { term: { 'site.name' => 'BISE' } }
-    a << { term: { source_db: source_db } } if source_db.present?
-    a << { term: { 'countries.name' => countries } } if countries.present?
-    a << { term: { 'languages.name' => languages } } if languages.present?
-    a << { term: { biographical_region: biographical_region } } if biographical_region.present?
-    a << { range:{ published_on: { gte: start_date , lt: end_date } } } if start_date.present?
-    a << { term: { 'targets.title.exact' => strategytarget } } if strategytarget.present?
+    a << { term: { source_db: @source_db } } if @source_db.present?
+    a << { term: { 'countries.name' => @countries } } if @countries.present?
+    a << { term: { 'languages.name' => @languages } } if @languages.present?
+    a << { term: { biographical_region: @biographical_region } } if @biographical_region.present?
+    a << { range:{ published_on: { gte: @start_date , lt: @end_date } } } if @start_date.present?
+    a << { term: { 'targets.title.exact' => @strategytarget } } if @strategytarget.present?
     a
   end
 
-  def process
-    q = self.query
-    source_db = self.source_db
-    countries = self.countries
-    languages = self.languages
-    biogeo    = self.biographical_region
-    date_init = self.start_date
-    date_end  = self.end_date
-    target    = self.strategytarget
+  def elastic_query
+    q              = @query
+    source_db      = @source_db
+    countries      = @countries
+    languages      = @languages
+    biogeo         = @biographical_region
+    date_init      = @start_date
+    date_end       = @end_date
+    target         = @strategytarget
 
-    search_filter = self.search_filter
-    indexes = self.es_indexes
+    search_filter  = filters
+    indexes        = es_indexes
 
-    rows = Tire.search indexes, load: false, from: self.start_page, size: self.per do
+    rows = Tire.search indexes, load: false, from: start_page, size: @per do
       query do
         boolean do
-          # should   { string 'site.name: BISE' }
           should   { string 'title:'                     + q }
           should   { string 'english_title:'             + q }
           should   { string 'description:'               + q }
           should   { string 'content:'                   + q }
           should   { string 'attachment:'                + q }
 
-          should   { string 'ngram_author:'              + q }
+          should   { string 'authors.name:'              + q }
 
           should   { string 'countries.ngram_name:'      + q }
           should   { string 'languages.ngram_name:'      + q }
 
-          should   { string 'tags.ngram_name:'           + q }
-          should   { string 'biograhical_region_ngram:' + q }
-
-          should   { string 'name:'                      + q }
+          should   { string 'tags.name:'                 + q }
           should   { string 'biogeo_regions.name:'       + q }
           should   { string 'biogeo_regions.code:'       + q }
         end
@@ -104,7 +92,30 @@ class BiseSearchExhibit < SimpleDelegator
         facet_filter :and, search_filter unless search_filter.empty?
       end
     end
-    extract_response rows
+    rows
+  end
+
+private
+
+  def es_indexes
+    @indexes.split(',').map do |category|
+      "catalogue_#{Rails.env}_#{category}"
+    end unless @indexes.nil?
+  end
+
+  def start_page
+    return 0 if @page.nil?
+    @page == 1 ? 0 : (@page - 1) * @per
+  end
+
+  def extract_json(rows)
+    if rows.nil? || rows.results.nil?
+      { total: 0, results: [], facets: [] }
+    else
+      { total: rows.results.total,
+        results: rows.results,
+        facets: rows.results.facets }
+    end
   end
 
 end

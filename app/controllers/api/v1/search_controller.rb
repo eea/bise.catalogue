@@ -1,6 +1,5 @@
 require 'sanitize'
-require "benchmark"
-
+# require "benchmark"
 
 module Api
   module V1
@@ -11,34 +10,12 @@ module Api
 
       def bise_search
         search = CatalogueSearch.new(search_params)
-        if search.save!
-          respond_with BiseSearchExhibit.new(search).process
-        else
-          respond_with {}
-        end
+        respond_with BiseSearch.new(search).process(:json)
       end
 
       def advanced_search
-        # binding.remote_pry
-        logger.warn { ":::::::::::: BENCHMARK :::::::::::::::" }
-        time = Benchmark.measure do
-          # (1..10000).each { |i| i }
-          search = CatalogueSearch.new(search_params)
-          response = AdvancedSearchExhibit.new(search).process
-        end
-        logger.warn { ":: TIME => #{time}" }
-
-        beginning_time = Time.now
-        search = CatalogueSearch.new(search_params)
-        if search.save!
-          respond_with AdvancedSearchExhibit.new(search).process
-          end_time = Time.now
-          logger.warn { "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" }
-          logger.warn { ":: Time elapsed #{(end_time - beginning_time)*1000} milliseconds" }
-          logger.warn { "::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::" }
-        else
-          respond_with {}
-        end
+        @search = CatalogueSearch.new(search_params)
+        respond_with AdvancedSearch.new(@search).process(:json)
       end
 
       private

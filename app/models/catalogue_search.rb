@@ -3,17 +3,19 @@ class CatalogueSearch < ActiveRecord::Base
   include Sidekiq::Delay
 
   before_save :sanitize_query
-  after_create :geolocate_search
+  # after_create :geolocate_search
   paginates_per 20
 
   def initialize(args)
-    args[:indexes] = args[:indexes].join(',')
+    args[:indexes] = args[:indexes].join(',') if args[:indexes].present?
     super
     self.query = '*' unless args[:query].present?
     if args[:published_on].present?
       self.start_date = DateTime.new(args[:published_on].to_i, 1, 1)
       self.end_date = DateTime.new(args[:published_on].to_i, 12, 31)
     end
+    self.page ||= 1
+    self.per ||= 30
   end
 
   def extract_response(rows)
@@ -41,6 +43,7 @@ class CatalogueSearch < ActiveRecord::Base
   end
 
   def start_page
+    return 0 if page.nil?
     page == 1 ? 0 : (page - 1) * per
   end
 
