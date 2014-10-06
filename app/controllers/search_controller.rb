@@ -1,44 +1,20 @@
 class SearchController < ApplicationController
-
-  layout "embedded"
+  layout "public"
 
   def index
-    q = params[:query]
-    q = nil if q == ''
-
-    indexes = nil
-    if Rails.env.production?
-      indexes = %w(catalogue_production_articles catalogue_production_documents catalogue_production_species)
-    elsif Rails.env.development?
-      indexes = %w(catalogue_development_articles catalogue_development_documents catalogue_development_species)
-    end
-
-    if !q.nil?
-      @rows = Tire.search indexes, laod: true, page: params[:page], per_page: 30 do
-        query do
-          boolean do
-            # Article & Documents titles
-            should   { string 'title:' + q }
-
-            # Species scientifi name
-            should   { string 'scientific_name:' + q }
-
-            # should   { string 'content:' + params[:query].to_s }
-            # must_not { string 'published:0' }
-          end
-        end
-      end
-    else
-      @rows = nil
-    end
-
-
-
-    # @articles = Article.first
+    @search = CatalogueSearch.new(search_params)
+    @rows = AdvancedSearch.new(@search).process
     respond_to do |format|
       format.html
       format.json { render json: @rows }
     end
   end
 
+  def search_params
+    params.permit(:format, :query, :page, :per, :site,
+                  :countries, :languages, :strategytarget,
+                  :source_db, :biographical_region, :published_on,
+                  :species_group, :taxonomic_rank, :genus,
+                  indexes: [])
+  end
 end

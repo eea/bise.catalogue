@@ -1,0 +1,24 @@
+%tr
+  %td.article_cell
+    .cell-title
+      = link_to article.title, article
+
+    %small
+      = "by #{article.author} " unless article.try(:author).blank?
+      = "at #{article.published_on}" unless article.try(:published_on).blank?
+
+    - if article.approved?
+      %span.label.label-success.pull-right
+        Approved
+    - else
+      %span.label.label-danger.pull-right
+        Unapproved
+
+    -# - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content_without_tags'
+    -#   - att_hits = hit['highlight']['content_without_tags']
+    -#   .hits
+    -#     %ol{ type: "I" }
+    -#       - att_hits.each do |h|
+    -#         %li
+    -#           %p.hit= raw '...' + h + '...'
+

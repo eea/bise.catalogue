@@ -1,0 +1,52 @@
+%tr
+  %td.document_cell
+
+    %div{ style: 'float:left; width: 45px;'}
+      - if doc.content_type == 'application/pdf'
+        %div.pull-left.mini-icon.pdf
+      - elsif doc.content_type == 'application/rtf'
+        %div.pull-left.mini-icon.rtf
+      - elsif doc.content_type == 'application/msword'
+        %div.pull-left.mini-icon.word
+      - elsif doc.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        %div.pull-left.mini-icon.word2010
+      - elsif doc.content_type == 'text/csv'
+        %div.pull-left.mini-icon.csv
+      - elsif doc.content_type == 'application/vnd.ms-excel'
+        %div.pull-left.mini-icon.excel
+      - elsif doc.content_type == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        %div.pull-left.mini-icon.excel2010
+      - elsif doc.content_type == 'application/vnd.ms-powerpoint'
+        %div.pull-left.mini-icon.powerpoint
+      - elsif doc.content_type == 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+        %div.pull-left.mini-icon.powerpoint2010
+      - elsif doc.content_type == 'text/plain'
+        %div.pull-left.mini-icon.plaintext
+
+    %div{ style: 'margin-left: 50px'}
+
+      .cell-title
+        = link_to doc.title, doc
+        - if doc.title != doc.english_title
+          %br
+          %small= doc.english_title
+
+      - if doc.author?
+        %small
+          = "by #{doc.author} "
+          = "on #{doc.published_on}"
+      - if doc.approved?
+        %span.label.label-success.pull-right
+          Approved
+      - else
+        %span.label.label-danger.pull-right
+          Unapproved
+
+      %br
+      - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
+        - att_hits = hit['highlight']['attachment']
+        .hits
+          %ol{ type: "I" }
+            - att_hits.each do |h|
+              %li
+                %p.hit= raw '...' + h + '...'

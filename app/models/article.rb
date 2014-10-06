@@ -201,8 +201,8 @@ class Article < ActiveRecord::Base
           should { string 'countries.ngram_name:' + params[:query].to_s }
           should { string 'languages.ngram_name:' + params[:query].to_s }
           should { string 'tags.ngram_name:'      + params[:query].to_s }
-          should { string 'biographical_region:'  + params[:query].to_s}
-          should { string 'content:' + params[:query].to_s }
+          should { string 'biographical_region:'  + params[:query].to_s }
+          should { string 'content:'              + params[:query].to_s }
         end
       end if params[:query].present?
 

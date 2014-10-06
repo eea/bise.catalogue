@@ -2,6 +2,20 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
+  catalogue:
+    facets:
+      site: Source
+      source_db: Source Database
+      countries: Countries
+      biographical_region:  Biographical Region
+      languages: Language
+      species_group: Species Group
+      taxonomic_rank: Taxonomic Rank
+      genus: Genus
+      strategytarget: Strategy Target
+
+
+
   date:
     formats:
       default: "%d/%m/%Y"

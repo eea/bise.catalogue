@@ -10,12 +10,12 @@ module Api
 
       def bise_search
         search = CatalogueSearch.new(search_params)
-        respond_with BiseSearch.new(search).process(:json)
+        respond_with BiseSearch.new(search).process
       end
 
       def advanced_search
         @search = CatalogueSearch.new(search_params)
-        respond_with AdvancedSearch.new(@search).process(:json)
+        respond_with AdvancedSearch.new(@search).process
       end
 
       private

@@ -4,7 +4,7 @@ class CatalogueSearch < ActiveRecord::Base
 
   before_save :sanitize_query
   # after_create :geolocate_search
-  paginates_per 20
+  # paginates_per 10
 
   def initialize(args)
     args[:indexes] = args[:indexes].join(',') if args[:indexes].present?
@@ -15,18 +15,18 @@ class CatalogueSearch < ActiveRecord::Base
       self.end_date = DateTime.new(args[:published_on].to_i, 12, 31)
     end
     self.page ||= 1
-    self.per ||= 30
+    self.per ||= 10
   end
 
-  def extract_response(rows)
-    if rows.nil? || rows.results.nil?
-      { total: 0, results: [], facets: [] }
-    else
-      { total: rows.results.total,
-        results: rows.results,
-        facets: rows.results.facets }
-    end
-  end
+  # def extract_response(rows)
+  #   if rows.nil? || rows.results.nil?
+  #     { total: 0, results: [], facets: [] }
+  #   else
+  #     { total: rows.results.total,
+  #       results: rows.results,
+  #       facets: rows.results.facets }
+  #   end
+  # end
 
   # def countries
   #   @countries_list.present? ? @countries_list.split(',') : nil

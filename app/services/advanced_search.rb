@@ -2,12 +2,13 @@ class AdvancedSearch
 
   def initialize(search)
     search.attributes.each_pair{ |k, v| instance_variable_set( "@#{k}", v) }
-    @start_page ||= 1
+    @start_page = 1
+    @load = (@format.eql?(:json)) ? false : true
   end
 
   # Allows :json format for API
-  def process(format)
-    (format.eql?(:json)) ? extract_json(elastic_query) : elastic_query
+  def process
+    (@format.eql?(:json)) ? extract_json(elastic_query) : elastic_query
   end
 
   def filters
@@ -28,7 +29,7 @@ class AdvancedSearch
     a
   end
 
-  def elastic_query
+  def elastic_query(options = {})
     q              = @query
     site           = @site
     source_db      = @source_db
@@ -46,7 +47,7 @@ class AdvancedSearch
     taxonomic_rank = @taxonomic_rank
     genus          = @genus
 
-    rows = Tire.search indexes, load: false, from: start_page, size: @per do
+    rows = Tire.search indexes, load: @load, from: start_page, size: @per do
       query do
         boolean do
           should   { string 'title:'                     + q }
