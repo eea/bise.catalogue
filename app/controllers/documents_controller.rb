@@ -75,7 +75,7 @@ class DocumentsController < ApplicationController
   protected
 
   def collection
-    @articles ||= end_of_association_chain.search(params)
+    @documents ||= end_of_association_chain.search(params)
   end
 
 end
