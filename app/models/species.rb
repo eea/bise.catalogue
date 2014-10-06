@@ -100,6 +100,7 @@ class Species < ActiveRecord::Base
       indexes :genus          , type: 'string', index: :not_analyzed
 
       indexes :valid_name     , type: 'boolean', index: :not_analyzed
+      indexes :metedata       , type: 'string'
 
       indexes :kingdom        , index: :not_analyzed
       indexes :phylum         , index: :not_analyzed
@@ -140,6 +141,7 @@ class Species < ActiveRecord::Base
       genus:           genus,
 
       valid_name:      valid_name,
+      metadata:        metadata,
 
       kingdom:         kingdom,
       phylum:          phylum_division,
@@ -147,6 +149,10 @@ class Species < ActiveRecord::Base
       published_on:    created_at,
       approved:        approved
     }.to_json
+  end
+
+  def metadata
+    "#{species_group} #{taxonomic_rank} #{kingdom} #{phylum_division} #{classis} #{genus}"
   end
 
   # Returns the kingdom of a species

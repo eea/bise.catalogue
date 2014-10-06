@@ -70,19 +70,9 @@ class AdvancedSearch
           should   { string 'scientific_name:'           + q }
           should   { string 'vernacular_names.name:'     + q }
           should   { string 'authorship:'                + q }
-          should   { string 'species_group:'             + q }
-          should   { string 'taxonomic_rank:'            + q }
-          should   { string 'genus:'                     + q }
-          should   { string 'kingdom:'                   + q }
-          should   { string 'phylum:'                    + q }
-          should   { string 'classis:'                   + q }
+          should   { string 'metadata:'                  + q }
           should   { string 'synonyms.binomial_name:'    + q }
           should   { string 'synonyms.scientific_name:'  + q }
-          should   { string 'protected_areas.code:'      + q }
-          should   { string 'protected_areas.name:'      + q }
-          should   { string 'habitats.name:'             + q }
-          should   { string 'habitats.code:'             + q }
-
         end
       end
 
