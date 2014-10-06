@@ -4,6 +4,7 @@ Catalogue::Application.routes.draw do
 
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
+    mount Redmon::App  => '/redmon'
   end
 
   comfy_route :cms_admin, path: '/cmsadmin'
