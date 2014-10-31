@@ -33,7 +33,9 @@
           %td{ style: 'width: 25%; font-weight: bold' }
             Author
           %td
-            = obj.author
+            %ul.list-unstyled
+              - obj.splitted_authors.each do |author|
+                %li= author
         %tr
           %td{ style: 'width: 25%; font-weight: bold' }
             Published_on
