@@ -58,7 +58,7 @@ module Classifiable
 
     def splitted_authors
       return [] if author.nil?
-      author.gsub(/\sand/, ',').split(/\,/).map { |a| a.strip }
+      author.gsub(/\sand/, ';').split(/\;/).map { |a| a.strip }
     end
   end
 end
