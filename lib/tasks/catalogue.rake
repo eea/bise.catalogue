@@ -12,6 +12,20 @@ namespace :catalogue do
     Rake::Task['catalogue:import:countries'].execute
   end
 
+  namespace :reindex do
+    desc 'Reindex all classifiable objects (Documents, Links and Webpages)'
+    task classifiable: :environment do
+      puts ":: Reindexing links.."
+      Link.find_each { |a| a.save! }
+      puts ":: Reindexing documents.."
+      Document.find_each { |a| a.save! }
+      puts ":: Reindexing webpages.."
+      Article.find_each { |a| a.save! }
+      puts ":: Done!"
+
+    end
+  end
+
   namespace :import do
 
     # Internal task that loads common vocabularies, spira inherited classes and
