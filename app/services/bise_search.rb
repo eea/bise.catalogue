@@ -2,7 +2,7 @@ class BiseSearch
 
   def initialize(search)
     search.attributes.each_pair{ |k, v| instance_variable_set( "@#{k}", v) }
-    @start_page ||= 1
+    @load = (@format.eql?(:json)) ? false : true
   end
 
   # Allows :json format for API
@@ -36,7 +36,7 @@ class BiseSearch
     search_filter  = filters
     indexes        = es_indexes
 
-    rows = Tire.search indexes, load: false, from: start_page, size: @per do
+    rows = Tire.search indexes, load: @load, from: start_page, size: @per do
       query do
         boolean do
           should   { string 'title:'                     + q }

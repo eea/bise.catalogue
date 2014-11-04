@@ -2,7 +2,6 @@ class AdvancedSearch
 
   def initialize(search)
     search.attributes.each_pair{ |k, v| instance_variable_set( "@#{k}", v) }
-    @start_page = 1
     @load = (@format.eql?(:json)) ? false : true
   end
 

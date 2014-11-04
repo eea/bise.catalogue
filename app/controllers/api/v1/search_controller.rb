@@ -9,13 +9,13 @@ module Api
       after_filter :set_access_control_headers
 
       def bise_search
-        search = CatalogueSearch.new(search_params)
-        respond_with BiseSearch.new(search).process
+        @search = CatalogueSearch.new(search_params)
+        respond_with BiseSearch.new(@search).process(:json)
       end
 
       def advanced_search
         @search = CatalogueSearch.new(search_params)
-        respond_with AdvancedSearch.new(@search).process
+        respond_with AdvancedSearch.new(@search).process(:json)
       end
 
       private
