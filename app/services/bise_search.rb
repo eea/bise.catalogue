@@ -7,6 +7,7 @@ class BiseSearch
 
   # Allows :json format for API
   def process(format)
+    @load = true if format.eql?(:json)
     (format.eql?(:json)) ? extract_json(elastic_query) : elastic_query
   end
 
