@@ -6,8 +6,8 @@ class AdvancedSearch
   end
 
   # Allows :json format for API
-  def process
-    (@format.eql?(:json)) ? extract_json(elastic_query) : elastic_query
+  def process(format)
+    (format.eql?(:json)) ? extract_json(elastic_query) : elastic_query
   end
 
   def filters
