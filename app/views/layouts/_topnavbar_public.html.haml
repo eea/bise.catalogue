@@ -1,0 +1,66 @@
+.navbar.navbar-default.navbar-fixed-top{role: "navigation"}
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", type: "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to home_path, class: 'navbar-brand' do
+        = fa_icon "archive"
+        BISE Catalogue
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav
+      %ul.nav.navbar-nav.pull-right
+        - if current_user.present?
+          %li.dropdown
+            %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', style: 'padding-top: 0px; padding-bottom: 5px' }
+              .media{ style: 'padding-top: 4px'}
+                %h3.pull-left.margin-none
+                  %span.glyphicon.glyphicon-user.media-object{ style: 'margin-top: 8px'}
+                .media-body
+                  %h6.media-heading{ style: 'display:inline'}= current_user.name
+                  %br
+                  %small
+                    %strong= current_user.role
+                    %b.caret
+            %ul.dropdown-menu
+              %li
+                = link_to '/help' do
+                  = fa_icon 'book'
+                  Documentation (Pending)
+              %li
+                = link_to statistics_path do
+                  = fa_icon 'bar-chart-o'
+                  Statistics
+              - if current_user.role_admin?
+                %li.divider
+                %li
+                  = link_to biseadmin_users_path do
+                    = fa_icon 'users'
+                    Manage Users
+                %li
+                  = link_to biseadmin_sites_path do
+                    = fa_icon 'cogs'
+                    Manage Sources
+                %li
+                  = link_to biseadmin_keyword_containers_path do
+                    = fa_icon 'tag'
+                    Manage Keywords & Tags
+                %li
+                  = link_to biseadmin_targets_path do
+                    = fa_icon 'bullseye'
+                    Manage Targets & Actions
+                %li.divider
+                %li
+                  = link_to biseadmin_unprocessed_objects_path do
+                    = fa_icon 'times-circle'
+                    Unprocessed Objects
+              %li.divider
+              %li
+                = link_to destroy_user_session_path, method: :delete do
+                  = fa_icon 'power-off'
+                  Close session
+        - else
+          %li= link_to 'Sign In', [:new, :user, :session]
+
