@@ -22,7 +22,6 @@ namespace :catalogue do
       puts ":: Reindexing webpages.."
       Article.find_each { |a| a.save! }
       puts ":: Done!"
-
     end
   end
 

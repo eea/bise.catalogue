@@ -157,8 +157,8 @@ class Article < ActiveRecord::Base
       end,
 
       tags:           tag_list.map { |t| { name: t } },
-      targets:        target_list.map { |t| { title: t.split(':')[0] } },
-      biographical_region: biographical_region
+      targets:        target_list.map { |t| { title: t.split(':')[0] }},
+      biographical_region: biographical_region.blank? ? nil : biographical_region
     }.to_json
   end
 

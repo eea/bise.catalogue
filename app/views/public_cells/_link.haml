@@ -1,25 +1,24 @@
-%tr
-  %td.link_cell
-    .cell-title
-      = link_to link.title, link
+.cell.link_cell
+  .media
+    %a.pull-left{:href => "#"}
+      %img{ style: 'width: 45px; height: 45px' }
+      /= image_tag 'content-types/ico-web-pages.png', class: 'media-object'
+    .media-body
+      %h5.media-heading
+        = link_to link.title, link
 
-    %small
-      = "by #{link.author} " unless link.try(:author).blank?
-      = "at #{link.published_on}" unless link.try(:published_on).blank?
+      %small.source.text-success= link.url
 
-    - if link.approved?
-      %span.label.label-success.pull-right
-        Approved
-    - else
-      %span.label.label-danger.pull-right
-        Unapproved
+    %small.text-muted
+      %ul.list-unstyled.list-inline
+        - unless link.author.blank?
+          %li
+            = fa_icon 'navicon'
+            %span.text-muted Author:
+            = link.author
+        %li
+          = fa_icon 'calendar'
+          %span.text-muted Created:
+          = link.created_at.strftime('%m/%d/%Y')
 
-    %br
-    - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content'
-      - att_hits = hit['highlight']['content']
 
-      .hits
-        %ol{ type: "I" }
-          - att_hits.each do |h|
-            %li
-              %p.hit= raw '...' + h + '...'

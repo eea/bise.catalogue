@@ -1,24 +1,34 @@
-%tr
-  %td.article_cell
-    .cell-title
-      = link_to article.title, article
+.cell.article_cell
+  .media
+    %a.pull-left{:href => "#"}
+      %img{ style: 'width: 45px; height: 45px' }
+      /= image_tag 'content-types/ico-web-pages.png', class: 'media-object'
+    .media-body
+      %h5.media-heading
+        = link_to article.title, article
 
-    %small
-      = "by #{article.author} " unless article.try(:author).blank?
-      = "at #{article.published_on}" unless article.try(:published_on).blank?
+      %small.source.text-success= article.source_url
 
-    - if article.approved?
-      %span.label.label-success.pull-right
-        Approved
-    - else
-      %span.label.label-danger.pull-right
-        Unapproved
+      /= raw article.content
+      - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content_without_tags'
+        - att_hits = hit['highlight']['content_without_tags']
+        .hits
+          %ol{ type: "I" }
+            - att_hits.each do |h|
+              %li
+                %p.hit= raw '...' + h + '...'
 
-    -# - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content_without_tags'
-    -#   - att_hits = hit['highlight']['content_without_tags']
-    -#   .hits
-    -#     %ol{ type: "I" }
-    -#       - att_hits.each do |h|
-    -#         %li
-    -#           %p.hit= raw '...' + h + '...'
+      %small.text-muted
+        %ul.list-unstyled.list-inline
+          - unless article.author.blank?
+            %li
+              = fa_icon 'chevron-right'
+              %span.text-muted Author:
+              = article.author
+          %li
+            = fa_icon 'chevron-right'
+            %span.text-muted Created:
+            = article.created_at
+
+
 

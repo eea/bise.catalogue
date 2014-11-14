@@ -7,12 +7,12 @@
     = "by #{news.author} "
     = "at #{news.published_on.strftime('%m/%d/%Y')}"
 
-  - if news.approved?
-      %span.label.label-success.pull-right
-        Approved
-  - else
-    %span.label.label-important.pull-right
-      Unapproved
+  -# - if news.approved?
+  -#     %span.label.label-success.pull-right
+  -#       Approved
+  -# - else
+  -#   %span.label.label-important.pull-right
+  -#     Unapproved
 
   %br
   - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content'

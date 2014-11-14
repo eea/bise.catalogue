@@ -179,7 +179,7 @@ class Document < ActiveRecord::Base
 
       tags:           tag_list.map { |t| { name: t } },
       targets:        target_list.map { |t| { title: t.split(':')[0] } },
-      biographical_region:       biographical_region,
+      biographical_region:       biographical_region.blank? ? nil : biographical_region,
 
       file_name:                 document_path,
       content_type:              content_type,

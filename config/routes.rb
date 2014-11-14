@@ -2,6 +2,10 @@ require 'sidekiq/web'
 
 Catalogue::Application.routes.draw do
 
+  root to: 'searches#index', as: :search
+
+  get 'dashboard' => 'home#index', as: :home
+
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
     mount Redmon::App  => '/redmon'
@@ -10,7 +14,6 @@ Catalogue::Application.routes.draw do
   comfy_route :cms_admin, path: '/cmsadmin'
   comfy_route :cms, path: '/help', sitemap: false
 
-  root to: 'home#index'
 
   devise_for :users, controllers: {registrations: 'users/registrations'}
   as :user do
@@ -22,6 +25,9 @@ Catalogue::Application.routes.draw do
   ActiveAdmin.routes(self)
 
   get "home/index"
+
+  get 'search' => 'searches#index', as: :public_search
+  resources :searches, only: [:index, :create]
 
   resources :articles do
     collection do

@@ -24,11 +24,15 @@
   %body
     = render 'layouts/topnavbar_public'
     .container
-      .pageheader
-        .container-fluid
-          %h1= yield :pageheader
-      -# - if content_for?(:actions)
-      -#   = render partial: 'layouts/toolbar'
+      .pageheader{ style: 'margin-top: 40px' }
+        .row
+          .col-md-3.col-sm-4.col-xs-4
+            = image_tag 'logo_only.png', style: 'width: 100%; max-width: 200px'
+          .col-md-9.col-sm-8.col-xs-8
+            .separator.top
+            %h2.media-heading{style: 'font-weight: bold'} Biodiversity Information Service Europe
+            %small.hidden-xs The BISE Catalogue is a single entry point....
+          / %h1= yield :pageheader
       .inner-container
         - if notice
           %p.alert.alert-success
@@ -40,7 +44,7 @@
             %a.close{ href: '#', 'data-dismiss'=> 'alert'}
               &times;
             = alert
-        = yield
+      = yield
     = render partial: 'layouts/footer'
 
     / Placed at the end of the document so the pages load faster

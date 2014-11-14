@@ -1,13 +1,18 @@
-class SearchController < ApplicationController
+class SearchesController < ApplicationController
   layout "public"
 
   def index
     @search = CatalogueSearch.new(search_params)
-    @rows = AdvancedSearch.new(@search).process
+    @rows = AdvancedSearch.new(@search).process(:html)
     respond_to do |format|
       format.html
       format.json { render json: @rows }
     end
+  end
+
+  def create
+    query = params.require(:catalogue_search).permit(:query)[:query]
+    redirect_to controller: 'searches', action: 'index', query: query
   end
 
   def search_params

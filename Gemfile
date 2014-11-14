@@ -36,7 +36,6 @@ gem "jqcloud-rails"
 
 
 gem 'yui-compressor'
-gem 'bourbon'
 
 gem 'underscore-rails'
 gem 'best_in_place'             , github: 'aaronchi/best_in_place'
@@ -68,8 +67,13 @@ gem 'paper_trail'               , '~> 3.0.5'
 
 # TWITTER BOOTSTRAP
 # gem "twitter-bootstrap-rails" , github: 'seyhunak/twitter-bootstrap-rails' , branch: 'bootstrap3'
+gem 'bourbon'                   , '~> 3.2.1'
+gem 'neat'
+gem 'bitters'
+gem 'refills'
 gem 'bootstrap-sass'            , '~> 3.1.1'
-gem "font-awesome-rails"
+gem "font-awesome-rails"        , '~> 4.2.0.0'
+gem 'bootstrap-select-rails'
 
 
 
@@ -180,3 +184,7 @@ gem 'protected_attributes'
 # gem 'actionpack-page_caching'
 # gem 'actionpack-action_caching'
 # gem 'activerecord-deprecated_finders'
+
+
+# GIS
+gem 'rgeo-shapefile'

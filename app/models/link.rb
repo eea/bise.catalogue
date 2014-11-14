@@ -175,7 +175,7 @@ class Link < ActiveRecord::Base
         { title: t.name.split(':')[0] }
       end,
 
-      biographical_region: biographical_region
+      biographical_region: biographical_region.blank? ? nil : biographical_region
     }.to_json
   end
 

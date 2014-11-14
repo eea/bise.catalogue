@@ -55,6 +55,7 @@
 # require jquery.ui.effect-transfer
 
 #= require jqcloud
+#= require bootstrap-select
 
 #= require best_in_place
 
@@ -73,6 +74,7 @@
 #= require morris
 #= require jquery.bonsai
 
+#= require search
 #= require statistics
 #= require shared
 

@@ -1,7 +1,6 @@
-%tr
-  %td.document_cell
-
-    %div{ style: 'float:left; width: 45px;'}
+.cell.document_cell
+  .media
+    %a.pull-left{:href => "#"}
       - if doc.content_type == 'application/pdf'
         %div.pull-left.mini-icon.pdf
       - elsif doc.content_type == 'application/rtf'
@@ -23,24 +22,15 @@
       - elsif doc.content_type == 'text/plain'
         %div.pull-left.mini-icon.plaintext
 
-    %div{ style: 'margin-left: 50px'}
-
-      .cell-title
+    .media-body
+      %h5.media-heading
         = link_to doc.title, doc
-        - if doc.title != doc.english_title
-          %br
-          %small= doc.english_title
+      %small.text-success= doc.source_url
 
-      - if doc.author?
-        %small
-          = "by #{doc.author} "
-          = "on #{doc.published_on}"
-      - if doc.approved?
-        %span.label.label-success.pull-right
-          Approved
-      - else
-        %span.label.label-danger.pull-right
-          Unapproved
+      -# - if doc.author?
+      -#   %small
+      -#     = "by #{doc.author} "
+      -#     = "on #{doc.published_on}"
 
       %br
       - if hit.has_key?'highlight' and hit['highlight'].has_key? 'attachment'
