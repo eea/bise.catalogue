@@ -28,17 +28,15 @@
 
       %ul.nav.navbar-nav.navbar-right
         %li.dropdown
-          %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', style: 'padding-top: 0px; padding-bottom: 5px' }
-            .media{ style: 'padding-top: 4px'}
-              %h3.pull-left.margin-none
-                %span.glyphicon.glyphicon-user.media-object{ style: 'margin-top: 8px'}
-              .media-body
-                %h6.media-heading{ style: 'display:inline'}= current_user.name
-                %br
-                %small
-                  %strong= current_user.role
-                  %b.caret
+          %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown' }
+            %span.glyphicon.glyphicon-user
+            = current_user.name
           %ul.dropdown-menu
+            %li
+              .label.label-success.pull-right{ style: 'margin-right: 15px'}
+                %strong Role:
+                = current_user.role
+            %li.divider
             %li
               = link_to '/help' do
                 = fa_icon 'book'
