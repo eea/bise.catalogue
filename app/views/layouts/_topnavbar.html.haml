@@ -25,7 +25,8 @@
           = link_to "Habitat types", habitats_path
         %li{ class: "#{ current_page?(species_index_path) ? 'active' : '' }"}
           = link_to "Species", species_index_path
-      %ul.nav.navbar-nav.pull-right
+
+      %ul.nav.navbar-nav.navbar-right
         %li.dropdown
           %a{ href: '#', class: 'dropdown-toggle', 'data-toggle' => 'dropdown', style: 'padding-top: 0px; padding-bottom: 5px' }
             .media{ style: 'padding-top: 4px'}
