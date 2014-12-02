@@ -36,7 +36,7 @@
                     Edit
                   = link_to biseadmin_strategy_action_path(action), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
                     = fa_icon 'trash-o'
-                    Destroy
+                    Delete
 
 .well.well-flat
   = simple_form_for([:biseadmin, StrategyAction.new], html: { class: 'form-inline' }) do |f|

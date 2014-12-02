@@ -10,5 +10,5 @@
         %td{ style: 'width: 65px' }
           = link_to biseadmin_keyword_path(keyword), method: :delete, class: 'btn btn-danger btn-xs', data: { confirm: 'Are you sure?' } do
             = fa_icon 'trash-o'
-            Destroy
+            Delete
     %h6.muted= "#{@keyword_container.keywords.size} keywords founded in this category."
