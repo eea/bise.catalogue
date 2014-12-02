@@ -18,24 +18,6 @@ class CatalogueSearch < ActiveRecord::Base
     self.per ||= 10
   end
 
-  # def extract_response(rows)
-  #   if rows.nil? || rows.results.nil?
-  #     { total: 0, results: [], facets: [] }
-  #   else
-  #     { total: rows.results.total,
-  #       results: rows.results,
-  #       facets: rows.results.facets }
-  #   end
-  # end
-
-  # def countries
-  #   @countries_list.present? ? @countries_list.split(',') : nil
-  # end
-
-  # def languages
-  #   @languages_list.present? ? @languages_list.split(',') : nil
-  # end
-
   def es_indexes
     indexes.split(',').map do |category|
       "catalogue_#{Rails.env}_#{category}"

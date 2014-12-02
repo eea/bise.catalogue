@@ -51,8 +51,8 @@ class User < ActiveRecord::Base
 
   def fetch_user_data
     # self.email = Devise::LDAP::Adapter.get_ldap_param(self.username,'mail')
-    self.name = Devise::LDAP::Adapter.get_ldap_param(login, 'cn').first
-    self.email = Devise::LDAP::Adapter.get_ldap_param(login, 'mail').first
+    self.name = Devise::LDAP::Adapter.get_ldap_param(login, 'cn').try(:first)
+    self.email = Devise::LDAP::Adapter.get_ldap_param(login, 'mail').try(:first)
     if self.approver?
       self.role_author = true
       self.role_validator = true

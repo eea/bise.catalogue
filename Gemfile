@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 # ruby "1.9.3"
 
+gem 'dotenv-rails'              , groups: [:development, :test]
 gem 'rails'                     , '4.1.0'
 gem 'rake'                      , '10.3.1'
 gem 'rack'                      , '~> 1.5.2'
@@ -111,6 +112,10 @@ group :development do
   gem 'better_errors'
 
   gem 'byebug'
+  gem 'rubocop'
+end
+
+group :development              , :test do
   gem 'pry'                     , '~> 0.9.12'
   gem 'pry-remote'
   gem 'pry-doc'
@@ -119,15 +124,10 @@ group :development do
   gem 'pry-stack_explorer'
   gem 'pry-rails'
 
-  gem 'rubocop'
-end
-
-group :development              , :test do
 
   gem 'spring-commands-rspec'
   gem 'spring-commands-cucumber'
 
-  gem 'dotenv-rails'
   gem 'gem-ctags'
 
   gem "rspec-rails"
@@ -135,7 +135,7 @@ group :development              , :test do
   gem 'cucumber-rails'          , require: false
   gem 'database_cleaner'
   # gem 'factory_girl_rails'
-  gem 'capybara-webkit'
+  gem 'capybara-webkit'         , '~> 1.3.1'
   gem 'capybara-screenshot'
   gem 'guard-rspec'
   gem 'guard-cucumber'

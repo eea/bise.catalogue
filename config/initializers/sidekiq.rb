@@ -10,9 +10,9 @@ Sidekiq.configure_server do |config|
     ActiveRecord::Base.establish_connection
   end
 
-  config.on(:startup) { puts 'Hello!' }
-  config.on(:quiet) { puts 'Quiet down!' }
-  config.on(:shutdown) { puts 'Goodbye!' }
+  config.on(:startup) { puts 'Sidekiq started!' }
+  config.on(:quiet) { puts 'Sidekiq quiet!' }
+  config.on(:shutdown) { puts 'Sidekiq stopped!' }
 end
 
 Sidekiq.configure_client do |config|

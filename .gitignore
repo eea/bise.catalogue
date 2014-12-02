@@ -19,3 +19,4 @@ rspec_guard_result
 Dotenv.env
 ldap.yml
 public/assets/source_maps/*
+sidekiq.log

@@ -63,11 +63,9 @@ class AdvancedSearch
 
           should   { string 'tags.name:'                 + q }
 
-          # should   { string 'name:'                      + q }
           should   { string 'biogeo_regions.name:'       + q }
           should   { string 'biogeo_regions.code:'       + q }
 
-          # Species scientifi name
           should   { string 'scientific_name:'           + q }
           should   { string 'vernacular_names.name:'     + q }
           should   { string 'authorship:'                + q }
