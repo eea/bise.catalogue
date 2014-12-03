@@ -4,6 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_filter :configure_permitted_parameters
 
   def edit
+    @user = User.find(params[:id])
     @user.update_library_roles()
     super
   end
