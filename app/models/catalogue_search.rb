@@ -3,7 +3,7 @@ class CatalogueSearch < ActiveRecord::Base
   include Sidekiq::Delay
 
   before_save :sanitize_query
-  # after_create :geolocate_search
+  after_create :geolocate_search
   # paginates_per 10
 
   def initialize(args)
