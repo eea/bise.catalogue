@@ -18,4 +18,4 @@
         %td
           = link_to u.name, edit_user_registration_path(u)
         %td
-          = "#{u.library_roles.size} Libraries"
+          = "#{u.library_roles.where(allowed: true).size} Libraries"
