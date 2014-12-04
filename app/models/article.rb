@@ -197,7 +197,6 @@ class Article < ActiveRecord::Base
           should { string 'english_title.exact:'  + params[:query].to_s }
           should { string 'description:'          + params[:query].to_s }
           should { string 'ngram_author:'         + params[:query].to_s }
-          should { string 'attachment:'           + params[:query].to_s }
           should { string 'countries.ngram_name:' + params[:query].to_s }
           should { string 'languages.ngram_name:' + params[:query].to_s }
           should { string 'tags.ngram_name:'      + params[:query].to_s }

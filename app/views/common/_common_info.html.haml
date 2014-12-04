@@ -1,4 +1,9 @@
 
+- if accessible_libraries.empty?
+  .alert.alert-danger
+    %strong ATTENTION:
+    You are not allowed to contribute in any library (source), please contact your administrator.
+
 .row
   .col-sm-8
     %legend Info
@@ -8,7 +13,7 @@
     = f.input :language_ids, as: :select, collection: langs, input_html: { class: 'bise-select', multiple: true, 'data-placeholder' => 'Search language...' }
   .col-sm-4
     %legend Publication
-    = f.association :site , input_html: { class: "input-block-level bise-select" }, include_blank: true
+    = f.association :site , as: :collection_select, collection: accessible_libraries , input_html: { class: "input-block-level bise-select" }, include_blank: true
     = f.input :published_on, as: :string, input_html: { class: 'input-block-level' }, required: true, autocomplete: 'off'
     = f.input :author, as: :string, placeholder: 'John Doe', hint: 'Separate multiple authors with ; or and.', input_html: { class: "input-block-level", required: true }
 

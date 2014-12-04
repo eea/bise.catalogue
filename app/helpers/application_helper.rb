@@ -122,4 +122,8 @@ module ApplicationHelper
     end
   end
 
+  def accessible_libraries
+    Site.where(id: current_user.library_roles.where(allowed: true).map(&:site_id))
+  end
+
 end

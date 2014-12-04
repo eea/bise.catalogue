@@ -37,7 +37,7 @@ class CatalogueSearch < ActiveRecord::Base
 
   def geolocate_search
     @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")
-    # self.queried_from_ip = request.remote_ip
+    self.queried_from_ip = request.remote_ip
     loc = @geoip.country(request.remote_ip)[:country_name]
     self.location = loc if loc != 0
     save!
