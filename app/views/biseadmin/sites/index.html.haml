@@ -7,6 +7,13 @@
       = fa_icon 'plus'
       New Source
 
+
+= @site
+-# - @sites.each do |s|
+-#   /= s.errors
+-#   %hr
+-#   = s.errors.inspect
+
 .container-fluid
   %table.table.table-striped
     %thead
@@ -14,6 +21,7 @@
         %th Name
         %th Description
         %th Access Token
+        %th Related Content
         %th{ style: 'width: 135px' }
     %tbody
       - @sites.each do |site|
@@ -21,7 +29,7 @@
           %td= site.name
           %td= raw site.description
           %td= site.auth_token
-
+          %td= site.content_count
           %td
             .btn-group
               = link_to edit_biseadmin_site_path(site), class: 'btn btn-default btn-xs' do

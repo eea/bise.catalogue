@@ -15,14 +15,26 @@ class Site < ActiveRecord::Base
   acts_as_taggable_on :targets, :actions
   attr_accessible :target_list, :action_list
 
-  validates :name, uniqueness: true
+  validates :name, uniqueness: true, presence: true
 
   before_save :generate_auth_token
+  before_destroy :check_associates
+
+  def content_count
+    articles.size + documents.size + links.size
+  end
 
   private
 
   def generate_auth_token
     self.auth_token =  Digest::MD5.hexdigest(name) unless auth_token.present?
+  end
+
+  def check_associates
+    if content_count > 0
+      errors[:base] << "Cannot delete library having associated content."
+      return false
+    end
   end
 
 end

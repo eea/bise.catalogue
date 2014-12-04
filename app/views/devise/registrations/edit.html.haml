@@ -9,11 +9,11 @@
     = f.input :id, as: :hidden
     .row
       = f.fields_for :library_roles do |lr|
-        .col-md-3
+        .col-md-3.col-sm-4.col-xs-6
           .well.well-sm
             = lr.input :id, as: :hidden
             = lr.input :site_id, as: :hidden
-            = lr.input :allowed, as: :chk, label: lr.object.site.name, inline_label: 'Remember me'
+            = lr.input :allowed, as: :chk, label: lr.object.site.try(:name)
 
   .form-actions
     = link_to "Cancel", :back, class: 'btn btn-danger'

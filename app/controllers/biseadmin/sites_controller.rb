@@ -55,9 +55,9 @@ class Biseadmin::SitesController < ApplicationController
   def destroy
     @site = Site.find(params[:id])
     @site.destroy
-
+    msg = (!@site.errors.empty?) ? @site.errors[:base].try(:first) : false
     respond_to do |format|
-      format.html { redirect_to biseadmin_sites_url }
+      format.html { redirect_to biseadmin_sites_url, alert: msg }
       format.json { head :no_content }
     end
   end
