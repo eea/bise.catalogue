@@ -4,11 +4,18 @@
 %table.table
   %thead
     %tr
+      %th{ style: 'width: 30px' }
+        \#
       %th
         User
+      %th
+        Sources
   %tbody
     - User.find_each do |u|
       %tr
         %td
+          = u.id
+        %td
           = link_to u.name, edit_user_registration_path(u)
-          /= link_to u.name, edit_biseadmin_user_path(u)
+        %td
+          = "#{u.library_roles.size} Libraries"
