@@ -61,9 +61,9 @@ class Biseadmin::KeywordContainersController < ApplicationController
   def destroy
     @keyword_container = KeywordContainer.find(params[:id])
     @keyword_container.destroy
-
+    msg = (!@keyword_container.errors.empty?) ? @keyword_container.errors[:base].try(:first) : false
     respond_to do |format|
-      format.html { redirect_to biseadmin_keyword_containers_url }
+      format.html { redirect_to biseadmin_keyword_containers_url, alert: msg }
       format.json { head :no_content }
     end
   end

@@ -59,9 +59,9 @@ class Biseadmin::TargetsController < ApplicationController
   def destroy
     @target = Target.find(params[:id])
     @target.destroy
-
+    msg = (!@target.errors.empty?) ? @target.errors[:base].try(:first) : false
     respond_to do |format|
-      format.html { redirect_to biseadmin_targets_url }
+      format.html { redirect_to biseadmin_targets_url, alert: msg }
       format.json { head :no_content }
     end
   end
