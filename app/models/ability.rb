@@ -7,17 +7,23 @@ class Ability
     can :read, :all
     can :new, [Article, Document, Link] if user.role_author?
     can :create, [Article, Document, Link] do |obj|
-      unless obj.site_id.nil?
-        user.library_roles.where(site_id: obj.site_id).try(:first).try(:allowed) || false
-      else
-        false
-      end
+      user.library_roles.where(site_id: obj.site_id).try(:first).try(:allowed) || false
     end
-    # Only editable if created by user, user is an approver or admin
-    can [:edit, :update, :delete], [Article, Document, Link] do |obj|
-      obj.try(:creator) == user || user.role_validator? || user.role_admin?
+
+    can [:update, :delete], [Article, Document, Link] do |obj|
+      obj.try(:creator) == user || editable_by_user?(user, obj)
     end
+
     can :approve_multiple, [Article, Document, Link] if user.role_validator?
     can :manage, :all if user.role_admin?
+  end
+
+  # If not from the same author, needs to check object's library permissions
+  def editable_by_user?(user, obj)
+    if user.role_validator? || user.role_admin?
+      user.library_roles.where(site_id: obj.site_id).try(:first).try(:allowed)
+    else
+      false
+    end
   end
 end
