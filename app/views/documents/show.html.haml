@@ -17,13 +17,13 @@
       (
       = (@document.file_size/1024).round(2)
       KB)
-  - if can? :edit, @document
-    = link_to  edit_document_path(@document), class: 'btn btn-default', disabled: !@document.editable? do
-      = fa_icon 'pencil'
-      Edit
-    = link_to  document_path(@document), method: :delete, class: 'btn btn-danger pull-right', confirm: 'Please confirm you want to delete the resource.' do
-      = fa_icon 'trash-o'
-      Delete
+  - disabled = (can?(:update, @article)) ? 'disabled' : ''
+  = link_to  edit_document_path(@document), class: 'btn btn-default', disabled: disabled do
+    = fa_icon 'pencil'
+    Edit
+  = link_to document_path(@document), method: :delete, class: 'btn btn-danger pull-right', confirm: 'Please confirm you want to delete the resource.', disabled: disabled do
+    = fa_icon 'trash-o'
+    Delete
 
 
 .container-fluid

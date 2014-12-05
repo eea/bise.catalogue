@@ -10,13 +10,13 @@
     = link_to links_path, class: 'btn btn-default' do
       = fa_icon 'reply'
       Back to List
-  - if can? :edit, @link
-    = link_to  edit_link_path(@link), class: 'btn btn-default', disabled: !@link.editable? do
-      = fa_icon 'pencil'
-      Edit
-    = link_to  link_path(@link), method: :delete, class: 'btn btn-danger pull-right' do
-      = fa_icon 'trash-o'
-      Delete
+  - disabled = (can?(:update, @link)) ? 'disabled' : ''
+  = link_to  edit_link_path(@link), class: 'btn btn-default', disabled: disabled do
+    = fa_icon 'pencil'
+    Edit
+  = link_to  link_path(@link), method: :delete, class: 'btn btn-danger pull-right', disabled: disabled do
+    = fa_icon 'trash-o'
+    Delete
 
 
 
