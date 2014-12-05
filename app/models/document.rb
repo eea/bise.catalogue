@@ -221,7 +221,7 @@ class Document < ActiveRecord::Base
           should { string 'english_title:'        + params[:query].to_s }
           should { string 'english_title.exact:'  + params[:query].to_s }
           should { string 'description:'          + params[:query].to_s }
-          should { string 'ngram_author:'         + params[:query].to_s }
+          should { string 'authors.name:'         + params[:query].to_s }
           should { string 'attachment:'           + params[:query].to_s }
           should { string 'countries.ngram_name:' + params[:query].to_s }
           should { string 'languages.ngram_name:' + params[:query].to_s }
