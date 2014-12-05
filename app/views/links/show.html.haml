@@ -10,10 +10,10 @@
     = link_to links_path, class: 'btn btn-default' do
       = fa_icon 'reply'
       Back to List
-  = link_to  edit_link_path(@link), class: "btn btn-default #{@article.disabled?(current_user)}" do
+  = link_to  edit_link_path(@link), class: "btn btn-default #{@link.disabled?(current_user)}" do
     = fa_icon 'pencil'
     Edit
-  = link_to  link_path(@link), method: :delete, class: "btn btn-danger pull-right #{@article.disabled?(current_user)}" do
+  = link_to  link_path(@link), method: :delete, class: "btn btn-danger pull-right #{@link.disabled?(current_user)}" do
     = fa_icon 'trash-o'
     Delete
 

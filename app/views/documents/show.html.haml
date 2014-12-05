@@ -17,10 +17,10 @@
       (
       = (@document.file_size/1024).round(2)
       KB)
-  = link_to  edit_document_path(@document), class: "btn btn-default #{@article.disabled?(current_user)}" do
+  = link_to  edit_document_path(@document), class: "btn btn-default #{@document.disabled?(current_user)}" do
     = fa_icon 'pencil'
     Edit
-  = link_to document_path(@document), method: :delete, class: "btn btn-danger pull-right #{@article.disabled?(current_user)}", confirm: 'Please confirm you want to delete the resource.' do
+  = link_to document_path(@document), method: :delete, class: "btn btn-danger pull-right #{@document.disabled?(current_user)}", confirm: 'Please confirm you want to delete the resource.' do
     = fa_icon 'trash-o'
     Delete
 
