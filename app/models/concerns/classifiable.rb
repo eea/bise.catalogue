@@ -52,8 +52,16 @@ module Classifiable
       errors.add(:published_on, :not_valid) unless published_on.class == Date
     end
 
-    def editable?
-      source_url.nil?
+    def editable_by?(user)
+      if source_url.blank?
+        creator.eql?(user) || user.approver? && user.library_roles.where(site_id: site.id).try(:first).try(:allowed) || user.role_admin?
+      else
+        false
+      end
+    end
+
+    def disabled?(user)
+      (editable_by?(user)) ? '' : 'disabled'
     end
 
     def splitted_authors
