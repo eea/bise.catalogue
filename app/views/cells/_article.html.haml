@@ -7,7 +7,7 @@
 
     %small
       = "by #{article.author} "
-      = "at #{article.published_on.strftime('%m/%d/%Y')}"
+      = "at #{article.published_on.strftime('%d/%m/%Y')}"
     - if article.approved?
       %span.label.label-success.pull-right
         Approved
