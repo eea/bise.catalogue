@@ -123,7 +123,11 @@ module ApplicationHelper
   end
 
   def accessible_libraries
-    Site.where(id: current_user.library_roles.where(allowed: true).map(&:site_id))
+    if current_user.role_admin?
+      Site.all
+    else
+      Site.where(id: current_user.library_roles.where(allowed: true).map(&:site_id))
+    end
   end
 
 end

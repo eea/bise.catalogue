@@ -4,6 +4,12 @@
     %strong ATTENTION:
     You are not allowed to contribute in any library (source), please contact your administrator.
 
+- if current_user.role_admin? && current_user != f.object.try(:creator) 
+  .alert.alert-warning
+    %strong Attention Administrator!
+    %br
+    = "This content has been created by #{f.object.try(:creator).name} in #{f.object.site.try(:name)}. If you change the site it belongs to, the user won't be able to edit it."
+
 .row
   .col-sm-8
     %legend Info
