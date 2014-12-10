@@ -3,10 +3,11 @@
 
 - content_for :actions do
   = render 'common/approved_toggle'
-  .btn-group
-    = link_to new_document_path, class: 'btn btn-default' do
-      = fa_icon 'plus'
-      New Document
+  - if can? :create, Document
+    .btn-group
+      = link_to new_document_path, class: 'btn btn-default' do
+        = fa_icon 'plus'
+        New Document
   .btn-group
     = link_to params.merge(format: 'xls'), class: 'btn btn-default' do
       = fa_icon 'download'

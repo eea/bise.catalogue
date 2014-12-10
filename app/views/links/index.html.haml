@@ -3,7 +3,7 @@
 
 - content_for :actions do
   = render 'common/approved_toggle'
-  - if current_user.approver?
+  - if can? :create, Link
     .btn-group
       = link_to  new_link_path, class: 'btn btn-default' do
         = fa_icon 'plus'
