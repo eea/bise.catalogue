@@ -36,18 +36,18 @@ class DocumentsController < ApplicationController
   end
 
   def approve_multiple
-    if (params[:document_ids].nil?)
-      respond_to do |format|
-        format.html { redirect_to documents_path, alert: "Please, select at least one document!" }
-      end
-      return
-    end
+    respond_to do |format|
+      format.html { redirect_to documents_path, alert: "Please, select at least one document!" }
+    end if params[:document_ids].nil?
 
+    approved = Hash.new
     @documents = Document.find(params[:document_ids])
     @documents.each do |document|
-      document.approved = !document.approved
-      document.save!
+      approved[!document.approved]=approved[!document.approved].to_i+1 || 1
+      document.update_attributes approved:!document.approved
+      document.update_index
     end
+    sleep 1
     respond_to do |format|
       format.html { redirect_to documents_url }
       format.json { head :no_content }

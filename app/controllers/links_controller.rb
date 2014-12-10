@@ -25,13 +25,16 @@ class LinksController < ApplicationController
       format.html { redirect_to links_path, alert: 'Please, select at least one link!' }
     end if params[:link_ids].nil?
 
+    approved = Hash.new
     @links = Link.find(params[:link_ids])
     @links.each do |link|
-      link.approved = !link.approved
-      link.save!
+      approved[!link.approved]=approved[!link.approved].to_i+1 || 1
+      link.update_attributes approved:!link.approved
+      link.update_index
     end
+    sleep 1
     respond_to do |format|
-      format.html { redirect_to links_url }
+      format.html { redirect_to links_url(approved: approved[true].to_i<approved[false].to_i) }
       format.json { head :no_content }
     end
   end

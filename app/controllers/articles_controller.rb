@@ -21,20 +21,20 @@ class ArticlesController < ApplicationController
   end
 
   def approve_multiple
-    if (params[:article_ids].nil?)
-      respond_to do |format|
-        format.html { redirect_to articles_path, alert: "Please, select at least one article!" }
-      end
-      return
-    end
+    respond_to do |format|
+      format.html { redirect_to articles_path, alert: "Please, select at least one article!" }
+    end if params[:article_ids].nil?
 
+    approved = Hash.new
     @articles = Article.find(params[:article_ids])
     @articles.each do |article|
-      article.approved = !article.approved
-      article.save!
+      approved[!article.approved]=approved[!article.approved].to_i+1 || 1
+      article.update_attributes approved:!article.approved
+      article.update_index
     end
+    sleep 1
     respond_to do |format|
-      format.html { redirect_to articles_url }
+      format.html { redirect_to articles_url(approved: approved[true].to_i<approved[false].to_i) }
       format.json { head :no_content }
     end
   end
