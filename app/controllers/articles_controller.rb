@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
 
   load_and_authorize_resource only: [:new, :edit, :create, :update, :destroy]
   before_filter :authenticate_user!
-  has_scope :approved, type: :boolean, default: false
+  has_scope :approved, type: :boolean
 
   after_filter :notify_created_content, only: :create
   after_filter :notify_updated_content, only: :update

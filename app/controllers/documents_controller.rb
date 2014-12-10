@@ -49,7 +49,7 @@ class DocumentsController < ApplicationController
     end
     sleep 1
     respond_to do |format|
-      format.html { redirect_to documents_url }
+      format.html { redirect_to documents_url(approved: approved[true].to_i<approved[false].to_i) }
       format.json { head :no_content }
     end
   end
