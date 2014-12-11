@@ -8,11 +8,11 @@ ActiveAdmin.register User do
 
   form do |f|
     f.inputs 'User Details' do
-      f.input :login
-      f.input :email
+      f.input :login, input_html: { disabled: true }
+      f.input :email, input_html: { disabled: true }
+      f.input :role_author, input_html: { disabled: true}
+      f.input :role_validator, input_html: { disabled: true}
       f.input :role_admin
-      f.input :role_validator
-      f.input :role_author
     end
     f.actions
   end
@@ -31,7 +31,7 @@ ActiveAdmin.register User do
 
   controller do
     def permitted_params
-      params.require(:user).permit(:email, :role_admin, :role_validator, :role_author)
+      params.require(:user).permit(:login, :email, :role_admin, :role_validator, :role_author)
     end
   end
 end

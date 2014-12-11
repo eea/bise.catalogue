@@ -4,17 +4,20 @@
     %strong ATTENTION:
     You are not allowed to contribute in any library (source), please contact your administrator.
 
-- if current_user.role_admin? && current_user != f.object.try(:creator) 
+- if editing_others_content?(f.object)
   .alert.alert-warning
-    %strong Attention Administrator!
-    %br
-    This content has been created by 
-    %strong 
-      = f.object.try(:creator).name
-    in 
-    %strong 
-      = "#{f.object.site.try(:name)}."
-    If you change the site to another library and the user has no permissions, won't be able to edit it without reasign in the content to an allowed library."
+    %strong Attention!
+    This content has been created by
+    %strong= f.object.try(:creator).name
+    in
+    %strong= "#{f.object.site.try(:name)}."
+    - warning_libraries = extract_not_allowed_libraries(f.object.try(:creator))
+    - unless warning_libraries.empty?
+      %hr{ style: 'margin: 5px 0'}
+      This user doens't have permissions to access
+      %strong= warning_libraries.to_sentence(words_connector: ', ', last_word_connector: ' or ')
+      you already own. If you change this content to belong to one of these libraries, the creator won't be
+      able to edit it.
 
 .row
   .col-sm-8

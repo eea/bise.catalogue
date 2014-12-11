@@ -130,4 +130,19 @@ module ApplicationHelper
     end
   end
 
+  def editing_others_content?(object)
+    if (current_user.role_admin? || current_user.role_validator?) && current_user != object.try(:creator)
+      true
+    else
+      false
+    end
+  end
+
+  def extract_not_allowed_libraries(user)
+    current_user_sites = current_user.library_roles.where(allowed: true).map(&:site).map(&:name)
+    creator_sites = user.library_roles.where(allowed: true).map(&:site).map(&:name)
+    # [ creator_sites, current_user_sites ]
+    current_user_sites - creator_sites
+  end
+
 end

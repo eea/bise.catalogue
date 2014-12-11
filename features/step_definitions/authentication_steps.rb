@@ -10,5 +10,4 @@ Given(/^I'm allowed in "(.*?)" library$/) do |library|
   site = Site.find_by_name(library)
   user = User.find_by_login(ENV['EIONET_USER'])
   user.library_roles.push LibraryRole.new(user_id: user.id, site_id: site.id, allowed: true)
-  binding.pry
 end

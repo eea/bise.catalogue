@@ -14,8 +14,6 @@ en:
       genus: Genus
       strategytarget: Strategy Target
 
-
-
   date:
     formats:
       default: "%d/%m/%Y"
@@ -24,6 +22,7 @@ en:
     models:
       article: Web Page
       document: Document
+      link: Link
     attributes:
       article:
         site: Source site
@@ -34,6 +33,14 @@ en:
         biographical_region: Biographical region
         published_on: Published on
       document:
+        site: Source site
+        title: Title
+        english_title: English title
+        author: Author
+        language_ids: Languages
+        biographical_region: Biographical region
+        published_on: Published on
+      link:
         site: Source site
         title: Title
         english_title: English title

@@ -20,7 +20,7 @@ class Ability
 
   # If not from the same author, needs to check object's library permissions
   def editable_by_user?(user, obj)
-    if user.role_validator? 
+    if user.role_validator?
       user.library_roles.where(site_id: obj.site_id).try(:first).try(:allowed)
     elsif user.role_admin?
       true
