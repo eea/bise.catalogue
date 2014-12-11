@@ -10,7 +10,7 @@ class Ability
       user.library_roles.where(site_id: obj.site_id).try(:first).try(:allowed) || false
     end
 
-    can [:update, :delete], [Article, Document, Link] do |obj|
+    can [:update, :destroy], [Article, Document, Link] do |obj|
       obj.try(:creator) == user || editable_by_user?(user, obj)
     end
 
