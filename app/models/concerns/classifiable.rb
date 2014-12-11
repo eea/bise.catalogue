@@ -54,8 +54,8 @@ module Classifiable
 
     def editable_by?(user)
       if source_url.blank?
-        creator.eql?(user) || 
-        user.approver? && user.library_roles.where(site_id: site.id).try(:first).try(:allowed) || 
+        (creator.eql?(user) && user.library_roles.where(site_id: site.id).try(:first).try(:allowed)) ||
+        user.approver? && user.library_roles.where(site_id: site.id).try(:first).try(:allowed) ||
         user.role_admin?
       else
         false

@@ -11,11 +11,16 @@ class Ability
     end
 
     can [:update, :destroy], [Article, Document, Link] do |obj|
-      obj.try(:creator) == user || editable_by_user?(user, obj)
+      creator_has_access?(user, obj) || editable_by_user?(user, obj)
     end
 
     can :approve_multiple, [Article, Document, Link] if user.role_validator?
     can :manage, :all if user.role_admin?
+  end
+
+  def creator_has_access?(user, obj)
+    obj.try(:creator) == user &&
+    obj.try(:creator).library_roles.where(site_id: obj.site_id)
   end
 
   # If not from the same author, needs to check object's library permissions
