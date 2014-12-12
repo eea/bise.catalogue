@@ -4,7 +4,7 @@
     %strong ATTENTION:
     You are not allowed to contribute in any library (source), please contact your administrator.
 
-- if editing_others_content?(f.object)
+- if editing_others_content?(f.object) && f.object.creator.present?
   .alert.alert-warning
     %strong Attention!
     This content has been created by
