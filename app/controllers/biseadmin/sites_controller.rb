@@ -3,6 +3,7 @@ class Biseadmin::SitesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    authorize! :admin, Site
     @sites = Site.all
 
     respond_to do |format|

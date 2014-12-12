@@ -4,6 +4,7 @@ class Biseadmin::KeywordsController < ApplicationController
   before_filter :authenticate_user!
 
   def edit
+    authorize! :admin, Keyword
     @keyword = Keyword.find(params[:id])
   end
 

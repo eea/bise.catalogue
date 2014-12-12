@@ -4,7 +4,7 @@ class Biseadmin::KeywordContainersController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    # @keywords = Keyword.all
+    authorize! :admin, KeywordContainer
     @keyword_containers = KeywordContainer.all
 
     respond_to do |format|

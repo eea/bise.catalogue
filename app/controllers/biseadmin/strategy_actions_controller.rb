@@ -2,6 +2,7 @@ class Biseadmin::StrategyActionsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    authorize! :admin, StrategyAction
     @actions = StrategyAction.all
 
     respond_to do |format|

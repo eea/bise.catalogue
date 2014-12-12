@@ -16,6 +16,19 @@ class Ability
 
     can :approve_multiple, [Article, Document, Link] if user.role_validator?
     can :manage, :all if user.role_admin?
+
+    if user.role_admin?
+      admin_objs = [KeywordContainer, Keyword, Target, StrategyAction, Site, User]
+      can [:index, :create, :edit, :update, :destroy, :admin], admin_objs
+    end
+
+    # can :index, Target do |t|
+    #   # user.role_admin?
+    #   false
+    # end
+
+    # can :index, Target if user.role_admin?
+    # can :read, Keyword if user.role_admin?
   end
 
   def creator_has_access?(user, obj)

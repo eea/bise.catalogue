@@ -3,6 +3,7 @@ class Biseadmin::TargetsController < ApplicationController
   before_filter :authenticate_user!
 
   def index
+    authorize! :admin, Target
     @targets = Target.all
 
     respond_to do |format|
