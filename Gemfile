@@ -66,7 +66,6 @@ gem 'tire_async_index'
 gem 'paper_trail'               , '~> 3.0.5'
 
 # TWITTER BOOTSTRAP
-# gem "twitter-bootstrap-rails" , github: 'seyhunak/twitter-bootstrap-rails' , branch: 'bootstrap3'
 gem 'bootstrap-sass'            , '~> 3.3.1.0'
 gem "font-awesome-rails"
 

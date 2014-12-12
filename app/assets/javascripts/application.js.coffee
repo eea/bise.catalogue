@@ -25,10 +25,9 @@
 
 # ----- JQUERY UI COMPONENTS
 #= require jquery-ui/accordion
+#= require jquery-ui/datepicker
 # require jquery.ui.autocomplete
 # require jquery.ui.button
-#= require jquery-ui/datepicker
-# require jquery.ui.datepicker-en-GB
 # require jquery.ui.dialog
 # require jquery.ui.menu
 # require jquery.ui.progressbar
