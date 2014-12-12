@@ -2,13 +2,15 @@ require 'sidekiq/web'
 
 Catalogue::Application.routes.draw do
 
+
   authenticate :user do
     mount Sidekiq::Web => '/sidekiq'
     mount Redmon::App  => '/redmon'
   end
 
-  comfy_route :cms_admin, path: '/cmsadmin'
-  comfy_route :cms, path: '/help', sitemap: false
+  get 'help' => 'help#index', as: 'help'
+  # comfy_route :cms_admin, path: '/cmsadmin'
+  # comfy_route :cms, path: '/help', sitemap: false
 
   root to: 'home#index'
 

@@ -1,0 +1,145 @@
+%h1.page-header.text-center
+  = fa_icon 'book'
+  BISE Catalogue Documentation
+
+.row{ style: 'margin-top: 60px' }
+  .col-md-3.col-sm-4
+    %ul.nav.nav-pills.nav-stacked
+      //{ data: { spy: 'affix', offset: '60' }}
+      %li.active{:role => "presentation"}
+        %a{:href => "#introduction"} Introduction
+      %li{:role => "presentation"}
+        %a{:href => "#roles"} Roles & Permissions
+      %li{:role => "presentation"}
+        %a{:href => "#publishing"} Publishing workflow
+      %li{:role => "presentation"}
+        %a{:href => "#adding-content"} Adding new content
+      %li{:role => "presentation"}
+        %a{:href => "#tagging-content"} Tagging content
+      %li{:role => "presentation"}
+        %a{:href => "#libraries"} Creating new sources
+
+
+  .col-md-9.col-sm-8
+
+    #introduction.help-block
+      %legend Introduction
+      %p
+        BISE Catalogue is a solution developed to unify biodiversity information
+        and make it available for contributors and end-users in an intuitive way
+        with faceted browsing.
+
+
+    #roles.help-block
+      %legend Roles
+
+      %p
+        BISE Catalogue works based on EIONET LDAP and it handles three main roles where func-tionalities are incremented for each of them:
+
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Role
+            %th Description
+        %tbody
+          %tr
+            %td Author
+            %td Can access the platform and is able to create contributions.
+          %tr
+            %td Approver
+            %td Can create content and approve content created by other authors.
+          %tr
+            %td Admin
+            %td Full access to all features.
+
+      %p
+        To add or remove roles to any EIONET user, see the details in the System documentation
+
+
+
+    #publishing.help-block
+      %legend Publishing
+
+      %p
+        All content created by any contributor is created by default as unapproved content (draft) to avoid confusions. Results displayed in the Catalogue will always be shown with two kinds of labels:
+      %p
+        = image_tag 'help/01.png'
+
+      %p
+        Both colours are also used to highlight the filter in the toolbar, which allows any contributor to know if the results displayed are approved or not. Usually, content approvers only want to see the unapproved content to validate it, without mixing it with already approved content.
+
+      %p
+        = image_tag 'help/02.png', class: 'img-responsive'
+        = image_tag 'help/03.png', class: 'img-responsive'
+      %br
+
+      %p
+        The content created by contributors needs to be approved by a content approver or an administrator. This process is as simple as selecting the items to approve from the list, and clicking the “Approve selected” button. Once items have been approved, these items will not be visible in the current view and users need to toggle the button to “Approved” to see the recently approved items.
+
+      %br
+      %p
+        To make the inverse process, just select the items in “Approved” bucket and click “Disapprove selected” at the bottom of the results.
+      %p
+        = image_tag 'help/04.png', class: 'img-responsive'
+
+
+
+
+    #adding-content.help-block
+      %legend Adding Content
+
+      %p
+        To create new content in BISE Catalogue, select the content type you want to create from the top navigation bar:
+      %p= image_tag 'help/11.png', class: 'img-responsive'
+      %br
+
+      %p
+        Once entered in the desired area, click the button with the plus sign to create a new content.
+      %p= image_tag 'help/12.png', class: 'img-responsive'
+      %br
+
+      %p
+        After clicking the new button, a form to enter related information for the new content type will appear. All content types have common fields such as title, languages, source site, published on date or authors.
+      %p= image_tag 'help/13.png', class: 'img-responsive'
+
+      %p
+        Also, other options are provided to relate the content to countries, biogeographical region, strategy targets and action, etc.  It is advisable for users to tag and fill all the fields as much as possible, as this information will be used to build facets and make the content more searchable.
+
+
+
+    #tagging-content.help-block
+      %legend Tagging Content
+
+      %strong Strategy Targets & Actions
+      %p
+        All created content can be related to a strategy target individually or collective action. The BISE Catalogue provides two input fields where contributors can select existing targets and actions or just start writing any related word to filter the list.
+      %p= image_tag 'help/21.png', class: 'img-responsive'
+
+      %strong Keywords
+      %p
+        Content in the BISE Catalogue can also have tags related to enrich the searches. These tags are divided into categories and can be managed from the admin area and will provide a long-term consistency for all tagged information.
+      %p= image_tag 'help/22.png', class: 'img-responsive'
+
+      %p
+        To enter the tags, filtering is also enabled to allow users to filter the tags as they type. Also an explore button has been added as the Catalogue contains lots of tags. This button will show a modal window where users can explore more easily or discover all the tags and assign these tags to the content.
+      %p= image_tag 'help/23.png', class: 'img-responsive'
+
+
+
+    #libraries.help-block
+      %legend Library
+
+      %p
+        The Catalogue allows users to create more sources and use them as buckets to catgorise the content, in addition to the previously created sources (BISE, Eunis, Maes and Green Infrastructure Library)
+
+      %p
+        These buckets also generate an access token to import information via web services in the BISE Catalogue from a 3rd party website in an authenticated way. This is already done with the BISE website which uses this token to send updated or new content to the Catalogue.
+
+      %p
+        New libraries can only be created or managed by an admin user and the management area is accessible from the user menu on the top right area by clicking on “Manage Sources”.
+      %p= image_tag 'help/31.png', class: 'img-responsive'
+
+
+
+
+

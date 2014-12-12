@@ -15,8 +15,6 @@ gem 'cancan'
 
 gem 'rsense'
 
-gem 'comfortable_mexican_sofa'  , github: 'comfy/comfortable-mexican-sofa'
-
 # DATABASES
 gem 'sqlite3'
 gem 'pg'
@@ -30,7 +28,7 @@ gem "less-rails"
 gem 'therubyracer'              , '~> 0.12.0'                                , require: 'v8'
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'jquery-ui-rails'           , '~> 5.0.3'
 # gem 'turbolinks'
 # gem 'jquery-turbolinks'
 gem "jqcloud-rails"
@@ -69,7 +67,7 @@ gem 'paper_trail'               , '~> 3.0.5'
 
 # TWITTER BOOTSTRAP
 # gem "twitter-bootstrap-rails" , github: 'seyhunak/twitter-bootstrap-rails' , branch: 'bootstrap3'
-gem 'bootstrap-sass'            , '~> 3.1.1'
+gem 'bootstrap-sass'            , '~> 3.3.1.0'
 gem "font-awesome-rails"
 
 

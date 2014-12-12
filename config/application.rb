@@ -62,7 +62,7 @@ module Catalogue
         g.template_engine :haml
     end
 
-    config.railties_order = [ :all, ComfortableMexicanSofa::Engine ]
+    # config.railties_order = [ :all, ComfortableMexicanSofa::Engine ]
 
   end
 end
