@@ -5,7 +5,12 @@
   = f.error_notification
 
   .form-inputs
-    %legend Access to Libraries
+    %legend
+      .pull-right
+        = f.label :role_admin, class: 'text-danger'
+        = f.check_box :role_admin
+      Access to Libraries
+
     = f.input :id, as: :hidden
     .row
       = f.fields_for :library_roles do |lr|

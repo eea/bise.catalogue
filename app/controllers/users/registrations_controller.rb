@@ -30,7 +30,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   def account_update_params
-    params.require(:user).permit( library_roles_attributes: [ :id, :site_id, :allowed])
+    params.require(:user).permit(:role_admin, library_roles_attributes: [ :id, :site_id, :allowed])
   end
 
   def configure_permitted_parameters
@@ -38,7 +38,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       u.permit(:name, :heard_how, :email, :password, :password_confirmation, library_roles_attributes: [ :site_id, :allowed])
     end
     devise_parameter_sanitizer.for(:account_update) do |u|
-      u.permit(:name, :email, :password, :password_confirmation, :current_password, library_roles_attributes: [ :site_id, :allowed])
+      u.permit(:name, :email, :password, :password_confirmation, :current_password, :role_admin, library_roles_attributes: [ :site_id, :allowed])
     end
   end
 end

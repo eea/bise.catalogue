@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   scope :authors, -> { where(role_author: true) }
 
   has_many :library_roles
+  attr_accessible :role_admin
   attr_accessible :library_roles_attributes
   accepts_nested_attributes_for :library_roles
 
@@ -43,7 +44,7 @@ class User < ActiveRecord::Base
   end
 
   def update_with_password(params, *options)
-    permited = params.permit(:id, library_roles_attributes: [ :id, :site_id, :allowed])
+    permited = params.permit(:id, :role_admin, library_roles_attributes: [ :id, :site_id, :allowed])
     update_attributes(permited, *options)
   end
 
