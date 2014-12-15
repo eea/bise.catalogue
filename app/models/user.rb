@@ -54,11 +54,11 @@ class User < ActiveRecord::Base
     # self.email = Devise::LDAP::Adapter.get_ldap_param(self.username,'mail')
     self.name = Devise::LDAP::Adapter.get_ldap_param(login, 'cn').try(:first)
     self.email = Devise::LDAP::Adapter.get_ldap_param(login, 'mail').try(:first)
+    self.role_author = true
     if self.approver?
-      self.role_author = true
       self.role_validator = true
     else
-      self.role_author = true
+      self.role_validator = false
     end
   end
 end
