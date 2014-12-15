@@ -10,12 +10,14 @@ module Api
 
       def bise_search
         @search = CatalogueSearch.new(search_params)
+        @search.geolocate_search(request.remote_ip)
         @search.save!
         respond_with BiseSearch.new(@search).process(:json)
       end
 
       def advanced_search
         @search = CatalogueSearch.new(search_params)
+        @search.geolocate_search(request.remote_ip)
         @search.save!
         respond_with AdvancedSearch.new(@search).process(:json)
       end
