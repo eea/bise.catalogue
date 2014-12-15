@@ -29,18 +29,17 @@ class CatalogueSearch < ActiveRecord::Base
     page == 1 ? 0 : (page - 1) * per
   end
 
-  private
-
-  def sanitize_query
-    @query = Sanitize.clean(query)
-  end
-
   def geolocate_search(remote_ip)
     @geoip ||= GeoIP.new("#{Rails.root}/db/GeoIP.dat")
     self.queried_from_ip = remote_ip
     loc = @geoip.country(remote_ip)[:country_name]
     self.location = loc if loc != 0
-    # save!
+  end
+
+  private
+
+  def sanitize_query
+    @query = Sanitize.clean(query)
   end
 
 end
