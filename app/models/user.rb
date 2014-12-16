@@ -60,5 +60,6 @@ class User < ActiveRecord::Base
     else
       self.role_validator = false
     end
+    true
   end
 end
