@@ -84,6 +84,10 @@ class AdvancedSearch
       filter :range, published_on: { gte: date_init, lt: date_end } unless date_init.nil?
       filter :term, 'targets.title.exact' => target unless target.nil?
 
+      filter :term, species_group: species_group unless species_group.nil?
+      filter :term, taxonomic_rank: taxonomic_rank unless taxonomic_rank.nil?
+      filter :term, genus: genus unless genus.nil?
+
       highlight attachment: { number_of_fragments: 2 }
 
       facet 'site' do
