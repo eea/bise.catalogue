@@ -4,6 +4,12 @@ class Document < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::AsyncCallbacks
 
+  # Tags
+  acts_as_taggable
+  attr_accessible :tag_list
+  acts_as_taggable_on :targets, :actions
+  attr_accessible :target_list, :action_list
+
   include Classifiable
 
   mount_uploader          :file, FileUploader
@@ -13,12 +19,6 @@ class Document < ActiveRecord::Base
   validate :uniqueness_of_md5hash, on: :create
 
   attr_accessible :description
-
-  # Tags
-  acts_as_taggable
-  attr_accessible :tag_list
-  acts_as_taggable_on :targets, :actions
-  attr_accessible :target_list, :action_list
 
   before_validation :compute_hash
   before_save :update_file_info
@@ -208,6 +208,7 @@ class Document < ActiveRecord::Base
     doc_filter << { term: { 'authors.name' => params[:author] }} if params[:author].present?
     doc_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
     doc_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
+    doc_filter << { term: { 'targets.title.exact' => params[:target] }} if params[:target].present?
     doc_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
     doc_filter << { range: { published_on: { gte: date_init , lt: date_end }}} if params[:published_on].present?
     doc_filter << { bool: { must: { term: { approved: show_approved} }}}
@@ -237,6 +238,7 @@ class Document < ActiveRecord::Base
       filter :term, 'authors.name' => params[:author] if params[:author].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
+      filter :term, 'targets.title.exact' => params[:target]  if params[:target].present?
       filter :term, biographical_region: params[:biographical_region] if params[:biographical_region].present?
       filter :range, published_on: { gte: date_init, lt: date_end } if params[:published_on].present?
 
@@ -280,10 +282,10 @@ class Document < ActiveRecord::Base
         facet_filter :and, doc_filter unless doc_filter.empty?
       end
 
-      # facet('target') do
-      #   terms 'targets.title'
-      #   facet_filter :and, doc_filter unless doc_filter.empty?
-      # end
+      facet('targets') do
+        terms 'targets.title.exact'
+        facet_filter :and, doc_filter unless doc_filter.empty?
+      end
     end
   end
 

@@ -3,15 +3,16 @@ class Article < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::AsyncCallbacks
 
-  include Classifiable
-
-  attr_accessible :content
-  attr_accessible :source_url
   # Tags
   acts_as_taggable
   attr_accessible :tag_list
   acts_as_taggable_on :targets, :actions
   attr_accessible :target_list, :action_list
+
+  include Classifiable
+
+  attr_accessible :content
+  attr_accessible :source_url
 
   index_name "#{Tire::Model::Search.index_prefix}articles"
   refresh = -> { Tire::Index.new(index_name).refresh }
@@ -183,6 +184,7 @@ class Article < ActiveRecord::Base
     art_filter << { term: { 'authors.name' => params[:author] }}                                 if params[:author].present?
     art_filter << { term: { 'countries.name' => params[:countries].split(/\//) }}      if params[:countries].present?
     art_filter << { term: { 'languages.name' => params[:languages].split(/\//) }}      if params[:languages].present?
+    art_filter << { term: { 'targets.title.exact' => params[:target] }}                if params[:target].present?
     art_filter << { term: { biographical_region: params[:biographical_region] }}       if params[:biographical_region].present?
     art_filter << { range:{ published_on: { gte: date_init , lt: date_end }}}          if params[:published_on].present?
     art_filter << { bool: { must: { term: { approved: show_approved} }}}
@@ -212,6 +214,7 @@ class Article < ActiveRecord::Base
       filter :term, 'authors.name' =>  params[:author] if params[:author].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
+      filter :term, 'targets.title.exact' => params[:target]  if params[:target].present?
       # filter :term, geographical_coverage: params[:geographical_coverage] if params[:geographical_coverage].present?
       filter :term, biographical_region: params[:biographical_region] if params[:biographical_region].present?
       filter :range, published_on: { gte: date_init , lt: date_end } if params[:published_on].present?
@@ -255,10 +258,10 @@ class Article < ActiveRecord::Base
         facet_filter :and, art_filter unless art_filter.empty?
       end
 
-      # facet('target') do
-      #   terms 'targets.title'
-      #   facet_filter :and, art_filter unless art_filter.empty?
-      # end
+      facet('targets') do
+        terms 'targets.title.exact'
+        facet_filter :and, art_filter unless art_filter.empty?
+      end
     end
   end
 

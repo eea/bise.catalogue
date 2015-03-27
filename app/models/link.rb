@@ -3,16 +3,16 @@ class Link < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::AsyncCallbacks
 
-  include Classifiable
-
-  attr_accessible :url
-  attr_accessible :description
-
   # TAGS
   acts_as_taggable
   attr_accessible :tag_list
   acts_as_taggable_on :targets, :actions
   attr_accessible :target_list, :action_list
+
+  include Classifiable
+
+  attr_accessible :url
+  attr_accessible :description
 
   validates :url, presence: true, uniqueness: true
   # validates_format_of :url, with: /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
@@ -196,6 +196,7 @@ class Link < ActiveRecord::Base
     link_filter << { term: { 'authors.name' => params[:author] }} if params[:author].present?
     link_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?
     link_filter << { term: { 'languages.name' => params[:languages].split(/\//) }} if params[:languages].present?
+    link_filter << { term: { 'targets.title.exact' => params[:target] }} if params[:target].present?
     link_filter << { term: { biographical_region: params[:biographical_region] }} if params[:biographical_region].present?
     link_filter << { range: { published_on: { gte: date_init , lt: date_end }}} if params[:published_on].present?
     link_filter << { bool: { must: { term: { approved: show_approved} }}}
@@ -226,6 +227,7 @@ class Link < ActiveRecord::Base
       filter :term, 'authors.name' => params[:author] if params[:author].present?
       filter :term, 'countries.name' => params[:countries].split(/\//) if params[:countries].present?
       filter :term, 'languages.name' => params[:languages].split(/\//) if params[:languages].present?
+      filter :term, 'targets.title.exact' => params[:target]  if params[:target].present?
       # filter :term, geographical_coverage: params[:geographical_coverage] if params[:geographical_coverage].present?
       filter :term, biographical_region: params[:biographical_region] if params[:biographical_region].present?
       filter :range, published_on: { gte: date_init , lt: date_end } if params[:published_on].present?
@@ -268,10 +270,10 @@ class Link < ActiveRecord::Base
         facet_filter :and, link_filter unless link_filter.empty?
       end
 
-      # facet('target') do
-      #   terms 'targets.title'
-      #   facet_filter :and, link_filter unless link_filter.empty?
-      # end
+      facet('targets') do
+        terms 'targets.title.exact'
+        facet_filter :and, link_filter unless link_filter.empty?
+      end
     end
   end
 end

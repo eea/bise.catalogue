@@ -23,6 +23,7 @@
     = render 'facets/facet_languages'   , objs: @articles
     = render 'facets/facet_countries'   , objs: @articles
     = render 'facets/facet_timeline'    , objs: @articles
+    = render "facets/facet_targets"     , objs: @articles
   .col-sm-9
     %legend Results
     - if @articles.size > 0
