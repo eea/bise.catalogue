@@ -10,6 +10,7 @@
       %th Failed Field
       %th Message
       %th IP
+      %th Raised
   %tbody
     - @unprocessed.each do |u|
       %tr
@@ -18,6 +19,7 @@
         %td= u.field
         %td= u.message
         %td= u.ip
+        %td= u.created_at
 
 = will_paginate @unprocessed, renderer: BootstrapPagination::Rails
 
