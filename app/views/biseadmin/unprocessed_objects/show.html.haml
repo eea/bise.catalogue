@@ -20,9 +20,8 @@
   %dt Created At
   %dd= @unprocessed.try(:strftime,'%Y/%m/%d')
 
-  - @unprocessed.params.keys.sort.each do |key|
-    %dt= "Param #{key}"
-    %dd= @unprocessed.params[key]
+  %dt Params
+  %dd= @unprocessed.params
 
 = will_paginate @unprocessed, renderer: BootstrapPagination::Rails
 
