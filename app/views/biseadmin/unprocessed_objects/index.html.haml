@@ -19,7 +19,9 @@
         %td= u.field
         %td= u.message
         %td= u.ip
-        %td= u.created_at
+        %td
+        = link_to biseadmin_unprocessed_object_path(@unprocessed) do
+          = u.created_at.try(:strftime,'%Y/%m/%d')
 
 = will_paginate @unprocessed, renderer: BootstrapPagination::Rails
 
