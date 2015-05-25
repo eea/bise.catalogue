@@ -1,7 +1,7 @@
 
 Sidekiq.configure_server do |config|
   # config.redis = { namespace: 'sidekiq' }
-  config.redis = { url: 'redis://localhost:6379/0', namespace: 'sidekiq' }
+  config.redis = { url: REDIS_CONFIG["#{Rails.env.downcase}"]["url"], namespace: 'sidekiq' }
   # require 'sidekiq/middleware/server/retry_jobs'
   # Sidekiq::Middleware::Server::RetryJobs::MAX_COUNT = 1
   database_url = ENV['DATABASE_URL']
@@ -16,5 +16,5 @@ Sidekiq.configure_server do |config|
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: 'redis://localhost:6379/0', namespace: 'sidekiq' }
+  config.redis = { url: REDIS_CONFIG["#{Rails.env.downcase}"]["url"], namespace: 'sidekiq' }
 end
