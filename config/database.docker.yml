@@ -1,0 +1,8 @@
+production: &default
+  adapter: postgresql
+  encoding: unicode
+  database: catalogue_production
+  pool: 5
+  host: db 
+  username: postgres
+  password: 
