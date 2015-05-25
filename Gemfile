@@ -7,7 +7,7 @@ gem 'rake'                      , '10.3.1'
 gem 'rack'                      , '~> 1.5.2'
 # gem 'railties'                , '~> 3.2.13'
 gem 'sinatra'                   , '>= 1.3.0', require: nil
-gem 'i18n'
+gem 'i18n'                      , '0.6.11'
 
 gem 'devise'                    , '~> 3.2'
 gem 'devise_ldap_authenticatable'

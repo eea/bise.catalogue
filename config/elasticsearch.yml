@@ -1,6 +1,2 @@
-development:
-    url: http://localhost:9200
-test:
-    url: http://localhost:9200
 production:
-    url: http://localhost:9200
+    url: http://elasticsearch:9200
