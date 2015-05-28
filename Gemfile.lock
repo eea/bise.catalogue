@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: git://github.com/activeadmin/activeadmin.git
-  revision: cef68b7be82699f9abdc46c98e4fa6a471cb1761
+  revision: 9c46b14ea0d9b3aaaa3d7520555c9959d06ce7f3
   specs:
     activeadmin (1.0.0.pre1)
       arbre (~> 1.0, >= 1.0.2)
@@ -197,7 +197,7 @@ GEM
     database_cleaner (1.4.1)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
-    devise (3.5.0)
+    devise (3.5.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -253,7 +253,7 @@ GEM
       cucumber (>= 1.3.0)
       guard-compat (~> 1.0)
       nenv (~> 0.1)
-    guard-rspec (4.5.0)
+    guard-rspec (4.5.1)
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
@@ -325,7 +325,7 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.6.2)
-    minitest (5.6.1)
+    minitest (5.7.0)
     mixlib-cli (1.5.0)
     multi_json (1.11.0)
     multi_test (0.1.2)
@@ -354,7 +354,7 @@ GEM
     paper_trail (3.0.8)
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
-    parser (2.2.2.3)
+    parser (2.2.2.5)
       ast (>= 1.1, < 3.0)
     pg (0.18.2)
     polyglot (0.3.5)
