@@ -5,8 +5,4 @@ WORKDIR /app
 ADD Gemfile /app/Gemfile
 RUN bundle install
 ADD . /app
-COPY config/database.example.yml config/database.yml
-COPY config/elasticsearch.example.yml config/elasticsearch.yml
-COPY config/redis.example.yml config/redis.yml
-ENV RAILS_ENV=production
-RUN bundle exec rake assets:precompile
+CMD ["rails", "server", "-b", "0.0.0.0"]
