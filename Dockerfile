@@ -5,7 +5,7 @@ WORKDIR /app
 ADD Gemfile /app/Gemfile
 RUN bundle install
 
-ADD Rakefile /app/
+ADD Rakefile Guardfile config.ru /app/
 ADD app /app/app
 ADD bin /app/bin
 ADD config /app/config
@@ -20,7 +20,6 @@ ADD vendor /app/vendor
 COPY config/database.example.yml /app/config/database.yml
 COPY config/elasticsearch.example.yml /app/config/elasticsearch.yml
 COPY config/redis.example.yml /app/config/redis.yml
-
 RUN RAILS_ENV=production bundle exec rake assets:precompile --trace
-RUN apt-get purge -y elasticsearch
+
 CMD ["rails", "server", "-b", "0.0.0.0"]
