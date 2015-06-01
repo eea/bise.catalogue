@@ -22,6 +22,6 @@ COPY config/elasticsearch.example.yml /app/config/elasticsearch.yml
 COPY config/redis.example.yml /app/config/redis.yml
 RUN RAILS_ENV=production bundle exec rake assets:precompile --trace
 
-VOLUME /app/log
+VOLUME ["/app/log", "/app/public/uploads", "/app/public/assets"]
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
