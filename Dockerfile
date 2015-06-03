@@ -1,4 +1,5 @@
 FROM ruby:2.0.0
+
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev libsqlite3-dev qt5-default libqt5webkit5-dev ssmtp
 RUN mkdir /app
 WORKDIR /app
@@ -17,6 +18,7 @@ ADD script /app/script
 ADD spec /app/spec
 ADD vendor /app/vendor
 
+# Precompile assets
 COPY config/database.example.yml /app/config/database.yml
 COPY config/elasticsearch.example.yml /app/config/elasticsearch.yml
 COPY config/redis.example.yml /app/config/redis.yml
