@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140930083523) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20150619111117) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -291,7 +288,7 @@ ActiveRecord::Schema.define(version: 20140930083523) do
   create_table "documents", force: true do |t|
     t.string   "title"
     t.string   "english_title"
-    t.string   "author"
+    t.text     "author"
     t.text     "description"
     t.string   "language"
     t.text     "biographical_region"
@@ -388,7 +385,7 @@ ActiveRecord::Schema.define(version: 20140930083523) do
   create_table "links", force: true do |t|
     t.string   "title"
     t.string   "english_title"
-    t.string   "author"
+    t.text     "author"
     t.string   "language"
     t.text     "biographical_region"
     t.string   "url"
@@ -421,7 +418,7 @@ ActiveRecord::Schema.define(version: 20140930083523) do
   create_table "news", force: true do |t|
     t.boolean  "approved"
     t.datetime "approved_at"
-    t.string   "author"
+    t.text     "author"
     t.string   "english_title"
     t.string   "language"
     t.datetime "published_on"
