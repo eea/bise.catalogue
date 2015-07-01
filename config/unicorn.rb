@@ -1,7 +1,7 @@
 # root = "/home/deployer/apps/catalogue/current"
-root = "/var/local/apps/catalogue/current"
+root = "/app"
 working_directory root
-pid "#{root}/tmp/pids/unicorn.pid"
+pid "#{root}/tmp/unicorn.pid"
 stderr_path "#{root}/log/unicorn.log"
 stdout_path "#{root}/log/unicorn.log"
 
