@@ -27,4 +27,4 @@ RUN RAILS_ENV=production bundle exec rake assets:precompile --trace
 VOLUME ["/app/log", "/app/public/uploads", "/app/public/assets"]
 
 #CMD ["rails", "server", "-b", "0.0.0.0"]
-CMD ["bundle", "exec", "unicorn", "-c", "/app/config/unicorn.rb", "-E", "production"]
+CMD ["bundle", "exec", "unicorn", "-c", "/app/config/unicorn.rb", "-p", "3000", "-E", "production"]

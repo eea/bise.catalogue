@@ -25,7 +25,8 @@ gem 'responders'
 gem 'sass-rails'                , '~> 4.0.3'
 gem "less-rails"
 
-gem 'therubyracer'              , '~> 0.12.0'                                , require: 'v8'
+gem 'libv8'                     , '3.16.14.3'
+gem 'therubyracer'              , '0.12.1'                                , require: 'v8'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'           , '~> 5.0.3'
