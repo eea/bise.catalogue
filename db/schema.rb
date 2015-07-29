@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619111117) do
+ActiveRecord::Schema.define(version: 20150729100822) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -286,8 +286,8 @@ ActiveRecord::Schema.define(version: 20150619111117) do
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
   create_table "documents", force: true do |t|
-    t.string   "title"
-    t.string   "english_title"
+    t.text     "title"
+    t.text     "english_title"
     t.text     "author"
     t.text     "description"
     t.string   "language"
@@ -383,8 +383,8 @@ ActiveRecord::Schema.define(version: 20150619111117) do
   end
 
   create_table "links", force: true do |t|
-    t.string   "title"
-    t.string   "english_title"
+    t.text     "title"
+    t.text     "english_title"
     t.text     "author"
     t.string   "language"
     t.text     "biographical_region"
@@ -419,11 +419,11 @@ ActiveRecord::Schema.define(version: 20150619111117) do
     t.boolean  "approved"
     t.datetime "approved_at"
     t.text     "author"
-    t.string   "english_title"
+    t.text     "english_title"
     t.string   "language"
     t.datetime "published_on"
     t.string   "source"
-    t.string   "title"
+    t.text     "title"
     t.string   "url"
     t.string   "abstract"
     t.string   "comment"
