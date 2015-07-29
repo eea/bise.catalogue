@@ -34,8 +34,8 @@ module Classifiable
     has_and_belongs_to_many :countries, class_name: "Country", join_table: "#{name.pluralize.downcase}_countries", foreign_key: "#{name.downcase}_id"
 
     validates :site          , presence: true
-    validates :title         , presence: true , length: { maximum: 255 }
-    validates :english_title , presence: true , length: { maximum: 255 }
+    validates :title         , presence: true , length: { maximum: 512 }
+    validates :english_title , presence: true , length: { maximum: 512 }
 
     validates :author        , presence: true , length: { maximum: 512 }
     validates :language_ids  , presence: true
