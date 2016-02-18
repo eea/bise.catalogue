@@ -8,8 +8,12 @@ class ContentMailer < ActionMailer::Base
     @url = url_for_obj(obj)
     attachments.inline['logo.png'] = File.read('app/assets/images/bise_logo_big.png')
     User.approvers.each do |approver|
-      mail(to: approver.email,
-           subject: "[CATALOGUE] - #{@user.name} has created new content!")
+        if approver.email
+            mail(to: approver.email,
+                subject: "[CATALOGUE] - #{@user.name} has created new content!")
+        else
+            logger.warn { "Can't send email to #{approver.login} - missing email!" }
+        end
     end
   end
 

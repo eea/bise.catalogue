@@ -11,6 +11,9 @@ Devise.setup do |config|
   # config.ldap_use_admin_to_bind = false
   # config.ldap_ad_group_check = false
 
+  # enabled so the email addresses of users can be read
+  config.ldap_use_admin_to_bind = true
+
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
