@@ -17,6 +17,7 @@ class LinksController < ApplicationController
   def update
     @link = Link.find(params[:id])
     @link.modifier = current_user
+    @link.update_attribute(:description, params[:link][:description])
     update!
   end
 
