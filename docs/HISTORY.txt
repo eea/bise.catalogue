@@ -1,6 +1,11 @@
 Changelog
 =========
 
+28/07/2016
+----------
+* Bumped max size validator for "author" to 2048
+* Properly save description field in Link edit form
+
 (In development)
 ----------------------
   [Jon Arrien]
