@@ -2,6 +2,7 @@ require 'sanitize'
 
 class Api::V1::SyncController < ApplicationController
 
+  skip_before_action :verify_authenticity_token
   skip_before_filter :protect_from_forgery
   # rescue_from StandardError, with: :register_exceptions
   # rescue_from ActiveRecord::RecordInvalid, with: :register_exceptions

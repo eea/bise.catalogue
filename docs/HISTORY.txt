@@ -1,8 +1,12 @@
 Changelog
 =========
 
-28/07/2016
-----------
+28/07/2016 - v1.6
+-----------------
+* Add skip_before_action :verify_authenticity_token to Api::V1::SyncController
+
+28/07/2016 - v1.5
+-----------------
 * Bumped max size validator for "author" to 2048
 * Properly save description field in Link edit form
 
