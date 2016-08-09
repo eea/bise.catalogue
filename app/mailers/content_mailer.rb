@@ -1,6 +1,6 @@
 # Sends mails when content is created or updated
 class ContentMailer < ActionMailer::Base
-  default from: 'notifications@catalogue.com'
+  default from: 'notifications@biodiversity.europa.eu'
 
   def content_created_email(user, obj)
     @user = user
