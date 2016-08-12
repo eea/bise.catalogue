@@ -1,6 +1,11 @@
 Changelog
 =========
 
+09/08/2016 - v1.7
+-----------------
+* Change default from field for notification emails
+[tiberich #71624]
+
 28/07/2016 - v1.6
 -----------------
 * Add skip_before_action :verify_authenticity_token to Api::V1::SyncController
