@@ -3,11 +3,11 @@ require 'sanitize'
 class Api::V1::SyncController < ApplicationController
 
   skip_before_action :verify_authenticity_token
-  skip_before_filter :protect_from_forgery
+  #skip_before_filter :protect_from_forgery
+  #
   # rescue_from StandardError, with: :register_exceptions
   # rescue_from ActiveRecord::RecordInvalid, with: :register_exceptions
   # rescue_from ActiveRecord::RecordNotSaved, with: :register_exceptions
-
 
   # We overwrite as_json method to create custom mappings
   # class EcosystemAssessment < ::EcosystemAssessment
@@ -29,7 +29,7 @@ class Api::V1::SyncController < ApplicationController
     # Converts token and language to internal items
     c.check_auth_token!(request.params[:auth_token])
     c.check_languages(request.params)
-    params = @params
+    #params = @params
   end
   after_filter :set_access_control_headers
 
@@ -131,7 +131,7 @@ class Api::V1::SyncController < ApplicationController
         return_error('source_url not found.')
       else
         if @article.update_attributes(params[:article])
-          render json: @article, status: :updated, location: @article
+          render json: @article, status: :ok, location: @article
         else
           respond_with_unprocessable @article
         end
@@ -142,7 +142,7 @@ class Api::V1::SyncController < ApplicationController
         return_error('source_url not found.')
       else
         if @document.update_attributes(params[:document])
-          render json: @document, status: :updated, location: @document
+          render json: @document, status: :ok, location: @document
         else
           respond_with_unprocessable @document
         end
@@ -153,7 +153,7 @@ class Api::V1::SyncController < ApplicationController
         return_error('source_url not found.')
       else
         if @link.update_attributes(params[:link])
-          render json: @link, status: :updated, location: @link
+          render json: @link, status: :ok, location: @link
         else
           respond_with_unprocessable @link
         end
