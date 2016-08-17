@@ -1,14 +1,19 @@
 FROM ruby:2.0.0
 
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev libsqlite3-dev qt5-default libqt5webkit5-dev ssmtp
-RUN mkdir /app
-WORKDIR /app
-ADD Gemfile /app/Gemfile
-ADD Gemfile.lock /app/Gemfile.lock
+
+WORKDIR /tmp
+ADD Gemfile /tmp/Gemfile
+ADD Gemfile.lock /tmp/Gemfile.lock
 RUN bundle install
 
-ADD Rakefile Guardfile config.ru /app/
+RUN mkdir /app
+WORKDIR /app
+
 ADD app /app/app
+ADD Gemfile Gemfile
+ADD Gemfile.lock Gemfile.lock
+ADD Rakefile Guardfile config.ru /app/
 ADD bin /app/bin
 ADD config /app/config
 ADD db /app/db
@@ -28,4 +33,5 @@ RUN RAILS_ENV=production bundle exec rake assets:precompile --trace
 VOLUME ["/app/log", "/app/public/uploads", "/app/public/assets"]
 
 #CMD ["rails", "server", "-b", "0.0.0.0"]
+
 CMD ["bundle", "exec", "unicorn", "-c", "/app/config/unicorn.rb", "-p", "3000", "-E", "production"]
