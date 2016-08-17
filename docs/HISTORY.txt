@@ -1,6 +1,11 @@
 Changelog
 =========
 
+17/08/2016 - v1.8
+-----------------
+* Bug fix: use proper :ok status when updating from Sync API
+[tiberich #22237]
+
 09/08/2016 - v1.7
 -----------------
 * Change default from field for notification emails
