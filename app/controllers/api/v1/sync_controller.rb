@@ -125,7 +125,10 @@ class Api::V1::SyncController < ApplicationController
 
   def update
     case @res
+    # update country_ids based on query on country code
+
     when 'article'
+        byebug
       @article = Article.where(source_url: params[:article][:source_url]).first
       if @article.nil?
         return_error('source_url not found.')

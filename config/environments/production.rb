@@ -1,30 +1,58 @@
 Catalogue::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  # Code is not reloaded between requests
-  config.cache_classes = true
+  # # Code is not reloaded between requests
+  # config.cache_classes = true
+  #
+  # # Full error reports are disabled and caching is turned on
+  # config.consider_all_requests_local       = false
+  # config.action_controller.perform_caching = true
+  #
+  # # Disable Rails's static asset server (Apache or nginx will already do this)
+  #
+  # config.serve_static_assets = true
+  #
+  # # Compress JavaScripts and CSS
+  # config.assets.compress = true
+  #
+  # config.eager_load = true
+  #
+  # # config.assets.css_compressor = :yui
+  # config.assets.js_compressor = :uglifier
+  #
+  # # Don't fallback to assets pipeline if a precompiled asset is missed
+  # config.assets.compile = true
+  #
+  # # Generate digests for assets URLs
+  # config.assets.digest = true
 
-  # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = false
-  config.action_controller.perform_caching = true
+  config.cache_classes = false
 
-  # Disable Rails's static asset server (Apache or nginx will already do this)
+  config.eager_load = false
 
-  config.serve_static_assets = true
+  # Show full error reports and disable caching
+  config.consider_all_requests_local       = true
+  config.action_controller.perform_caching = false
 
-  # Compress JavaScripts and CSS
-  config.assets.compress = true
+  # Don't care if the mailer can't send
+  config.action_mailer.raise_delivery_errors = false
 
-  config.eager_load = true
+  config.action_mailer.default_url_options = { :host => 'bise.catalogue.dev' }
 
-  # config.assets.css_compressor = :yui
-  config.assets.js_compressor = :uglifier
+  # Print deprecation notices to the Rails logger
+  config.active_support.deprecation = :log
 
-  # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
+  # Only use best-standards-support built into browsers
+  config.action_dispatch.best_standards_support = :builtin
 
-  # Generate digests for assets URLs
-  config.assets.digest = true
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
+
+  # Do not compress assets
+  config.assets.compress = false
+
+  # Expands the lines which load the assets
+  config.assets.debug = true
 
 
   # Defaults to nil and saved in location specified by config.assets.prefix
@@ -38,7 +66,7 @@ Catalogue::Application.configure do
   # config.force_ssl = true
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :debug
 
   # Prepend all log lines with the following tags
   # config.log_tags = [ :subdomain, :uuid ]
@@ -54,14 +82,14 @@ Catalogue::Application.configure do
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w()
-  config.assets.precompile += %w(home.js)
+  #config.assets.precompile += %w(home.js)
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.default_url_options = { :host => 'catalogue.biodiversity.europa.eu' }
-  config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.sendmail_settings = { :arguments => '-i' }
+  #config.action_mailer.default_url_options = { :host => 'catalogue.biodiversity.europa.eu' }
+  #config.action_mailer.delivery_method = :sendmail
+  #config.action_mailer.sendmail_settings = { :arguments => '-i' }
 
   # Enable threaded mode
   # config.threadsafe!
@@ -71,5 +99,6 @@ Catalogue::Application.configure do
   config.i18n.fallbacks = true
 
   # Send deprecation notices to registered listeners
-  config.active_support.deprecation = :notify
+  #tibi
+    ActiveRecord::Base.logger = Logger.new(STDOUT)
 end
