@@ -1,6 +1,5 @@
 require File.expand_path('../boot', __FILE__)
 
-require "resolv-replace"
 require 'rails/all'
 
 Bundler.require(:default, Rails.env)
