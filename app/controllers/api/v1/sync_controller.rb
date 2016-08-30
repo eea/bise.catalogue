@@ -26,6 +26,13 @@ class Api::V1::SyncController < ApplicationController
     # resource_type
     @res = request.params[:resource_type]
 
+    # update country_ids based on query on country code
+    if params[@res].key?(:countries)
+      countries = Country.where(:code => params[@res][:countries]).pluck(:id)
+      params[@res][:country_ids] = countries
+      params[@res].delete :countries
+    end
+
     # Converts token and language to internal items
     c.check_auth_token!(request.params[:auth_token])
     c.check_languages(request.params)
@@ -125,10 +132,8 @@ class Api::V1::SyncController < ApplicationController
 
   def update
     case @res
-    # update country_ids based on query on country code
 
     when 'article'
-        byebug
       @article = Article.where(source_url: params[:article][:source_url]).first
       if @article.nil?
         return_error('source_url not found.')
