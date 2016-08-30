@@ -26,19 +26,28 @@ class Api::V1::SyncController < ApplicationController
     # resource_type
     @res = request.params[:resource_type]
 
-    # update country_ids based on query on country code
-    if params[@res].key?(:countries)
-      countries = Country.where(:code => params[@res][:countries]).pluck(:id)
-      params[@res][:country_ids] = countries
-      params[@res].delete :countries
-    end
-
     # Converts token and language to internal items
     c.check_auth_token!(request.params[:auth_token])
+    c.check_countries!(request.params)
     c.check_languages(request.params)
     #params = @params
   end
   after_filter :set_access_control_headers
+
+  def check_countries!(params)
+    # update country_ids based on query on country code
+
+    rtype = @res.to_sym
+    if params[rtype].key?(:countries)
+      codes = params[rtype][:countries]
+      countries = Country.where(:code => codes).pluck(:id)
+      if countries.count == 0
+        return_error("Country code invalid #{codes}")
+      else
+        @params[rtype] = @params[rtype].merge!({country_ids: countries}).except!(:countries)
+      end
+    end
+  end
 
   def check_auth_token!(token)
     site = Site.where(auth_token: token).first
