@@ -169,7 +169,7 @@ class Article < ActiveRecord::Base
 
   def self.search(params)
 
-    params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)]/, '\\1') if params[:query].present?
+    params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)\/]/, '\\1') if params[:query].present?
     show_approved = (params[:approved].present? && params[:approved] == 'true') ? true : false
 
     date_init, date_end = nil

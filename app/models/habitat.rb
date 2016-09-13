@@ -108,7 +108,7 @@ class Habitat < ActiveRecord::Base
 
   def self.search(params)
 
-    params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)]/, '\\1') if params[:query].present?
+    params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)\/]/, '\\1') if params[:query].present?
 
     hab_filter = Array.new
     hab_filter << { term: { 'countries.name' => params[:countries].split(/\//) }} if params[:countries].present?

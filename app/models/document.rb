@@ -193,7 +193,7 @@ class Document < ActiveRecord::Base
   end
 
   def self.search(params)
-    params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)]/, '\\1')                          if params[:query].present?
+    params[:query].gsub!(/[\+\-\:\"\~\*\!\?\{\}\[\]\(\)\/]/, '\\1') if params[:query].present?
     show_approved = (params[:approved] && params[:approved] == 'true') ? true : false
 
     date_init, date_end = nil
