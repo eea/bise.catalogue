@@ -1,23 +1,36 @@
-# first, change version of desired ruby in .ruby-version
+# Install
 
-# now, install this ruby
-rbenv install
+* first, change version of desired ruby in .ruby-version
 
-# next, install bundle, this is used to install the gems in Gemfile
-gem install bundle
+* now, install this chosen ruby
 
-# now install the gems in Gemfile
-bundle install
+    rbenv install
 
-# start rails with:
-rails server
+* next, install bundle, this is used to install the gems in Gemfile
 
-# to debug a controller:
-gem install byebug
-# add to the top of .rb file:
-require 'byebug`
-# then, at any location, insert a line:
-byebug
+    gem install bundle
+
+* now install the gems in Gemfile
+
+    bundle install
+
+* start rails with:
+
+    rails server
+
+## Debugging
+
+* to debug a controller:
+
+    gem install byebug
+
+* add to the top of .rb file:
+
+    require 'byebug`
+
+* then, at any location, insert a line:
+
+    byebug
 
 
 # How to get a database dump of the Postgresql in production
@@ -30,18 +43,19 @@ all hosts, but it can't allow access from a shell opened in the docker image.
 
 I've opened a shell to the db service:
 
-docker exec -it `docker-compose ps -q db | xargs` /bin/bash
+    docker exec -it `docker-compose ps -q db | xargs` /bin/bash
 
 I've edited the file /var/lib/postgresql/data/pg_hba.conf to allow unrestricted
 connections from the local shell:
 
-local   all         all                               trust
+    local   all         all                               trust
 
 Now I can list databases on the server:
 
-su - postgres -c psql
+    su - postgres -c psql
 
 
+```
 postgres=# \l
                                        List of databases
          Name         |  Owner   | Encoding |  Collation  |    Ctype    |   Access privileges
@@ -53,16 +67,19 @@ postgres=# \l
  template1            | postgres | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres
                                                                         : postgres=CTc/postgres
 (4 rows)
+```
 
 And I can dump the database:
 
-su - postgres -c pg_dump catalogue_production -f /tmp/out.sql
+    su - postgres -c pg_dump catalogue_production -f /tmp/out.sql
 
 Installed openssh-clients to allow scp-ing the file out of docker
 
 Then I can import the file to the local machine:
 
-psql catalogue_production -f out.sql
+    psql catalogue_production -f out.sql
+
+## Get ElasticSearch cluster in sync with the Postgresql data:
 
 To regenerate the ElasticSearch indexes, use the reindex_elasticsearch.sh
 script from this folder.
