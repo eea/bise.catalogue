@@ -51,7 +51,7 @@ class BiseSearch
           should   { string 'countries.ngram_name:'      + q }
           should   { string 'languages.ngram_name:'      + q }
 
-          should   { string 'tags.name:'                 + q }
+          should   { string 'tags.name:'                 + q, :boost => 3 }
           should   { string 'biogeo_regions.name:'       + q }
           should   { string 'biogeo_regions.code:'       + q }
         end
@@ -93,6 +93,7 @@ class BiseSearch
         facet_filter :and, search_filter unless search_filter.empty?
       end
     end
+    #puts rows.to_curl
     rows
   end
 

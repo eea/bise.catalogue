@@ -50,6 +50,7 @@ class AdvancedSearch
     rows = Tire.search indexes, load: @load, from: start_page, size: @per do
       query do
         boolean do
+          #should   { match 'tags.name', q, :boost => 20000 }
           should   { string 'title:'                     + q }
           should   { string 'english_title:'             + q }
           should   { string 'description:'               + q }
@@ -61,8 +62,7 @@ class AdvancedSearch
           should   { string 'countries.ngram_name:'      + q }
           should   { string 'languages.ngram_name:'      + q }
 
-          should   { string 'tags.name:'                 + q }
-
+          should   { string 'tags.name:'                 + q, :boost => 3 }
           should   { string 'biogeo_regions.name:'       + q }
           should   { string 'biogeo_regions.code:'       + q }
 
@@ -140,6 +140,7 @@ class AdvancedSearch
         facet_filter :and, search_filter unless search_filter.empty?
       end
     end
+    #puts rows.to_curl
     rows
   end
 
