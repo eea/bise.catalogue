@@ -3,7 +3,8 @@ Changelog
 
 2016-09-27 - v1.9
 -----------------
-* Feature: boost matching on the tags in ES searches
+* Feature: boost matching on the tags in ES searches. Sort by published_on and
+  title when query is missing
   [tiberich #77048]
 
 17/08/2016 - v1.8

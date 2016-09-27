@@ -66,6 +66,14 @@ class BiseSearch
       filter :range, published_on: { gte: date_init, lt: date_end } unless date_init.nil?
       filter :term, 'targets.title.exact' => target unless target.nil?
 
+      # add default sorting when ranking cannot be relied on
+      sort do
+        @value = [
+          {:published_on => 'desc'},
+          {:title => 'asc'},
+        ]
+      end unless q != '*'
+
       highlight attachment: { number_of_fragments: 2 }
 
       facet 'countries' do

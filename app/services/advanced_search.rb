@@ -75,6 +75,14 @@ class AdvancedSearch
         end
       end
 
+      # add default sorting when ranking cannot be relied on
+      sort do
+        @value = [
+          {:published_on => 'desc'},
+          {:title => 'asc'},
+        ]
+      end unless q != '*'
+
       filter :bool, must: { term: { approved: true } }
       filter :term, 'site.name' => site unless site.nil?
       filter :term, source_db: source_db unless source_db.nil?
@@ -140,7 +148,7 @@ class AdvancedSearch
         facet_filter :and, search_filter unless search_filter.empty?
       end
     end
-    #puts rows.to_curl
+    puts rows.to_curl
     rows
   end
 
