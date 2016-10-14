@@ -76,11 +76,21 @@ class AdvancedSearch
       end
 
       # add default sorting when ranking cannot be relied on
-      sort do
-        @value = [
+      sortings = {
+        alphabetic: [
           {:published_on => 'desc'},
           {:title => 'asc'},
+        ],
+        publish_date: [
+          {:published_on => 'desc'},
+        ],
+        approve_date: [
+          {:approved_at => 'desc'},
         ]
+      }
+      sort_on = (sortings[@sort_on] if @sort_on.present?) || sortings[:alphabetic]
+      sort do
+        @value = sort_on
       end unless q != '*'
 
       filter :bool, must: { term: { approved: true } }
