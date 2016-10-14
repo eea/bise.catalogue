@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729100822) do
+ActiveRecord::Schema.define(version: 20161014132018) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -20,8 +23,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.string   "resource_type", null: false
     t.integer  "author_id"
     t.string   "author_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
@@ -39,8 +42,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
   end
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
@@ -57,8 +60,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.date     "published_on"
     t.boolean  "published",           default: false
     t.integer  "site_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.boolean  "approved",            default: false
     t.datetime "approved_at"
     t.integer  "creator_id"
@@ -82,8 +85,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.string   "uri"
     t.string   "code"
     t.string   "area_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "biogeo_regions_protected_areas", id: false, force: true do |t|
@@ -114,6 +117,7 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.string   "search_type"
     t.string   "published_on"
     t.string   "strategytarget"
+    t.string   "sort_on"
   end
 
   create_table "comfy_cms_blocks", force: true do |t|
@@ -255,8 +259,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.integer  "population"
     t.string   "capital"
     t.boolean  "selection"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "countries_biogeoregions", id: false, force: true do |t|
@@ -303,8 +307,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.string   "md5hash"
     t.integer  "site_id"
     t.integer  "theme_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.datetime "approved_at"
     t.integer  "creator_id"
     t.integer  "modifier_id"
@@ -333,8 +337,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.string   "url"
     t.boolean  "is_final"
     t.string   "availability"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "habitats", force: true do |t|
@@ -348,31 +352,31 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.text     "description"
     t.text     "comment"
     t.string   "national_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.boolean  "approved",                  default: true
   end
 
   create_table "keyword_containers", force: true do |t|
     t.string   "title"
     t.string   "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "keywords", force: true do |t|
     t.string   "name"
     t.integer  "keyword_container_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   add_index "keywords", ["keyword_container_id"], name: "index_keywords_on_keyword_container_id", using: :btree
 
   create_table "languages", force: true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "code"
   end
 
@@ -395,8 +399,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.boolean  "approved",            default: false
     t.date     "approved_at"
     t.integer  "site_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "source_url"
     t.integer  "creator_id"
     t.integer  "modifier_id"
@@ -430,8 +434,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.string   "published"
     t.integer  "site_id"
     t.text     "biographical_region"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "news_languages", id: false, force: true do |t|
@@ -456,8 +460,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.float    "long"
     t.float    "lat"
     t.string   "source_db"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.boolean  "approved",         default: true
   end
 
@@ -471,8 +475,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.string   "origin_url"
     t.string   "description"
     t.integer  "articles_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "auth_token"
   end
 
@@ -492,8 +496,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.string   "name_according_to_ID"
     t.boolean  "ignore_on_match"
     t.integer  "taxonomy_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.boolean  "approved",                   default: true
   end
 
@@ -513,8 +517,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.string   "locale"
     t.string   "name"
     t.integer  "species_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "species_translations", ["species_id", "locale"], name: "index_species_translations_on_species_id_and_locale", unique: true, using: :btree
@@ -523,8 +527,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.string   "title"
     t.string   "short_desc"
     t.integer  "target_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "strategy_actions", ["target_id"], name: "index_strategy_actions_on_target_id", using: :btree
@@ -551,8 +555,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
   create_table "targets", force: true do |t|
     t.string   "title"
     t.string   "short_desc"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "taxonomies", force: true do |t|
@@ -561,8 +565,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.string   "name"
     t.string   "level"
     t.integer  "parent_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "taxonomies", ["parent_id"], name: "index_taxonomies_on_parent_id", using: :btree
@@ -586,8 +590,8 @@ ActiveRecord::Schema.define(version: 20150729100822) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.boolean  "role_admin",          default: false
     t.boolean  "role_validator",      default: false
     t.boolean  "role_author",         default: false
