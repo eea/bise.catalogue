@@ -12,6 +12,9 @@ class CatalogueSearch < ActiveRecord::Base
       self.start_date = DateTime.new(args[:published_on].to_i, 1, 1)
       self.end_date = DateTime.new(args[:published_on].to_i, 12, 31)
     end
+    if args[:sort_on].present?
+      self.sort_on = args[:sort_on]
+    end
     self.page ||= 1
     self.per ||= 10
   end

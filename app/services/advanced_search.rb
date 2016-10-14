@@ -2,6 +2,7 @@ class AdvancedSearch
 
   def initialize(search)
     search.attributes.each_pair{ |k, v| instance_variable_set( "@#{k}", v) }
+    search.attributes.each_pair{ |k, v| puts( "@#{k}", v) }
     @load = (@format.eql?(:json)) ? false : true
   end
 
@@ -47,6 +48,8 @@ class AdvancedSearch
     taxonomic_rank = @taxonomic_rank
     genus          = @genus
 
+    sort_on = @sort_on
+
     rows = Tire.search indexes, load: @load, from: start_page, size: @per do
       query do
         boolean do
@@ -88,7 +91,8 @@ class AdvancedSearch
           {:approved_at => 'desc'},
         ]
       }
-      sort_on = (sortings[@sort_on] if @sort_on.present?) || sortings[:alphabetic]
+      sort_on = (sortings[sort_on.to_sym] \
+                 if sort_on.present?) || sortings[:alphabetic]
       sort do
         @value = sort_on
       end unless q != '*'
