@@ -81,8 +81,8 @@ class AdvancedSearch
       # add default sorting when ranking cannot be relied on
       sortings = {
         alphabetic: [
-          {:published_on => 'desc'},
           {:title => 'asc'},
+          {:published_on => 'desc'}
         ],
         publish_date: [
           {:published_on => 'desc'},
