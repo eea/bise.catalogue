@@ -79,7 +79,7 @@ class AdvancedSearch
       sort do
         @value = [
           {:published_on => 'desc'},
-          {:title => 'asc'},
+          # {:title => 'asc'},
         ]
       end unless q != '*'
 
@@ -148,7 +148,7 @@ class AdvancedSearch
         facet_filter :and, search_filter unless search_filter.empty?
       end
     end
-    puts rows.to_curl
+    # puts rows.to_curl
     rows
   end
 

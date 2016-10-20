@@ -70,7 +70,7 @@ class BiseSearch
       sort do
         @value = [
           {:published_on => 'desc'},
-          {:title => 'asc'},
+          # {:title => 'asc'},
         ]
       end unless q != '*'
 
