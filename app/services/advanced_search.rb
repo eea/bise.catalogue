@@ -81,7 +81,7 @@ class AdvancedSearch
       # add default sorting when ranking cannot be relied on
       sortings = {
         alphabetic: [
-          {:title => 'asc'},
+          # {:title => 'asc'},
           {:published_on => 'desc'}
         ],
         publish_date: [
@@ -162,7 +162,7 @@ class AdvancedSearch
         facet_filter :and, search_filter unless search_filter.empty?
       end
     end
-    puts rows.to_curl
+    # puts rows.to_curl
     rows
   end
 

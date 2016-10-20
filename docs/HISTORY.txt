@@ -1,6 +1,17 @@
 Changelog
 =========
 
+2016-10-20 - v1.11
+------------------
+* Bug fix: Only sort on published_on when query is missing, title is not
+  found in all indexes
+  [tiberich #77048]
+
+2016-10-20 - v1.10
+------------------
+* Bug fix: fix document editing when creator of document had no email set
+  [tiberich ]
+
 2016-09-27 - v1.9
 -----------------
 * Feature: boost matching on the tags in ES searches. Sort by published_on and
