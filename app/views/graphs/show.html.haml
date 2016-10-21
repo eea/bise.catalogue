@@ -1,0 +1,32 @@
+- content_for :pageheader do
+  = @graph.title
+
+- content_for :actions do
+  - if search_params_available?
+    = link_to :back, class: 'btn btn-default' do
+      = fa_icon 'reply'
+      Back
+  - else
+    = link_to graphs_path, class: 'btn btn-default' do
+      = fa_icon 'reply'
+      Back to List
+  = link_to  edit_graph_path(@graph), class: "btn btn-default #{@graph.disabled?(current_user)}" do
+    = fa_icon 'pencil'
+    Edit
+  = link_to  graph_path(@graph), method: :delete, class: "btn btn-danger pull-right #{@graph.disabled?(current_user)}" do
+    = fa_icon 'trash-o'
+    Delete
+
+
+= render 'templates/common_info', obj: @graph
+
+%legend Graph
+.well
+  = link_to @graph.url, @graph.url
+  %br
+  = raw @graph.description
+
+= render 'templates/countries', object: @graph
+= render 'templates/biographical_region', object: @graph
+= render 'templates/targets_and_actions', object: @graph
+= render 'templates/tags', object: @graph

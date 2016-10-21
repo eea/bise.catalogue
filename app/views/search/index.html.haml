@@ -15,6 +15,12 @@
       %li
         %a{ href: '#' }
           Documents
+      %li
+        %a{ href: '#' }
+          Indicators
+      %li
+        %a{ href: '#' }
+          Graphs
   = form_tag search_path, method: 'get', class: 'search-query pull-right' do       #
     = text_field_tag :query, params[:query], class: "search-query", placeholder: 'Search ...'
 
@@ -41,6 +47,10 @@
           = render "public_cells/document", doc: row, hit: hit
         - elsif row.class == Link
           = render "public_cells/link", link: row, hit: hit
+        - elsif row.class == Indicator
+          = render "public_cells/indicator", link: row, hit: hit
+        - elsif row.class == Graph
+          = render "public_cells/graph", link: row, hit: hit
         - elsif row.class == Species
           = render "public_cells/species", species: row, hit: hit
         - elsif row.class == ProtectedArea
@@ -63,7 +73,4 @@
             - facet[1]['terms'].each do |t|
               %li.list-group-item
                 = link_to t['term'], params.merge({ facet[0] => t['term'] })
-
-
-
 

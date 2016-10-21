@@ -23,6 +23,8 @@ en:
       article: Web Page
       document: Document
       link: Link
+      graph: Graph
+      indicator: Indicator
     attributes:
       article:
         site: Source site
@@ -41,6 +43,22 @@ en:
         biographical_region: Biographical region
         published_on: Published on
       link:
+        site: Source site
+        title: Title
+        english_title: English title
+        author: Author
+        language_ids: Languages
+        biographical_region: Biographical region
+        published_on: Published on
+      indicator:
+        site: Source site
+        title: Title
+        english_title: English title
+        author: Author
+        language_ids: Languages
+        biographical_region: Biographical region
+        published_on: Published on
+      graph:
         site: Source site
         title: Title
         english_title: English title
@@ -83,6 +101,38 @@ en:
             published_on:
               not_valid: Please, choose a valid date.
         link:
+          attributes:
+            site:
+              blank: Please, fill in the site.
+            title:
+              blank: Please, fill in the title.
+            english_title:
+              blank: Please, fill in the english title.
+            author:
+              blank: Please, fill in the author.
+            language_ids:
+              blank: Please, select at least one language.
+            published_on:
+              not_valid: Please, choose a valid date.
+            url:
+              blank: Please, link is mandatory.
+        indicator:
+          attributes:
+            site:
+              blank: Please, fill in the site.
+            title:
+              blank: Please, fill in the title.
+            english_title:
+              blank: Please, fill in the english title.
+            author:
+              blank: Please, fill in the author.
+            language_ids:
+              blank: Please, select at least one language.
+            published_on:
+              not_valid: Please, choose a valid date.
+            url:
+              blank: Please, link is mandatory.
+        graph:
           attributes:
             site:
               blank: Please, fill in the site.

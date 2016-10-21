@@ -1,0 +1,27 @@
+%tr
+  %td{ style: 'width: 10px;vertical-align:middle' }
+    = check_box_tag "graph_ids[]", graph.id if current_user.role_validator?
+  %td.graph_cell
+    .cell-title
+      = link_to graph.title, graph
+
+    %small
+      = "by #{graph.author} "
+      = "at #{graph.published_on.strftime('%d/%m/%Y')}"
+
+    - if graph.approved?
+      %span.label.label-success.pull-right
+        Approved
+    - else
+      %span.label.label-danger.pull-right
+        Unapproved
+
+    %br
+    - if hit.has_key?'highlight' and hit['highlight'].has_key? 'content'
+      - att_hits = hit['highlight']['content']
+
+      .hits
+        %ol{ type: "I" }
+          - att_hits.each do |h|
+            %li
+              %p.hit= raw '...' + h + '...'

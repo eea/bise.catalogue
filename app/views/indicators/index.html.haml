@@ -1,0 +1,41 @@
+- content_for :pageheader do
+  Indicators
+
+- content_for :actions do
+  = render 'common/approved_toggle'
+  - if can? :create, Link
+    .btn-group
+      = link_to  new_indicator_path, class: 'btn btn-default' do
+        = fa_icon 'plus'
+        New Indicator
+  = form_tag indicators_path, method: 'get', class: 'search-query pull-right' do       #
+    - if params[:approved].present?
+      = hidden_field_tag :approved, params[:approved] != '' ? params[:approved] : false
+    - if params[:per_page].present?
+      = hidden_field_tag :per_page, params[:per_page] != '' ? params[:per_page] : false
+    = text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search indicators..'    #
+
+.row
+  .col-sm-3
+    = render "facets/facet_sites"       , objs: @indicators
+    = render "facets/facet_authors"     , objs: @indicators
+    = render "facets/facet_languages"   , objs: @indicators
+    = render "facets/facet_countries"   , objs: @indicators
+    = render "facets/facet_timeline"    , objs: @indicators
+    = render "facets/facet_targets"     , objs: @indicators
+  .col-sm-9
+    %legend Results
+    - if @indicators.size > 0
+      = form_tag approve_multiple_indicators_path do
+        %table.table.table-striped
+          %tbody
+            - @indicators.each_with_hit do |indicator, hit|
+              = render "cells/indicator", indicator: indicator, hit: hit
+        - if current_user.approver?
+          = submit_tag (show_approved?) ? 'Disapprove selected' : 'Approve selected', class: 'btn btn-default btn-sm pull-right'
+      = will_paginate @indicators, renderer: BootstrapPagination::Rails
+      %br
+      = page_entries_info @indicators, entry_name: 'indicator'
+    - else
+      = render 'common/empty_table'
+  %br

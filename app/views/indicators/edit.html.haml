@@ -1,0 +1,13 @@
+- content_for :pageheader do
+  Editing link
+
+- content_for :actions do
+  = link_to indicators_path, class: 'btn btn-default' do
+    = fa_icon 'reply'
+    Back
+  = link_to @indicator, class: 'btn btn-default' do
+    = fa_icon 'search'
+    Show
+
+= render 'form'
+

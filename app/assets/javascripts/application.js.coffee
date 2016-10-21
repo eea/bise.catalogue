@@ -78,6 +78,8 @@
 #= require articles
 #= require documents
 #= require links
+#= require indicators
+#= require graphs
 #= require news
 #= require species
 #= require actions

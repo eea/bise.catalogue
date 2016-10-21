@@ -1,0 +1,19 @@
+= simple_form_for(@indicator) do |f|
+
+  .container-fluid
+
+    = render partial: 'common/common_info', locals: { f: f }
+
+    %legend Indicator
+
+    .row
+      .col-lg-12
+        = f.input :url, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
+        = f.input :description, as: :text, input_html: { class: 'input-block-level tinymce', rows: 5 }
+
+    = render partial: 'common/targets', locals: { parent: @indicator, f: f }
+    = render partial: 'common/countries', locals: { parent: @indicator }
+
+  .form-actions
+    = f.submit 'Save', class: 'btn btn-success'
+    = link_to 'Cancel', indicators_path, class: 'btn btn-default'

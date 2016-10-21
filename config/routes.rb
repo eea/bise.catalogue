@@ -44,6 +44,18 @@ Catalogue::Application.routes.draw do
     end
   end
 
+  resources :graphs do
+    collection do
+      post :approve_multiple
+    end
+  end
+
+  resources :indicators do
+    collection do
+      post :approve_multiple
+    end
+  end
+
   resources :news
   resources :protected_areas
   resources :habitats

@@ -2,7 +2,7 @@ module HomeHelper
 
   def overview_data
     array = Array.new
-    %w(articles documents links).map do |index|
+    %w(articles documents links indicators graphs).map do |index|
       approved = Tire.search "catalogue_#{Rails.env}_#{index}", search_type: 'count' do
         query do
           string 'title:*'
@@ -26,7 +26,7 @@ module HomeHelper
 
   def timeline
     array = Array.new
-    indexes = %w(articles documents links)
+    indexes = %w(articles documents links indicators graphs)
 
     time_start = 12.months.ago
     time = time_start
@@ -74,6 +74,5 @@ module HomeHelper
     end
     array
   end
-
 
 end

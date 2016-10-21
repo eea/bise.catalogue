@@ -1,0 +1,41 @@
+- content_for :pageheader do
+  Graphs
+
+- content_for :actions do
+  = render 'common/approved_toggle'
+  - if can? :create, Graph
+    .btn-group
+      = link_to  new_graph_path, class: 'btn btn-default' do
+        = fa_icon 'plus'
+        New Graph
+  = form_tag graphs_path, method: 'get', class: 'search-query pull-right' do       #
+    - if params[:approved].present?
+      = hidden_field_tag :approved, params[:approved] != '' ? params[:approved] : false
+    - if params[:per_page].present?
+      = hidden_field_tag :per_page, params[:per_page] != '' ? params[:per_page] : false
+    = text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search graph..'    #
+
+.row
+  .col-sm-3
+    = render "facets/facet_sites"       , objs: @graphs
+    = render "facets/facet_authors"     , objs: @graphs
+    = render "facets/facet_languages"   , objs: @graphs
+    = render "facets/facet_countries"   , objs: @graphs
+    = render "facets/facet_timeline"    , objs: @graphs
+    = render "facets/facet_targets"     , objs: @graphs
+  .col-sm-9
+    %legend Results
+    - if @graphs.size > 0
+      = form_tag approve_multiple_graphs_path do
+        %table.table.table-striped
+          %tbody
+            - @graphs.each_with_hit do |graph, hit|
+              = render "cells/graph", graph: graph, hit: hit
+        - if current_user.approver?
+          = submit_tag (show_approved?) ? 'Disapprove selected' : 'Approve selected', class: 'btn btn-default btn-sm pull-right'
+      = will_paginate @graphs, renderer: BootstrapPagination::Rails
+      %br
+      = page_entries_info @graphs, entry_name: 'graph'
+    - else
+      = render 'common/empty_table'
+  %br

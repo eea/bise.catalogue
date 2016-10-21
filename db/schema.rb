@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014132018) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20161021074927) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -341,6 +338,40 @@ ActiveRecord::Schema.define(version: 20161014132018) do
     t.datetime "updated_at",     null: false
   end
 
+  create_table "graphs", force: true do |t|
+    t.text     "title"
+    t.text     "english_title"
+    t.text     "author"
+    t.text     "content"
+    t.string   "language"
+    t.text     "biographical_region"
+    t.string   "source_url"
+    t.date     "published_on"
+    t.boolean  "published",           default: false
+    t.boolean  "approved",            default: false
+    t.date     "approved_at"
+    t.integer  "site_id"
+    t.integer  "creator_id"
+    t.integer  "modifier_id"
+    t.string   "url"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "graphs", ["creator_id"], name: "index_graphs_on_creator_id", using: :btree
+  add_index "graphs", ["modifier_id"], name: "index_graphs_on_modifier_id", using: :btree
+
+  create_table "graphs_countries", id: false, force: true do |t|
+    t.integer "graph_id"
+    t.integer "country_id"
+  end
+
+  create_table "graphs_languages", id: false, force: true do |t|
+    t.integer "graph_id"
+    t.integer "language_id"
+  end
+
   create_table "habitats", force: true do |t|
     t.string   "uri"
     t.integer  "code"
@@ -355,6 +386,40 @@ ActiveRecord::Schema.define(version: 20161014132018) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.boolean  "approved",                  default: true
+  end
+
+  create_table "indicators", force: true do |t|
+    t.text     "title"
+    t.text     "english_title"
+    t.text     "author"
+    t.text     "content"
+    t.string   "language"
+    t.text     "biographical_region"
+    t.string   "source_url"
+    t.date     "published_on"
+    t.boolean  "published",           default: false
+    t.boolean  "approved",            default: false
+    t.date     "approved_at"
+    t.integer  "site_id"
+    t.integer  "creator_id"
+    t.integer  "modifier_id"
+    t.string   "url"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "indicators", ["creator_id"], name: "index_indicators_on_creator_id", using: :btree
+  add_index "indicators", ["modifier_id"], name: "index_indicators_on_modifier_id", using: :btree
+
+  create_table "indicators_countries", id: false, force: true do |t|
+    t.integer "indicator_id"
+    t.integer "country_id"
+  end
+
+  create_table "indicators_languages", id: false, force: true do |t|
+    t.integer "indicator_id"
+    t.integer "language_id"
   end
 
   create_table "keyword_containers", force: true do |t|

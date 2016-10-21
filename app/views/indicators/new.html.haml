@@ -1,0 +1,9 @@
+- content_for :pageheader do
+  New Indicator
+
+- content_for :actions do
+  = link_to indicators_path, class: 'btn btn-default' do
+    = fa_icon 'reply'
+    Back
+
+= render 'form'
