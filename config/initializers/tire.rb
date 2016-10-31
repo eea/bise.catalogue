@@ -25,6 +25,7 @@ module Tire
       end
 
       class FunctionScoreQuery
+
         class CustomFilter
           def initialize(&block)
             @value = {}
@@ -53,7 +54,38 @@ module Tire
           def to_json
             to_hash.to_json
           end
-        end
+        end   # end class CustomFilter
+
+
+        class FieldValueFactor
+          def initialize(&block)
+            @value = {}
+            block.arity < 1 ? self.instance_eval(&block) : block.call(self) if block_given?
+          end
+
+          def field(value)
+            @value[:field] = value
+            @value
+          end
+
+          def modifier(value)
+            @value[:modifier] = value
+            @value
+          end
+
+          def factor(value)
+            @value[:factor] = value
+            @value
+          end
+
+          def to_hash
+            @value
+          end
+
+          def to_json
+            to_hash.to_json
+          end
+        end   # end class FieldValueFactor
 
         def initialize(&block)
           @value = {}
@@ -65,11 +97,23 @@ module Tire
           @value
         end
 
+        def field_value_factor(&block)
+          fvf = FieldValueFactor.new
+          block.arity < 1 ? fvf.instance_eval(&block) : block.call(fvf) if block_given?
+          @value[:field_value_factor] ||= fvf.to_hash
+        end
+
         def filter(&block)
           custom_filter = CustomFilter.new
           block.arity < 1 ? custom_filter.instance_eval(&block) : block.call(custom_filter) if block_given?
           @value[:functions] ||= []
           @value[:functions] << custom_filter.to_hash
+          @value
+        end
+
+        def script_score(hash)
+          @value[:functions] ||= []
+          @value[:functions] << { "script_score" => hash }
           @value
         end
 
@@ -94,9 +138,10 @@ module Tire
         end
 
         def to_hash
-          @value[:functions] ?
-          @value :
-          @value.merge(:functions => [CustomFilter.new{ filter(:match_all); boost(1) }.to_hash]) # Needs at least one filter
+          @value
+          # @value[:functions] ?
+          # @value :
+          # @value.merge(:functions => [CustomFilter.new{ filter(:match_all); boost_factor(1) }.to_hash]) # Needs at least one filter
         end
 
         def to_json

@@ -51,31 +51,89 @@ class AdvancedSearch
     sort_on = @sort_on
 
     rows = Tire.search indexes, load: @load, from: start_page, size: @per do
+
       query do
-        boolean do
-          #should   { match 'tags.name', q, :boost => 20000 }
-          should   { string 'title:'                     + q }
-          should   { string 'english_title:'             + q }
-          should   { string 'description:'               + q }
-          should   { string 'content:'                   + q }
-          should   { string 'attachment:'                + q }
+        # boolean do
+        #   #should   { match 'tags.name', q, :boost => 20000 }
+        #   should   { string 'title:'                     + q }
+        #   # should   { string 'english_title:'             + q }
+        #   # should   { string 'description:'               + q }
+        #   # should   { string 'content:'                   + q }
+        #   # should   { string 'attachment:'                + q }
+        #   #
+        #   # should   { string 'authors.name:'              + q }
+        #   #
+        #   # should   { string 'countries.ngram_name:'      + q }
+        #   # should   { string 'languages.ngram_name:'      + q }
+        #   #
+        #   # should   { string 'tags.name:'                 + q, :boost => 3 }
+        #   # should   { string 'biogeo_regions.name:'       + q }
+        #   # should   { string 'biogeo_regions.code:'       + q }
+        #   #
+        #   # should   { string 'scientific_name:'           + q }
+        #   # should   { string 'vernacular_names.name:'     + q }
+        #   # should   { string 'authorship:'                + q }
+        #   # should   { string 'metadata:'                  + q }
+        #   # should   { string 'synonyms.binomial_name:'    + q }
+        #   # should   { string 'synonyms.scientific_name:'  + q }
+        # end
 
-          should   { string 'authors.name:'              + q }
+        function_score do
+          query do
+            boolean do
+              should   { string 'title:'                     + q }
+              should   { string 'english_title:'             + q }
+              should   { string 'description:'               + q }
+              should   { string 'content:'                   + q }
+              should   { string 'attachment:'                + q }
 
-          should   { string 'countries.ngram_name:'      + q }
-          should   { string 'languages.ngram_name:'      + q }
+              should   { string 'authors.name:'              + q }
 
-          should   { string 'tags.name:'                 + q, :boost => 3 }
-          should   { string 'biogeo_regions.name:'       + q }
-          should   { string 'biogeo_regions.code:'       + q }
+              should   { string 'countries.ngram_name:'      + q }
+              should   { string 'languages.ngram_name:'      + q }
 
-          should   { string 'scientific_name:'           + q }
-          should   { string 'vernacular_names.name:'     + q }
-          should   { string 'authorship:'                + q }
-          should   { string 'metadata:'                  + q }
-          should   { string 'synonyms.binomial_name:'    + q }
-          should   { string 'synonyms.scientific_name:'  + q }
+              should   { string 'tags.name:'                 + q, :boost => 3 }
+              should   { string 'biogeo_regions.name:'       + q }
+              should   { string 'biogeo_regions.code:'       + q }
+
+              should   { string 'scientific_name:'           + q }
+              should   { string 'vernacular_names.name:'     + q }
+              should   { string 'authorship:'                + q }
+              should   { string 'metadata:'                  + q }
+              should   { string 'synonyms.binomial_name:'    + q }
+              should   { string 'synonyms.scientific_name:'  + q }
+              #should   { match 'tags.name', q, :boost => 20000 }
+            end
+          end
+          field_value_factor do
+            field 'published_on'
+            modifier 'square'
+            factor 0.00000000001
+          end
+          boost_mode "sum"
+        # "query": {
+        #   "function_score": {
+        #     "query":{
+        #       "bool":{
+        #         "should":[
+        #           {
+        #             "query_string":{
+        #               "query":"title:*"
+        #             }
+        #           }
+        #         ]
+        #       }
+        #     },
+        #     "field_value_factor": {
+        #       "field": "published_on",
+        #       "modifier": "sqrt",
+        #       "factor": 0.000000000001
+        #     },
+        #     "boost_mode": "sum"
+        #   }
+        # },
         end
+
       end
 
       # add default sorting when ranking cannot be relied on
@@ -91,11 +149,11 @@ class AdvancedSearch
           {:approved_at => 'desc'},
         ]
       }
-      sort_on = (sortings[sort_on.to_sym] \
-                 if sort_on.present?) || sortings[:alphabetic]
-      sort do
-        @value = sort_on
-      end unless q != '*'
+      # sort_on = (sortings[sort_on.to_sym] \
+      #            if sort_on.present?) || sortings[:alphabetic]
+      # sort do
+      #   @value = sort_on
+      # end unless q != '*'
 
       filter :bool, must: { term: { approved: true } }
       filter :term, 'site.name' => site unless site.nil?
@@ -162,7 +220,7 @@ class AdvancedSearch
         facet_filter :and, search_filter unless search_filter.empty?
       end
     end
-    # puts rows.to_curl
+    puts rows.to_curl
     rows
   end
 
