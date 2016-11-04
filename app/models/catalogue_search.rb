@@ -6,6 +6,7 @@ class CatalogueSearch < ActiveRecord::Base
 
   def initialize(args)
     args[:indexes] = args[:indexes].join(',') if args[:indexes].present?
+    args[:countries] = args[:countries].join(',') if args[:countries].present?
     super
     self.query = '*' unless args[:query].present?
     if args[:published_on].present?

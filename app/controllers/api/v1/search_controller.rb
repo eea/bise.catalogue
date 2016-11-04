@@ -26,11 +26,11 @@ module Api
 
       def search_params
         params.permit(:format, :query, :page, :per, :site,
-                      :countries, :languages, :strategytarget,
+                      :languages, :strategytarget,
                       :source_db, :biographical_region, :published_on,
                       :species_group, :taxonomic_rank, :genus,
                       :sort_on,
-                      indexes: [])
+                      countries: [], indexes: [])
       end
 
       def set_access_control_headers
