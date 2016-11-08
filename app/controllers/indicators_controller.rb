@@ -2,11 +2,39 @@ class IndicatorsController < ApplicationController
   inherit_resources
 
   load_and_authorize_resource only: [:new, :edit, :create, :update, :destroy]
-  before_filter :authenticate_user!
+  before_filter do
+    authenticate_user!
+    init_indicator_set
+  end
   has_scope :approved, type: :boolean
 
   after_filter :notify_created_content, only: :create
   after_filter :notify_updated_content, only: :update
+
+  def init_indicator_set
+    if @indicator.present?
+      @indicator_set = @indicator.indicator_set.split(' ')
+    end
+  end
+
+  def available_indicator_sets
+    return [
+      ["CLIM",    "CLIM (Climate state and impact indicators)"],
+      ["CSI",     "CSI (Core Set of Indicators)"],
+      ["SEBI",    "SEBI (Streamlining European biodiversity indicators)"],
+      ["TERM",    "TERM (Transport and environment reporting mechanism)"],
+      ["ENER",    "ENER (Energy indicators)"],
+      ["MAR",     "MAR (Marine indicators)"],
+      ["LSI",     "LSI (Land and soil indicators)"],
+      ["WAT",     "WAT (Water indicators)"],
+      ["APE",     "APE (Air pollutant emissions)"],
+      ["WREI",    "WREI (Water resource efficiency indicators)"],
+      ["Outlook", "Outlook"],
+      ["SCP",     "SCP (Sustainable consumption and production)"],
+      ["WST",     "WST (Waste indicators)"],
+    ]
+  end
+  helper_method :available_indicator_sets
 
   def create
     @indicator = Indicator.new(permitted_params[:indicator])
@@ -45,7 +73,10 @@ class IndicatorsController < ApplicationController
     params.permit(indicator: [
       :id, :site_id, :title, :english_title, :author, :url, :source_url, :content,
       :biographical_region, :published_on, :published, :approved, :approved_at,
-      tag_list: [], target_list: [], action_list: [],
+
+      :is_part_of, :has_part, :is_replaced_by, :indicator_set, :thumbnail_link,
+
+      indicator_set: [], tag_list: [], target_list: [], action_list: [],
       country_ids: [], language_ids: []
     ])
   end

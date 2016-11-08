@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161021074927) do
+ActiveRecord::Schema.define(version: 20161108075107) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -357,6 +357,11 @@ ActiveRecord::Schema.define(version: 20161021074927) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "has_part"
+    t.string   "is_part_of"
+    t.string   "is_replaced_by"
+    t.string   "thumbnail_link"
+    t.text     "embed_code"
   end
 
   add_index "graphs", ["creator_id"], name: "index_graphs_on_creator_id", using: :btree
@@ -407,6 +412,11 @@ ActiveRecord::Schema.define(version: 20161021074927) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "has_part"
+    t.string   "is_part_of"
+    t.string   "is_replaced_by"
+    t.string   "thumbnail_link"
+    t.string   "indicator_set"
   end
 
   add_index "indicators", ["creator_id"], name: "index_indicators_on_creator_id", using: :btree

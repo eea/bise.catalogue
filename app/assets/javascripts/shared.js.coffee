@@ -42,7 +42,8 @@ $ ->
 
 
   tinyMCE.init
-    mode: 'textareas'
+    # mode: 'textareas'
+    selector: '.tinymce'
     menubar:false
     statusbar: false
     # theme: 'advanced'

@@ -8,8 +8,16 @@
 
     .row
       .col-lg-12
+
         = f.input :url, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
         = f.input :description, as: :text, input_html: { class: 'input-block-level tinymce', rows: 5 }
+        = f.input :is_part_of, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
+        = f.input :is_replaced_by, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
+        = f.input :has_part, as: :text, hint: "One URL per line", placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
+        = label_tag(:indicator_set, "Indicator sets", class: "string optional control-label")
+
+        %div.indicator_sets_select
+          = f.collection_check_boxes :indicator_set, available_indicator_sets, :first, :last, checked: @indicator_set
 
     = render partial: 'common/targets', locals: { parent: @indicator, f: f }
     = render partial: 'common/countries', locals: { parent: @indicator }

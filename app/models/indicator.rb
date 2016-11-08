@@ -14,6 +14,11 @@ class Indicator < ActiveRecord::Base
   attr_accessible :url
   attr_accessible :description
 
+  attr_accessible :is_part_of
+  attr_accessible :is_replaced_by
+  attr_accessible :has_part
+  attr_accessible :indicator_set
+
   validates :url, presence: true, uniqueness: true
   # validates_format_of :url, with: /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
 
@@ -22,6 +27,12 @@ class Indicator < ActiveRecord::Base
   refresh = lambda { Tire::Index.new(index_name).refresh }
   after_save(&refresh)
   after_destroy(&refresh)
+
+  before_save do
+    if self.indicator_set.kind_of?(Array)
+      self.indicator_set = self.indicator_set.join(' ').strip
+    end
+  end
 
   settings analysis: {
     analyzer: {

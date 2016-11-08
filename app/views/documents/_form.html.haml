@@ -20,7 +20,7 @@
 
   .row
     .col-lg-12
-      = f.input :description, as: :text, input_html: { class: 'input-block-level ', rows: 5 }
+      = f.input :description, as: :text, input_html: { class: 'tinymce input-block-level ', rows: 5 }
 
   = render partial: 'common/targets', locals: { parent: @document, f: f }
   = render partial: 'common/countries', locals: { parent: @document }

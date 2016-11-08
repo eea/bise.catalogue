@@ -21,6 +21,26 @@
 
 = render 'templates/common_info', obj: @indicator
 
+%div
+  %strong Indicator Set
+  = @indicator.indicator_set
+
+%div
+  %strong Is part of:
+  = @indicator.is_part_of
+
+%div
+  %strong Has parts:
+  = @indicator.has_part
+
+%div
+  %strong Is replaced by:
+  = @indicator.is_replaced_by
+
+%div
+  %strong Thumbnail:
+  = @indicator.thumbnail_link
+
 %legend Link
 .well
   = link_to @indicator.url, @indicator.url
