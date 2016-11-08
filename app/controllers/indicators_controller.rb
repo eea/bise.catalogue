@@ -12,7 +12,7 @@ class IndicatorsController < ApplicationController
   after_filter :notify_updated_content, only: :update
 
   def init_indicator_set
-    if @indicator.present?
+    if @indicator.present? && @indicator.indicator_set.present?
       @indicator_set = @indicator.indicator_set.split(' ')
     end
   end
