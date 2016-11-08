@@ -45,6 +45,9 @@ class GraphsController < ApplicationController
     params.permit(graph: [
       :id, :site_id, :title, :english_title, :author, :url, :source_url, :content,
       :biographical_region, :published_on, :published, :approved, :approved_at,
+
+      :is_part_of, :is_replaced_by, :has_part, :thumbnail_link, :embed_code,
+
       tag_list: [], target_list: [], action_list: [],
       country_ids: [], language_ids: []
     ])

@@ -14,6 +14,12 @@ class Graph < ActiveRecord::Base
   attr_accessible :url
   attr_accessible :description
 
+  attr_accessible :is_part_of
+  attr_accessible :is_replaced_by
+  attr_accessible :has_part
+  attr_accessible :thumbnail_link
+  attr_accessible :embed_code
+
   validates :url, presence: true, uniqueness: true
   # validates_format_of :url, with: /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
 

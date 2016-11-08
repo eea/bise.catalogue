@@ -18,6 +18,7 @@ class Indicator < ActiveRecord::Base
   attr_accessible :is_replaced_by
   attr_accessible :has_part
   attr_accessible :indicator_set
+  attr_accessible :thumbnail_link
 
   validates :url, presence: true, uniqueness: true
   # validates_format_of :url, with: /^(((http|https):\/\/))[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$/ix
