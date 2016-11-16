@@ -29,8 +29,9 @@ module Api
                       :languages, :strategytarget,
                       :source_db, :biographical_region, :published_on,
                       :species_group, :taxonomic_rank, :genus,
-                      :sort_on,
-                      countries: [], indexes: [])
+                      :sort_on, :countries,
+                      #countries: [], # this is for multiselect filter countries
+                      indexes: [])
       end
 
       def set_access_control_headers
