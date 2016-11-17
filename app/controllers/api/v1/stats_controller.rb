@@ -16,7 +16,7 @@ class Api::V1::StatsController < ApplicationController
 
     indexes = %w(articles documents links).map { |m| "catalogue_#{Rails.env}_#{m}" }
     search = Tire.search indexes, load: true, page: 1, per_page: 5 do
-      # filter :bool, must: { term: { approved: true }}
+      filter :bool, must: { term: { approved: true }}
       sort { by :published_on, 'desc' }
     end
     @last = search.results[0..4]
