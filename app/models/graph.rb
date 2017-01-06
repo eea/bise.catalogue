@@ -147,9 +147,10 @@ class Graph < ActiveRecord::Base
       indexes :biographical_region, type: 'string', index: :not_analyzed
       indexes :published_on, type: 'date'
 
-      indexes :approved           , type: 'boolean'
-      indexes :approved_at        , type: 'date'
-      indexes :created_at         , type: 'date'
+      indexes :approved,    type: 'boolean'
+      indexes :approved_at, type: 'date'
+      indexes :created_at,  type: 'date'
+      indexes :thumb,   type: 'string', index: :not_analyzed
     }
   end
 
@@ -188,6 +189,7 @@ class Graph < ActiveRecord::Base
         { title: t.name.split(':')[0] }
       end,
 
+      thumb: thumb_url,
       biographical_region: biographical_region
     }.to_json
   end
