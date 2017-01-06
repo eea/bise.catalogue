@@ -10,6 +10,7 @@ class GraphsController < ApplicationController
 
   def create
     @graph = Graph.new(permitted_params[:graph])
+    @graph.update_attribute(:description, params[:graph][:description])
     @graph.creator = current_user
     create!
   end
@@ -43,13 +44,13 @@ class GraphsController < ApplicationController
   def permitted_params
     params[:graph][:country_ids] ||= [] if params[:graph].present?
     params.permit(graph: [
-      :id, :site_id, :title, :english_title, :author, :url, :source_url, :content,
-      :biographical_region, :published_on, :published, :approved, :approved_at,
+      :id, :site_id, :title, :english_title, :author, :url, :source_url,
+      :content, :biographical_region, :published_on, :published, :approved,
+      :approved_at, :is_part_of, :is_replaced_by, :has_part, :thumbnail_link,
+      :embed_code, :thumb,
 
-      :is_part_of, :is_replaced_by, :has_part, :thumbnail_link, :embed_code,
-
-      tag_list: [], target_list: [], action_list: [],
-      country_ids: [], language_ids: []
+      tag_list: [], target_list: [], action_list: [], country_ids: [],
+      language_ids: []
     ])
   end
 

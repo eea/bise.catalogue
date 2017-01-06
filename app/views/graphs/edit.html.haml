@@ -1,5 +1,5 @@
 - content_for :pageheader do
-  Editing graph
+  Editing Visualization
 
 - content_for :actions do
   = link_to graphs_path, class: 'btn btn-default' do
@@ -9,5 +9,6 @@
     = fa_icon 'search'
     Show
 
+= render partial: 'graphs/modals'
 = render 'form'
 

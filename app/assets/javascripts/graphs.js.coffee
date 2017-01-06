@@ -7,3 +7,6 @@ $ ->
     $('#graph_language_ids').chosen({
         width: '100%'
     })
+
+    $('#thumb_select').click ()-> $('#graph_thumb').click()
+    # $('#graph_thumb').change(Document.hasChanged)

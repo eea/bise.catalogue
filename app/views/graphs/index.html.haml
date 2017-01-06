@@ -7,13 +7,13 @@
     .btn-group
       = link_to  new_graph_path, class: 'btn btn-default' do
         = fa_icon 'plus'
-        New Graph
+        New Visualization
   = form_tag graphs_path, method: 'get', class: 'search-query pull-right' do       #
     - if params[:approved].present?
       = hidden_field_tag :approved, params[:approved] != '' ? params[:approved] : false
     - if params[:per_page].present?
       = hidden_field_tag :per_page, params[:per_page] != '' ? params[:per_page] : false
-    = text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search graph..'    #
+    = text_field_tag :query, params[:query], class: 'form-control', placeholder: 'Search visualization..'    #
 
 .row
   .col-sm-3

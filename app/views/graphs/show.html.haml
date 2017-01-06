@@ -20,27 +20,31 @@
 
 = render 'templates/common_info', obj: @graph
 
-%legend Graph Details
+%legend Visualization Details
 
 %div
-  %strong Graph URL:
+  %strong Visualization URL:
   = link_to @graph.url, @graph.url
 
-%div
-  %strong Is part of:
-  = @graph.is_part_of
-
-%div
-  %strong Has parts:
-  = @graph.has_part
-
-%div
-  %strong Is replaced by:
-  = @graph.is_replaced_by
+-# %div
+-#   %strong Is part of:
+-#   = @graph.is_part_of
+-#
+-# %div
+-#   %strong Has parts:
+-#   = @graph.has_part
+-#
+-# %div
+-#   %strong Is replaced by:
+-#   = @graph.is_replaced_by
+-#
+-# %div
+-#   %strong Thumbnail:
+-#   = @graph.thumbnail_link
 
 %div
   %strong Thumbnail:
-  = @graph.thumbnail_link
+  = @graph.thumbnail
 
 %div
   %strong Embed code:

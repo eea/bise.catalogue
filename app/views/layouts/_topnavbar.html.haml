@@ -17,10 +17,10 @@
           = link_to "Links", links_path
         %li{ class: "#{ current_page?(articles_path) ? 'active' : '' }"}
           = link_to "Web pages", articles_path
-        -# %li{ class: "#{ current_page?(indicators_path) ? 'active' : '' }"}
-        -#   = link_to "Indicators", indicators_path
-        -# %li{ class: "#{ current_page?(graphs_path) ? 'active' : '' }"}
-        -#   = link_to "Visualizations", graphs_path
+        %li{ class: "#{ current_page?(indicators_path) ? 'active' : '' }"}
+          = link_to "Indicators", indicators_path
+        %li{ class: "#{ current_page?(graphs_path) ? 'active' : '' }"}
+          = link_to "Visualizations", graphs_path
         / %li{ class: "#{ current_page?(news_index_path) ? 'active' : '' }"}
         /     = link_to "News", news_index_path
         %li{ class: "#{ current_page?(protected_areas_path) ? 'active' : '' }"}
