@@ -8,6 +8,13 @@ class Indicator < ActiveRecord::Base
   attr_accessible :tag_list
   acts_as_taggable_on :targets, :actions
   attr_accessible :target_list, :action_list
+  #
+  # thumbnail
+  mount_uploader :thumb, ThumbUploader
+  attr_accessible :thumb
+  validates :thumb, presence: { on: :create }
+  # before_save :update_thumb_info
+  before_destroy { |graph| graph.remove_thumb! }
 
   include Classifiable
 
@@ -149,6 +156,7 @@ class Indicator < ActiveRecord::Base
       indexes :approved           , type: 'boolean'
       indexes :approved_at        , type: 'date'
       indexes :created_at         , type: 'date'
+      indexes :thumb,   type: 'string', index: :not_analyzed
     }
   end
 
@@ -187,6 +195,7 @@ class Indicator < ActiveRecord::Base
         { title: t.name.split(':')[0] }
       end,
 
+      thumb: thumb_url,
       biographical_region: biographical_region
     }.to_json
   end
@@ -288,4 +297,11 @@ class Indicator < ActiveRecord::Base
       end
     end
   end
+
+  def thumbnail
+    if thumb.present?
+      thumb_url
+    end
+  end
+
 end

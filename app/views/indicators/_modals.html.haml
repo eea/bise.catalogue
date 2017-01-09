@@ -1,0 +1,27 @@
+#prog-modal.modal.hide
+  .modal-header
+    %button.close{ type: 'button', 'aria-hidden' => 'true' , data: { dismiss: 'modal' } } x
+    %b Thumbnail Upload
+  .modal-body
+    .loading.pull-right
+    Thumbnail is being uploaded, please wait.
+  .modal-footer
+
+#success-modal.modal.hide
+  .modal-header
+    %button.close{ type: 'button', 'aria-hidden' => 'true' , data: { dismiss: 'modal' } } x
+    %b Success!
+  .modal-body
+    Thumbnail has been saved.
+  .modal-footer
+    %a.btn.btn-primary{ href: '#', data: { dismiss: 'modal' } } Ok
+
+#error-modal.modal.hide
+  .modal-header
+    %button.close{ type: 'button', 'aria-hidden' => 'true' , data: { dismiss: 'modal' } } x
+    %b Warning!
+  .modal-body
+  .modal-footer
+    %a.btn.btn-primary{ href: '#', data: { dismiss: 'modal' } } Ok
+
+

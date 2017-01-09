@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106124400) do
+ActiveRecord::Schema.define(version: 20170109145829) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -418,6 +418,7 @@ ActiveRecord::Schema.define(version: 20170106124400) do
     t.string   "is_replaced_by"
     t.string   "thumbnail_link"
     t.string   "indicator_set"
+    t.string   "thumb"
   end
 
   add_index "indicators", ["creator_id"], name: "index_indicators_on_creator_id", using: :btree
