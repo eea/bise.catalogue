@@ -38,6 +38,7 @@ class IndicatorsController < ApplicationController
 
   def create
     @indicator = Indicator.new(permitted_params[:indicator])
+    @indicator.update_attribute(:description, params[:indicator][:description])
     @indicator.creator = current_user
     create!
   end
