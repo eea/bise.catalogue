@@ -72,10 +72,10 @@ class IndicatorsController < ApplicationController
   def permitted_params
     params[:indicator][:country_ids] ||= [] if params[:indicator].present?
     params.permit(indicator: [
-      :id, :site_id, :title, :english_title, :author, :url, :source_url, :content,
-      :biographical_region, :published_on, :published, :approved, :approved_at,
-
-      :is_part_of, :has_part, :is_replaced_by, :indicator_set, :thumbnail_link,
+      :id, :site_id, :title, :english_title, :author, :url, :source_url,
+      :content, :biographical_region, :published_on, :published, :approved,
+      :approved_at, :is_part_of, :has_part, :is_replaced_by, :indicator_set,
+      :thumbnail_link, :thumb,
 
       indicator_set: [], tag_list: [], target_list: [], action_list: [],
       country_ids: [], language_ids: []
