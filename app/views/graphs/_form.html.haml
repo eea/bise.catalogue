@@ -10,12 +10,14 @@
       .col-lg-12
         = f.input :url, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
         = f.input :description, as: :text, input_html: { class: 'input-block-level tinymce', rows: 5 }
+        = f.input :embed_code, as: :text, hint: "Embed Code (html)", input_html: { class: "input-block-level" }
 
         -# = f.input :is_part_of, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
         -# = f.input :is_replaced_by, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
         -# = f.input :has_part, as: :text, hint: "One URL per line", placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
-        = f.input :embed_code, as: :text, hint: "Embed Code (html)", input_html: { class: "input-block-level" }
         -# = f.input :thumbnail_link, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
+
+    .row
       .col-sm-8
         = f.input :thumb , as: :file , input_html: { style: 'display:none' }
         .input-group

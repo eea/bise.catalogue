@@ -14,23 +14,28 @@
         -# = f.input :is_replaced_by, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
         -# = f.input :has_part, as: :text, hint: "One URL per line", placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
         -# = f.input :thumbnail_link, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
-        = label_tag(:indicator_set, "Indicator sets", class: "string optional control-label")
 
-        %div.indicator_sets_select
-          = f.collection_check_boxes :indicator_set, available_indicator_sets, :first, :last, checked: @indicator_set
+    .row
+      %div.form-group{:style => "overflow:hidden"}
+        .col-sm-8
+          = f.input :thumb , as: :file , input_html: { style: 'display:none' }
+          .input-group
+            %input#thumb_title.form-control{ type: 'text', disabled: :disabled, class: 'form-control' }
+            %span.input-group-btn
+              %button#thumb_select.btn.btn-default{ type: 'button' }
+                = fa_icon 'folder'
+                Select
+        .col-sm-4
+          .file-info
+            .text-error
+              = @indicator.errors[:thumb].try(:first) if @indicator.errors.any?
 
-      .col-sm-8
-        = f.input :thumb , as: :file , input_html: { style: 'display:none' }
-        .input-group
-          %input#thumb_title.form-control{ type: 'text', disabled: :disabled, class: 'form-control' }
-          %span.input-group-btn
-            %button#thumb_select.btn.btn-default{ type: 'button' }
-              = fa_icon 'folder'
-              Select
-      .col-sm-4
-        .file-info
-          .text-error
-            = @indicator.errors[:thumb].try(:first) if @indicator.errors.any?
+    .row
+      .col-lg-12
+        %div.form-group
+          = label_tag(:indicator_set, "Indicator sets", class: "string optional control-label")
+          %div.indicator_sets_select
+            = f.collection_check_boxes :indicator_set, available_indicator_sets, :first, :last, checked: @indicator_set
 
     = render partial: 'common/targets', locals: { parent: @indicator, f: f }
     = render partial: 'common/countries', locals: { parent: @indicator }
