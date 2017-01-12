@@ -17,39 +17,43 @@
     = fa_icon 'trash-o'
     Delete
 
-
-
 = render 'templates/common_info', obj: @indicator
 
-%div
-  %strong Indicator Set
-  = @indicator.indicator_set
+%legend Details
+.row
+  .col-md-8
+    %div
+      %strong Indicator Set:
+      = @indicator.indicator_set
 
-%div
-  %strong Is part of:
-  = @indicator.is_part_of
+    %div
+      %strong Link:
+      = link_to @indicator.url, @indicator.url
 
-%div
-  %strong Has parts:
-  = @indicator.has_part
+    %div
+      %strong Description:
+      .well
+        = raw @indicator.description
 
-%div
-  %strong Is replaced by:
-  = @indicator.is_replaced_by
+  .col-md-4
+    %strong Thumbnail:
+    %br
+    %img{ :src => @indicator.thumbnail, :style => "width:100%" }
 
--# %div
--#   %strong Thumbnail:
--#   = @indicator.thumbnail_link
-%div
-  %strong Thumbnail:
-  = @indicator.thumbnail
-
-
-%legend Link
-.well
-  = link_to @indicator.url, @indicator.url
-  %br
-  = raw @indicator.description
+  -# %div
+  -#   %strong Is part of:
+  -#   = @indicator.is_part_of
+  -#
+  -# %div
+  -#   %strong Has parts:
+  -#   = @indicator.has_part
+  -#
+  -# %div
+  -#   %strong Is replaced by:
+  -#   = @indicator.is_replaced_by
+  -# %div
+  -#   %strong Thumbnail:
+  -#   = @indicator.thumbnail_link
 
 = render 'templates/countries', object: @indicator
 = render 'templates/biographical_region', object: @indicator
