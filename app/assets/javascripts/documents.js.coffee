@@ -62,7 +62,7 @@ Document =
       $(form)[0].submit()
     else
       $('input[type=submit]').attr('disabled', false)
-      alert('Please, add a file');
+      alert('Please, add a document file');
 
   send: ->
     $('#new_user')[0].submit()

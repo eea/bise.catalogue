@@ -41,12 +41,12 @@ Indicator =
 
   validate: ->
     fileAdded = $('#indicator_thumb')[0].files.length == 1
-    if fileAdded
-      form = if $('#new_indicator').size() > 0 then '#new_indicator' else '.edit_indicator'
+    form = if $('#new_indicator').size() > 0 then '#new_indicator' else '.edit_indicator'
+    if fileAdded or form == ".edit_indicator"
       $(form)[0].submit()
     else
       $('input[type=submit]').attr('disabled', false)
-      alert('Please, add a file');
+      alert('Please, add a thumb image for indicator');
 
   size: (file) ->
     kb = 1024
@@ -62,7 +62,7 @@ $ ->
         width: '100%'
     })
 
-    $('#thumb_select').click ()-> $('#indicator_thumb').click()
+    $('#indicator_thumb_select').click ()-> $('#indicator_thumb').click()
     $('#indicator_thumb').change(Indicator.hasChanged)
 
     form = if $('.new_indicator').size() > 0 then '.new_indicator' else '.edit_indicator'

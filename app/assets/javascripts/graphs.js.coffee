@@ -39,12 +39,12 @@ Graph =
 
   validate: ->
     fileAdded = $('#graph_thumb')[0].files.length == 1
-    if fileAdded
-      form = if $('#new_graph').size() > 0 then '#new_graph' else '.edit_graph'
+    form = if $('#new_graph').size() > 0 then '#new_graph' else '.edit_graph'
+    if fileAdded or form == '.edit_graph'
       $(form)[0].submit()
     else
       $('input[type=submit]').attr('disabled', false)
-      alert('Please, add a file');
+      alert('Please, add a graph thumb image');
 
   size: (file) ->
     kb = 1024
@@ -60,7 +60,7 @@ $ ->
         width: '100%'
     })
 
-    $('#thumb_select').click ()-> $('#graph_thumb').click()
+    $('#graph_thumb_select').click ()-> $('#graph_thumb').click()
     $('#graph_thumb').change(Graph.hasChanged)
 
     form = if $('.new_graph').size() > 0 then '.new_graph' else '.edit_graph'
