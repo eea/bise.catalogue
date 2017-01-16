@@ -20,37 +20,43 @@
 
 = render 'templates/common_info', obj: @graph
 
-%legend Graph Details
+%legend Visualization Details
 
-%div
-  %strong Graph URL:
-  = link_to @graph.url, @graph.url
+.row
+  .col-md-8
+    %div
+      %strong Visualization URL:
+      = link_to @graph.url, @graph.url
+    %div
+      %strong Embed code:
+      .well
+        = @graph.embed_code
+    %div
+      %strong Description:
+      .well
+        = raw @graph.description
 
-%div
-  %strong Is part of:
-  = @graph.is_part_of
+  .col-md-4
+    %strong Thumbnail:
+    %br
+    %img{ :src => @graph.thumbnail, :style => "width:100%" }
 
-%div
-  %strong Has parts:
-  = @graph.has_part
+-# %div
+-#   %strong Is part of:
+-#   = @graph.is_part_of
+-#
+-# %div
+-#   %strong Has parts:
+-#   = @graph.has_part
+-#
+-# %div
+-#   %strong Is replaced by:
+-#   = @graph.is_replaced_by
+-#
+-# %div
+-#   %strong Thumbnail:
+-#   = @graph.thumbnail_link
 
-%div
-  %strong Is replaced by:
-  = @graph.is_replaced_by
-
-%div
-  %strong Thumbnail:
-  = @graph.thumbnail_link
-
-%div
-  %strong Embed code:
-  .well
-    = @graph.embed_code
-
-%div
-  %strong Description:
-  .well
-    = raw @graph.description
 
 = render 'templates/countries', object: @graph
 = render 'templates/biographical_region', object: @graph

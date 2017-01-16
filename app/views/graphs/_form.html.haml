@@ -1,4 +1,4 @@
-= simple_form_for(@graph) do |f|
+= simple_form_for @graph, html: { multipart: true } do |f|
 
   .container-fluid
 
@@ -10,13 +10,28 @@
       .col-lg-12
         = f.input :url, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
         = f.input :description, as: :text, input_html: { class: 'input-block-level tinymce', rows: 5 }
-
-        = f.input :is_part_of, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
-        = f.input :is_replaced_by, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
-        = f.input :has_part, as: :text, hint: "One URL per line", placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
         = f.input :embed_code, as: :text, hint: "Embed Code (html)", input_html: { class: "input-block-level" }
-        = f.input :thumbnail_link, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
 
+        -# = f.input :is_part_of, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
+        -# = f.input :is_replaced_by, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
+        -# = f.input :has_part, as: :text, hint: "One URL per line", placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
+        -# = f.input :thumbnail_link, placeholder: 'http://www.google.com' , input_html: { class: "input-block-level" }
+
+    .row
+      .col-sm-8
+        = f.input :thumb , as: :file , input_html: { style: 'display:none' }
+        .input-group
+          %input#thumb_title.form-control{ type: 'text', disabled: :disabled, class: 'form-control' }
+          %span.input-group-btn
+            %button#graph_thumb_select.btn.btn-default{ type: 'button' }
+              = fa_icon 'folder'
+              Select
+      .col-sm-4
+        .file-info
+          .text-error
+            = @graph.errors[:thumb].try(:first) if @graph.errors.any?
+
+    %br
     = render partial: 'common/targets', locals: { parent: @graph, f: f }
     = render partial: 'common/countries', locals: { parent: @graph }
 

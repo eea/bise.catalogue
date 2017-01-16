@@ -3,6 +3,13 @@ class Graph < ActiveRecord::Base
   include Tire::Model::Search
   include Tire::Model::AsyncCallbacks
 
+  # thumbnail
+  mount_uploader :thumb, ThumbUploader
+  attr_accessible :thumb
+  validates :thumb, presence: { on: :create }
+  # before_save :update_thumb_info
+  before_destroy { |graph| graph.remove_thumb! }
+
   # TAGS
   acts_as_taggable
   attr_accessible :tag_list
@@ -140,9 +147,10 @@ class Graph < ActiveRecord::Base
       indexes :biographical_region, type: 'string', index: :not_analyzed
       indexes :published_on, type: 'date'
 
-      indexes :approved           , type: 'boolean'
-      indexes :approved_at        , type: 'date'
-      indexes :created_at         , type: 'date'
+      indexes :approved,    type: 'boolean'
+      indexes :approved_at, type: 'date'
+      indexes :created_at,  type: 'date'
+      indexes :thumb,   type: 'string', index: :not_analyzed
     }
   end
 
@@ -181,6 +189,7 @@ class Graph < ActiveRecord::Base
         { title: t.name.split(':')[0] }
       end,
 
+      thumb: thumb_url,
       biographical_region: biographical_region
     }.to_json
   end
@@ -282,5 +291,30 @@ class Graph < ActiveRecord::Base
       end
     end
   end
+
+  # def attachment
+  #   if file.present?
+  #     path_to_file = Rails.root.to_s + '/public' + file_url.to_s
+  #     Base64.encode64(open(path_to_file) { |f| f.read })
+  #   else
+  #     Base64.encode64('missing')
+  #   end
+  # end
+
+  def thumbnail
+    if thumb.present?
+      thumb_url
+    end
+  end
+
+  private
+
+    # def update_thumb_info
+    #   if thumb.present? && thumb_changed?
+    #     self.content_type = thumb.file.content_type
+    #     self.file_size = file.file.size
+    #   end
+    # end
+    #
 
 end
