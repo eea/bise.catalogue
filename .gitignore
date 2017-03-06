@@ -24,3 +24,4 @@ ldap.yml
 public/assets/source_maps/*
 sidekiq.log
 public/thumbs/*
+*~
