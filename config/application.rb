@@ -63,6 +63,8 @@ module Catalogue
     end
 
     # config.railties_order = [ :all, ComfortableMexicanSofa::Engine ]
+    #
+    config.website = 'http://catalogue.biodiversity.europa.eu'
 
   end
 end

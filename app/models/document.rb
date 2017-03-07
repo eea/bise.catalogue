@@ -92,8 +92,6 @@ class Document < ActiveRecord::Base
               type: 'date',
               index: :not_analyzed
 
-
-
       indexes :countries do
         indexes :id,
                 type: 'integer'
@@ -129,6 +127,11 @@ class Document < ActiveRecord::Base
               type: 'string' ,
               index_analyzer: 'ngramer',
               search_analyzer: 'snowball'
+
+      indexes :file_url,
+              type: 'string' ,
+              index: :not_analyzed
+
       indexes :content_type ,
               type: 'string',
               index: :not_analyzed
@@ -183,8 +186,14 @@ class Document < ActiveRecord::Base
 
       file_name:                 document_path,
       content_type:              content_type,
-      attachment:                attachment
+      attachment:                attachment,
+      file_url: document_url
     }.to_json
+  end
+
+  def document_url
+    url = Rails.application.config.website + (file.file.file.gsub file.root, '')
+    url
   end
 
   def document_path
