@@ -169,7 +169,7 @@ gem 'acts-as-taggable-on'
 gem 'simple_form'               , '~> 3.0.2'
 
 # File Uploading
-gem 'carrierwave'               , '~> 0.9.0'
+gem 'carrierwave'               , '~> 1.3.2'
 gem 'docsplit'
 
 
